@@ -864,7 +864,7 @@
                     
              7️⃣ audio 
              
-                       -> <audio>도 src가 optinal이다.
+                       -> <audio>도 src가 optional이다.
                          
                          Ex)
                             <audio>
