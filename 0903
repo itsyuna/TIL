@@ -1,0 +1,275 @@
+
+📂 [폼 관련 요소]
+
+    
+             1️⃣ form 소개
+
+                       ▶ <form> 태그
+                             : 정보를 제출하기 위한 대화형 컨트롤을 포함하는 문서 구획을 나타낸다.
+                              : 그 자체로 요소인 태그가 아니기 때문에, 단독으로 사용하게 되면 아무것도 안나온다.
+                              내부에 텍스트 입력창, 버튼 같은 요소들을 넣어줘야 브라우저에 보이게된다.
+                              이것들을 하나로 묶어주는 것이 <form> 요소!
+                          
+                              -> 지금까지 배웠던 요소들과는 성격이 다름.
+
+                                지금까지 배웠던 요소들은,
+                                일방적으로 사용자에게 어떤 정보를 전달하는 형태를 띄었기 때문에, 우리가 어떤 정보가 들어갈지를 미리 알고있다.
+                                이걸 어떤 모습으로 어떤 형태로, 어떻게 시멘틱하게 마크업해서
+                                보여줄지를 고민했다면,
+
+                                form요소는 우리가 사용자에게 정보를 입력할 수 있게 장치를 마련해주는것!
+                                사용자가 정보를 입력하면, 받아서 다른 페이지나 서버로 전송할 수 있게 마련을 해두는것.
+
+                                일방적으로 사용자에게 정보를 전달하는것이 아니라
+                                사용자에게 정보를 다시 돌려받기 때문에,
+                                대화형 컨트롤, 즉 인터렉션이 들어가는 형태라고 볼 수 있다.
+                                
+                                Javascript가 이런 동적인 부분을 담당하는데,
+                                form 요소가 담당할 수 있는 부분은 어느정도 한계가 있기 때문에
+                                굉장히 디테일하게 사용자가 입력한것에 대해서 유효성 체크,
+                                키보드를 한 칸 한 칸 입력할 때마다 이 정보가 유효한지를 보여주는것 등
+                                이런 컨트롤은 자바스크립트의 영역이다.
+                                
+                                form 요소에서도 마크업만으로 가능한 부분이 있다.
+                                
+                                회원가입 폼, 설문조사, 주문서 등이 form이라고 할 수 있는데,
+                                필수 정보를 입력하지 않고 제출 및 다음 단계를 진행하려고 할 때
+                                다른 서버나 페이지로 보내지 않고 아래에 빨간색으로 Ex) 성과 이름을 입력하세요 와 같은
+                                안내를 해주는것은 html 마크업으로 어느정도 가능하다. (* 스타일링은 CSS로)
+                                    
+                                       (* 참고 : https://developer.mozilla.org/ko/docs/Web/HTML/Element/form )
+                                
+                                        Ex)
+                                            <form action="" method="get" class="form-example">
+                                                <div class="form-example">
+                                                    <label for="name=">Enter your name: </label>
+                                                    <input type="text" name="name" id="name" required>
+                                                </div>
+                                            </form>    
+                                              
+               
+             2️⃣ form - action, method 속성
+               
+                        🔥 name 속성은 HTML4부터 사용이 중단됐다. id 사용하기!
+                        
+                        
+                          🟢 action 속성 
+                                : 양식 데이터를 처리할 프로그램의 URI.
+                                
+                                form 데이터를 다 모아서 다른 페이지나 서버에 전송할 수 있는데,
+                                그 최종 목적지 즉, 다른 페이지 혹은 서버의 주소를 이 action 속성에 넣는다.
+                                
+                                    Ex)
+                                    <!-- 절대경로 -->
+                                    <form action="http://server.com/join"></form>         -> 이런식으로 목적지의 주소가 들어감.
+                                    
+                                    <!-- 상대경로 --> 
+                                    <form action="join.html"></form>
+                                
+                                
+                          🟢 method 속성     
+                                : 양식을 제출할 때 사용할 HTTP 메서드. (-> 서버 개념을 조금 알아야한다)
+                                    
+                                      Ex)
+                                          서버 개발자가 폼 데이터를 받을 주소를 보내주면서
+                                          이 주소로 get method로 보내달라고 하거나, 혹은 post method로 보내달라고 하면
+                                          그 method에 맞게 입력만 해주면 된다.
+                                          
+                                                 Ex)
+                                                    <form action="" method="">
+                                                        <input type="text" name="test">
+                                                    </form>
+
+                                     #️⃣ method에 들어갈 2가지 값 (* dialog도 있는데 이건 잘 안쓴다)
+                                          
+                                          🟪 post
+                                                : 양식 데이터를 요청 본문으로 전송한다.    (* 요청본문 : 서버에 요청을 보낼 때 내용을 서버 요청에 보이지 않게 숨겨서 보낸다고 보면 된다.)
+                                                  -> 주소창에 드러나지 않는다.
+                                                  
+                                                  Ex)
+                                                      <form action="" method="POST">       
+                                                        <input type="text" name="test">
+                                                        <button type="submit">제출</button>
+                                                      </form>
+                                              
+                                                 (-> 여기서는 제출 버튼을 누르면 에러가 난다.
+                                                    post method를 보냈는데,
+                                                    주소는 html 주소이기때문에 post method를 받을 수 없다.
+                                                    post method를 받을 수 있는건 서버에서 설정을 해줘야하기 때문에. )
+
+                                             ⭐ 중요한건, get method와는 다르게 주소창에 나타나지 않는다는것!
+                                             
+                                                🟡 검색을 제외하고, 대부분은 post를 사용해서 form을 만든다.
+                                          
+                                          
+                                          🟪 get
+                                                : 양식 데이터를 action URL과 ? 구분자 뒤에 이어 붙여서 전송한다.
+                                                    -> 주소창에 드러난다.
+                                                    
+                                                  Ex)
+                                                    <form action="" method="GET">               (-> action에 값 입력을 아직 안했기 때문에, 상대경로인 현재 페이지로 다시 돌아옴.)
+                                                        <input type="text" name="test">
+                                                        <button type="submit">제출</button>
+                                                    </form>
+                                                  
+                                                  제출 버튼을 누르면 form이 전송이 되는데,
+                                                  아무것도 변하지 않은것같아 보이지만 주소창을 자세히보면
+                                                  원래있던 주소 뒤에 
+                                                  
+                                                  form.html?test=안녕하세요
+                                                      
+                                                  이런식으로 주소창이 바뀌었다.
+                                  
+                                                  -> 'test'는 입력한 <input>창의 이름이고
+                                                     '안녕하세요'는 실제로 사용자가 입력한 값이다.
+                                                     get method로 폼을 만들게 되면,
+                                                     내가 타겟으로 하는, 보낼려고 하는 주소 뒤에 어떤 데이터들이 입력됐는지를 보여준다.
+                                                      
+                                                     🔥 만약에, 
+                                                        비밀번호를 입력하게 되면 비밀번호가 그대로 주소에 드러나기때문에,
+                                                        보안에 관련된 정보라면 굉장히 위험할 수 있다.
+                                                        그래서 get method는 사용자가 입력한 데이터들을 주소창에 그대로 보여주기 때문에,
+                                                        보안을 중요시하는 정보들은 get method로 보내면 안된다!
+                                                     
+                                                    🟡 get method는 검색 등을 이용할 때 쓴다.
+                                                     
+                                                    🟡 보통 회원가입이나 설문조사 페이지 같은 경우, get method를 사용하지 않는다.
+               
+             3️⃣ labe과 input
+             
+                      ▶ <input> : 사용자가 정보를 입력할 수 있는 영역.        
+                    
+                      ▶ <label> : <input>에 어떤 정보를 입력할지 설명을 붙여준다. 
+                              
+                      보통 <input>과 <label>은 셋트로 다니고,
+                      input에다가 하나씩 라벨링을 한다고 이해하면 된다.
+                      
+                      이렇게 label을 붙여주면, 
+                      사용자가 잘못된 정보를 입력할 가능성이 낮아진다.
+                      그래서 label을 정확하게 붙여주는건
+                      사용자 경험입장에서도 중요하고,
+                      웹 접근성이나 시멘틱적인 영역에서도 굉장히 중요하다.
+                      
+                  
+                 
+                 <input> 태그는 텍스트 외에도 여러가지 항목들의 데이터를 전부 받을 수 있다.
+                      (* 참고 : https://developer.mozilla.org/ko/docs/Web/HTML/Element/Input )
+                      
+                            Ex)
+                                 <form action="" method="GET">
+                                    <label for="foodname">음식 이름 :</label>                  -> for : 같은 문서내의 <label> 요소로서, 레이블 가능한 form-related 요소의 id.  (* id : 전역속성)
+                                    <input type="text" name="foodname" id="foodname">
+                                    <button type="submit">제출</button>
+                                 </form>
+                  
+                          🔴 id는 한 문서 내에서는 값이 절대로 겹치면 안된다.
+                          🔴 한 문서 안에 여러개의 <form>이 있다면,
+                              name은 <form> 안에서만 안겹치면 상관이 없다.
+                              다른 <form>에서 같은 name을 사용해도 된다.
+                          🔴 name과 id는 동일할 필요는 없다.
+                              name은 서버에 전송할 때 form 데이터를 구분하기 위해서이고,
+                              id는 전체 문서중에서 input을 구분하기 위한 구분자이다.
+                              둘은 다른 개념.
+                             
+                          
+                          <label>과 <input>은 인라인 요소이기때문에,
+                          줄 간격을 띄우주기 위해서 <div>로 묶어줄 수도 있다.
+                          
+                                 Ex)
+                                     <form action="" method="GET">
+                                        <div>
+                                            <label for="foodname">음식 이름 :</label>                  -> for : 같은 문서내의 <label> 요소로서, 레이블 가능한 form-related 요소의 id.  (* id : 전역속성)
+                                            <input type="text" name="foodname" id="foodname">
+                                        </div>
+                                        
+                                        <div>
+                                            <label for="color">색깔 :</lable>
+                                            <input type="text" name="color" id="color">
+                                        </div>
+                                        
+                                         <button type="submit">제출</button>                                      
+                                     </form>
+             
+                        💡 <label>을 사용하는 2번째 방법이 있는데,
+                        
+                                Ex)
+                                    <div>
+                                          <label>색깔 :
+                                               <input type="text" name="color">
+                                          </lable>
+                                    </div>
+                                    
+                                    -> <label>의 자식 요소로 <input> 태그를 넣어준다.
+                                      이렇게하면, label의 for 요소를 작성하지 않아도 되고,
+                                      input의 id도 없어도 된다.
+                            
+                            🔥 <lable>을 텍스토로 무조건 입력을 해줘야,
+                               스크린 리더같은것들이 정확하게 label을 읽을 수 있다.
+                               이미지를 넣거나 하면 스크린리더가 label을 인식하지 못해서,
+                               스크린 리더 사용자가 어떤걸 입력해야하는건지 정확하게 인지를 못한다.
+                               그래서 틀린건 아니지만, 웹 접근성 측면에서 lable에는 input을 설명하는 문구를
+                               텍스트로 정확하게 적어주는게 좋다.
+             
+             
+           4️⃣ fieldset, legend
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           5️⃣ input - type 속성 1
+           6️⃣ input - type 속성 2
+           7️⃣ input - type 속성 3
+           8️⃣ input - name, placeholder, autocomplete, required 속성
+           9️⃣ input - disabled, readonly 속성
+           🔟 input - step, min, max
+           1️⃣1️⃣ - button
+           1️⃣2️⃣ - select, option, optgroup
+           1️⃣3️⃣ - input - list 속성과 datalist
+           1️⃣4️⃣ - textarea
+
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                                                      
+
