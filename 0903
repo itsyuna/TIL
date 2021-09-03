@@ -496,50 +496,610 @@
                                 * color는 'can i use' 사이트에서,
                                 input color라고 검색해보면 Color input type이 나온다.
                                 -> 지원되는 브라우저 확인할 수 있음!  (* mdn에도 나와있지만 여기서 보는게 더 좋음!)
-                           
-                           
-                           
+                                                  
            
            8️⃣ input - name, placeholder, autocomplete, required 속성
+           
+                        🔸 대부분의 type에 가능한 속성들
+                                    (* mdn 홈페이지 <input> 속성 중 '유형'에 all에 해당하는 부분. 참고 : https://developer.mozilla.org/ko/docs/Web/HTML/Element/Input )
+                        
+                        
+                                🟢 name : 전체 form 데이터에서 이 필드가 어떤 데이터를 가지고 있는지 구별하는 역할을 한다.
+                                        
+                                        <input type="text" name="job">
+                                        
+                                        ⭐⭐ <input>에 name을 꼭 입력해야지만 form 데이터에서 구분이 가능하다!
+           
+                                🟢 placeholder : <input>창에 어떤 값을 입력해야하는지 hint를 주는것.
+           
+                                        <input type="text" name="job" placeholder="예) 교사">
+           
+                                🟢 autocomplete : 양식 자동생성 기능 (form autofill) 암시.
+                                            -> 불(Boolean) 속성이 아니기 때문에 입력할 수 있는 값이 있다.
+                                        
+                                        <input type="text" name="job" placeholder="예) 교사" autocomplete="on">
+                                        
+                                        -> 입력창에 입력을 하려고 하면, 자동완성 기능이 되서 아래에 내가 입력했던것들이 뜨게 된다.
+                                           이전에 같은 필드, 같은 name에 입력했던 것들이 있다면,
+                                           자동으로 후보값으로 보여준다.
+                                        
+                                        🔻
+                                            만약에 autocomplete의 값을 off로 한다면?
+                                            
+                                         <input type="text" name="job" placeholder="예) 교사" autocomplete="off">
+                                        
+                                                -> focusing을 해도 이전 값이 보이지가 않는다.
+                                                (* 자동완성 기능은, 간혹 브라우저에서 저장할껀지 뜨면 off로 설정하는 경우도 있는데,
+                                                   그럴 경우에는 브라우저값이 설정되었기 때문에 off로 변경되는것.
+                                                   개발자가 마크업할 때 autocomplete를 off로 넣어버리면,
+                                                   자동완성 기능을 사용할 수 없게 된다. )
+                                                   => 지정하지 않으면 브라우저가 설정한 값으로 따라간다.
+                                 
+                                 🟢 required : 필수적으로 입력해야된다는것을 명시. Boolean 속성.
+                                       
+                                            <input type="text" name="age" id="age" placeholder="10" required>
+                                            
+                                                -> 입력하지 않고 submit 하면, '이 입력란을 작성하세요'라는 메세지가 뜬다.
+                                       
+                                            🔴 여러개의 <input> 태그에 여러번 사용할 수 있다.
+                                                    
+                                                  Ex)                                             
+                                                    <input type="text" name="name" id="name" placeholder="홍길동" required>
+                                                    
+                                                    <input type="text" name="age" id="age" placeholder="10" required>
+                                            
+      
+      
            9️⃣ input - disabled, readonly 속성
+           
+                                    
+                                🟢 disabled  : 비활성화되게 만든다. 값을 입력하지못할 뿐만 아니라, 이 field 자체가 form 제출 전송에 포함되지 않는다.
+           
+                                            <div>
+                                                <label for="age">나이 :</label>
+                                                <input
+                                                    type="number"
+                                                    name"age"
+                                                    id="age"
+                                                    placeholder="10"
+                                                    disabled
+                                                />                                                           
+                                            </div>
+
+                                        -> '나이' 입력창이 비활성화 된다.
+                                        -> 다른 입력창은 그대로 입력하고 submit을 하면,
+                                           '나이' 입력창은 값이 없으니까, 주소창에 아예 나타나지 않는다.
+                                       
+
+                                           🔻 그런데 만약에 disabled가 없다면? (-> required도 없는 상태)
+                                               <div>
+                                                    <label for="age">나이 :</label>
+                                                    <input
+                                                        type="number"
+                                                        name"age"
+                                                        id="age"
+                                                        placeholder="10"
+                                                    />                                                           
+                                                </div>
+                                    
+                                            -> age라고는 나오는데 값이 없다.
+
+                                                    Ex)
+                                                        lnput.html?name=홍길동&age=        
+                                
+                                   
+                                           🔻 사용하는 이유는?
+                                               -> html만으로는 별로 사용처가 없는데,
+                                               자바스크립트로 disabled를 사용할 때,
+                                               다른 특정 필드를 입력하면, 또 다른 입력창을 비활성화 한다던지
+                                               UI,UX상으로는 눈에 보였으면 좋겠지만 전송은 하면 안될 때.
+                                       
+                                 
+                                 🟢 readonly : 읽기 전용 (값을 입력할 수 없다.)         -> 값을 미리 value로 지정해놓고, 그 값으로 그대로 쓰고 싶을 때 사용.
+                                       
+                                               <div>
+                                                    <label for="age">나이 :</label>
+                                                    <input
+                                                        type="number"
+                                                        name"age"
+                                                        id="age"
+                                                        placeholder="10"
+                                                        readonly
+                                                    />                                                           
+                                                </div>
+
+                                            🔻 미리 value에 값을 입력하면?
+                                                
+                                                    <div>
+                                                        <label for="age">나이 :</label>
+                                                        <input
+                                                            type="number"
+                                                            name"age"
+                                                            id="age"
+                                                            value="20"
+                                                            readonly
+                                                        />                                                           
+                                                    </div> 
+
+                                                 -> 입력창에 20이라고 나오지만, 수정하거나 추가 입력을 할 수 없다.
+                                    
+                                            🔻 value 값도 주지않고, readonly가 있는 상태에서 제출을 눌럿을 때.
+                                    
+                                                    <div>
+                                                        <label for="age">나이 :</label>
+                                                        <input
+                                                            type="number"
+                                                            name"age"
+                                                            id="age"
+                                                            readonly
+                                                        />                                                           
+                                                    </div> 
+                                               
+                                               -> 주소창에 input.html?name=홍길동&age=
+                                               
+                                                이렇게 age에 아무값도 들어가지 않는다.
+                                                
+                                              
+                                                        📌 disabled와 readonly의 차이점!
+                                                            
+                                                            disabled : 입력도 못하고, form에 있는 데이터도 전송을 할 수 없다.
+                                                            
+                                                            readonly : 입력만 안되고, 전송은 된다! 
+                                                                       그래서 기본값을 설정하고 싶을 때,
+                                                                       사용자가 수정못하게 하는 값을 설정하고 싶을 때 사용한다. 
+                               
+                                    
            🔟 input - step, min, max
+                        
+                        🔸 숫자와 관련된 속성들
+                            
+                                    
+                                      🟢 min / max   
+
+                                                min : 최소 숫자
+                                                max : 최대 숫자
+                            
+                                           Ex)
+                                               <div>
+                                                    <label for="score">평점 :</label>
+                                                        <input type="number" name="score" id="score" min="" max="" />         -> 정해놓은 값까지만 입력이 가능하다. 그 이하, 이상으로는 입력이 x.
+                                                </div>
+                            
+                            
+                                            🔻 평점을 짝수만 받고싶을때는?      -> step 속성 사용 : 간격을 설정해준다. 
+                                            
+                                                     <input type="number" name="score" id="score" min="1" max="10" step="2" />
+                                        
+                                             
+                                            🔻 input type을 range로 했을 때.
+                                            
+                                                     <input type="range" name="score" id="score" min="-10" max="10" step="2" />
+                                                     
+                                                            -> range바가 나오고, range를 이동했을 때step 숫자만큼 끊어서 보여진다.
+                                                             
+                                        
+                                        🟡 text의 글자를 제한할 때는, minlength / maxlength를 사용함. (-> 문자열의 길이를 제한하기 때문에 text field에서 사용)
+                                        
+                                        🔴 정해높은 minimum 값과, maximum값과 상관없이 키보드로 숫자 입력이 가능한데,
+                                            이 상태에서 submit하면 정해높은 값 내에서 입력하라고 오류 메세지가 뜬다.    => min / max를 설정하면 유효성 검사를 해준다.
+                                            
+                                        🔴 min / max 값에는 마이너스 값(-)도 가능하다.
+                                        
+                                        🟡 ragne의 값을 min / max로 따로 설정해주지 않으면 기본 값으로 min : 1, max : 100이 설정이 된다.
+                                       
+        
            1️⃣1️⃣ - button
+           
+                        ▶ <button> 태그 : 클릭 가능한 버튼의 모양을 하고 있는 요소.
+                                    -> form 내부의 제출하기나 초기화 버튼으로 사용될 수 있다.
+                                    
+                             
+                             # 사용할 수 있는 속성들
+                                    
+                                 -> <input> 타입과 동일하게 disabled, name, value 등.
+                                    
+                              🟢 type  
+                                    
+                                    # button type에 들어갈 수 있는 3가지
+                                    
+                                        🟪 submit
+                                        🟪 reset
+                                        🟪 button : 버튼의 타입이 button일 수 있다. 기본 행동이 없으면 클릭했을 때 아무것도 하지 않는다.
+                                                     -> 자바스크립트와 연결이 되서, 눌렀을 때 행동을 정의할 수 있다.
+                                                     
+                                                     🔻 그럼 <div>로 써도 될거같은데 <button>으로 쓰는 이유?     
+                                                        -> UI적인 측면도 그렇고, 접근성 측면에서도 버튼이라는걸 바로 알 수 있다.
+                                                        스크린리더가 버튼이라는걸 이야기해주기 때문에, 버튼 태그를 사용하면 어떤 형태의
+                                                        UI인지 더 인지가 빠를 수 있다.
+                                
+                                    
+                        ⭐⭐ <button>과 <input>의 차이점!
+                        
+                               Ex)
+                                   <input type="reset" />
+                                   <input type="submit" />
+                                   <input type="button" value="빈 버튼">
+                                                  
+                                   <button type="reset"></button>
+                                   <button type="submit"></button>
+                                   <button type="button"></button>
+                               
+                                        
+                                        1. 위에 reset 타입과 submit 타입은, 이름을 따로 입력해 주지 않아도 버튼 이름에 각 '초기화', '제출'이라고 뜬다.
+                                          <button> 태그는 버튼의 입력을 따로 입력해주지 않으면, 기본값으로 텍스트가 입력되지 않는다.
+                                          
+                                        2. 가장 큰차이점!
+                                            <input>은 빈요소이다.자식을 가질 수 없음!
+                                            <button>은 opening 태그와 closing 태그를 가질 수 있고, 자식을 가질 수 있다!
+                                                    -> 자식 요소를 가질 수 있기 때문에, 자식 내용에 텍스트를 넣어주면 버튼에 내용이 들어가게 된다.
+                                                                
+                                                                Ex) <button type="reset">초기화!</button>
+           
+                                        3. <input>에 value를 넣어주는것과,
+                                           <button>의 자식 요소로 넣을 수 있는것의 큰 차이점은?
+                                          
+                                                -> value에는 문자열밖에 넣을 수 없다. 스타일링을 하고 싶으면 css로 가능하긴 하지만, 내부에는 문자열만 가능하다.
+                                                   button은 내부에 자식 요소를 가질 수 있기 때문에, 태그를 입력할 수 있다.
+                                                   
+                                                            Ex) 
+                                                               <button type="reset">
+                                                                     <strong>초기화!</strong>
+                                                               </button>                              
+                                                            
+                                                            ➕ <button> 태그의 자식 요소로 이미지나 svg같은걸 추가로 넣어줄수도 있다!
+                                                            => 내부에 조금 더 스타일링을 용이하게 할 수 있다.
+                                                
+                                                
+                                               🔥 <button> 안에 이미지나 아이콘만 넣으면,
+                                                  스크린리더로 보는 사용자는, 그 이미지나 아이콘으로 어떤 버튼인지 인지하기가 쉽지 않다.
+                                                  그래서 접근성을 높여주기 위해서 텍스트 설명을 같이 넣어주는게 좋다!
+                                         
+           
            1️⃣2️⃣ - select, option, optgroup
+           
+                       ▶ <select> 태그  : 드롭다운 메뉴            
+                       ▶ <option> 태그 : select 하기 위해 여러가지 후보들을 설정한다. 
+           
+                            Ex)
+                                <label for="movie">좋아하는 영화: </label>
+                                <select id="movie" name="movie">                    -> <select> 태그 자체가 값을 고르는 하나의 field이기 때문에, lable이 향하고 있는 id를 지정해줘야 한다. 
+                                                                                        + 서버에게 보낼 name 속성도 꼭 명시해주기!
+                                    <option>토이스토리</option>
+                                    <option>주토피아</option>
+                                    <option>인사이드아웃</option>                         
+                                </select>
+                                <input type="submit">
+                        
+                        -> 주토피아를 선택하고 submit하면 주소창에
+                                
+                                input.html?movie=주토피아
+                            
+                            이렇게 나오고,
+                            movie라는 name을 가진 필드의 '주토피아' 값이 들어간 걸 볼 수 있다.
+           
+                            
+                        🔻 사용자에게 UI상으로 보여지는 메뉴에는 한글로 보여주지만, 서버에는 영어로 전송을 하고싶을때는?
+                        
+                                -> value 속성을 이용한다.
+                                
+                                <option value="toystory">토이스토리</option>
+                                
+                                🟡 <option> 태그내에 자식 요소로 들어가있는 텍스트 컨텐츠는,
+                                    최종 사용자에게 UI적인 요소로 보여주는 값이 들어가고,
+                                    서버로 보낼 때는 name 필드랑 value 값을 사용해서 서버에 전송한다.
+                            
+                        
+                        🔻 사용자에게 선택창이 보여질때, 드롭다운하기전 먼저 보여지는 <option>값을 설정했을 때.
+                        
+                                        <label for="movie">좋아하는 영화: </label>
+                                        <select id="movie" name="movie" required>                   -> required 추가.    
+                                            <option>--Please choose an option--</option>            -> 첫번째 <option>은 의미가 없기 때문에 value값을 설정하지 않은 상태.    
+                                            <option value="toystory">토이스토리</option>
+                                            <option value="zootopia">주토피아</option>
+                                            <option value="insideout">인사이드아웃</option>                         
+                                        </select>
+                                        <input type="submit">
+                                    
+                                  -> 아무것도 선택하지 않고 submit하면,   
+                                     제출이 되면서 주소창을 보면,
+                                     movie값에 첫번째 옵션의 안내문구로 써놓은 값이 들어가있다. 
+                                            -> 이렇게 동작하면 안됨!
+                                     
+                                     🔻 그런데도 동작하는 이유는?
+                                        
+                                        -> <option>의 value 속성이 없다면 무조건 <option> 태그 내부에 있는 값을 value로 사용한다.
+                                           임의로 <value>속성을 없는 값으로 입력하고 싶으면, value 속성을 무조건 사용해야 한다.
+                                           그리고 내용의 값에 "" 빈문자열을 넣어줘야한다.
+                                           
+                                                Ex)    <option value="">--Please choose an option--</option>        
+                                          
+                                          
+                                          이렇게 하고 submit하면,
+                                          빈문자열이 전송이 되서, 빈문자열을 없는값으로 인식하기 때문에 submit이 안되고
+                                          항목을 선택하라는 오류 메시지가 뜬다.
+                         
+                         
+                         🔻 특정 목록을 첫 화면의 고정으로 지정하고 싶다면?
+                                
+                                -> selected를 넣어준다.
+                                
+                                         <option value="zootopia" selected>주토피아</option>
+                                
+                                
+                   🔴 <select> 태그안에 required말고 disabled도 가능하다.
+                   🔴 <input type="text">, <input type="date">도 동일하게 사용 가능하다.
+                   🔴 text 요소가 아니기 때문에, maxlenght, minlength, min, max는 사용할 수 없다.
+                   
+                   
+                   ▶ <optgroup> 태그 : option이 여러개일 때 그룹으로 묶어서 사용한다.
+                                
+                                <label for="movie">좋아하는 영화: </label>
+                                        <select id="movie" name="movie" required>                    
+                                            <option>--Please choose an option--</option>
+                                            <optgroup label="animation">                                                  -> 애니메이션 장르.
+                                                    <option value="toystory">토이스토리</option>
+                                                    <option value="zootopia">주토피아</option>
+                                                    <option value="insideout">인사이드아웃</option> 
+                                            <optgroup>
+                                            <optgroup label="sf">
+                                                    <option value="maxtrix">매트릭스</option>           -> SF 장르.
+                                            </optgroup>
+                                            
+                                        </select>
+                                        <input type="submit">
+                                        
+                                🟡 목록을 드롭다운해보면, <optgroup> 태그대로 나뉘어져서 한 칸이 띄어져서 그룹이 분류가 된다.         
+                                🟡 label로 제목을 붙여준다. -> 드롭다운 해보면, 설정한 제목도 그대로 보여준다.      
+                            
+           
+           
            1️⃣3️⃣ - input - list 속성과 datalist
+           
+           
+                        ▶ <datalist> : 다른 컨트롤에서 고를 수 있는 가능한, 혹은 추천하는 선택지를 나타내는 <option> 요소 여럿을 담는다.
+
+                                -> 단독으로 사용하지 않는다. ⭐input의 list의 속성과 함께 사용한다.
+
+                                -> select처럼 내부에 자식 요소로 option을 넣는다.
+
+                                        Ex)
+                                            <form action="" method="GET">
+
+                                                <label for="movie">좋아하는 영화: </lable>
+                                                <input type="text" id="movie" name="movie" list="movie-list">           -> list 추가
+
+                                                <datalist id="movie-list">              -> id 추가            
+                                                    <option>주토피아</option>           -> 추천할 수 있는 옵션 여러개 생성.
+                                                    <option>인사이드아웃</option>
+                                                    <option>토이스토리</option>
+                                                </datalist>
+
+                                                <input type="submit">
+                                           </form>
+
+                                    -> 브라우저에서 보면,
+                                      좋아하는 영화를 입력할 수 있는 창이 있고,
+                                      옆에 추천으로 넣어준 <option>을 선택할 수 있게 화살표가 뜨면서, 입력창에 마우스를 클릭하면 아래에 <option> 목록들이 뜬다.
+
+                                🟡 <label>이 <input>의 id를 보듯이, <input>의 list가 <datalist>의 </id>를 보고있는것!
+
+                                🔻 <select>와 차이점은?
+
+                                        1. <select> 태그는 선택한 요소의 값을 수정할 수 없다. 무조건 하나만 골라야 한다.
+                                           하지만, <input type="text">이기 때문에, 텍스트를 수정할 수 있다.
+                                           <option>으로 입력한것들의 데이터를 보여줘서 추천만 해줄뿐이지,
+                                           그걸 선택해서 수정하거나 다른 값을 입력해도 된다.
+                                        2. 앞글자만 입력해도 일치하는 datalist의 목록을 보여준다!
+
+                            ⭐특정 값을 수정하지 않고 사용한다면 <select>를 사용.
+                              추천을 해주고 수정을 해도 괜찮으면 <input>과 <datalist>를 사용한다.
+
+
+
            1️⃣4️⃣ - textarea
 
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                                                      
+                      ▶ <textarea> : 여러줄의 멀티라인 텍스트 입력 가능. 댓글이나 리뷰 등에 사용.
+                      
+                                -> <textarea>도 하나의 field이기 때문에, label을 달아줄 수 있다.
+                                -> 빈 요소가 아니다.
+                                
+                                        Ex)
+                                            <form>
+                                                <label for="commnet">댓글 :</label>
+                                                <textarea name="comment" id="comment" rows="" cols="">
+                                                    내용 미리 입력.                           -> 내용이 없게 하고싶으면, 비워둔다.
+                                                </textarea>
 
+                                                <input type="submit">
+                                            </form>
+                       
+                                🟡 내부에 자식 요소를 가지고 있기 때문에, 기본적으로 내용을 미리 작성할 수 있다.
+                                🔴 앞쪽에 들여쓰기가 그대로 나타나고, 개행을 해도 똑같이 반영이 된다. (-> <pre> 태그와 동일)
+                                🟡 rows와 cols로 가로 세로의 길이를 조정할 수 있다.
+                                        -> 폰트 사이즈에 따라 가로/세로 길이가 조금 달라질 수 있어서, 
+                                           가로/세로 사이즈를 조절하려면 이것보다는
+                                           CSS의 width나 height 속성을 사용해서 크기를 조정하는게 낫다.
+                                        -> 그래도 가로 길이보다 세로 길이는 rows로 많이 지정해주는 편이다.
+                                🟡 disabled, readonly, required, placeholder 등 사용 가능.
+                            
+                       
+                       
+
+📂 전역 속성
+            
+              # 전역속성 : 어떤 태그에도 전부 다 사용할 수 있는 속성
+              
+               1️⃣ class와 id  (= 식별자라고 불린다)
+                
+                    🟢 id 속성 : id를 가지고 태그를 식별할 수 있다. 
+                                 ⭐ 고유 식별자이다. 문서 전체를 통틀어서 딱 하나만 id 값만 사용할 수 있다.
+                                 ⭐ id에 공백이 들어가면 안된다.
+                                 ⭐ 숫자나 특수문자로 시작하면 안되고, 무조건 영어 소문자로 시작해야 한다. 중간에는 dash나 underdash로 구분해서 사용하면 된다.
+                                                  
+                                            Ex)
+                                                <body>
+                                                    <div>안녕하세요.</div>
+                                                    <div>안녕하세요.</div>
+                                                    <div id="hello">안녕하세요.</div>
+                                                    <div id="hi">안녕하세요.</div>
+                                                    <div>안녕하세요.</div>
+                                                </body>    
+
+                    🟢 class 속성 : class로 태그를 식별할 수 있다.
+                                    ⭐ 여러개의 요소를 선택할 수 있다. 여러개 중복 가능.
+                                        
+                                                 Ex)
+                                                    <body>
+                                                        <div>안녕하세요.</div>
+                                                        <div class="hi">안녕하세요.</div>
+                                                        <div>안녕하세요.</div>
+                                                        <div class="hi">안녕하세요.</div>
+                                                        <div>안녕하세요.</div>
+                                                    </body>   
+
+                                    ⭐⭐ 공백이 가능하다.   
+                                            -> 클래스 이름에 정말로 공백이 들어가는게 아니고,
+                                               두 개의 클래스를 사용하는것!  (=> 하나의 요소가 여러개의 클래스를 가질 수 있다! 공백으로 구분!)
+                                    
+                                                 Ex)
+                                                    <body>
+                                                        <div>안녕하세요.</div>
+                                                        <div class="hello">안녕하세요.</div>
+                                                        <div>안녕하세요.</div>
+                                                        <div class="hi hello">안녕하세요.</div>   -> hi와 hello 2개의 클래스를 가지고 있기 때문에,
+                                                                                                    여러개의 스타일링, 여러개의 자바스크립트를 한 요소에 적용하기 용이하다.
+                                                        <div class="hi">안녕하세요.</div>
+                                                    </body>                
+               
+               
+               
+               2️⃣ style
+                  
+                       🟢 style 속성 : 하나의 요소에만 스타일을 적용할 때 사용.
+                                        삐르고 편리할 수 있겠지만, 좋은 습관은 아니다. 권장하지 x.
+                                        자바스크립트를 활용해서 일시적으로 스타일을 적용해야한단거나,
+                                        테스트를 해야하는 급한 상황이 있을 때, style 속성을 사용한다.
+                            
+                                    Ex)
+                                    
+                                        <div style="color: red; border: 2px solid gray;">
+                                        </div>
+
+                            
+                            ⭐ inline style은 최우선으로 적용되기 때문에, 예외적인 상황이 아니면  
+                                inline style로 웹 페이지를 전부 다 만드는거는 지양해야 한다.
+               
+                
+               3️⃣ title
+               
+                        🟢 title 속성 : 하나의 태그에 추가적인 설명을 툴팁으로 보여줄 수 있다.
+                     
+                                Ex)
+                                    <div>
+                                        <div title="첫번째 요소">안녕하세요.</div>
+                                        <div>반갑습니다.</div>
+                                    </div>
+                                    
+                                    -> 마우스를 올리면, '첫번째 요소'라고 툴팁이 뜬다.
+                                
+                                🟡 <title>은 개행이나 스페이싱을 반영한다.
+                                🔴 부모 요소에 title이 있고, 자식 요소에도 title이 있으면 자식 요소가 우선시 된다.
+                                        
+                                         Ex)
+                                            <div title="바깥쪽 박스">
+                                                <div title="첫번째 요소">안녕하세요.</div>
+                                                <div>반갑습니다.</div>
+                                            </div>
+                                
+                                        -> 두번째 박스는 '바깥쪽 박스'라는 툴팁이 나오지만, (-> title을 설정해주지 않았지만, 부모로부터 상속받음)
+                                           첫번째 박스는 자기가 가지고 있는 툴팁의 내용인 '첫번째 요소'라는 툴팁이 나온다.
+               
+               
+               
+               4️⃣ lang
+               
+                          🟢 lang 속성  : 컨텐츠를 읽는 사람이 한국어로 읽고 있는지 영어로 읽고 있는지를 명시한다.    
+                          
+                               (* charset : 컴퓨터가 이해할 수 있는 언어를 명시함.)
+                               
+                                        Ex)
+                                            <html lang="en">        -> 자동 설정.
+                                            
+                                            문서가 한국어로 작성됐을 때는,
+                                                
+                                                <html lang="ko">
+                                            -> 이렇게 해줘야 한다.
+                                                
+                                  🔻 이 속성은 언제 사용될까?              
+                                     -> 웹 접근성을 높이기 위한 수단이다.
+                                      스크린리더로 이 웹페이지를 읽는다고 했을 때,
+                                      만약에 페이지가 영어로 되어있으면 영어에 적합한 발음,
+                                      즉 영어를 사용하는 아나운서가 읽어야 한다.
+                                      
+                                      ➕ 구글 번역이나 파파고 등으로 문서 전체를 번역 해줄 때,
+                                         현재 문서가 어떤 언어로 이루어져있는지 빠르게 캐치할 수 있다.
+                                  
+                                  🔻 일부 문단에 다른 언어로 되어있으면?
+                                  
+                                      <html lang="ko">
+                                           ...
+                                      <p lang="en">         -> 해당하는 부분에 따로 작성해준다.
+                                        english..blah..blah..
+                                      </p>
+                                            ...
+                                      </html>
+                            
+                            🟡 바깥쪽 박스에 lang을 적용했을 경우, lang 속성은 상속이 되기 때문에 안에도 전부 다 적용이 된다.
+               
+                            
+               
+               5️⃣ data
+                    
+                        🟢 data-* 속성  : data 뒤에 이름을 사용자가 정의할 수 있다. 지정되어 있는 속성이 아니다.
+                
+                                    Ex)
+                                        <article>
+                                            id="art"                    -> id는 실제로 존재하는 속성.
+                                            data-columns="3"            -> data-(dash)로 시작하면 실제로 존재하지 않는 속성. 
+                                            data-index-number="123"
+                                            data-parent="cars                       
+                                        </article>
+                                   
+                                   
+                                   🔻 언제 사용할까?
+                                      -> 여기에서 보면 article이 가지고 있는 내부에 있는 정보를 사람들 눈에는 최종적으로 보이게 하고 싶지 않지만,
+                                       자바스크립트가 이 정보를 가지고 읽어서 이해할수 있게 하기 위해서 사용한다.
+                                       
+                                     ➕  데이터 속성을 css에서 가지고 접근할 수 있게 만들 수 있기도 하다. (많이 쓰지는 않음)
+
+
+               6️⃣ draggable
+               
+                            🟢 draggable 속성 : 드래그가 가능한지 가능하지 않은지의 여부를 명시해 주는 속성.
+                            
+                                                Ex)
+                                                    <img src="images/small.png" draggable="false">
+                                                        
+                                                        -> 어떤 요소를 잡아서 드래그 할 수 있는지 없는지에 대한걸 명시하는 것.
+                                                   
+                                                   -> boolean 속성이 아니기 때문에, true인지 false인지 명시를 해줘야 한다.
+                              
+                                🔻 draggable 속성이 존재하는 이유
+                                    : 자바스크립트가 이벤트로 인식할수 있기 때문에, 이벤트에 따른 행동을 정의 할 수 있다.
+            
+               
+               7️⃣ hidden
+               
+                            🟢 hidden 속성 : 해당하는 요소를 숨겨준다.
+                                            -> boolean 속성. 작성을 하면 true, 작성을 하지않으면 기본값이 false.
+                                            
+                                            <img src="images/small.png">
+                                            <img src="images/small.png" hidden>
+                                            
+                                
+                                보안상의 정보를 가릴때는 hidden 속성을 사용하면 안된다.
+                                    -> 개발자 도구를 보면 그대로 나타나 있기 때문에.
+                       
+                              🟡  hidden 특성을 가진 요소를 CSS로 보이게 할 수도 있다.
+                       
+         
