@@ -162,6 +162,7 @@
                                     <button type="submit">제출</button>
                                  </form>
                   
+                          🔴 <label>과 <input> 태그 순서는 상관 없다.
                           🔴 id는 한 문서 내에서는 값이 절대로 겹치면 안된다.
                           🔴 한 문서 안에 여러개의 <form>이 있다면,
                               name은 <form> 안에서만 안겹치면 상관이 없다.
@@ -202,34 +203,303 @@
                                     -> <label>의 자식 요소로 <input> 태그를 넣어준다.
                                       이렇게하면, label의 for 요소를 작성하지 않아도 되고,
                                       input의 id도 없어도 된다.
+                                      
+                                      
+                             🔴 하나의 <form> 안에서는 가독성을 위해서,
+                                <label>과 <input> 태그를 형제 요소로 쓰거나,
+                                <label>안에 자식 요소로 <input> 태그를 넣거나
+                                혼용해서 쓰지 말고 한가지로 통일하는게 좋다.
+                                      
                             
                             🔥 <lable>을 텍스토로 무조건 입력을 해줘야,
                                스크린 리더같은것들이 정확하게 label을 읽을 수 있다.
                                이미지를 넣거나 하면 스크린리더가 label을 인식하지 못해서,
                                스크린 리더 사용자가 어떤걸 입력해야하는건지 정확하게 인지를 못한다.
                                그래서 틀린건 아니지만, 웹 접근성 측면에서 lable에는 input을 설명하는 문구를
-                               텍스트로 정확하게 적어주는게 좋다.
-             
+                               텍스트로 정확하게 적어주는게 좋다.                 
+                            
              
            4️⃣ fieldset, legend
            
+                  ▶ <fieldset> 태그   
+                             : 하나의 <form>에 굉장히 많은 <input>과 <label>이 들어갈 수 있다.    
+                               그래서 여러가지 <input>들과 <label>을 그룹으로 나누어서 나타낼 수 있다.
+
+                               단순히 스타일링을 위해서면 <div>로도 가능하지만,
+                               하나의 역할을 가지고 있다면 시멘틱한 측면에서는 <fieldset>과 <legend>를 쓸 수 있다.
+                 
+                  ▶ <legend> 태그   
+                             : 부모 <fieldset> 콘텐츠의 설명을 나타낸다. (=범례)
+             
+                                 Ex)
+                                     <form action="" method="GET">
+                                            <fieldset>
+                                                    <legend>범례1</legend>
+                                                    <div>
+                                                        <label for="foodname">음식 이름 :</label>                  -> for : 같은 문서내의 <label> 요소로서, 레이블 가능한 form-related 요소의 id.  (* id : 전역속성)
+                                                        <input type="text" name="foodname" id="foodname">
+                                                    </div>
+
+                                                    <div>
+                                                        <label for="color">색깔 :</lable>
+                                                        <input type="text" name="color" id="color">
+                                                    </div>
+                                            </fieldset>
+
+                                            <fieldset>
+                                                     <legend>범례2</legend>
+                                                    <div>
+                                                        <label for="foodname">음식 이름 :</label>                  -> for : 같은 문서내의 <label> 요소로서, 레이블 가능한 form-related 요소의 id.  (* id : 전역속성)
+                                                        <input type="text" name="foodname" id="foodname">
+                                                    </div>
+
+                                                    <div>
+                                                        <label for="color">색깔 :</lable>
+                                                        <input type="text" name="color" id="color">
+                                                    </div>
+                                             </fieldset>
+
+                                             <button type="submit">제출</button>                                      
+                                         </form>
            
+        
+                                    🔴 <legend>는 무조건 <field>요소의 첫번째 자식이어야 한다.
+                                    🔴 기본 스타일링은 <fieldset> 부분에 테두리가 생기고, 테두리 박스 안에 <input>과 <label>이 들어간다.
+                                       그리고 테두리 부분에 <legend>의 내용이 들어간다.  (* 크롬 기준)
+                                       브라우저마다 스타일링이 다르기 때문에,
+                                       특정 그룹으로 묶었을 때 그 스타일이 보여지게 하고싶다면,
+                                       <div>로 묶어서 스타일링하는게 나을 수 있다.
+                                        
            
+                        📌 <fieldset>의 장점
+                                -> <input> 태그가 여러개 있을 때, <input> 하나하나에 제어를 하지 않아도,
+                                <fieldset> 태그 부분에만 넣어줘도, 전체 영역에 들어와있는 태그들한테 효과를 줄 수 있다.
+                                                            
+                                           Ex)
+                                           
+                                                  <fieldset>
+                                                        <legend>범례1</legend>
+                                                        <div>
+                                                            <label for="foodname">음식 이름 :</label>                  
+                                                            <input type="text" name="foodname" id="foodname" disabled>  -> 비활성화 되서 입력 못함.
+                                                        </div>
+
+                                                        <div>
+                                                            <label for="color">색깔 :</lable>
+                                                            <input type="text" name="color" id="color">
+                                                        </div>
+                                                  </fieldset>
+                                        
+                                       -> disabled를 이렇게 하나하나 <input> 태그에 넣지 않고,
+                                                    <fieldset disabled>
+                                                            ...
+                                                    </fieldset>
+                                                            
+                                        <fieldset> 부분에만 넣어줘도 전체 영역 컨트롤이 가능!
            
+                                          🟢 disabled 속성 : 지정한 경우 모든 자손 컨트롤을 비활성화한다. (전역 속성 포함)
            
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
+                                          🔴 <fieldset>이 블록 레벨이기 때문에,
+                                             만약에 <div>로 묶고 <fieldset>으로 한번 더 묶을 필요는 없다.
+                                             <fieldset>으로 한번 묶어줬으면,
+                                             별도의 블록으로 구분된다.
+                                             
+      
            5️⃣ input - type 속성 1
+           
+                    🟢 type : 타입의 값에 따라서 input의 유형이 정해진다.
+                    
+                    (* input 유형 참고 : https://developer.mozilla.org/ko/docs/Web/HTML/Element/Input )
+                    
+                    -> 속성도 타입에 따라서, 가능한 속성이 있고, 가능하지 않은 속성이 있다.
+                            (=> 타입에 따라 다름)
+                            
+                            
+                         🔸 텍스트와 관련된 타입들
+                         
+                                    🟪 text
+                                    
+                                          <input type="text" name="text" minlength="" maxlength="">  : 한줄만 입력이 가능하고 개행을 할 수 없다. 엔터를 누르면 form이 제출됨.
+                                              
+                                              # input type="text"의 사용가능한 2가지 속성
+                                              
+                                              🟤 minlength : 입력 가능한 최소 글자수  -> 최소 글자수를 입력하지 않고, submit 하려고 하면 툴팁으로 안내문구가 뜬다. (* 툴팁 스타일링은 브라우저마다 다를 수 있음)
+                                              🟤 maxlength : 입력 가능한 최대 글자수  -> 최대 글자 이상을 입력하려고 하면, 더이상 입력이 되지 않는다.
+                                                              
+                                                   🔥 minlenght와 maxlength는 사용할 수 있는 input type이 정해져있기 때문에 아무데서나 쓸 수 없음!
+                                    
+                                    
+                                    🟪 password
+                                        
+                                           <input type="password" name="pwd" minlength="" maxlength=""> : 마스킹처리되서 입력한것이 보이지 않는다.
+                                                    
+                                              🟡 minlength, maxlength 가능
+                                              
+                                   
+                                    🟪 email
+                                        
+                                            <input type="email" name="email"> : @ 마크가 없이 submit 하려고하면 '이메일 주소에 '@'를 포함해주세요' 라고 안내문구가 뜬다. 
+                                                                                -> form에서 알아서 이메일 입력창이라는걸 알아서 이메일의 형식에 맞지 않을 때 에러메세지를 출력한다. 
+                                                                    
+                                              * 데스크탑에서 이메일 입력창 입력시, 한글로도 입력할 수 있는데
+                                                모바일에서 이메일 입력창에 포커싱을 하면 자동으로 영어로 입력할 수 있게 모바일 브라우저에서 많이 제공이 되고 있다.
+                                                그래서 보통 이메일 입력시 input text를 사용하는것보다,
+                                                이메일 타입을 사용하는게 훨씬 유리하게 사용할 수 있다.
+                                                
+           
+                                    🟪 tel
+                                     
+                                            <input type="tel" name="tel"> : 전화번호, 말 그대로 숫자를 입력하는 창 
+                                                                            -> 숫자 외에 한글 등을 입력하고 submit 한다고 해서 안되지는 않는다. 유효성 검사를 해주지는 x.
+                                                                          ⭐ 대신에 모바일로 했을 경우,
+                                                                              Tel 입력창에 입력하려고 하면, 키보드가 올라올 때 자동으로 숫자 입력창이 뜨게 된다. (* 디바이스나 브라우저마다 다를 수 있음)
+           
+           
+           
+           
+           
            6️⃣ input - type 속성 2
+           
+           
+                         🔸 숫자와 관련된 타입들
+           
+                                🟪 number     : 숫자를 직접 입력하거나 입력창 옆에 스피너로 조절, 또는 키보드 방향키로도 조절이 가능하다.     
+                                
+                                      <input type="number" name="number">  : 숫자 외에 다른값을 입력하면 입력이 되지 않는데,
+                                                                             일부 알파벳이 입력되는 경우가 있다.
+                                                                             이 경우에는, submit해도 '숫자를 입력하세요'라는 오류 메세지가 뜨기 때문에 괜찮다!
+           
+                                      -> 자바스크립트로 제어하지 않는이상 number type은 숫자만 입력가능하도록 보장받을 수 있다.
+           
+           
+                                🟪 range    : 범위를 고를 수 있는 위젯
+                                
+                                      <input type="range" name="range">  : form을 제출할 때는 숫자의 값으로 변환되서 제출이 된다.
+                                                                      
+                                                * range 조절은 퍼센티지로 보면 된다. 맨왼쪽이 0이고, 맨 오른쪽이 100.
+                                      
+                           
+                         🔸 날짜와 관련된 타입들
+                                     
+                                🟪 date     : 시간을 제외한 년,월,일만 컨트롤이 가능하다.
+                                
+                                         <input type="date" name="date">    : submit하면 데이터의 형태가 2021-09-03 이렇게 문자열로 입력이 된다.
+                                
+                                
+                                🟪 month    : 년,월을 지정할 수 잇는 컨트롤 ('일' 제외)
+                                 
+                                         <input type="month" name="month">  : submit하면 2021-09 이렇게 나온다. 
+                                
+                                🟪 week     : '주' 지정.
+                                         
+                                         <input type="week" name="week"> 
+                                             
+                                🟪 time     : 시간 작성.
+                                      
+                                        <input type="time" name="time">     : 16시 39분으로 해서 submit하면 주소창에 16%3A39 이렇게 이스케이프 처리되서 나온다.  
+           
            7️⃣ input - type 속성 3
+           
+           
+                       ⭐⭐ 자주 사용되는 중요한 타입들!
+                        
+                       
+                                🟪 submit       (* button type="submit" 외에도 input type의 submit도 있다.)
+                        
+                                    <input type="submit">    : '제출'이라고 쓰지 않아도 자동으로 '제출'이라는 버튼이 나온다. (* intput type="submit"의 기본값 : 제출)
+                                                                만약에 os의 언어가 영어로 되어있으면 submit으로 나온다.
+                                                                문구를 변경하고 싶으면 value 속성을 사용해서 변경할 수 있다.
+                                                                
+                                                                        ->    <input type="submit" value="제출하기">
+                                                                                                                                                        
+                                🟪 button 
+                                
+                                    <input type="button">   : 빈 버튼이 생긴다. 눌러도 아무것도 동작하지 x.
+                                    <input type="button" value="빈 버튼">    : 빈 버튼에 이름 주기.
+                                    
+                                         -> 자바스크립트로 추가적인 기능을 넣을 수 있지만, 
+                                            이 자체로는 뭔가를 제출을 한다기보다는 버튼의 형태만 띄고있다고 생각하면 된다.
+                                         
+                                
+                                🟪 reset     :  form 내부의 입력한 정보가 기본 디폴트값으로 돌아간다. => 초기화됨.
+                                
+                                    <input type="reset">  : 기본 문구로 '초기화'가 들어간다.
+                                    <input type="reset" value="RESET">  : 이름 변경 가능.
+           
+           
+                                🟪 checkbox   : 말그대로 여러개 선택 가능한 체크박스이다.
+                                
+                                    <form action="" method="GET">
+                                        <input type="checkbox" name="check1">
+                                        <input type="checkbox" name="check2">
+                                        <input type="checkbox" name="check3">
+                                        
+                                     🟡 <input type="checkbox" name="check3" checked>   -> 체크가 되어있는 기본 체크박스를 줄 때 'checked'를 넣어준다. 
+                                                                                           'checked'도 불(Boolean) 속성이기 때문에 별도의 값 없이 이렇게 속성만 넣어주면 된다.
+                                    </form>
+                                            -> 두번째 체크박스만 체크를 하고 submit 했을 때,
+                                              주소창에 
+                                              
+                                              input.html?check2=on
+                                              
+                                              이렇게 나오고,
+                                              세 개 모두 선택하고 submit 하면,
+                                              
+                                              input.html?check1=on&check2=on&check3=on
+                                              
+                                              이렇게 나온다.
+                                              
+                                        🔴 checkbox는 name의 on이라는 value가 자동으로 들어간다.
+                                        🔴 만약에 아무것도 체크하지 않고 submit하면 아무값도 들어가지 않는다.
+           
+           
+                                🟪 radio   : 중복 선택 x. 하나만 선택 가능하다.
+                                
+                                      Ex)
+                                      
+                                        <form action="" method="GET">
+                                            <input type="radio" name="radio">
+                                            <input type="radio" name="radio">
+                                            <input type="radio" name="radio">                                      
+                                        </form>
+                                                                   
+                                   🔥 이렇게만 하고 선택해서 submit 하면 주소창에 input.html?radio=on 이렇게 나오는데,
+                                      어느 버튼의 radio가 on인건지 알 수 없다.
+                                      
+                                      그래서 value를 추가해줘야한다!!
+                                      
+                                        <input type="radio" name="radio" value="r1">
+                                        
+                                     그러면 주소창에 
+                                     
+                                         input.html?radio=r1 
+                                     
+                                     이렇게 나온다.
+                                     
+                                   🟡 <input type="radio" name="radio" checked>   -> <checkbox>와 마찬가지로,
+                                                                                     기본으로 체크되어 있는 라디오 박스를 줄 수 있다!
+                                                                                     
+                                                                                     
+                                        🔻
+                                            <form action="" method="GET">
+                                                <input type="radio" name="check1">
+                                                <input type="radio" name="check2">
+                                                <input type="radio" name="check3">                                      
+                                            </form>
+
+                                      -> 이렇게 다른 name 값을 주엇을 경우에는,
+                                         세개 다 다른 input으로 보기 때문에, 중복 선택이 가능하다.
+                                        
+                           
+                          ➕ 추가로 input type에 file, url, color 등 mdn 참고해서 더 보기!
+                          
+                                * color는 'can i use' 사이트에서,
+                                input color라고 검색해보면 Color input type이 나온다.
+                                -> 지원되는 브라우저 확인할 수 있음!  (* mdn에도 나와있지만 여기서 보는게 더 좋음!)
+                           
+                           
+                           
+           
            8️⃣ input - name, placeholder, autocomplete, required 속성
            9️⃣ input - disabled, readonly 속성
            🔟 input - step, min, max
