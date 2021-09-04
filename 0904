@@ -360,49 +360,96 @@
                 #️⃣ video
                   
                           ▶ <video> 태그 : 빈 요소가 아니라서 안에 자식 요소를 가질 수 있다.
+                                           <vido> 태그 안의 콘텐츠는 브라우저가 <video> 요소를 지원하지 않을 때 보여진다.
+                        
+                                            (* 구글에 video sample이라고 검색해서 다운로드. 연습할 때 사용.)
+                                            
+                                            (* 참고 : https://developer.mozilla.org/ko/docs/Web/HTML/Element/Video )
+                                            
+                                                Ex 1)
+                                                      <video src="videofile.ogg" autopaly poster="posteriamge.jpg">
+                                                            Sorry, your browser doesn't support embedded videos,
+                                                            but don't worry, you can <a href="videofile.ogg">download it</a>
+                                                            and watch it with your favorite video player!
+                                                      </video>
+                                                      
+                                                      -> 동영상을 더 다운받기 위해서 멈추지 않아도 될 정도로, 영상이 다운로드 되면 바로 영상이 재생 된다.
+                                                         동영상이 재생되기 전까지 "posteriamge.jpg" 이미지가 표현된다.
+                                                      
+                                                Ex 2)
+                                                      <video src="foo.ogg">
+                                                            <track kind="subtitles" src="foo.en.vtt" srclang="en" label="English">
+                                                            <track kind="subtitles" src="foo.sv.vtt" srclang="sv" label="Svenska">
+                                                      </video>
+                                                
+                                                      -> 사용자가 서로 다른 자막을 선택할 수 있다.
+                                             
                         
                               ⭐ <video> 태그는 자식 요소를 가질 수 있기 때문에, src 속성이 선택 요소이다.
-                        
-                                          Ex)
-                                                <video>
-                                                       <source src="주소">
-                                                </video>
+                             
+                                                Ex)
+                                                      <video>
+                                                           <source src="주소">
+                                                           Sorry, your browser doesn't support embedded videos.
+                                                      </video>
 
-                  
-                              🟫 사용할 수 있는 속성
                               
-                                         🟢 controls : 재생할 수 있는 버튼 추가. 기본값이 false이다.
+                              🟫 사용할 수 있는 속성 
+                              
+                                    ⭐ video 태그는 기본적으로, 
+                                        재생할 수 있는 버튼, 음량 조절, 타임라인 등을 보여주지 않는다.
+                                        그래서 속성을 추가해서 사용해야 한다!
+                                        
+                              
+                                         🟢 controls : boolean 속성. 재생할 수 있는 버튼 추가. 기본값이 false이다.
                                                 
                                               Ex)
                                                  <video controls>
                                                       ...
                                                  </video>
                                                             
-                                         🟢 autoplay : 자동으로 재생이 된다. 새로고침을 누르면 자동으로 재생이 안디ㅗ고 멈춘다.
+                                         🟢 autoplay : boolean 속성. 자동으로 재생이 된다. 새로고침을 누르면 자동으로 재생이 안되고 멈춘다.
+                                                       비디오 컨텐츠같은 경우, 사운드를 가지고 있을 때 브라우저에서 사운드가 있는것들은
+                                                       autoplay를 막는 경우가 있다. 
+                                                       이유는, 만약에 갑자기 사운드를 재생시켜버리면 웹 페이지에 들어가자마자
+                                                       소리가 크게 날 수 있기 때문에 유저 경험에 좋지 않다. 
+                                                       그래서 새로고침을 했을 때, autopaly 속성이 있어도 재생이 되지 않는다.
                                                 
                                                Ex)
-                                                  <video controls>
+                                                  <video autoplay>
                                                       ...
                                                   </video>
                                          
-                                         🟢 muted : sound가 없는 상태로 재생이 된다.
+                                         🟢 muted : boolean 속성. sound가 없는 상태로 재생이 된다. (새로고침해도 재생이 잘 됨)
                                          
                                                 Ex)
                                                    <video autoplay muted>
                                                       ...
                                                    </video>
+                                                   
+                                                🟡 우클릭하면 Controls 속성을 쓰는것처럼 사용자가 패널을 띄울 수 있는데, 
+                                                   '컨트롤 표시'를 눌러서 음소거를 제거 할 수 있다. 
                                          
-                                         🟢 loop : 계속 반복해서 재생해준다.
+                                         🟢 loop : boolean 속성. 동영상 재생이 끝나면 자동으로 처음으로 돌아가서 다시 재생을 해준다.
                                          
-                                         🟢 poster : 썸네일 개념. 재생이 안될 때 썸네일을 띄어준다.
+                                         🟢 poster : 썸네일 개념. 재생이 안될 때 썸네일을 띄어준다. poster 속성이 없으면 첫번째 프레임을 포스터 프레임으로 출력한다. 
                               
+                                                 Ex)
+                                                    <video poster="images/apple.png" controls>        -> controls를 안쓰면, 패널이 안뜨고 썸네일만 뜬다. 
+                                                        <source src="주소">
+                                                        Sorry, your browser doesn't support embedded videos.
+                                                    </video>
+                                    
                                          🟢 width / height : 비디오의 가로, 세로 높이를 지정해준다.
                                          
                                          
                 #️⃣ audio
              
                               ▶ <audio> 태그 : <video> 태그와 마찬가지로 빈 요소가 아니기 때문에, 안에 자식 요소를 가질 수 있다.
-                        
+                                                
+                              🟡 대부분의 속성이 <video> 와 동일한 속성들로 사용이 된다.
+                                           -> autoply, controls, muted, loop 등 
+                             
                               ⭐ 마찬가지로 src가 optional이다.
 
                                           Ex)
@@ -415,12 +462,54 @@
                 #️⃣ canvas, iframe
              
                               ▶ <canvas> 태그 : 그래픽 캔버스 요소이다.
+                                                예전에 플래시게임같이 웹상으로 게임했을 때, 그런것들을 캔버스나 웹제일같은걸로 구현이 가능하다.
 
                                     🟡 html만으로는 할 수 없고, 자바스크립트를 사용해야 한다.
                                                 -> html으로는 가로, 세로 길이정도의 마크업만 가능!
                                     🟡 내부에 그림을 그리려면 자바스크립트를 사용해서 그린다.
+                                          
+                                          (* 참고 : https://developer.mozilla.org/ko/docs/Web/API/Canvas_API )
+                                          
+                                                # HTML
+                                                      Ex)
+                                                          <canvas id="canvas" width="300" height="300">
+                                                                  캔버스의 내용을 설명하는 대체 텍스트
+                                                          </canvas>
+                                                    
+                                                   🔺 가로, 세로 길이정도의 마크업만 가능. 
+                                                    
+                                                # JavaScript
+                                                      const canvas = document.getElementById('canvas');
+                                                      const ctx = canvas.getContext('2d');
 
+                                                      ctx.fillStyle = 'green';
+                                                      ctx.fillRect(10, 10, 150, 100);
 
-                              ▶ <iframe> 태그 : 소스를 외부에서 불러와서 쓰는데, 소스를 프레임안에 띄어주는 형태로 사용한다.
-                                    -> '지도'를 사용할 때 많이 쓴다. (* 이미지를 불러와 쓰는게 아니라 html파일을 띄워서 사용)
+                                                   🔺 캔버스 내부에 그림을 그리는것은 자바스크립트를 사용해서 그림을 그려야 한다.
+                                                      
+                                                        🟡캔버스는 그림판처럼 그림을 그리는것도 만들 수 있다.
+                                 
+                                 
+                              ▶ <iframe> 태그 (= inline frame) 
+                                    : 소스를 외부에서 불러와서 쓰는데, 소스를 프레임안에 띄어주는 형태로 사용한다.
+                                    -> '지도'를 사용할 때 많이 쓴다. (* 이미지를 불러와서 쓰는게 아니라 html파일을 띄워서 사용)
 
+                                          (* 참고 : https://developer.mozilla.org/ko/docs/Web/HTML/Element/iframe )
+                                          
+                                                    Ex)
+                                                      <iframe id="inlineFrameExample"
+                                                           title="Inline Frame Example"
+                                                           width="300"
+                                                           height="200"
+                                                           src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&layer=mapnik">
+                                                      </iframe>
+
+                                         🟡 구글맵도 ifame으로 불러올 수 있다.
+                                          
+                                                -> 구글에서 google map frame 검색. 
+                                                
+                                                구글 개발자 사이트에서 보면,
+                                                어떻게 구글지도를 웹페이재네 넣을 수 있는지, 방법을 알려준다.
+                                                
+                                                사이트 : https://developers.google.com/maps/documentation/embed/get-started
+                                          
