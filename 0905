@@ -145,29 +145,36 @@
                                   🟪 type="time" : 시간 작성
                                   
                                  
-                                          🟫 사용할 수 있는 속성들
+                                          🟫 모든 type에 사용할 수 있는 속성들  
                                           
                                                   🟢 name : 전체 form 데이터에서 이 필드가 어떤 데이터를 가지고 있는지 구별하는 역할을 한다.
-                                                  
-                                                  🟢 placeholder : <input> 창에 어떤 값을 입력해야하는지 hint를 준다.
-                                                  
+                                              
                                                   🟢 autocomplete : 양식 자동생성 기능을 암시한다. (form autofill)     ⭐ boolean 속성 아님!
                                                   
                                                             Ex) 
                                                                 <input type="text" name="job" placeholder="직업 입력" autocomplete="on">
                                                                     
                                                                       -> 입력창에 입력하려고 하면, 이전에 같은 필드에 입력했던것들이 있다면 자동으로 후보값으로 보여준다.
-                                                  
-                                                  🟢 required : 필수적으로 입력해야한다는것을 명시해준다. Boolean 속성.  ⭐ 여러개의 <input> 태그에 여러번 사용 가능.
-                                                  
                                                   🟢 disabled : 입력을 못하고, 비활성화되게 만든다.     ⭐ field 자체가 form 제출 전송에 포함되지 않는다.
+                                          
+                                          🟫 대부분의 type에 사용할 수 있는 속성들
                                                   
                                                   🟢 readonly : 입력을 못하는 읽기 전용이다.            ⭐ form 제출 전송에 포함된다. 
                                                                                                       ⭐ 값을 미리 주고 싶으면 value 속성에 값을 입력해준다. 
+                                            
+                                                  🟢 required : 필수적으로 입력해야한다는것을 명시해준다. Boolean 속성.  ⭐ 여러개의 <input> 태그에 여러번 사용 가능.
+                                             
+                                          🟫 정해진 type에만 사용할 수 있는 속성들  
+                                          
+                                                🔻 숫자 타입만 가능
                                                   
-                                                  🟢 min / max / step   : 최소 숫자 / 최대숫자 / 간격설정           ⭐ number 타입과, range 타입에서 사용가능! (숫자)
+                                                      🟢 min / max / step   : 최소 숫자 / 최대숫자 / 간격설정       ⭐ number 타입과, range 타입에서 사용가능! (숫자)
                                                                                                                    🟡 마이너스 값(-)도 가능하다.
                                                                                                                    🔴 step 속성을 같이 사용해서, 간격 설정을 해줄 수 있다.
+                                                                                                                   
+                                                🔻 password, search, tel, text, url 타입만 
+                                                    
+                                                      🟢 placeholder : <input> 창에 어떤 값을 입력해야하는지 hint를 준다.
                       
                       
                     ▶ <label> 태그 : <input>에 어떤 정보를 입력할지 설명을 붙여준다. * 보통 <input>과 셋트로 다닌다.      
@@ -327,13 +334,145 @@
                                             <textarea name="comment" id="comment" rows="" cols="">      ⭐ rows와 cols로 가로/세로 길이를 조정할 수 있따. 
                                                   내용 입력해도 되고, 안해도 된다.
                                             </textarea>
+               
                  
-                 
-                 
-                 
-                 
-                 
-                 
-                #️⃣#️⃣#️⃣#️⃣                     
+     📂 전역 속성          
+               
+               * 전역 속성 : 어떤 태그에도 전부 사용할 수 있는 속성을 말한다.
+               
+               
+            #️⃣ class와 id (= 식별자)
+                
+                    🟡 공통점 : 
+                                - id나 class를 가지고 태그를 식별할 수 있다. 
+                                - 숫자나 특수문자로 시작하면 안되고, 무조건 영문자로 시작해야 한다.
+                    
+                    🔴 차이점 : 
+                          
+                            # id 
+                                - 고유 식별자이다. 
+                                - 문서 전체를 통틀어서 딱 하나의 id 값만 사용할 수 있다.
+                                - id에 공백이 들어가면 안된다.
+                              
+                            # class
+                                - 여러개의 요소를 선택할 수 있다. -> 여러개 중복 가능.
+                                - 공백이 가능하다. (클래스 이름에 공백 x. 공백으로 구분하여 두 개의 클래스를 사용하는것!)
+                                - 한 요소에 클래스를 여러개 줄 수 있기 때문에, 여러개의 스타일링 또는 여러개의 자바스크립트를 한 요소에 적용하기 용이하다.
+               
+                
+             #️⃣ style 속성
+             
+                      : 하나의 요소에만 스타일을 적용할 때 사용한다.
+                      
+                      ❗ inline style이 최우선으로 적용되기 때문에, 웹 페이지를 전부 다 inline style로 만드는것은 지양해야 한다.
+                           
+                      ⭐ internal 스타일이나, external 스타일로 사용하기!
+           
+                
+             #️⃣ title 속성
+                    
+                      : 하나의 태그에 추가적인 설명을 툴팁으로 보여줄 수 있다.
+             
+                      ⭐ 개행이나 스페이싱을 반영한다!
+                      ⭐⭐ 부모 요소에 tilte이 있고, 자식 요소에도 title이 있으면 자식요소가 우선시 된다. 
+             
+             
+             #️⃣ lang 속성        (* 참고 : https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/lang )
+                  
+                      : 사용자가 어떤 언어로 읽고 있는지를 명시한다.
+                      
+                      ⭐ 기본값은 '알 수 없음(unknown)'이므로, 항상 적절한 값을 지정하는 것이 좋다.
+                         * 지정한 값이 BCP47의 유효한 값이 아닌 경우 '유효하지 않음(invalid)'이다.    
                             
+                           Ex 1)                -> HTML 기본 형식
+                               <html lang="ko">
                             
+                           Ex 2) 
+                           
+                               <p>This paragraph is English, but the language is not specifically defined.</p>
+
+                               <p lang="en-GB">This paragraph is defined as British English.</p>
+
+                               <p lang="fr">Ce paragraphe est défini en français.</p>
+          
+                     🔻 목적
+                          -> 웹 접근성을 높이기 위한 수단이다. (스크린 리더 사용, 문서 전체 번역 할 때 등)
+                            
+                    
+                    
+              #️⃣ data-* 속성       (* 참고 : https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/data-* )
+              
+                      : 사용자 지정 데이터 특성(custom data attributes>이라는 특성 클래스를 형섬함으로써
+                        임의의 데이터를 스크립트로 HTML과 DOM 사이에서 교환할 수 있는 방법이다.
+                      
+                      🟡 data 뒤에 이름을 사용자가 정의할 수 있다.
+                      🟡 사용자 눈에는 보이지 않는다.
+                      
+                              🟫 규칙
+                                  - 대소문자 여보에 상관없이 xml로 시작하면 안된다.
+                                  - 세미콜론을 포함해서는 안된다.
+                                  - 대문자를 포함해서는 안된다.
+                   
+                      🔻 목적 
+                            ->보통 자바스크립트로 사용이 되는데,
+                              해당 요소에 대한 내부 정보가 필요할 때 자바스크립트가 읽어서 이해할 수 있게 하기 위해서 사용한다.
+                      
+              
+              #️⃣ draggable
+              
+                      : 드래그 가능 여부를 나타낸다.
+                  
+                              Ex) 
+                                  <img src="images/smal..png">
+                                  
+                                -> 클릭하고 이미지를 끌면 반투명한 상태로 움직일 수 있다.
+                                   이건 실제로 요소가 움직이는게 아니라, 시각적으로만 보여주는것.
+
+                              🔴 boolean 속성이 아니기 때문에, 값을 명시해줘야 한다.
+
+                                    🟪 true : 요소를 드래그 할 수 있다.
+                                    🟪 false : 요소를 드래그 할 수 없다.
+
+
+                                  Ex)
+                                      <img src="images/smal..png" draggable="false">
+
+                                    -> 클릭해서 이미지를 끌어서 움직여도 드래그가 되지 않는다.
+
+                               🔴 이미지는 기본적으로 drag가 가능한 객체인데,
+                                  기본값이 true는 아니고 auto이다. 
+                              
+                          
+                       🔻 목적 
+                              -> 자바스크립트에서, 이 요소에 드래그를 하려고 클릭을 하고 요소를 끌면,
+                              자바스크립트가 '이 요소를 클릭했다', '이 요소를 이동시켰다', '드래그 하던걸 놓았다' 이런것들을
+                              전부 다 자바스크립트에서 이벤트로 인식할 수 있다.
+                              이벤트마다 자바스크립트에서 함수를 사용해서, 이벤트에 따른 행동을 정의할 수 잇다.
+                              
+                              ➕ 자바스크립트를 여기에 접목하면,
+                                 드래그를 가지고 끌어서 다른 위치에 옮길 수 있는 애플리케이션을 만들수도 있다.
+              
+              
+              #️⃣ hidden    (* 참고 : https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/hidden )
+              
+                      : 해당하는 요소를 숨겨준다.  
+                        hidden 속성을 설정한 요소를 렌더링 하지 않는다.      -> ⭐ Boolean 속성.
+                    
+                              Ex)
+                                  <img src="images/small.png" hidden>
+                                  
+                        🟡 브라우저상에도 보이지 않고, 스크린 리더에서도 보이지 않는다.
+                        
+                         ❗ 개발자 도구를 보면 hidden 요소가 그대로 드러나 있다.
+                           그래서 시각적으로만 보이지 않는다면 hidden을 사용해도 좋지만,
+                           보안상의 정보를 가릴때는 hidden 요소를 사용하면 안된다!
+                          (-> html상에서 없애거나, 자바스크립트를 사용해서 보여짐의 유뮤를 제어해야 한다.)
+                       
+                        
+                        🔴 hidden으로 없앤 요소를 CSS로 다시 보이게 할 수도 있다.
+                        
+                            -> hidden 특성을 가진 요소의 CSS display 속성 값을 변경하면,
+                               특성으로 인한 동작을 재정의한다. 
+                               Ex) dispaly: flex를 지정한 요소는 hidden 특성이 존재하더라도 화면에 보이게 된다.
+                        
+                      
