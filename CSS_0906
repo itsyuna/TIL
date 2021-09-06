@@ -157,31 +157,646 @@
        
        2️⃣ ⭐⭐ 주요 선택자 - Type, Class, Id  (⭐ 사용량이 정말 많은 셀렉터 3가지)
        
+                    🟪 Type Selector 또는 Tag Selector (요소 선택자, 유형 선택자) : 태그를 이용해서 사용.
        
+                              Ex) 
+                                  h1 {
+                                      color: pink;
+                                  }
+                                  
+                         🔥 주의할점 : 특정 요소나, 특정 요소의 그룹을 위해 사용하면 안되고, 하나의 전체 웹페이지에서 일관적으로 적용해야 하는 스타일이 있을 때 사용한다.
+                                      그래서 이 Type Selector는 보통 가장 상단부에 많이 작성한다.
+                                      타입 셀렉터가 가장 처음으로 적용되는 css 스타일일꺼기 때문에, 브라우저 스타일제외
+                                      타입 셀렉터들을 한눈에 보기좋게 상단에 모아놓는게 컨벤션으로 많이 사용되는 편이다.
+                          
+                    🟪 ID Selector (* id=전역속성)
+                               
+                               Ex) 
+                                    ⚪ HTML
+                                          <h1 id="welcome-title">Welcome!</h1>
+                                          
+                                    ⚪ CSS
+                                          #Welcome-title {
+                                                  color: red;
+                                          }
+                                    
+                              ⭐ 한 페이지내에서 동일한 id 값을 줄 수 없다! Unique 해야한다.
+                     
+                   🟪 Class Selector (* class=전역속성)
+                     
+                              Ex)
+                                    ⚪ HTML
+                                           <li class="blue">Toy Story</li>
+                                           <li class="blue">Inside Out</li>
+                                    
+                                    ⚪ CSS
+                                          .blue {
+                                                color: blue;
+                                           }
+                                          
+                              ⭐ 중복이 가능하다.
+                              
+                           ➕ class는 spacing을 사용하면, 2개의 class를 사용할 수 있다.
+                           
+                                    EX)
+                                        ⚪ HTML
+                                           <li class="blue red">Toy Story</li>
+                                           <li class="red">Inside Out</li>
+                                    
+                                        ⚪ CSS
+                                                 .blue {
+                                                      color: blue;
+                                                 }
+                                    
+                                                .red {
+                                                      color: blue;
+                                                 }
+                     
+                                     🟠 출력 결과 : cascading 원칙으로, 마지막에 작성된 코드를 따라기 때문에 빨간색으로 보인다.         
+                     
+                     
        3️⃣ 속성 선택자 - [attr], [attr=value]
        
-       
-       
-       
+                   🟫 Attribute selector  : html 요소의 태그이름에 추가적인 정보를 전달할때 속성을 사용하는데, 그 속성을 가리키는 선택자이다. 
+                    
+                              🟣 1. [attr]            -> 속성만 선택할 때
+                                    
+                                    Ex)
+                                          ⚪ HTML
+                                           
+                                                <a href="이동주소" target="_blink">
+                                                <a href="이동주소">
+                                    
+                                          ⚪ CSS
+                                                a[target] {
+                                                   color: hotpink;
+                                                }
+                                          
+                              🟣 2. [attr=value]      -> 특정 값을 가진 속성을 가리킬 때 (⭐ 구체적으로 원하는 요소를 고를 수 있다!)
+                    
+                                       Ex)
+                                          ⚪ HTML
+                                           
+                                                <a href="https://example.com" target="_blink">
+                                                <a href="https://example.org">
+                                    
+                                          ⚪ CSS
+                                                a[href="https://example.org"] {
+                                                   color: indigo;
+                                                }
+                              
+                                    ⭐ 보통 많이 쓰는 경우에는 <input> 태그에 많이 쓰인다.
+                                       input 태그의 type에 따라 모양이 다른데, 그 type 속성의 값을 갖고 있는 요소를 가리킬때 사용한다.
+                                       
+                                          Ex)
+                                              input[type="subtmit" {
+                                                      background-color: blue;
+                                              }
+                              
        
        
        4️⃣ 속성 선택자 - [attr^], [attr$], [attr_]
-       
-       
+                              
+                         🔴 위에서 했던 [attr=value]는 정확하게 value값이 같아야 적용이 되는데,
+                            이렇게 = 앞에 특수문자가 있으면, 부분적으로 일치하더라도 적용이 된다.
+                              
+                              🟣 [attr^=value]    ^(=캐럿 기호)    : 뒤에 있는 값으로 시작하는것들을 선택해달라는 의미(=> prefix를 얘기함)
+                              
+                                    a[href="https://"] {
+                                          font-sytle: italic;
+                                     }
+                                     
+                                     -> a 태그의 href 속성을 가진 애들중에서, value가 https://로 시작하는것들을 골라달라는 말.
+                                    
+                              🟣 [attr$=value]        : 그 값으로 끝나는것들을 선택해달라는 의미.
+                              
+                                    a[href=".com"] {
+                                          color: green;
+                                    }
+                                    
+                                    
+                                 🟠 그래서 https://로 시작하고, .com으로 끝나는 a 태그는, 글자는 itali으로 보이고, 색깔은 초록색으로 보인다!
+                                       
+                              
+                              🟣 [attr*=value]    : 적어도 하나, 해당하는 값을 가지고 있는것을 선택. (앞, 중간, 뒤 상관없이)
+                              
+                                    a[href="example"} {
+                                          color: sienna;
+                                    }
        
        5️⃣ 가상 클래스 선택자 - first-child, last-child, nth-child
        
+                        🟫 Pseudo-Class Selector (가상 클래스 선택자 또는 의사 클래스 선택자)
+                              
+                              * 위에서 배웠던 Selector보다 더 디테일하고, 적은 범위를 선택한다.
+       
+                               🟣 first-child : 첫번째 자식 요소 선택.
+                               
+                                    Ex)
+                                         ⚪ HTML
+                                         
+                                                <ul>
+                                                      <li class="movie">Toy Story</li>          ⭐ first-child인 이 요소만 적용
+                                                      <li class="movie">Zootopia</li>
+                                                      <li class="movie">"Inside Out</li>
+                                                </ul>
+
+                                                <ol>
+                                                      <li>Americano</li>                        ⭐ first-child인 이 요소만 적용
+                                                      <li>Latte</li>
+                                                      <li>Hot Choco</li>
+                                                </ol>
+                                                      
+                                          ⚪ CSS
+                                          
+                                                li:first-child {
+                                                      color: green;
+                                                }
+                               
+                                     🟠 동작 원리 -> 콜론(:) 앞에 <li>를 먼저 찾고, <li> 태그들의 형제 태그중에서 첫번째 자식 요소를 선택한다.  
+                               
+                                     🟡 selector는 태그이름만 쓸 수 있는건 아니고 class도 동일하다.       -> 대신 해당하는 class를 가진 요소의 first-child만 선택이 된다.
+                                     
+                                                Ex)
+                                                    .movie:first-child {
+                                                            font-size: 40px;
+                                                    }
+                                    
+                                    
+                                     ❗ class 선택자를 가지고 선택을 할 때, 무조건 첫번째 태그가 선택이 되지 않는다.
+                                     
+                                                      Ex)
+                                                          ⚪ HTML
+                                                          
+                                                                <ul>
+                                                                  <li>Toy Story</li>            ⭐ class 속성이 없음.
+                                                                  <li class="movie">Zootopia</li>
+                                                                  <li class="movie">"Inside Out</li>
+                                                                </ul>
+                                                                
+                                                          ⚪ CSS
+                                                               
+                                                                  .movie:first-child {
+                                                                         font-size: 40px;
+                                                                  }
+
+                                                            
+                                                      🟠 출력결과 -> 'Toy Story' 태그에 font-size가 적용이 되지 않는다.
+                                                                     왜냐하면, 고른것들중에 첫번째라는게 아니고, selector에 의해서 선택된것들의 첫번째 자식이다.
+                                                                     => movie 클래스를 가진 것들의 부모클래스는 <ul>이고, <ul>의 첫번째 자식은 'Toy Story'이다.
+                                                                     그런데 Toy Story에는 movie라는 클래스를 갖고 잊지 않기 때문에, 적용이 아예 되지 않는것!
+                                    
+                                     
+                               🟣 last-child   : 마지막 자식 요소 선택.
+                               
+                                          Ex)
+                                             span:last-child {
+                                                color: tomato;
+                                             }
+                                            
+                                            ⭐ 마찬가지로, selector에 의해서 선택된것들의 마지막 자식이다. 
+                                            
+                               
+                               🟣 nth-child  : 몇번째에 해당하는지, 지정해준 숫자를 선택.
+                                    
+                                          Ex)
+                                              li:nth-child(3) {
+                                                color: hotpink;
+                                          }
+                                          
+                                       🟠 출력결과-> <li> 요소들중에서 세번째가 선택이 되서 적용이 된다.   
+                                        
+                                       🔴 괄호()안에는 자연수 외에도, 특정 매개변수를 사용해서 함수로도 쓸 수 있다.
+                                       
+                                           EX)
+                                               li:nth-child(2n + 1) {
+                                                 color: hotpink;
+                                              }
+                                           
+                                           Ex)
+                                               li:nth-child(odd) {                  ⭐ odd(=홀수), even(=짝수)도 사용 가능하다.
+                                                  color: hotpink;
+                                              }  
+                                                
+                                          
        6️⃣ 가상 클래스 선택자 - first-of-type, last-of-type, nth-of-type
+       
+                          🟣 first-of-type      : 해당하는 타입의 첫번째 요소.
+                          
+                                    Ex) 
+                                          ⚪ HTML
+                                          
+                                                <section>
+                                                  <div>Toy Story</div>
+                                                  <p>Zootopia</p>
+                                                  <p>Inside Out</p>
+                                                  <div>Coco</div>
+                                                  <p>Finding Nemo</p>
+                                                </section>
+
+                                           ⚪ CSS
+                                                
+                                                p:first-of-child {
+                                                      color: red;
+                                                }
+                                               
+                                            -> 이렇게 했을 경우, Zootopia에 적용되는게 아니라 <section>의 첫번째 자식인 Toy Story가 선택이 되는데,
+                                               얘는 <p> 태그가 아니기때문에 CSS 적용이 안된다.
+                                               
+                                           🔻 first-of-type으로 했을 경우는?     
+                                          
+                                                p:first-of-type {
+                                                      color: red;
+                                                }
+                                                 
+                                             
+                                          🟠 출력결과 ->   type들중에 첫번째이기 때문에, 'Zootopia'에 스타일이 적용된다.
+                                           
+                                                🟡 first-of-type과 first-of-child가 둘 다 똑같이 적용되는 경우도 있다. 
+                                                   -> first-of-child로 했는데, 그 태그가 해당이 되서 first-of-type의 효과와 동일할 수 있기 때문에!
+                                          
+                                                ⭐ first-of-child보다는 first-of-type을 쓰는게 실수를 줄일 수 있지만, 상황에 맞게 번갈아서 쓰면 된다.
+                                                
+                                                            Ex)
+                                                                 ⚪ HTML
+                                                                  
+                                                                        <section>
+                                                                                <div class="moive">Toy Story</div>
+                                                                                <p class="moive">Zootopia</p>
+                                                                                <p class="moive">Inside Out</p>
+                                                                                <div class="moive">Coco</div>
+                                                                                <span class="moive">Finding Nemo</p>
+                                                                        </section>
+                                                                 
+                                                                 ⚪ CSS
+                                                                        
+                                                                        .movie:first-of-type {
+                                                                              color: red;
+                                                                        }
+                                                                        
+                                                                     🟠 출력 결과 -> Toy Story와 Zootopia, Finding Nemo 3개에 적용이 된다.
+                                                                                    movie 클래스를 가진 요소가 서로 다른 태그를 가지고 있기 때문에,
+                                                                                    그 해당하는 태그의 첫번째 타입들이 적용이 되는것!
+                                                            
+                         
+                          🟣 last-of-type      : 해당하는 타입의 마지막 요소.
+
+                          🟣 nth-of-type()    : 해당하는 타입의 몇번째인지 숫자 지정.
+       
+       
+       
+       
        7️⃣ 가상 클래스 선택자 - not
-       8️⃣ 가상 클래스 선택자 - link, visited
-       9️⃣ 가상 클래스 선택자 - hjover, active, focus
+       
+                        🟣 :not()
+                        
+                              Ex)
+                                  selector:not(selector) {
+                                        
+                                  }
+                                  
+                            -> 콜론(:)앞에 있는 selector들을 가지고 먼저 요소를 고르고,
+                              그 안에서 뒤쪽에 있는 selector들에 해당하는것들을 제외한 나머지!에 적용한다.
+                        
+                               Ex)
+                                    ⚪ HTML
+                        
+                                           <form>
+                                                <input type="text" placeholder="name">
+                                                <input type="email" palceholder="email">
+                                                <input class="pw" type="password" placeholoder="password">
+                                                <input type="submit">
+                                          </form>
+                                   
+                                    ⚪ CSS
+                                          input:not(.pw) {
+                                                backgroud-golor: indianred;
+                                          }
+                                          
+                                      🟠 출력결과 -> class 값이 pw인 password 입력창만 제외하고,
+                                         나머지 input창에 배경색이 바뀐다.
+                              
+                                    
+                                  🟡 not 뒤에 괄호()안에 들어가는 selector는 클래스 선택자 외에도 다른것도 사용할 수 있다.
+                                  
+                                          Ex 1)
+                                             input:not([type=password]) {
+                                                  backgroud-golor: indianred;
+                                          }
+                                          
+                                          Ex 2)
+                                             input:not([placeholder) {
+                                                  backgroud-golor: indianred;
+                                          }
+                              
+                               
+       8️⃣ 가상 클래스 선택자 - link, visited 
+       
+                  🟫 html 요소의 상태에 따라서 스타일링을 변경할 수 있는, 동적 가상 클래스 선택자
+                        -> 요소는 하나인데 사용자의 동작에 따라서 html 요소의 스타일을 변경할 수 있는것.
+                              Ex) 어떤 요소위에 마우스를 올린다던지, input text 입력창에 텍스트를 입력하기 위해서 커서를 클릭해서 focusing을 맞추는것 등.
+                       
+                      🔻 hyper link에 적용할 수 있는 2가지 상태.
+
+                              🟣 link 
+                                          
+                                      Ex 1)
+                                          
+                                          ⚪ HTML
+                                         
+                                                <a href="http://example.com">Exmaple Link</a>
+                                      
+                                          ⚪ CSS
+                                              
+                                                a:link {
+                                                      color: tomato;
+                                                }
+                                          
+                                       🟠 방문한적이 없으면 tomato 색깔로 나온다.
+                                       
+                                      Ex 2) 
+                                      
+                                            a {                          ⭐ 그냥 a 태그만 선택자로 지정했을 경우.
+                                                color: tomato;
+                                            }
+                                          
+                                       🟠 방문한적이 있건 없건, tomato 색깔로 계속 나온다.
+
+
+                              🟣 visied
+       
+                                          a:visited {
+                                                color: yellowgreen;
+                                          }
+                                          
+                                      🟠 방문한적이 있으면 (클릭한 경우가 한번이라도 있는 경우) yellowgreen으로 색이 변경된다.  
+       
+       
+                              ⭐ 크롬 브라우저에 방문기록에 가게되면, 방문한 웹사이트가 나오게 되는데 이 방문 기록을 삭제하게 되면 스타일링도 방문 기록이 없는것처럼 나온다.
+                                 기준은 브라우저마다 다른데, 크롬 브라우저는 방문 기록을 사용해서 link와 visted를 구분한다.
+                              
+                              
+       9️⃣ 가상 클래스 선택자 - hover, active, focus
+       
+                          
+                          🟫 동적 가상 클래스 선택자 추가
+                          
+                              -> user가 무언가 마우스를 올리거나 클릭할때의 동작을 할 때, 그 요소의 상태가 바뀌게 하는것.
+                                
+                                ⭐버튼이나 link, menu, input등에 많이 사용된다!
+                              
+                              🟣 hover    : 마우스를 올렸을 때 상태 변화.
+                              
+                                          Ex)
+                                                ⚪ HTML
+                                                       <input type="button" value="클릭하세요!">
+                                                       <input type="button" value="클릭하세요!">
+
+                                                ⚪ CSS
+                                                      input[type=button]:hover {
+                                                            backgorud-color: teal;
+                                                            color: white;
+                                                      } 
+                              
+                              🟣 active : 클릭할때, 마우스를 클릭하고 떼기 전까지의 상태.
+                              
+                                                Ex)
+                                                     input[type=button]:active {
+                                                            backgorud-color: red;
+                                                      } 
+                                                      
+                             ⭐⭐ hover와 active의 순서가 중요할 수 있다!
+                                   mdn을 검색해 보면 (* active psuedo class 검색) 확인할 수 있는데,
+                                   (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/:active )
+                                   activ를 사용하더라도, link, hover, visited가 있으면 active의 스타일을 더어 씌운다.
+                                   그래서 순서를 LVHA순서로 작성해야 한다.
+                                   link, visted, hover, active 순서.
+                                   
+                              
+                              🟣 focus
+                              
+                                         Ex)
+                                                     input[type=button]:focus {
+                                                            backgorud-color: blue;
+                                                      } 
+                                                      
+                                              🟠 tab키를 눌러서 키보드를 사용해서 요소들 사이를 움직일 수 있다.
+                                               어떤 특정 요소에 focusing이 됐을 때, 이 스타일링이 적용이 된다.
+                                               
+                                               ➕ text 입력창에서 focusing을 줄 때.
+                                               
+                                                     input[type=text]:focus {
+                                                            backgorud-color: blue;
+                                                            color: white;
+                                                      } 
+                                                      
+                                                 🟠 입력창에 마우스를 클릭해서 focusing 됐을 때, 스타일링이 적용이 된다.
+                                  
+                                  
+       
        🔟 가상 클래스 선택자 - enabled, disabled, checked
        
+                  🟫 동적 가상 클래스 추가 
+                  
+                        ⭐ 보통 input 요소에 많이 사용되는 것들.
+                  
+                              Ex) 
+                                    ⚪ HTML
+
+                                              <div>
+                                                      <input type="text" placeholoder="1">
+                                                      <input type="text" placeholoder="2">
+                                                      <input type="text" placeholoder="3" disabled>
+                                              </div>
+
+                                              <div>
+                                                      <input type="radio" name="my-input" id="yes">         -> 클릭하는 순간에 이 요소의 상태는 'checked'인 상태로 변경이 된다.
+                                                      <label for="yes">Yes</label>
+
+                                                      <input type="radio" name="my-input" id="no">          -> 클릭하는 순간에 이 요소의 상태는 'checked'인 상태로 변경이 된다.
+                                                      <label for="no">No</label>
+                                              </div>
+
+                                              <div>
+                                                <input type="checkbox" name="check-me" id="check-me">
+                                                <label for="check-me">Check me!</label>                      
+                                              </div>
+
+
+                           🟣 enabled - 활성화 된 부분만 스타일링 적용
+
+                           🟣 disabled - 비활성화 된 부분만 스타일링 적용
+
+                           🟣 checked - check가 된 부분만 스타일링 적용 (radio, checkbox 버튼)
+
+
+                                    ⚪ CSS
+
+                                           Ex 1)
+                                               input[type=text]:enabled {                 * defalut 값 -> enabled
+                                                      background-color: skyblue;
+                                               }
+
+                                           Ex 2)
+                                               input[type=text]:disabled {
+                                                      background-color: skyblue;
+                                               }
+
+                                           Ex 3)
+                                               input[type=radio]:checked {
+                                                      outline: 3px solid red;
+                                               }
+
+                                           Ex 4)
+                                               input[type=checkbox]:checked {
+                                                      outline: 3px solid blue;
+                                               }    
+
+                                    🟡 radio와 checkbox는 실제로 input type의 영역은 체크박스의 영역이다.
+                                       이 영역은 background-color나 테두리등이 적용되지 않는다.
+                                       -> outline의 외곽선 속성을 이용한다.
+
+       
        1️⃣1️⃣ 가상요소 선택자 - before, after
-       1️⃣2️⃣ 가상요소 선택자 - first-letter, first-line, selection
-       1️⃣3️⃣ 선택자 결합 - 하위, 자식
+       
+                 * Pseudo-Element Selector (가상 요소 선택자)
+                 
+                       ⭐ 가상클래스 선택자와의 차이점!
+
+                            🔺 가상 클래스 선택자       : 상태에 따라서 첫번째 자식이나, 방문했던 링크 이런식으로 실제로 존재하지 않는 상태에 이름을 붙여준것.
+                                                         마치 클래스가 없지만 있는것처럼 이름을 붙여준것이다.
+                            -> selector:___
+
+                            🔺 가상 요소 선택자         : 상태에 따라서 스타일을 변경하는게 아니라, 실제로 존재하지 않는 요소를 만들거나 범위를 만들어서 거기에 스타일을 적용한다.
+
+                           -> selector::___    (더블 콜론 사용. 콜론을 하나만 사용해도 동일하게 동작하긴 함)
+                                                -> CSS 3부터는, 가상 클래스 선택자와 가상 요소선택자를 구분하기 위해서
+                                                  콜론의 갯수를 구분해서 쓰는 권고안에 명시가 나와있다.
+                                                  되도록 작성을 할 때는, 구분해서 쓰는게 좋다.
+
+                              🟣 before : HTML에 있는 요소 앞에, 가상의 요소를 만들어준다. 드래그를 하면 선택이 안되서, 복사도 안된다.
+
+                                       Ex)
+                                          .movie::before {
+                                                content: 'MOVIE';   -> 문자열 작성 
+                                                color: indianred;
+                                          }    
+
+                              🟣 after : HTML에 있는 요소 뒤에, 가상의 요소를 만들어준다.
+
+                                        Ex)
+                                          .movie::after {
+                                                content: 
+                                                color: indianred;
+                                          } 
+
+
+             1️⃣2️⃣ 가상요소 선택자 - first-letter, first-line, selection
+
+                              🟣 first-letter
+
+                                    : 해당하는 요소에 첫 글자에 스타일링을 적용시킨다.
+
+                              🟣 first-line
+
+                                    : 해당하는 요소에 첫 문장(라인)에 스타일링을 적용시킨다.
+
+                              🟣 selection
+
+                                    : 브라우저에서 선택된(드래그) 요소에 스타일링이 적용된다.
+
+                        ⭐ first-letter와 before 가상 요소 선택자를 함께 사용하면, before에 있는 first-letter가 적용이 된다.
+
+
+             1️⃣3️⃣ 선택자 결합 - 하위, 자식
+
+                        * 선택자 결합 : 2가지를 사용해서 결합을 함으로써, 좀 더 디테일하게 범위를 좁혀서 요소를 선택할 수 있다.
+
+
+                              🟣 하위 선택자 - 특정 클래스 name을 사용하는게 아니라, 바꾸고싶은 태그만 모두 적용시키고 싶을 때.
+
+                                          Ex 1)
+                                                ul li:last-of-type {
+                                                   color: red;
+                                               }
+
+
+                                          Ex 2) 
+                                                #list li:last-of-type {       -> id도 사용 가능하다!
+                                                   color: red;
+                                               }
+
+                                        ⭐ 하위 선택자는, 스페이싱을 사용해서 구분을 하고, 하위 선택자를 사용하면 스페이싱 앞쪽에 있는 태그 영역으로 좁혀서 사용하게 된다.
+
+                              🟣 자식 선택자 : 바로 밑에 하위 자식만 선택해서 적용하고 싶을 때
+
+                                          Ex 1)
+                                                #list >  li:last-of-type {
+                                                   color: red;
+                                               }
+
+                                       ⭐ 자식 선택자는, 닫는 꺾쇠(>)를 사용해서 구분을 해준다.
+                           
+                           
        1️⃣4️⃣ 형제 선택자, 그룹화
+       
+                              🟣 형제 선택자 
+
+                                    1. 일반 형제 선택자 결합 (~)     : 같은 부모를 가진 형제들중에서, 앞에 있는 선택자의 뒤에 있는 선택자에 해당하는 요소들에 모두 스타일링을 적용한다.
+
+                                          Ex 1)   
+                                              code ~ p {
+                                                color: red;
+                                              }
+
+                                          Ex 2)  
+                                            code ~ .red {      -> class 선택자도 당연히 가능하다.
+                                                color: red;
+                                              }
+
+
+                                    2. 인접 형제 선택자 결합 (+)     : 2가지가 바로 인접하고 있어야, 스타일링이 적용이 된다.
+
+                                            Ex)
+                                                .red + div {
+                                                      backgroud-color: blue;
+                                                }
+
+
+                              🟣 그룹화    : 선택자가 2가지이지만,동일한 스타일링을 적용하고 싶을 때.
+
+                                          Ex)
+                                              p, span, code {
+                                                color: purple;
+                                              }
+
+                                        ⭐ 콤마(,)를 사용해서 그룹화를 적용한다.
+
+
        1️⃣5️⃣ 범용 선택자 (_)
+       
+            * 별표(*) = 별표 또는 와일드카드라고 부른다.
+            
+            * 범용 선택자 : 전체를 선택할 때 사용. 또는 전체 선택자라고 부른다 (= Universal Selector)
+
+                       Ex)
+                            * {
+                              color: red;
+                            }
+                      
+
+                  ⭐ *를 사용하면, css 맨 최상단에 작성하는게 좋다.
+
+                  ⭐ 전체 선택자(*)는 선택자이기때문에, 형제선택자 등 결합해서 사용이 가능하다. 
+
+                          Ex)
+                              p + * {
+                                    color: red;
+                              }
+
+                  ⭐⭐ 전체 선택자(*)는 단독으로 사용하기도 하지만, 와일드카드 자체가 선택자로써 다른 선택자들과 결합해서 사용할 수도 있다.
+                        
+       
        1️⃣6️⃣ 상속 제어하기 - initial
        1️⃣7️⃣ 상속 제어하기 - inherit, unset
        1️⃣8️⃣ 우선순위
