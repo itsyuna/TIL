@@ -854,17 +854,17 @@
                                                border-color: red blue;
                                                
                                                background-color: blue;
-                                          }     
-                                               
+                                          }                                                
                               
                               🟩 border-width : 테두리의 두께를 지정한다.                               
                               
                               🟩 border-color : 테두리의 색깔을 지정한다.
-                              
-                                    
-            9️⃣ 테두리 - border(shorthand)   (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/border )
+                                                             
+                                  
+            9️⃣ 테두리 - border(shorthand)         (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/border )
             
-                              🟩 border : border 단축속성은 요소의 테두리를 설정한다.
+                             
+                             🟩 border : border 단축속성은 요소의 테두리를 설정한다.
                               
                                        Ex)
                                          .box {
@@ -877,26 +877,44 @@
                                         } 
                             
                             
-            🔟 테두리 - border-radius    (*참고 : https://developer.mozilla.org/ko/docs/Web/CSS/border-radius )
+            🔟 테두리 - border-radius        (*참고 : https://developer.mozilla.org/ko/docs/Web/CSS/border-radius )
                         
                              
                              🟩 border-radius : 요소 테두리 경계의 꼭짓점을 둥글게 만든다.
                                                 하나의 값을 사용해 원형 꼭짓점을, 두 개의 값을 사용해 타원형 꼭짓점을 적용할 수 있다.
                
-                                     Ex)
-                                         .box {
-                                              width: 300px;
-                                              height: 300px;
-                                              
-                                              border: 5px solid red;
-                                              border-radius: 100px;
-                                              
-                                              background-color: skyblue;
-                                          }
+                                           Ex)
+                                               .box {
+                                                    width: 300px;
+                                                    height: 300px;
+
+                                                    border: 5px solid red;
+                                                    border-radius: 100px;
+
+                                                    background-color: skyblue;
+                                                }
                         
-               
-            1️⃣1️⃣ box-sizng
+                  
+            1️⃣1️⃣ box-sizng              (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/box-sizing )
             
-            
-            
-            
+
+                              🟩 box-sizing : 요소의 넓이와 높이를 계산하는 방법을 지정한다.
+                            
+                                    * 기본값 -> box-sizing: content-box;
+                            
+                                          Ex) 
+                                              .box {
+                                                 width: 300px;
+                                                 height: 200px;
+                                                 
+                                                 border: 30px solid blue;
+                                                 
+                                                 box-sizing: border-box;       
+                                                                           -> content-box에서 box-sizing으로 바꾸면,
+                                                                           widht와 height가 의미하는게 완전히 달라진다.
+                                                                         ⭐ border까지의 영역을 width와 height로 인식하기 때문에!
+                                                                         
+                                                 background-color: skyblue;
+                                              }
+       
+       
