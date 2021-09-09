@@ -1,0 +1,157 @@
+
+📂 레이아웃
+
+        1️⃣ display - inline, block, inline-block
+        
+               🟡 div, p - 블록 요소,   
+               🟡 span - 인라인 요소
+        
+                    ⭐ CSS의 display 속성으로, 블록 -> 인라인, 인라인 -> 블록으로 변경할 수 있다. 
+        
+                    🟧 inline 요소 : ex) span..
+
+                      ● 영역의 크기가 내부 콘텐츠 크기로 정해진다.
+                      ● margin, padding의 top/bottom을 지정할 수 없다. ( ⭐ 좌우 여백은 추가 할 수 있음!)
+                      ⭐⭐ 여러 요소가 가로 배치가 된다.
+
+                    🟧 block 요소 : ex) div..
+                    
+                      ● 영역의 크기를 width, height로 지정할 수 있다.
+                      ● width를 지정하지 않으면 가로 전체를 차지한다.
+                      ● margin, padding을 top/bottom도 지정할 수 있다.
+                      ⭐⭐ 여러 요소가 세로 배치가 된다.
+
+                    🟧 inline-block 요소 : ex) input..    -> inline과 block 요소의 특징을 전부 가지고 있다.
+                    
+                       ● 영역의 크기를 width, height 지정할 수 있다.
+                       ● margin, padding의 top/bottom을 지정할 수 있다.
+                       ● 여러 요소가 흐름대로 가로 배치가 된다.
+                          
+                            Ex)
+                              span {
+                                 display: inliine-block;  ⭐ inline-block이 없으면, inline의 특징때문에 아래 width와 height는 적용이 되지 않는다.
+                                 width: 30px;         
+                                 height: 40px;
+                                 
+                                 backgrorund-color: skyblue;
+                              }
+                              
+
+        2️⃣ 요소를 없애는 방법 - display none, visibility hidden
+        
+                    🟧 display: none
+                      
+                            Ex)
+                                .box2 {
+                                  display: none;
+                                }
+
+                            -> HTML 코드에는 존재하지만, 실제로 브라우저가 그릴 때는 DISPALY:nono;e이라는 속서이 있는건 
+                               속성이 있는 요소는 무시한다. 존재하지 않았던것처럼.
+                 
+                 
+                    🟧 visibility:  hidden    (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/visibility )
+        
+                         🟣 visibility : 문서의 레이아웃을 변경하지 않고 요소를 보이거나 숨긴다.      ⭐ 기본값 : visible(요소가 보임)
+        
+                              Ex)
+                                  .box2 {
+                                     visibility: hidden;
+                                  }
+
+                              -> 말 그대로 레이아웃은 그대로 있지만, 안에 내용을 숨겨준다.    
+                          
+        
+                       ⭐⭐ 중요한 차이점
+                          
+                              display: none; 은 영역 자체가 아예 보이지 않고,
+                              visibility: hidden;은 자리는 자치하지만 내용이 보이지 않는다.
+                          
+                            -> 둘의 차이는 레이아웃에서 완전히 배제를 하느냐, 그렇지 않느냐의 차이!
+                            
+                            -> 자바스크립트에서 클릭을 했을 때 요소가 사리지거나, 다시 클릭하면 요소가 보이거나 하는 웹 사이트를 만들 수 있다.
+        
+        
+        3️⃣ float
+        
+               🟧 float : 영단어 뜻처럼, 요소를 둥둥 뜨게 만들 수 있는 속성이다.    ⭐ 기본값 : none
+               
+                    📍 키워드 2가지 : left, right
+                          
+                         * left: 요소가 원래있던 자리(왼쪽)에 그대로 차지하고, 다른 요소들이 우측에 추가될 수 있다.
+                         
+                         * right: 요소가 오른쪽에 자리잡게 되고, 다른 요소들이 왼쪽에 추가될 수 있다.
+                         
+                         모습을 보면, article의 형태처럼 왼쪽이나 오른쪽에 이미지가 있고, 내용을 흐르게 만드는 경우를 많이 볼 수 있는데,
+                         float는 무언가 요소가 있고, 그 요소에 왼쪽, 오른쪽으로 내용을 쭉 흐르게 할 수 있도록 만드는 속성이다.
+        
+                        ✅ float는 예전에는 CSS3의 flex라는 개념이 등장하기 전에는,
+                            float가 레이아웃을 만들기 위해서 많이 사용이 됐다.
+                            현재는 flex 박스가 등장하고 난 이후 부터는,
+                            float는 많이 사용하는 property는 아니다.
+                            그래도 특정 목적이 있을 때는 사용하기가 편리하다.
+        
+                 📌(* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/float )
+                    
+                  MDN에서 float의 정의를 다시보면,
+                  
+                  float는 한 요소 (element)가 보통 흐름(normal flow)으로 부터 빠져
+                  텍스트 및 인라인(inline) 요소가 그 주위를 감싸는 자기 컨테이너의 좌우측을 따라 
+                  배치되어야 함을 지정한다.
+        
+                  라고 되어있다.
+                  
+                 ⭐ 여기서 보통 흐름(normal flow)라는건,
+                  CSS 명세에 존재하는 단어인데,
+                  우리가 display나 float같은 속성을 position같은 속성을 줘서
+                  이 요소의 레이아웃을 강제로 바꾸지 않았을 때,
+                  블록요소들은 왼쪽을 비우고 다음 블록을 아래에 넣는다 라던지
+                  인라인요소들은 하나의 요소가 있으면, 그 다음요소가 이 첫번째 인라인이 끝나는
+                  이 다음부터 배치가 된다던지 하는 이런 계산방법을 말한다.
+                  
+                  그런데 float라는 속성을 사용하게 되면,
+                  기존의 블록이 가지고 있던 특징을 무시하고 
+                  normal flow에서 빠져나와서 별도의 배치 효과를 가지게 된다라는 의미이다.
+              
+                      Ex)
+                        .image {
+                            width: 100px;
+                            height: 100px;
+                            
+                            background-color: hotpink;
+                            border: 5px solid blue;
+                            
+                            float: left;
+                            margin: 10px;
+                        }
+                    
+                  
+        
+        4️⃣ position과 Normal Flow
+        
+                  🟧 position : 요소를 내가 원하는 위치로 변경할 수 있다.    ⭐ 기본값 : static
+                  
+                        ⭐ position에서 중요한 개념은 'Normal flow' 개념이다.
+                        
+                        * Normal flow : 요소의 레이아웃을 변경하지 않았을 때, 배치되는 방법.
+                        
+                              🟤 사용할 수 있는 values
+                              
+                                  🟨 relative
+                                  
+                                  🟨 absolute
+                                  
+                                  🟨 fixed
+                                  
+                                  🟨 sticky
+                  
+                  
+        
+        
+        
+        5️⃣ position - relative
+        6️⃣ position - absolute
+        7️⃣ position - fixed
+        8️⃣ osition - sticky
+        9️⃣ overflow
+        🔟 z-index
