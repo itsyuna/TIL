@@ -485,9 +485,186 @@
                                                  top: 100px;
                                                  left: 100px;
                                                }  
-                                 
-                                 
-                                 
+                         
                                  
         9️⃣ overflow
+        
+                     🟧 overflow : 컨테이너에 width와 height가 지정되어 있는 상태에서, 내부에 있는 내용이
+                     바깥쪽에 있는 컨테이너보다 넘쳐흐를때, 이 넘쳐흐르는 내용들을 어떻게 처리할지 지정해준다.
+                     (* width와 height 둘 다 설정되어있을 수도 있고, 아니면 height만 있을 수도 있다!)                  
+                     
+                      ⭐ overflow는 단축속성! 2가지 property를 한 줄로 쓸 수 있다.  -> 2가지 : overflow-x, overflow-y
+                     
+                             🟤 사용할 수 있는 키워드
+                             
+                                     🟨 visible      ⭐ 기본값   : 내용이 그냥 넘쳐 흐르게 보인다.
+                                                        -> 키워드를 하나만 작성하면, overflow-x와 y가 둘 다 visible로 설정된다.   
+                                    
+                                     🟨 hidden  : 넘쳐 흐르는 부분이 잘려서 눈에 보이지 않게 된다.
+                                     
+                                     🟨 scroll : 마우스를 상자 위에대고 휠 스크롤을 사용하게 되면, 스크롤바로 조절할 있다.
+                                     
+                                     🟨 auto : 사용자 에이전트 즉, 브라우저가 자동으로 어떤값을 선택할지를 고른다.
+                                               만약에 내용이 바깥쪽 컨테이너보다 넘치지 않는다면, visible(기본값)으로 동작하고,
+                                               넘쳐흐르면 scroll로 변경이 되면서, 자동으로 스크롤바를 보여준다. 
+                             
+                                             Ex)
+                                                ⚪ HTML
+                                                        <div>
+                                                            문장입니다.
+                                                        </div>
+                                                        
+                                                        <h1>안녕하세요!</h1>         ⭐ 이렇게 다른 컨텐츠를 추가하게 되면, 넘쳐나는 영역과 내용이 겹쳐서 보이게 된다.
+                                                        <h1>안녕하세요!</h1>
+                                                        <h1>안녕하세요!</h1>
+                                             
+                                             
+                                                 ⚪ CSS
+                                                 
+                                                        div {
+                                                            background-color: bisque;
+
+                                                            width: 200px;
+                                                            height: 225px;
+
+                                                            overflow: scroll;                                         
+                                                         }
+                                                         
+                                    ⭐ overflow: hidden이나 over-flow: scroll을 사용하게 되면 박스 모델에 해당하는 width와 height의
+                                        컨텐츠 영역을 가둘 수 있기 때문에, UI를 해치는 요소를 막을 수 있다!
+                                                         
+                                       
         🔟 z-index
+        
+                        🟧 z-index : Z축의 순서를 지정한다.
+                                    -> index라는 단어에서 유추할 수 있듯이 무언가 순서에 관한 이야기인데,
+                                       z축의 순서에 관한 이야기이다.   
+                                       
+                           브라우저는 뷰포트가 2차원 평면의 형태를 띄고 있다.
+                           x축과 y축 그래프로 표현할 수 있는데, 수학에서는 그래프를 X축이 왼쪽에서 오른쪽,
+                           y축이 아래에서 위 이런식으로 증가하는 형태로 되어있는데,
+                           웹페이지에서는 원점을 왼쪽 위로 삼아서 왼쪽에서 오른쪽으로 x축이 증가하고
+                           위에서 아래로 y축이 증가하는 형태를 가지고 있다.
+                           
+                           2차원 평면을 x축과 y축으로 구별할 수 있는데, 여기에 z축을 추가해서 볼 수 있다.
+                           z축은 x축과 y축의 정가운데를 뚫고 나온다고 보면 되는데
+                           사람이 모니터를 이 방향으로 봤을 때
+                           안에 요소가 여러개 있고, z축 기준으로 좀 더 앞쪽에 있는 요소가 있다면,
+                           뒷쪽에 있는 요소를 가리는 형태로 보여지게 된다. 
+                           
+                           실제로 보는건 2D 화면이지만, 이 요소들이 자기들만의 쌓임순서를 가지고 있다.
+                           쌓임순서는 별도로 지정하지 않으면 브라우저에 의해서 자동으로 차례대로 쌓이게 되는데,
+                           만약에 맨 뒤에 있는 요소를 맨 앞에 있는 요소보다 더 위에 보이게 하고 싶다면,
+                           이런 경우 z-index property를 사용해서 이 요소들의 순서를 제어할 수 있다.
+                            
+                                🟤 사용할 수 있는 키워드
+                                
+                                        🟨 auto         ⭐ 기본값.   auto값 외에는 정수값을 넣을 수 있다.
+                                        🟨 1
+                                        🟨 -1
+                                        🟨 0
+                                        🟨 3
+                                       
+                                    -> 양의 정수, 음의 정수, 0 이렇게 모든 정수를 사용할 수 있다.
+                                      
+                                    🔻 따로 z-index를 지정하지 않았을 때, 기본적인 쌓임 순서는?
+                                        
+                                        1. 코드의 순서대로 차례대로 쌓인다. 
+                                        2. position이 static이 아닌 요소가 static인 요소보다 더 앞에 있게 된다.
+                                        
+                                                  Ex)
+                                                      ⚪ HTML
+                                                        
+                                                        <div id="box1"></div>
+                                                        <div id="box2"></div>
+                                                        <div id="box3"></div>
+                                                        
+                                                      ⚪ CSS
+                                                      
+                                                        div {
+                                                           width: 150px;
+                                                           height: 150px;
+                                                           background-color: blanchedalmond;
+                                                           border: 3px solid orangered;
+                                                        }
+                                                        
+                                                        #box2, #box3 {
+                                                            margin-top: -30px;
+                                                        }
+                                                        
+                                                        #box2 {
+                                                            margin-left: 40px;
+                                                            
+                                                            position: relative;       ⭐ 2번 요소가 3번 요소보다 앞에 뜨게 된다. 
+                                                                                          즉, z-index를 가지고 제어를 하지 않아도
+                                                                                          positon을 설정하게 되면 static인 요소보다 무조건 위에 뜨게 된다.
+                                                                                          (아무 position을 주지 않았으면 다 position이 static이기 때문에, 3 > 2 > 1 이렇게순서대로 쌓인다. 
+                                                        }
+                                                        
+                                            🔻 position을 absolute로 한다면?
+                                                        
+                                                        #box2 {
+                                                          position: absolute;
+                                                        } 
+                                                        
+                                                        -> normal flow에서 제거되면서 3번보다 위에 뜨게 된다. 
+                                                           fixed, sticky도 마찬가지.
+                                                           static만 아니면 됨!
+                                                        
+                                                        
+                                            🔻 #box3에도 position을 추가해준다면?  
+                                                                  
+                                                        #box2 {
+                                                          position: absolute;
+                                                        } 
+                                                        
+                                                        #box3 {
+                                                          position: relatvie;
+                                                        }
+                                                        
+                                                  -> 원래 법칙대로 간다.  ⭐둘 다 static이 아니면 코드 순서가 뒤에있는 요소가 위에 뜨게 된다.       
+                                                        
+                                                        
+                                         🔻 여기서 2번 box를 3번 box보다 위에 뜨게 하고 싶다면? (현재 3번 box가 코드 순서에 의해서 2번 box보다 위에 떠있는 상태)
+                                                
+                                                    #box2 {
+                                                          position: absolute;
+                                                          
+                                                          z-index: 1;        ⭐ 3번보다 위에 뜨게 된다.
+                                                    }   
+                                                    #box3 {
+                                                          position: relatvie;
+                                                          
+                                                          z-index: auto;        ⭐ 기본값 (안써도 똑같음)  * auto는 0이라고 생각하면 됨.
+                                                    }
+                                                    
+                                          ➕ 또는,
+                                           
+                                                    #box2 {
+                                                          position: absolute;           ⭐ 3번보다 위에 뜨게 된다. 기본값이 0이기 때문에.                                                                   
+                                                    }   
+                                                    
+                                                    #box3 {
+                                                          position: relatvie;
+                                                          
+                                                          z-index: -1;    
+                                                    }
+
+                                 ⭐ 웹페이지를 만들 때 무조건 최상위에 올라와야 되는것들이 있는데,
+                                    경고창이라던지, 확인버튼을 누르는 모델창 같은것들은 다른 요소들 보다 위에 있어야 하는데
+                                    그런 요소들은 z-idex를 굉장히 큰 값을 줘서 어떤 상황에서도 가장 위에 뜨게 설정할 수 있다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
