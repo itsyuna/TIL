@@ -223,55 +223,97 @@
 
                                         ⚪ CSS
                                                 
-                                                Ex 1)
-                                                        
-                                                        div {
-                                                           width: 200px;
-                                                           height: 200px;
-                                                           border: 5px solid orangered;                                              
-                                                        }
+                                        Ex 1)
 
-                                                        #box {
-                                                            width: 150px;
-                                                            height: 100px;
-                                                            border-color: darkblue;
-                                                            background-color: cornflowerblue;
-                                                            border-radiuis: 30px;
+                                                div {
+                                                   width: 200px;
+                                                   height: 200px;
+                                                   border: 5px solid orangered;                                              
+                                                }
 
-                                                            position: absolute;         ⭐ 밑에 있는 블록이 위로 올라온다.
-                                                        }                               -> 마치 float를 left나 right로 줬을 때 처럼, 공중에 한 겹 붕 뜨게 된다.
+                                                #box {
+                                                    width: 150px;
+                                                    height: 100px;
+                                                    border-color: darkblue;
+                                                    background-color: cornflowerblue;
+                                                    border-radiuis: 30px;
 
-                                                Ex 2)
-                                                
-                                                         #box {
-                                                            width: 150px;
-                                                            height: 100px;
-                                                            border-color: darkblue;
-                                                            background-color: cornflowerblue;
-                                                            border-radiuis: 30px;
+                                                    position: absolute;         ⭐ 밑에 있는 블록이 위로 올라온다.
+                                                }                               -> 마치 float를 left나 right로 줬을 때 처럼, 공중에 한 겹 붕 뜨게 된다.
 
-                                                            position: absolute;       
-                                                            
-                                                            top: 100px;         ⭐ 위에 있는 body를 기준으로 이동이 된다.
-                                                                                -> 가장 가까운 위치에 있는 조상 요소에 대해서 상대적으로 배치하기 때문에.
-                                                         }                
+                                        Ex 2)
+
+                                                 #box {
+                                                    width: 150px;
+                                                    height: 100px;
+                                                    border-color: darkblue;
+                                                    background-color: cornflowerblue;
+                                                    border-radiuis: 30px;
+
+                                                    position: absolute;       
+
+                                                    top: 100px;         ⭐ 위에 있는 body를 기준으로 이동이 된다.
+                                                                        -> 가장 가까운 위치에 있는 조상 요소에 대해서 상대적으로 배치하기 때문에.
+                                                 }                
+
                                           
-                                          
-                                               🔻 <div>를 하나 더 만들어서 그 안에 box를 넣어보자.
-                                                     
-                                                     ⚪ HTML
-                                                        
+                                       🔻 <div>를 하나 더 만들어서 그 안에 box를 넣어보자.
+
+                                             ⚪ HTML
+
+                                                <body>
+                                                     <div></div>
+                                                     <div>
+                                                        <div id="box">"</div>
+                                                     </div>
+                                                     <div></div>
+                                                </body>
+
+                                             ⚪ CSS
+
+                                                    #box {
+                                                       width: 150px;
+                                                       height: 100px;
+                                                       border-color: darkblue;
+                                                       background-color: cornflowerblue;
+                                                       border-radiuis: 30px;
+
+                                                       position: absolute;       
+
+                                                       top: 100px;      
+
+                                                    }                
+
+                                        ⭐ position: absolute인 요소는,
+                                           조상중에서 position이 static이 아닌 요소를 찾아 기준점을 삼는다.
+
+                                           그러니까 여기서는 #box의 조상은 바로 위에 추가한 <div>인데,
+                                           이 <div>의 포지션은 별도로 변경하지 않았기 때문에 static이다.
+                                           그래서 이 <div>는 무시하고 그 다음 조상을 찾는다.
+                                           근데 그 다음 조상은 <body>이기 때문에, 더이상 찾을 조상이 없다.
+
+                                    🟠 출력결과 -> 그래서 body를 찾아가서 100px을 설정하게 된다.
+
+
+                                      🔻 그럼 감싸고 있는 부모요소인 <div>에 id를 주고, position을 변경해준다면?
+
+                                                  ⚪ HTML
+
                                                         <body>
                                                              <div></div>
-                                                             <div>
+                                                             <div id="parent">
                                                                 <div id="box">"</div>
                                                              </div>
                                                              <div></div>
                                                         </body>
-                                                         
-                                                     ⚪ CSS
-                                                     
-                                                            #box {
+
+                                                  ⚪ CSS
+
+                                                        #parent: {
+                                                              position: relatvie;         ⭐ 포지션이 static만 아니면 되기 때문에, 부모요소가 absolute여도 상관이 없다.
+                                                        }
+
+                                                         #box {
                                                                width: 150px;
                                                                height: 100px;
                                                                border-color: darkblue;
@@ -281,55 +323,13 @@
                                                                position: absolute;       
 
                                                                top: 100px;      
-                                                            
-                                                            }                
-                                          
-                                                ⭐ position: absolute인 요소는,
-                                                   조상중에서 position이 static이 아닌 요소를 찾아 기준점을 삼는다.
-                                                   
-                                                   그러니까 여기서는 #box의 조상은 바로 위에 추가한 <div>인데,
-                                                   이 <div>의 포지션은 별도로 변경하지 않았기 때문에 static이다.
-                                                   그래서 이 <div>는 무시하고 그 다음 조상을 찾는다.
-                                                   근데 그 다음 조상은 <body>이기 때문에, 더이상 찾을 조상이 없다.
-                                                   
-                                            🟠 출력결과 -> 그래서 body를 찾아가서 100px을 설정하게 된다.
-                                                   
-                                              
-                                              🔻 그럼 감싸고 있는 부모요소인 <div>에 id를 주고, position을 변경해준다면?
-                                                        
-                                                          ⚪ HTML
-                                                        
-                                                                <body>
-                                                                     <div></div>
-                                                                     <div id="parent">
-                                                                        <div id="box">"</div>
-                                                                     </div>
-                                                                     <div></div>
-                                                                </body>
-                                                         
-                                                          ⚪ CSS
-                                                                
-                                                                #parent: {
-                                                                      position: relatvie;         ⭐ 포지션이 static만 아니면 되기 때문에, 부모요소가 absolute여도 상관이 없다.
-                                                                }
-                                                                
-                                                                 #box {
-                                                                       width: 150px;
-                                                                       height: 100px;
-                                                                       border-color: darkblue;
-                                                                       background-color: cornflowerblue;
-                                                                       border-radiuis: 30px;
+                                                          }      
 
-                                                                       position: absolute;       
+                                            🟠 출력결과 -> 이번에는 자기의 바로 조상인 id가 parent를 기준으로, 100px top을 이동한 형태를 보인다.
 
-                                                                       top: 100px;      
-                                                                  }      
-                                                            
-                                                    🟠 출력결과 -> 이번에는 자기의 바로 조상인 id가 parent를 기준으로, 100px top을 이동한 형태를 보인다.
-                                                                
-                                                   
-                                            ⭐⭐ 보통은 이렇게, 자식요소에 absoulte를 주고, 기준점을 삼고 싶은 부모에 relative를 설정한 이 형태의 구조가 굉장히 많이 사용된다.
-            
+
+                                    ⭐⭐ 보통은 이렇게, 자식요소에 absoulte를 주고, 기준점을 삼고 싶은 부모에 relative를 설정한 이 형태의 구조가 굉장히 많이 사용된다.
+
             
         7️⃣ position - fixed    (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/position )
         
@@ -349,81 +349,82 @@
                                       
                                       fixed는 뷰포트를 기준으로 top-left가 0이면 왼쪽 끝이 기준인것.
                                       
-                                                Ex) 
-                                                    
-                                                    ⚪ HTML
-                                                        
-                                                                <body>
-                                                                     <div></div>
-                                                                     <div id="parent">
-                                                                        <div id="box">"</div>
-                                                                     </div>
-                                                                     <div></div>            ⭐ <div> 여러개 추가.
-                                                                     <div></div>
-                                                                     <div></div>
-                                                                     <div></div>
-                                                                     <div></div>
-                                                                </body>
-                                                         
-                                                          ⚪ CSS
-                                                                
-                                                                #parent: {
-                                                                      position: relatvie;               ⭐ 부모요소를 기준으로 하지 않기때문에,
-                                                                                                           여기를 삭제해도 위치에 변동이 없다.
-                                                                }
-                                                                
-                                                                 #box {
-                                                                       width: 150px;
-                                                                       height: 100px;
-                                                                       border-color: darkblue;
-                                                                       background-color: cornflowerblue;
-                                                                       border-radiuis: 30px;
+                                Ex) 
 
-                                                                       position: fixed;                 ⭐ absolute일때는, 부모기준이기때문에 스크롤을 내려도 위로 따라 올라가지만,
-                                                                                                           fixed는 뷰포트 기준이기때문에 스크롤을 내리면 왼쪽 맨 위에(현재 top, left 0이기 때문에)
-                                                                                                           그대로 있고 뒤에 있는 box들만 스크롤이 바뀌는걸 볼 수 있다.
-                                                                       top: 0;
-                                                                       left: 0;      
-                                                            }      
-                                                        
-                                                           
-                                                           ⭐ 보통은
-                                                           
-                                                                position: fixed;
-                                                                bottom: 40px;
-                                                                right: 40px;
-                                                                
-                                                             이런식으로 사용하는데,
-                                                           
-                                                           블로그같은데 보면 스크롤을 아무리 해도, 오른쪽 아래에 버튼이 있어서
-                                                           이걸 누르면 스크롤이 맨 위로 올라가게 만드는 floating 버튼같은게 있는데
-                                                           그런것들이 fixed 속성을 이용해서 만든것이다.
-                                                           
-                                                           또는,
-                                                           항상 보이는 네비게이션바, menu bar같은것을 만들 때
-                                                           이 속성을 많이 사용한다!
-        
+                                    ⚪ HTML
+
+                                                <body>
+                                                     <div></div>
+                                                     <div id="parent">
+                                                        <div id="box">"</div>
+                                                     </div>
+                                                     <div></div>            ⭐ <div> 여러개 추가.
+                                                     <div></div>
+                                                     <div></div>
+                                                     <div></div>
+                                                     <div></div>
+                                                </body>
+
+                                          ⚪ CSS
+
+                                                #parent: {
+                                                      position: relatvie;               ⭐ 부모요소를 기준으로 하지 않기때문에,
+                                                                                           여기를 삭제해도 위치에 변동이 없다.
+                                                }
+
+                                                 #box {
+                                                       width: 150px;
+                                                       height: 100px;
+                                                       border-color: darkblue;
+                                                       background-color: cornflowerblue;
+                                                       border-radiuis: 30px;
+
+                                                       position: fixed;                 ⭐ absolute일때는, 부모기준이기때문에 스크롤을 내려도 위로 따라 올라가지만,
+                                                                                           fixed는 뷰포트 기준이기때문에 스크롤을 내리면 왼쪽 맨 위에(현재 top, left 0이기 때문에)
+                                                                                           그대로 있고 뒤에 있는 box들만 스크롤이 바뀌는걸 볼 수 있다.
+                                                       top: 0;
+                                                       left: 0;      
+                                            }      
+
+
+                                           ⭐ 보통은
+
+                                                position: fixed;
+                                                bottom: 40px;
+                                                right: 40px;
+
+                                             이런식으로 사용하는데,
+
+                                           블로그같은데 보면 스크롤을 아무리 해도, 오른쪽 아래에 버튼이 있어서
+                                           이걸 누르면 스크롤이 맨 위로 올라가게 만드는 floating 버튼같은게 있는데
+                                           그런것들이 fixed 속성을 이용해서 만든것이다.
+
+                                           또는,
+                                           항상 보이는 네비게이션바, menu bar같은것을 만들 때
+                                           이 속성을 많이 사용한다!
+
         
         8️⃣ position - sticky
 
                  🟧 sticky : (absolute와 fixed와는 다르게) 요소를 일반적인 문서에 흐름에 따라 배치한다. 굉장히 특이하게 동작한다.
                               그리고 스크롤을 하게 되면, 가장 가까운 스크롤이 되는 조상을 찾아서 그걸 기준으로 삼는다.
                            
-                                        Ex)
-                                             #parent {
-                                                position: sticky;       ⭐ sticky만 써주면 reletative처럼 일단 normal flow에 맞게 배치하기 때문에,
-                                                                            별도의 top이나 left를 바꾸지 않는이상 그 자리에 그대로 있다.
-                                             }
-                                             
-                                     
-                                              #box {
-                                                 width: 150px;
-                                                 height: 100px;
-                                                 border-color: darkblue;
-                                                 background-color: cornflowerblue;
-                                                 border-radiuis: 30px;   
-                                               }  
-                                      
+                                 Ex)
+                                 
+                                     #parent {
+                                        position: sticky;       ⭐ sticky만 써주면 reletative처럼 일단 normal flow에 맞게 배치하기 때문에,
+                                                                    별도의 top이나 left를 바꾸지 않는이상 그 자리에 그대로 있다.
+                                     }
+
+
+                                      #box {
+                                         width: 150px;
+                                         height: 100px;
+                                         border-color: darkblue;
+                                         background-color: cornflowerblue;
+                                         border-radiuis: 30px;   
+                                       }  
+
                                       
                                       🔻 그럼 top이나 left를 추가해준다면?
                                       
@@ -508,31 +509,31 @@
                                                만약에 내용이 바깥쪽 컨테이너보다 넘치지 않는다면, visible(기본값)으로 동작하고,
                                                넘쳐흐르면 scroll로 변경이 되면서, 자동으로 스크롤바를 보여준다. 
                              
-                                             Ex)
-                                                ⚪ HTML
-                                                        <div>
-                                                            문장입니다.
-                                                        </div>
-                                                        
-                                                        <h1>안녕하세요!</h1>         ⭐ 이렇게 다른 컨텐츠를 추가하게 되면, 넘쳐나는 영역과 내용이 겹쳐서 보이게 된다.
-                                                        <h1>안녕하세요!</h1>
-                                                        <h1>안녕하세요!</h1>
-                                             
-                                             
-                                                 ⚪ CSS
-                                                 
-                                                        div {
-                                                            background-color: bisque;
+                                     Ex)
+                                        ⚪ HTML
+                                                <div>
+                                                    문장입니다.
+                                                </div>
 
-                                                            width: 200px;
-                                                            height: 225px;
+                                                <h1>안녕하세요!</h1>         ⭐ 이렇게 다른 컨텐츠를 추가하게 되면, 넘쳐나는 영역과 내용이 겹쳐서 보이게 된다.
+                                                <h1>안녕하세요!</h1>
+                                                <h1>안녕하세요!</h1>
 
-                                                            overflow: scroll;                                         
-                                                         }
-                                                         
-                                    ⭐ overflow: hidden이나 over-flow: scroll을 사용하게 되면 박스 모델에 해당하는 width와 height의
-                                        컨텐츠 영역을 가둘 수 있기 때문에, UI를 해치는 요소를 막을 수 있다!
-                                                         
+
+                                         ⚪ CSS
+
+                                                div {
+                                                    background-color: bisque;
+
+                                                    width: 200px;
+                                                    height: 225px;
+
+                                                    overflow: scroll;                                         
+                                                 }
+
+                            ⭐ overflow: hidden이나 over-flow: scroll을 사용하게 되면 박스 모델에 해당하는 width와 height의
+                                컨텐츠 영역을 가둘 수 있기 때문에, UI를 해치는 요소를 막을 수 있다!
+
                                        
         🔟 z-index
         
@@ -572,99 +573,323 @@
                                         1. 코드의 순서대로 차례대로 쌓인다. 
                                         2. position이 static이 아닌 요소가 static인 요소보다 더 앞에 있게 된다.
                                         
-                                                  Ex)
-                                                      ⚪ HTML
-                                                        
-                                                        <div id="box1"></div>
-                                                        <div id="box2"></div>
-                                                        <div id="box3"></div>
-                                                        
-                                                      ⚪ CSS
-                                                      
-                                                        div {
-                                                           width: 150px;
-                                                           height: 150px;
-                                                           background-color: blanchedalmond;
-                                                           border: 3px solid orangered;
-                                                        }
-                                                        
-                                                        #box2, #box3 {
-                                                            margin-top: -30px;
-                                                        }
-                                                        
-                                                        #box2 {
-                                                            margin-left: 40px;
-                                                            
-                                                            position: relative;       ⭐ 2번 요소가 3번 요소보다 앞에 뜨게 된다. 
-                                                                                          즉, z-index를 가지고 제어를 하지 않아도
-                                                                                          positon을 설정하게 되면 static인 요소보다 무조건 위에 뜨게 된다.
-                                                                                          (아무 position을 주지 않았으면 다 position이 static이기 때문에, 3 > 2 > 1 이렇게순서대로 쌓인다. 
-                                                        }
-                                                        
-                                            🔻 position을 absolute로 한다면?
-                                                        
-                                                        #box2 {
-                                                          position: absolute;
-                                                        } 
-                                                        
-                                                        -> normal flow에서 제거되면서 3번보다 위에 뜨게 된다. 
-                                                           fixed, sticky도 마찬가지.
-                                                           static만 아니면 됨!
-                                                        
-                                                        
-                                            🔻 #box3에도 position을 추가해준다면?  
-                                                                  
-                                                        #box2 {
-                                                          position: absolute;
-                                                        } 
-                                                        
-                                                        #box3 {
-                                                          position: relatvie;
-                                                        }
-                                                        
-                                                  -> 원래 법칙대로 간다.  ⭐둘 다 static이 아니면 코드 순서가 뒤에있는 요소가 위에 뜨게 된다.       
-                                                        
-                                                        
-                                         🔻 여기서 2번 box를 3번 box보다 위에 뜨게 하고 싶다면? (현재 3번 box가 코드 순서에 의해서 2번 box보다 위에 떠있는 상태)
+                                          Ex)
+                                              ⚪ HTML
+
+                                                <div id="box1"></div>
+                                                <div id="box2"></div>
+                                                <div id="box3"></div>
+
+                                              ⚪ CSS
+
+                                                div {
+                                                   width: 150px;
+                                                   height: 150px;
+                                                   background-color: blanchedalmond;
+                                                   border: 3px solid orangered;
+                                                }
+
+                                                #box2, #box3 {
+                                                    margin-top: -30px;
+                                                }
+
+                                                #box2 {
+                                                    margin-left: 40px;
+
+                                                    position: relative;       ⭐ 2번 요소가 3번 요소보다 앞에 뜨게 된다. 
+                                                                                  즉, z-index를 가지고 제어를 하지 않아도
+                                                                                  positon을 설정하게 되면 static인 요소보다 무조건 위에 뜨게 된다.
+                                                                                  (아무 position을 주지 않았으면 다 position이 static이기 때문에, 3 > 2 > 1 이렇게순서대로 쌓인다. 
+                                                }
+
+                                    🔻 position을 absolute로 한다면?
+
+                                                #box2 {
+                                                  position: absolute;
+                                                } 
+
+                                                -> normal flow에서 제거되면서 3번보다 위에 뜨게 된다. 
+                                                   fixed, sticky도 마찬가지.
+                                                   static만 아니면 됨!
+
+
+                                    🔻 #box3에도 position을 추가해준다면?  
+
+                                                #box2 {
+                                                  position: absolute;
+                                                } 
+
+                                                #box3 {
+                                                  position: relatvie;
+                                                }
+
+                                          -> 원래 법칙대로 간다.  ⭐둘 다 static이 아니면 코드 순서가 뒤에있는 요소가 위에 뜨게 된다.       
+
+
+                                 🔻 여기서 2번 box를 3번 box보다 위에 뜨게 하고 싶다면? (현재 3번 box가 코드 순서에 의해서 2번 box보다 위에 떠있는 상태)
+
+                                            #box2 {
+                                                  position: absolute;
+
+                                                  z-index: 1;        ⭐ 3번보다 위에 뜨게 된다.
+                                            }   
+                                            #box3 {
+                                                  position: relatvie;
+
+                                                  z-index: auto;        ⭐ 기본값 (안써도 똑같음)  * auto는 0이라고 생각하면 됨.
+                                            }
+
+                                  ➕ 또는,
+
+                                            #box2 {
+                                                  position: absolute;           ⭐ 3번보다 위에 뜨게 된다. 기본값이 0이기 때문에.                                                                   
+                                            }   
+
+                                            #box3 {
+                                                  position: relatvie;
+
+                                                  z-index: -1;    
+                                            }
+
+                         ⭐ 웹페이지를 만들 때 무조건 최상위에 올라와야 되는것들이 있는데,
+                            경고창이라던지, 확인버튼을 누르는 모델창 같은것들은 다른 요소들 보다 위에 있어야 하는데
+                            그런 요소들은 z-idex를 굉장히 큰 값을 줘서 어떤 상황에서도 가장 위에 뜨게 설정할 수 있다.
+
+
+
+📂 색상과 배경
+
+            1️⃣ 색상 - HEX(16진수), rgb, rgba
+            
+                 🟡 color 속성의 값으로 색상 키워드를 사용하는것 외에도 다른 방법들이 있다.
+            
+                     * 구글에 color picker를 검색하면, 팔레트 모양으로 여러 색상이 나온다.
+                       그런데 전부 다 1:1로 키워드로 매칭할 수 없기 때문에,
+                       키워드 외에 것들을 표현하는 방법이 필요하다.
+                       
+                       
+                     🟤 color를 표현하는 방법.     (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/color )
+                     
+                         🟨 키워드 사용 (blue, transparent 등)
+                         
+                                  * transparnet : 투명하게 만든다.   -> 하나의 단어로 사용하는 키워드이다. 
+                                   backgroud-color같은 경우 별도로 설정하지 않으면 색상이 없고,
+                                   그 뒤에 있는 요소가 다 비치게 되는데 그건 backgroud-color의 기본, 즉 initial 초기값이 transparent이기 때문이다!
+                                      
+                         🟨 RGB 3차원 좌표계 사용 (#+ 16진수 표기법 또는 rgb(), rgba() 의 함수형 표기법)      ⭐ 이걸 가지고 거의 모든 색상을 표현.
+                        
+                                * 16진수 표기법 또는 HEX 컬러 표기법 : 10진수는 0~9까지 0을 사용. 추가로 ABDEF를 더 사용할 수 있는걸 합쳐서 16진수 표기법이라고 한다.
+                                  16진수는 0이 제일 작은값이고, F가 제일 큰 값이라고 보면 된다.  
+                                  그래서 16진수 표기법으로 작성하게 되면, 먼저 #을 앞에 쓰고 총 6자리 숫자를 쓰게 된다. (0~F)
+                                  앞에 있는 2자리는 R(Red), 중간에 있는 2자리가 G(Green), 뒤에 두자리가 B(Blue)이다.
+                                 
+                                  00을 사용하면 Red의 채도가 제일 낮다. -> 어둡다는 말. 그래서 전부 00000을 입력하면 제일 어두운 색인 검정색이 되는것.
+                                  FF을 사용하면 채도가 제일 높다는 뜻이기 때문에, 전부 FFFFFF라고 하면 하얀색이 나온다.
+                                  
+                                  -> 빨간빛, 초록빛, 파란빛을 조합하는거라고 생각하면 된다.
+                                  
+                             
+                             💡  구글에서 color picker를 검색하면, HEX 컬러 작성법, RGB 작성법, CMYK 등등 나와있다.
+                                
+                                보통 웹에서 색상을 표현할 때는 -> RGB로 표현
+                                팜플렛이나 출력물을 사용할 때는 -> CMYK
+                                
+                                RGB는 숫자로 3가지로 표현할 수 있는데,
+                                256가지의 숫자로 표기를 한다.
+                                
+                                첫번째 숫자(2자리)는 0~255까지 사용가능. (0까지 포함해서 갯수로 256개)
+                                => RGB로 0,0,0하는것과 HEX로 000000 표현한것이 같다고 보면 된다. = 검정색
+                                => HEX로 FFFFFF하는것과 RGB 255, 255, 255하는것과 똑같은것.    = 하얀색 
+                                
+                                        Ex)
+                                           div {
+                                                background-color: #FFFFFF
+                                                background-color: rgb(255, 255, 255)
                                                 
-                                                    #box2 {
-                                                          position: absolute;
+                                                -> 둘은 같은 코드이다. (= 하얀색)
+                                
+                                🔻 함수형중에 rgba()는 뭘까?
+                                
+                                -> rgba()는 red, green, blue외에 추가로 알파라는 값을 입력할 수 있다.
+                                
+                                        Ex)
+                                            div {
+                                              width: 100px;
+                                              height: 100px;
+                                              background-color: rgba(0, 0, 255, 0.8);           ⭐ rgb에 3가지 외에도 하나를 더 추가할 수 있는데 그럴 때 rgba를 쓴다.
+                                                                                                  -> 여기서 0.8은 투명도를 80%로 설정ㅈ하겠다는 말.
+                                                                                                     0으로 설정하면 아예 보이지않는 transparent랑 비슷한 효과를 볼 수 있다.
+                                                                                                     ⭐ 기본값은 1이다.
+                                                                                                     ⭐ rgba()를 사용하면, 색상의 투명도를 조절할 수 있다!
+                                
+                                
+                        
+                         🟨 HSL 실린더형 좌표계 사용 (hsl(), hsla()의 함수형 표기법)            ⭐ 거의 사용하지 않음.
+            
+            
+            2️⃣ opacity    (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/opacity )
+            
+                    🟧 opacity : 요소의 불투명도를 설정한다. 불투명도는 요소 뒤쪽에 콘텐츠가 숨겨지는 정도로, 투명도의 반대이다.
+                    
+                       ⭐ 기본값 : 1
+                       
+                       🟡 0.0부터 1.0이하의 숫자 안에서 지정할 수 있다. (제일 작은값 : 0.0, 제일 큰 값 : 1.0)
+                       🟡 percentage도 사용할 수 있는데, 0~100% 안에서 사용할 수 있다.
+                       
+                                  Ex)
+                                     .floating-box {
+                                         width: 150px;
+                                         height: 150px;
+                                         
+                                         position: fixed;
+                                         top: 10px;
+                                         left: 10px;
+                                         
+                                         background-color: cadetblue;
+                                         
+                                         opacity: 0.5;          ⭐ 50%의 불투명도를 갖게 된다.
+                                      }
+                                         
+                                         
+                       ⭐opacity를 설정하게 되면, 내부에 있는 모든 요소의 불투명도가 전부 바뀌게 된다.
+                         (=> 글자도 불투명해진다!)   
+             
+                        
+            3️⃣ background-color, background-image
+            
+                        🟧 background-color : 배경색을 지정한다.
+                        
+                        🟧 background-image : 배경에 이미지를 넣을 수 있다.     ⭐ background-image가 backgrond-color보다 위에 뜬다.
+            
+                                ⭐ 기본값 : none
+                                ⭐ url을 작성해서 image를 넣을 수 있다.
+                                
+                            Ex)
+                                .floating-box {
+                                       width: 150px;
+                                       height: 150px;
+                                         
+                                       position: fixed;
+                                       top: 10px;
+                                       left: 10px;
+                                         
+                                       background-image: url("이미지주소");
+
+                                       background-color: cadetblue;
+                                } 
+                     
+            
+            4️⃣ background-repeat           (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/background-repeat )
+            
+                        🟧 background-repeat : 배경 이미지의 반복 방법을 지정한다.
+                        
+                                  ⭐ 기본값 : repaet    -> 요소의 배경 영역을 채울 때 까지 이미지를 반복. 마지막 반복 이미지가 넘칠 경우 잘라낸다.
+                                
+                                    🟤 2개의 값을 사용할 수 있다. (가로축 / 세로축)
+                                    
+                                                🟨 repaet-x             : 가로축으로만 반복
+                                                🟨 repaet-y             : 세로축으로만 반복
+                                    
+                                  Ex)
+                                     .box {
+                                        height: 500px;
+                                        
+                                        background-image: url("이미지주소");
+                                        background-repaet: no-repaet;           ⭐ 반복되지 않아서, 배경이 한번만 나온다. 
+                                     }   
+           
+            
+            5️⃣ background-position
+            
+                        🟧 backgroudn-position : 이미지의 위치를 변경할 수 있다.
+                        
+                                  Ex)
+                                     .box {
+                                        width: 300px;
+                                        height: 500px;
+                                        
+                                        border: solid red;
+                                        
+                                        background-image: url("이미지주소");
+                                        background-repaet: no-repaet;           ⭐ repaet도 사용 가능하다.
+                                        
+                                        background-position: 15px 200px;          ⭐ x축, y축을 spacing으로 구분해서 입력한다.
+                                        
+                                        background-position: top center;        ⭐ 이렇게도 가능하다. 키워드는 순서가 상관이 없다. 
+                                    
+                                        background-position: top;               ⭐ 키워드를 하나만 입력해도 된다. 입력을 안하면 자동으로 가운데로 위치한다. 
+                                    }   
+                               
+            
+            6️⃣ background-origin        (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/background-origin )
+            
+                          
+                          🟧 background-origin : 배경의 원점을 테두리(border) 시작점, 테두리 내부, 안쪽 여백(padding) 내부 중 하나로 지정한다.
+                          
+                                        🟤 사용할 수 있는 값
+                                        
+                                             🟨 border-box      : content, padding 바깥 쪽 border 영역이 왼쪽 윗 부분이 0,0이ehlsek.
+                                             
+                                             🟨 padding-box     : 컨텐츠 바깥쪽 padding 박스 영역의 왼쪽 상단이 0,0이 된다.       ⭐ 초기값
+                                             
+                                             🟨 content-box     : 컨텐츠 박스의 왼쪽 상단이 0,0이 된다.
+                                             
+                                                    Ex)
+                                                       .box {
+                                                          height: 500px;
                                                           
-                                                          z-index: 1;        ⭐ 3번보다 위에 뜨게 된다.
-                                                    }   
-                                                    #box3 {
-                                                          position: relatvie;
+                                                          border: 30px dashed blue;
+                                                          padding: 30px;
                                                           
-                                                          z-index: auto;        ⭐ 기본값 (안써도 똑같음)  * auto는 0이라고 생각하면 됨.
-                                                    }
+                                                          background-image: url("이미지주소");
+                                                          backgorund-repaet: no-repaet;
+                                                          
+                                                          background-origin: content-box;       
+                                                          background-origin: padding-box;
                                                     
-                                          ➕ 또는,
-                                           
-                                                    #box2 {
-                                                          position: absolute;           ⭐ 3번보다 위에 뜨게 된다. 기본값이 0이기 때문에.                                                                   
-                                                    }   
-                                                    
-                                                    #box3 {
-                                                          position: relatvie;
-                                                          
-                                                          z-index: -1;    
-                                                    }
-
-                                 ⭐ 웹페이지를 만들 때 무조건 최상위에 올라와야 되는것들이 있는데,
-                                    경고창이라던지, 확인버튼을 누르는 모델창 같은것들은 다른 요소들 보다 위에 있어야 하는데
-                                    그런 요소들은 z-idex를 굉장히 큰 값을 줘서 어떤 상황에서도 가장 위에 뜨게 설정할 수 있다.
+                                                          background-origin: border-box;
+                                                     }
+                                                     
+                                            ⭐ margin-box는 존재하지 않는다!
+                          
+            
+            7️⃣ background-size   (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/background-size )
 
 
+                        🟧 background-size : 요소 배경 이미지의 크기를 설정한다.
+
+                                ⭐ 기본값 : auto   (-> 원본 크기를 유지한다)
+                                
+                                  🟤 사용할 수 있는 값
+                                  
+                                     🟨 contain : 작은쪽에 비율을 맞추게 된다. 
+                                     🟨 cover   : 이미지가 찌그러지지 않는 한도 내에서 제일 크게 설정한다.
+                                  
+                                Ex)
+                                   .box {
+                                       height: 400px;
+                                       
+                                       border: blue 5px solid;
+                                       
+                                       background-image: url("이미지주소");
+                                       background-repaet: no-repeat;
+                                       background-color: cadetblue;             ⭐ 빈 공간에 색깔이 보여진다.
+                                       
+                                       /* contain / cover : 이미지의 비율을 유지하며 요소의 크기에 맞춰진다. */
+                                       background-size: contain;
+                                       background-size: cover;
+                                   }
+                        
+                       ⭐ 값에는 키워드 외에도, length나 percentage도 사용할 수 있다.
 
 
+            8️⃣ background (shorthand)   
 
-
-
-
-
-
-
-
-
-
-
+                        🟧 background : 색상, 이미지, 원점, 크기, 반복 등 여러 배경 스타일을 한번에 지정한다.  ⭐ 단축 속성
+                        
+                                Ex)
+                                   background: url("image.jpg") repeat-y;
+                                   
+                                   bacgrkoud: border-box red;
+         
+                                
