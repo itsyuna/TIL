@@ -1,4 +1,5 @@
-📂 transform
+
+📂 [transform]
 
          1️⃣ transform (변형) 개요   (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/transform )
          
@@ -204,7 +205,7 @@
 
 
 
-📂 transition
+📂 [transition]
 
          1️⃣ transition (전환) 개요
          
@@ -394,21 +395,127 @@
                     
                   
 
-📂 애니메이션
+📂 [애니메이션]
 
         1️⃣ 애니메이션 개요
+         
+             * animation : User의 action이 없어도, 요소의 스타일이 자동으로 계속 변경되게끔 설정할 수 있다. 
+                  
+                  ⭐ 단축 속성이다.    
+                  
+                  ⭐ animation은 keyframes를 미리 만들어놓고, 그걸 가져다 쓰는 개념이다.
+                     -> 스타일들의 set를 keyframes에 작성할 수 있다.
+                     
+                           Ex)
+                              animation: 4s linear 0s infinite alternate move_eye;
+
+                              @keyframes move_eye { from { margin-left: -20%; } to { margin-left: 100%; } }
         
-        2️⃣ @keyframes
+        
+        2️⃣ @keyframes              (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/@keyframes )
+        
+        
+                 🟣 @keyframes : 개발자가 애니메이션 중간중간의 특정 지점들을 거칠 수 있는 키프레임들을 설정할 수 있다.
+                           
+                           Ex)
+                           
+                              .box {
+                                 width: 100px;
+                                 hegith: 100px;
+                                 border: 10px solid seagreen;
+                                 background-color: lightgreen;
+                                 border-radius: 30px;
+
+                                 animation: my-first-animation 2s infinite alternate;
+                              }                         
+                           
+                              @keyframes my-first-animation {
+                                 from { width: 100px; }
+                                 to { width: 300px; }
+                              }
+        
         
         3️⃣ animation-name, animation-duration
         
+                  🟣 animation-name  : keyframes의 이름을 작성한다.
+                           
+                           ⭐ 기본값 : none;
+                           
+                           🔻 이름을 만들 때 지켜야할 규칙들.
+                          
+                                ● 대소문자를 구분한다.
+                                ● 숫자는 0~9, 알파벳은 a~z, underscores(_), and/or dashes(-)만 사용이 가능하다. 
+                                ● intial, inherit은 global values이기때문에, 이 이름들도 쓰면 안된다. 
+                  
+                  🟣 animation-duration  :  한 사이클을 완료하는 데 걸리는 시간을 지정한다.
+                                    
+                          ⭐ 음수값은 유효하지 않다.
+                          
+                          ⭐ 작성할 수 있는 값은 <time>이기때문에, s와 ms를 사용할 수 있다. 
+                        
+        
         4️⃣ antimation-delay, animation-timing-function
+        
+                  🟣 animation-delay : 애니메이션이 시작할 시점을 지정한다. 
+                           
+                           ⭐ 음수값도 사용 가능하다.
+                           
+                           ⭐ 작성할 수 있는 값이 <time>이기때문에, s와 ms를 사용할 수 있다.
+                  
+                  🟣 animation-timing-function 
+                  
+                         ⭐ 기본값 : ease;
+                          
+                         ⭐ 사용할 수 있는 값은 transition-timing-function과 동일하다.
+                             -> ease-in, ease-out 등..
+                                
         
         5️⃣ animation-iteration-count, animation-direction
         
+                  🟣 animation-iteration-count : 반복횟수. 애니메이션은 영원히 반복되게 할 수 있기 때문에, 재생 횟수를 조절할 수 있다.
+                  
+                           ⭐ 기본값 : 1
+                           ⭐ infinite 키워드를 사용해서 무한으로 반복되게 할 수 있다. 
+                  
+                  🟣 animation-direction : 앞으로 뒤로 또는, 앞뒤로 번갈아 재생되어야 하는지 여부를 지정한다.
+                           
+                           🟤 사용할 수 있는 Values
+                           
+                           🟨 normal : 정방향으로 재생.      ⭐기본값
+                           🟨 reverse : 거꾸로 재생.
+                           🟨 alternate : 앞뒤로 왔다갔다 할 수 있다.
+                           🟨 alternate-reverse : 앞뒤로 왔다갔다 할 수 있는데, 첫번째 방향이 역방향으로 진행된다.
+                  
+                  
         6️⃣ animation-paly-state
         
-        7️⃣ animation-fill-mode
+                  🟣 animation-paly-state : 재생되는 상태를 설정할 수 있다. 
+                  
+                  🟤 사용할 수 있는 값
+                  
+                       🟨running : 계속 재생이 된다.  ⭐ 기본값
+                  
+                       🟨paused : 일시 정지된다.
+         
+         
+        7️⃣ animation-fill-mode     (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/animation-fill-mode )
         
-        8️⃣ animation (shorthand)
-
+                  🟣  animation-fill-mode : 애니메이션이 실행 되기 전과 후에, 대상에 스타일을 적용하는 방법을 지정한다. 
+        
+                           🟤 사용할 수 있는 값
+                           
+                               🟨 none : 실행되지 않을 때 대상에 스타일을 적용하지 않는다.     ⭐ 기본값
+                               🟨 forwards : 실행된 애니메이션의 마지막 keyframes에 의해 설정된 계산된 값을 유지한다.
+                               🟨 backwards: 애니메이션이 시작하기 전에, keyframes에 정의된 값을 적용한다.
+                               🟨 both : forwards와 backwards가 둘 다 적용이 된다.
+                            
+                            
+        8️⃣ animation (shorthand)   (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/animation )
+                  
+                  🟣 anmation : 다수의 스타일을 전환하는 애니메이션을 적용한다.          ⭐ 단축 속성
+                  
+                           Ex)
+                              animation: 2s linear 1s my-first-animation;
+                              
+                              animation: 2s ease-in 1s 2 reverse both paused my-first-animation;  
+         
