@@ -585,7 +585,8 @@
 
                                                  justify-content: center;         ⭐ 주축을 기준으로 가운데에 자리잡게 된다. 
 
-                                                 justify-content: space-between;    ⭐ 사이에 간격들이 동일하게 나눠져서 정렬하게 된다. 첫번째 요소와 마지막 요소가 flex-start와 flex-end에 자동으로 자리잡는다.     -> '메뉴'를 만들 때 유용하다.
+                                                 justify-content: space-between;    ⭐ 사이에 간격들이 동일하게 나눠져서 정렬하게 된다. 첫번째 요소와 마지막 요소가 flex-start와 flex-end에 자동으로 자리잡는다.  
+                                                                                        -> '메뉴'를 만들 때 유용하다.
 
                                                  justify-content: space-around;     ⭐ flex-start와 flex-end를 기준으로, 간격이 각각의 요소 앞뒤로 동일한 여백을 추가하게 된다. 
 
@@ -665,3 +666,4 @@
                                              .item:nth-child(4) {
                                                 align-self: flex-start;         ⭐ align-self로 설정한 요소에만 적용이 된다. 
                                              }
+
