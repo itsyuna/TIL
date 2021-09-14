@@ -281,14 +281,577 @@
           
           
           
-          6️⃣ Container - grid-auto-rowos, grid-auto-columns
+          6️⃣ Container - grid-auto-rows, grid-auto-columns
+                     
+                     🟣 grid-auto-rows  : 템플릿에 명시적으로 작성하지 못했지만, 넘쳐나는 요소들에 대해서 '암시적으로(implicitly)' 높이를 명시할 수 있게 된다. 
+                     
+                     🟣 grid-auto-columns
+                     
+                           ⭐ 위에서 공부한 grid-template-rows와 grid-template-columns는,
+                               template이라는 이름에 걸맞게, 내부에 아이템이 있건 없건, 
+                               행과 열의 크기를 '명시적으로' 미리 만들어 놓는다. 
+                               
+                               템플릿을 넘쳐날 때, 넘쳐나는 아이템들에게 높이와 너비를 설정해 주고 싶을 때
+                               사용하는것이 grid-auto-rows와 grid-auto-columns이다!
+                               
+                               Ex)
+                                  .container {
+                                      border: 5px dashed orange;
+                                      
+                                      display: grid;
+                                      
+                                      grid-template-columns: repeat(2, 1fr);
+                                      grid-template-rows: repeat(4, 1fr);
+
+                                      grid-auto-rows: 100px;                ⭐ 넘쳐흐르는 요소들의 행을 100px로 설정.
+                                      grid-auto-columns: 50px;               ⭐ 추후에 아이템들에게 배울 수 있는 속성들이 있는데, 몇번째 컬럼에 들어가게 하는것을 결정할 수 있다. 
+                                                                                그런데 지정해 주는 칼럼이 템플릿에 없는 칼럼이면, grid-auto-columns에 들어가는 값을 따라가게 된다. 
+                                  }
+                                  
+                                  .item {
+                                     background-color: paleturquoise;
+                                     border: 3px solid blue;
+                                     font-size: 24px;
+                                  }
+                                
+                          ⭐ grid-template과 grid-auto의 차이점!
+                          
+                             1) grid-templte-rows / grid-template-columns와 grid-auto-rows / grid-auto-columns는
+                               '명시적', '암시적'의 차이가 있다.
+                          
+                             2) template-columns와 template-rows로 만들어놓은 영역은, 내부에 아이템이 없더라도
+                                그 영역을 차지하기 때문에 컨테이너 영역도 그만큼 커지게 된다. 
+                             
+                                하지만, grid-auto-rows와 grid-auto-columns를 사용하면
+                                암시적으로 지정하는거기때문에 아이템이 없으면 그 영역은 눈에 볼 수 없게 된다. 
+                             
+                                  
           7️⃣ Container - grid-auto-flow
+          
+                    🟣 grid-auto-flow      : 자기자리를 찾아서 들어가는 과정이, 일련의 css의 계산과정, 즉 알고리즘에 의해서 자리릊 잡게되는데
+                                             자리잡는 방법의 흐름을 어떻게 할건지를 결정한다. 
+                                             -> 아이템들이 어떤 형태로 흘러갈건지에 대해서 설정할 수 있다. 
+                    
+                               🟤 사용할 수 있는 값
+                               
+                                  🟨 row  : main(행)축의 방향으로 흐르는 row.      ⭐ 기본값       
+                                  🟨 column  : 열축의 방향으로 흐르는 column.
+                                  🟨 row dense;                                 ⭐ dense를 추가로 붙여줄 수 있다.
+                                  🟨 column dense;
+                                  
+                                            Ex)
+                                               .container {
+                                                 border: 5px dahsed orange;
+                                                 
+                                                 display: grid;
+                                                 grid-template-columns: repeat(3, 1fr);
+                                                 grid-template-rows: repeat(3, 1fr);
+                                                 
+                                                 grid-auto-flow: row dense;       ⭐ 빈 공간이 생기면, 마크업 순서와 상관없이 빈 영역을 채우게 된다. 
+                                                 grid-auto-flow: dense;                   ⭐ row값이 기본값이기때문에, 그냥 dense라고만 해도 된다.  
+                                                
+                                               }
+                                               
+                                               .item {
+                                                 background-color: paleturqoise;
+                                                 border: 3px solid blue;
+                                                 font-size: 24px;
+                                               }
+                                                
+                                               .item:nth-child(2) {
+                                                   grid-column: span 2;          ⭐ 아이템을 기준으로 병합시킬 수 있다. 
+                                               }
+                  
+                  
           8️⃣ Container - grid (shorthand)
-          9️⃣ Container - justify-content, align-content
-          🔟 Container - justify-items, align-items
-          1️⃣1️⃣ Item - grid-row, grid-column
+          
+                    🟣 grid    : 위에서 배운, 컨테이너에 적용할 수 있는 여러가지 property들을 한 줄로 작성할 수 있다.    ⭐ 단축 속성
+                    
+                             🟥 외재적인 속성 (=명시적)   : grid-template-rows, grid-template-columns, grid-template-areas
+                             
+                             🟥 내재적인 속성 (=암시적)   : grid-auto-rows, grid-auto-columns, grid-auto-flow
+                                
+                                    Ex)
+                                       grid: auto-flow / 1fr 1fr 1fr;           ⭐ 슬래시(/)를 기준으로 앞이 row, 뒤가 column이다. 
+                                       
+                                       grid: auto-flow dense / 30px 30px 1fr;
+                                        
+                                 ⭐ row도 명시적으로 쓰고, column도 명시적으로 썼다면,
+                                    앞쪽이 grid-template-row가 되고, 뒤쪽이 grid-template-column이 된다. 
+                                    
+                                    row만 명시적으로 쓰고, 뒤에 column은 암시적으로 쓰는것도 가능하다.    (=> 앞 : grid-template-row, 뒤 : grid-auto-column)
+                                    또는, row를 암시적으로 쓰고, column을 명시적으로 쓸 수도 있다.        (=> 앞: grid-auto-row,   뒤 : grid-template-column)
+          
+                                            Ex)
+                                                .container {
+                                                 border: 5px dahsed orange;
+                                                 
+                                                 display: grid;
+                                                 /*                        
+                                                 grid-template-rows: 1fr 2fr;            ⭐ 명시적
+                                                 grid-template-columns: 100px 200px;     ⭐ 명시적      
+                                                 */
+                                                 
+                                                 grid: 1fr 2fr / 100px 200px;             ⭐ 위에 코드와 동일하다. (-> 한줄로 작성)
+                                                }
+                                                
+                                 🔻 grid-auto-flow를 변경하고 싶다면?
+
+                                         .container {
+                                                 border: 5px dahsed orange;
+
+                                                 display: grid;
+                                                 /*
+                                                 grid-template-columns: 100px 200px;
+                                                 grid-template-rows: 1fr 2fr;
+                                                 */
+
+                                                 grid: auto-flow 1fr 2fr / 100px 200px;           ⭐ row로 하고 싶으면 앞에. 근데 기본값이 row이기 때문에 쓰나 안쓰나 똑같다. 
+                                                 grid: 1fr 2fr / auto-flow 100px 200px;           ⭐ column으로 바꾸고 싶으면, 뒤에 써준다. 
+                                          }
+                                              
+          
+          9️⃣ Container - justify-content, align-content          -> 정렬할 수 있는 속성.
+                    
+                 ⭐ 선행 조건 : 컨테이너의 크기가, 안에 있는 컨텐츠 크기보다 커서 남는 공간이 있어야 된다.
+                                  -> 남는 공간을 어떻게 활용할지에 대해서 justify-content를 사용해서 정의할 수 있다. 
+                    
+                   🟣 justify-content        : main axis(메인축)을 중심으로 나열하는 방식.              (* 참고 : https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content )
+                    
+                               Ex)
+                            
+                                        ⚪ HTML
+                                                  <div class="container">
+                                                      <div class="item">1</div>
+                                                      <div class="item">2</div>
+                                                      <div class="item">3</div>
+                                                      <div class="item">4</div>
+                                                      <div class="item">5</div>
+                                                      <div class="item">6</div>
+                                                      <div class="item">7</div>
+                                                      <div class="item">8</div>
+                                                      <div class="item">9</div>
+                                                  </div>
+
+                                        ⚪ CSS
+
+                                                  .container {
+                                                    border: 5px dashed orange;
+
+                                                    width: 100%;
+                                                    height: 500px;
+
+                                                    display: grid;
+                                                    grid-template-rows: repeat(3, 100px);
+                                                    grid-template-columns: repeat(3, 100px);
+
+                                                    justify-content: start;                         : 메인축의 왼쪽 끝에 붙는다. ⭐ 기본값
+
+                                                    justify-content: end;                           : 메인축의 오른쪽 끝에 붙는다. 
+
+                                                    justify-content: center;                        : 가운데에 들어간다.
+
+                                                    justify-content: space-around;              :  메인축을 기준으로 자연스럽게 나열이 되는데, 간격이 동일하게 넓어진다. 
+
+                                                    justify-content: space-between;             : 간격이 start와 end에 붙은 상태에서, 가운데에 있는 간격이 동일하게 넓어진다. 
+                                                 }
+
+                                                  .item {
+                                                      background-color: paleturquoise;
+                                                      border: 3px solid blue;
+                                                      font-size: 24px;
+                                                  }
+           
+                   🟣 align-content          : cross axis(교차축)을 중심으로 나열하는 방식.             (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/align-content )
+                   
+                                        Ex)
+                                            .container {
+                                                    border: 5px dashed orange;
+
+                                                    width: 100%;
+                                                    height: 500px;
+
+                                                    display: grid;
+                                                    grid-template-rows: repeat(3, 100px);
+                                                    grid-template-columns: repeat(3, 100px);
+
+                                                    algin-content: start;         : 교차축의 맨 위에 붙는다. 
+                                                    
+                                                    align-content: end;           : 교차축의 맨 아래에 붙는다.
+                                                    
+                                                    align-content: center;        : 교차축의 가운데로 이동한다.
+                                                    
+                                                    align-content: space-around;
+                                                    
+                                                    align-content: space-between;
+                                                }
+                                                
+                                            🔻 justify-content와 align-content를 가운데로 하면?
+
+                                                         justify-content: center;
+                                                         algin-content: center;
+
+                                                            🟠 출력 결과 -> 컨테이너의 정 가운데에 아이템 컨텐츠들이 들어가게 된다. 
+
+
+                                            🔻 justify-content와 align-content를 둘 다 space-between으로 하면?
+
+                                                        justify-content: space-between;
+                                                        algin-content: space-between;
+
+                                                            🟠 출력 결과 -> 내부에 있는 아이템들이 바깥쪽 컨테이너를 기준으로, 자연스럽게 자기가 갈 수 있는 끝까지 이동하면서
+                                                                            동일한 간격을 가지고 배치가 된다. 
+
+                              ⭐ justify-content와 align-content는 전체 컨테이너를 기준으로 내부에 있는 아이템들의 덩어리를
+                              어떻게 배치할지를 결정한다. 
+                              => 여러 아이템들이 있어야 한다. 
+                   
+          
+          🔟 Container - justify-items, align-items         -> 정렬에 관련된 속성. 
+                    
+                    ⭐ justify-content와 align-content와의 차이점을 먼저 이해해야 한다.
+                    
+                       먼저 prefix인 justify와 align은 구분이 확실하다.
+                       justify -> 메인축
+                       align -> 교차축
+                       
+                       content와 items의 차이에 대해서 이해를 해야한다.
+                       
+                       justify-items는 space-between이나 space-around와 같은 값을 사용할 수 없다.
+                       
+                       -> 이유는, 
+                          justify-items와 align-items는 하나의 아이템에 대한 정렬을 얘기한다.
+                          
+                    ⭐ justify-items는 컨테이너의 크기와, 전체 컨텐츠의 크기와는 상관이 없다. 
+                    
+                       틀의 크기보다 내부에 들어가는 아이템의 크기가 작아지면, 
+                       아이템의 기본 배치는 왼쪽 위가 될것이다.
+                       그런데 가운데, 또는 오른쪽 위 이런식으로 정렬을 하고 싶을 수 있다.
+                       
+                       -> 이렇게 하나의 틀 안에서, 하나의 아이템을 어떻게 정렬할건지에 대한 것이
+                          justify-items와 align-items이다.
+                        
+                        
+                    🟣 justify-items
+                    
+                                Ex)
+                                 
+                                 .container {
+                                          border: 5px dashed orange;
+
+                                          width: 100%;
+                                          height: 500px;
+
+                                          display: grid;
+                                          grid-template-rows: repeat(3, 1fr);
+                                          grid-template-columns: repeat(3, 1fr);
+                                          
+                                          justify-items: stretch;               ⭐ 기본값.   -> 길이를 따로 지정하지 않으면, 본인의 틀 안에서 가로, 세로로 끝까지 늘어난다. 
+                                          
+                                          justify-items: start;                 ⭐ 자기가 차지할 수 있는 부분까지 늘어나는게 아니라, 컨텐츠의 길이만큼 또는 
+                                                                                   자기 자신의 width만큼 자리잡고 있다. 
+                                         
+                                          justify-items: end;
+                                          
+                                          justify-items: center;
+                                 }
+                                        
+                                  .item {
+                                            background-color: paleturquoise;
+                                            border: 3px solid blue;
+                                            font-size: 24px;
+                                            /* width: 50px; */
+                                            /*
+                                            width: 100%;
+                                            height: 100%;
+                                            */
+                                  }
+                                  
+                                  .item:nth-child(1) {      ⭐ 첫번째 요소에만 크기를 지정해줌.   -> 크기가 줄어들면서 빈 공간이 생긴다.
+                                                               -> 위치는 기본적으로 왼쪽 위에 정렬.
+                                     width: 5-px;
+                                     height: 50px;
+                                  }
+                                  
+                                  .item:nth-child(2) {      ⭐ 2번 요소인 하나의 아이템에만 정렬을 변경할 수 있다. 
+                                     justify-self: end;
+                                        또는
+                                     align-self: end;
+                                  }
+               
+                    🟣 align-items
+                    
+                              -> justify-items와 사용 방법은 동일하다.
+                              
+                              Ex)    
+                                  justify-items: center;
+                                  align-items: center;
+          
+          
+          1️⃣1️⃣ Item - grid-row, grid-column               -> 개별 아이템에게 설정.
+          
+                  🟣 grid-row        : grid-row-end와 grid-row-start의 ⭐단축 속성이다.
+                  
+                            Ex 1)
+                               grid-row: 1 / 3;             ⭐ 앞이 start, 뒤가 end.
+                               grid-row: 2 / -1;
+                               grid-row: 1 / span 2;
+                    
+                            Ex 2)
+                                ⚪ HTML
+                                
+                                      <div class="container">
+                                         <div class="item">1</div>
+                                         <div class="item">2</div>
+                                         <div class="item">3</div>
+                                      </div>
+                               
+                                ⚪ CSS
+                                
+                                     .container {
+                                         border: 5px dashed orange;
+                                         
+                                         display: grid;
+                                         gird-template-rows: repeat(3, 100px);
+                                         grid-tempalte-columns: repeat(3, 1fr);
+                                     }
+                                     
+                                     .item {
+                                         backgroudn-color: paleturquoise;
+                                         border: 3px solid blue;
+                                         font-size: 24px;
+                                     }
+                                     
+                                     .item:first-child {
+                                        background-color: coral;        ⭐ 별도로 grid-row: start나 grid-column: start를 설정하지 않으면,
+                                                                            기본값이 하나의 행, 하나의 열만 자리를 차지하고 있다. 
+                                        grid-row-start: 1;              ⭐ 숫자는, 몇번째 행, 열인지에 대한 숫자가 아니고,
+                                                                           선이 몇번째 선인지에 대한 의미이다. (-> 개발자 도구로 확인 가능)
+                                                                           * 오른쪽에 보면 마이너스 숫자도 있다. (-1, -2...)
+                                                                           만약에 1번부터 -2까지라고 표현한다면, 1번부터 3번까지랑 동일하게 동작한다. 
+                                                                           마이너스 넘버링은 명시적으로 작성한 template-row와 template-column에만 딱지가 붙는다. 
+                                                                           grid-auto-row나 grid-auto-column으로 하면, 암시적으로 템플릿 바깥으로 아이템들이 바깥으로
+                                                                           넘쳐나게 되면 추가로 선이 생긴다. 그런데 추가로 생긴 선들에게는 마이너스 넘버링이 붙지 않는다. 
+                                        grid-row-end: 4;
+                                        
+                                   
+                                   🔻 grid-row-start를 1로 하고, end를 -1로 하면?
+                                   
+                                        grid-row-start; 1;
+                                        grid-row-end: -1;
+                                        
+                                        grid-row: 1 / -1;            ⭐ 위와 동일한 코드이다. 
+                                      
+                                     🟠 출력 결과 -> 무조건 처음부터 끝까지를 꽉 채우게 된다.  (=> 위에서 아래로 한 줄 꽉 채움)
+          
+          
+                  🟣 grid-column        ⭐ 단축 속성
+                  
+                          -> grid-column도 grid-row와 동일하게 사용 가능하다.
+                          
+                              Ex)
+                                 grid-row: 1 / -1;
+                                 grid-column: 1 / -1;
+                                 
+                🔻 현재 영역부터 몇 칸까지 늘어날건지를 설정하려면?
+                
+                     grid-row: 2 / span 2;        ⭐ 2부터 2칸.
+                     
+                     grid-column: 2 / -1; 
+                     
+          
           1️⃣2️⃣ Item - grid-area
-          1️⃣3️⃣ Item - order
+          
+                    🟣 grid-area 
+                                   :  ● 영역의 이름을 지정해준다. 
+                                      ● grid-row-start, grid-column-start, grid-row-end, grid-column-end를 한 줄에 쓸 수 있는 ⭐단축 속성이다. 
+                                      
+                             Ex)
+                                grid-area: a;               ⭐ 이름 지정.
+                                
+                                grid-area: 2 / 1 / 2 / 4;   ⭐ 단축 속성으로 사용.
+                           
+                           🔻 단축 속성 사용 예시
+                             
+                             Ex)
+                                 .item:first-child {
+                                   background-color: coral;
+                                   
+                                   grid-row: 4 / span 2;
+                                   grid-column: 2 / -1;
+                                   
+                                   grid-area: 4 / 2 / span 2 / -1;      ⭐ 위의 2줄 코드와 동일한 코드이다. 
+                                 
+                                 ⭐⭐ 순서가 중요하다. grid-row-start / grid-column-start / grid-row-end / grid-column-end 순이다. (-> start 2개가 먼저 시작)
+                                 }
+                              
+          
+          1️⃣3️⃣ Item - order           (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/order )
+          
+                    🟣 order : 플렉스 또는 그리드 컨테이너 안에서 현재 요소의 배치 순서를 지정한다. 
+                    
+                          ⭐ 초기값 : 0           -> 마크업 순서에 따라서 순서가 정해진다. 
+                          
+                                🟤 사용할 수 있는 값
+                                
+                                     🟨 <integer>   : 정수만 가능하다. (음의 정수, 0, 양의정수)   -> 소수점은 사용할 수 없다. 
+                                           
+                                           Ex)
+                                               .item:nth-child(5) {
+                                                   order: -1;                   ⭐ 0보다 작기때문에, 5번째 요소가 제일 앞으로 오게 된다. 
+                                               }
+                                     
+                                  ⭐ 동일한 값일 경우, 마크업 순서대로 자리잡는다. 
+                          
+                          
           1️⃣4️⃣ Item - z-index
+          
+                    🟣 z-index    :   쌓임의 순서를 제어할 수 있다.
+                                       -> grid 아이템에만 사용할 수 있는 property는 아니고, HTML 요소들 전부에 사용할 수 있다. 
+                                     
+                              Ex)
+                                 ⚪ HTML
+                                 
+                                        <div class="container">
+                                            <div class="item">1</div>
+                                            <div class="item">2</div>
+                                        </div>
+                              
+                                 ⚪ CSS
+                                        
+                                      
+                                       .container {
+                                           border: 5px dashed orange;
+
+                                           display: grid;
+                                           gird-template-rows: repeat(3, 100px);
+                                           grid-tempalte-columns: repeat(3, 1fr);
+                                        }
+
+                                       .item {
+                                           backgroudn-color: paleturquoise;
+                                           border: 3px solid blue;
+                                           font-size: 24px;
+                                           opacity: 0.7;              ⭐ 겹쳐져 있는 부분을 인식하기 쉽게 하기 위해, opacity 설정. 
+                                       }
+                                       
+                                       .item:nth-child(1) {
+                                           grid-row: 1 / span 2;
+                                           grid-column: 1 / span 2;
+                                       }
+                                       
+                                       .item:nth-child(2) {
+                                           grid-row: 1 / 2;
+                                           grid-column: 2 / 4;
+                                           z-index: -1;               ⭐ 2번 요소가 1번 요소보다 뒤로 가게 된다. 
+                                       }
+                
+                    
           1️⃣5️⃣ Grid 단위 - fr, min-content, max-content
-          1️⃣6️⃣ Grid 단위 - auto-fill, auto-fit 
+          
+                    🟧 fr     : 가로와 세로의 길이를 정확하게 명시적으로 몇px 이렇게 지정하지 않고, 비율을 사용해서 나눌 때 사용.
+                    
+                              Ex)
+                                 .container {
+                                    border: 5px dashed orange;
+                                    
+                                    display: grid;
+                                    grid-template-rows: repeat(3, 10xx);
+                                    gird-tempalte-columns: 1fr 2fr;         ⭐ 1:2의 비율을 가지게 된다.
+                            
+                            
+                              🔻 다른 단위와 혼합해서 사용도 가능하다.
+                              
+                                   grid-template-columns: 100px 1fr;        ⭐ 첫번째 컬럼에는 100px이라는 정확한 절대길이를 사용하고, 
+                                                                                두번째 칼럼에는 100px쓰고 남은것만 가지게 한다.
+                                                                               -> 실행하면, 100px을 유지하고, 두번째 행만 움직일때마다 사이즈가 변한다. 
+                                   grid-template-columns: 100px 1fr 1fr;
+                                   
+                    🟧 min-content
+                     
+                    🟧 max-content
+                    
+                     Ex)
+                                  grid-template-columns: min-content 1fr 1fr;             ⭐ 키워드 자체를, 단위처럼 넣어서 사용할 수 있다. 
+                        
+                        
+                        🔻 사용 예시
+                              
+                              ⚪ HTML
+                              
+                                   <div class="container">
+                                      <div class="item">
+                                      Lorem ipsum,
+                                      dolor sit amet
+                                      consectetur adipisicing
+                                   </div>
+                                   <div class="item">2</div>
+                                   <div class="item">3</div>
+                           
+                              ⚪ CSS
+                              
+                                  .container {
+                                     border: 5px solid orange;
+                                     
+                                     display: grid;
+                                     grid-template-rows: repeat(3, 180px);
+                                     grid-template-columns: min-content 1fr 1fr;
+                                  }
+                                  
+                                  .item {
+                                     background-color: paleturquoise;
+                                     border; 3px solid blue;
+                                  }
+                        
+          
+          1️⃣6️⃣ Grid 단위 - auto-fill, auto-fit              -> 반응형으로 grid를 디자인할 경우 유용하게 사용할 수 있다. 
+          
+                    🟣 auto-fill        : 칼럼의 갯수를 남는 공간에 자동으로 채우게 된다.  -> 빈 공간에 다음 요소들이 없으면, 그대로 빈 공간이 유지된다. 
+                    
+                            ⚪ HTML
+                            
+                                   <div class="container">
+                                      <div class="item">1</div>
+                                      <div class="item">2</div>
+                                      <div class="item">3</div>
+                                      <div class="item">4</div>
+                                      <div class="item">5</div>
+                                      <div class="item">6</div>
+                                   </div>
+                            
+                            ⚪ CSS
+                                       
+                                   .container {
+                                      border: 5px dashed orange;
+                                      
+                                      display: grid;
+                                      
+                                      grid-template-columns: repeat(auto-fill, 100px);
+                                      gird-auto-rows: 50px;
+                                   }
+                                   
+                                   .item {
+                                      background-color: paleturquoise;
+                                      border: 3px solid blue;
+                                   }   
+                      
+                      
+                    🟣 auto-fit   : 남는 공간이 생길 때, 빈 공간을 만들지 않는다. -> 꽉 채우게 된다. 
+                    
+                              Ex)
+                                 .container {
+                                      border: 5px dashed orange;
+                                      
+                                      display: grid;
+                                      
+                                      grid-template-columns: repeat(auto-fit, 100px);
+                                      grid-auto-rows: 50px;
+                                   }
+                                   
+                                   .item {
+                                      background-color: paleturquoise;
+                                      border: 3px solid blue;
+                                   }   
+         
+         
+         
