@@ -15,7 +15,7 @@
                            🟥 flex container  : 부모 요소를 말한다. 
                            🟥 flex item     : flex container 내부에 flexbox로 레이아웃되는 항목을 말한다.
                            🟥 main axis     : 기본축. flex item이 배치되고 있는 방향으로 진행하는 축.    ⭐ 이 기본축의 시작과 끝을 main start / main end라고 한다.
-                           🟥 crss axis     : 교차축. flex item이 내부에 배치되는 방향에 직각을 이루는 축.  ⭐ 이 축의 시작과 끝을 cross start / cross end라고 한다.  
+                           🟥 cross axis     : 교차축. flex item이 내부에 배치되는 방향에 직각을 이루는 축.  ⭐ 이 축의 시작과 끝을 cross start / cross end라고 한다.  
           
           
           #️⃣ Container 속성들
@@ -48,10 +48,181 @@
                                     🟨 column-reverse   :  column과 동일하게 동작하지만, 시작점과 끝점이 반대에 위치.   ⭐ 아래에서 위로. 
                                
                                
-                🟣 flex-wrap 
-                      
-                      
+                🟣 flex-wrap        (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/flex-wrap )
+                              
+                      : flex-item 요소들이 강제로 한 줄에 배치되게 할 건지, 아니면 가능한 영역 내에서 벗어나지 않고
+                        여러행으로 나누어서 표현할건지를 결정하는 속성이다.
+                        만약, 영역 내에서 벗어나지 못하게 설정한다면, 동시에 요소의 방향축을 결정할 수 있다.
                 
-                
+                               🟤 사용할 수 있는 값
+                               
+                                   🟨 nowrap      : flex-container 부모요소의 영역을 벗어나더라도, flex-item 요소들을 한 줄에 배치한다.  ⭐ 기본값
+                                   🟨 wrap        : flex-item 요소들이 내부 로직에 의해 분할되어서 여러 행에 걸쳐서 배치된다. 
+                                   🟨 wrap-reverse          : wrap 속성과 동일하지만, 요소가 나열되는 시작점과 끝점의 기준이 반대로 배치된다. 
+                  
                 🟣 flex-flow (shorthand)
+                
+                       : flex-direction과 flex-wrap 속성의 ⭐단축 속성이다.
                                     
+                           Ex)
+                              flex-flow: row wrap;                   ⭐ spacing으로 구분해서 나열한다. 
+                    
+                
+                🟣 justify-content
+                
+                        : main axis를 기준으로 아이템들을 어떻게 정렬할건지 결정할 수 있는 속성이다. 
+                        
+                                 🟤 많이 사용하는 키워드
+                                 
+                                        🟨 flex-start    : 주축이 시작되는 위치(왼쪽 -> 오른쪽)부터 정렬이 된다.
+                                        🟨 flex-end      : 주축이 끝나는 위치에 정렬.
+                                        🟨 center        : 주축을 기준으로 가운데에 정렬.
+                                        🟨 space-between    : 첫번째 요소아 마지막 요소가 flex-start와 flex-end에 자동으로 자리잡고, 그 사이에 간격들이 동일하게 나누어져서 정렬이 된다. 
+                                        🟨 space-around     : flex-start와 flex-end를 기준으로, 간격이 각각이 요소 앞뒤로 동일한 여백을 추가하게 된다. 
+                
+                          ⭐⭐ justify-content를 사용할때는, flex-direction을 먼저 확인한다!
+                        
+                        
+                🟣 align-items
+                
+                        : 전체 컨테이너 안에서, main axis을 기준으로 요소들을 어떻게 정렬할건지 설정할 수 있다.
+                           
+                                 🟤 사용할 수 있는 값
+                                 
+                                      🟨 stretch  : height값이 따로 없다면, 차지할 수 있는 높이 전체를 전부 차지한다.    ⭐ 기본값
+                                      🟨 flex-start  : 교차축에 시작 부분에 자리잡게 된다. 
+                                      🟨 flex-end    : 교차축 끝 부분에 자리잡게 된다.
+                                      🟨 center      : 전체중에서 가운데에 자리잡게 된다. 
+                                  
+                🟣 align-content    
+                
+                        : 전체 컨테이너 안에서, cross aixs를 기준으로 요소들을 어떻게 정렬할건지 설정할 수 있다. 
+                                        
+                                 🟤 사용할 수 있는 값
+                                 
+                                     🟨
+                                     🟨
+                                     🟨
+                                     🟨
+                                     🟨
+                
+                
+                🟣 align-self
+                
+                        : 아이템에 사용할 수 있고, 자기자신만 align하는 속성이다. 
+                
+                                🟤 사용할 수 있는 값
+                                
+                                     🟨
+                                     🟨
+                                     🟨
+                                     🟨
+                                     🟨
+   
+   
+     #️⃣ Item
+     
+                🟣 order      : flex 또는 grid container 안에서, 현재 아이템의 배치 순서를 지정한다.          (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/order )
+                
+                              ⭐ 기본값 : 0
+                              
+                              🟤 사용할 수 있는 값
+                              
+                                    🟨 <integer>    : 정수 사용가능. 
+                                        
+                                        Ex)
+                                           .container {
+                                              display: flex;
+                                           }
+                                           
+                                           .item:nth:child(1) {
+                                              order: -1;
+                                           }
+                                           
+                                  ⭐ item의 order 속성을 사용하려면, 부모 컨테이너에게 flex나 grid를 줘야 한다!
+                    
+                🟣 flex-grow            (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/flex-grow ) 
+                
+                          :  flex-item 요소가 flex-container 요소 내부에서 할당 가능한 공간의 정도를 선언한다.
+                             만약 형제 요소로 렌더링 된 모든 flex-item 요소들이 동일한 flex-grow 값을 갖는다면,
+                             flex-container 내부에서 동일한 공간을 할당 받는다.
+                             하지만, flex-grow 값으로 다른 소수값을 지정하면, 그에 따라서 다른 공간값을 나누어 할당받게 된다. 
+                             
+                             ⭐ 보통 flex-grow를 사용하면, flex-shrink와 flex-basis 속성을 함께 사용 한다.
+                                그리고 일반적으로는 모든 값이 설정되었음을 보장하기 위해서 flex 속성을 이용해서
+                                '축약형'으로 사용한다!
+                                
+                          ⭐ 선행조건 : 아이템들의 크기가 컨테이너의 크기보다 작아서, 여기에 남는 공간이 생겨야 grow를 적용할 수 있다.
+                             
+                              🟤 사용할 수 있는 값
+                                 
+                                 🟨 <number>      :   정수 또는 실수.    ⭐ 음수값은 허용되지 않는다.
+                              
+                                        Ex)                                       
+                                           .item {
+                                              flex-grow: 1;
+                                           } 
+                          
+                          🔴 flex-grow는 동적으로 만드는 메뉴, 네비게이션bar, header등을 만들 때 유용하다. 
+                    
+                    
+                🟣 flex-shrink          (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/flex-shrink )
+                
+                         : flex-item들의 요소의 크기가, flex-container의 요소의 크기보다 클 때 사용한다. 
+                           -> 설정된 숫자값에 따라서, flex-container 요소 내부에서 flex-item의 요소의 크기가 축소된다. 
+                              
+                              ⭐ 기본값 : 1
+                              
+                                    🟤 사용할 수 있는 값
+                                    
+                                        🟨 <number>
+                                        
+                                           Ex)
+                                              .item:nth-child(2) {
+                                                  flex-shirnk: 0;          ⭐ 0으로 선언하면, 더이상 줄어들지 않는다. 
+                                              }
+                                        
+                
+                🟣 flex-basis           (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/flex-basis )
+                
+                          : flex-item의 초기 크기를 지정한다. 
+                            -> box-sizing을 따로 지정하지 않으면, 콘텐츠 박스의 크기를 변경한다.
+                    
+                          
+                              🟤 사용할 수 있는 값
+                              
+                                   🟨 <'width'>   :   <lenght>, flex-container 크기에 상대적인 <percentage>, auto 키워드 중 하나.   ⭐ 음수값은 유효하지 않ㄴ다.
+
+                                   🟨 content : flex-item의 콘텐츠 크기에 따라 '자동으로' 크기가 변한다.     
+                                        
+                                        ⭐⭐ content 키워드는,
+                                              Flexible Box Layout의 첫 배포에 포함되지 않아, 일부 오래된 구현체에서는 지원하지 않을 수 있다. 
+                                              
+                                              -> flex-basis와 주 크기(width, height) 속성을 동시에 auto로 설정하면 동일한 효과를 볼 수 있다. 
+
+                                   🟨 auto : 자기의 width 또는 height 속성값을 사용한다.               ⭐ 기본값
+                                   
+                                           Ex)
+                                              flex-basis: 0;          ⭐ 0으로 설정해서, grow로 비율을 조절하는 방식을 많이 사용한다. 
+                                              
+                                              flex-basis: auto;
+                                              
+                                              flex-basis: 2em;
+                                
+                
+                🟣 flex (shorthand)
+                
+                            : flex-grow, flex-shrink, flex-basis 3가지의 property들을 한 줄에 작성할 수 있는 ⭐단축 속성이다.
+                                 
+                                 🔻 3가지 속성의 초기값들
+                            
+                                    🔴 flex-grow : 0
+                                    🔴 flex-shrink : 1
+                                    🔴 flex-basis : auto       ⭐ flex-basis는 작성하지 않는다고 해서 auto가 되지는 않는다!
+                            
+                                🟤 사용할 수 있는 값
+                                
+                                     🟨 키워드 : auto / initial / none
+                                     🟨 flex-grow / flex-shrink / flex-basis
+     
+                                        
