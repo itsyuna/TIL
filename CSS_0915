@@ -75,9 +75,14 @@
                                  🟤 많이 사용하는 키워드
                                  
                                         🟨 flex-start    : 주축이 시작되는 위치(왼쪽 -> 오른쪽)부터 정렬이 된다.
+                                        
                                         🟨 flex-end      : 주축이 끝나는 위치에 정렬.
+                                        
                                         🟨 center        : 주축을 기준으로 가운데에 정렬.
-                                        🟨 space-between    : 첫번째 요소아 마지막 요소가 flex-start와 flex-end에 자동으로 자리잡고, 그 사이에 간격들이 동일하게 나누어져서 정렬이 된다. 
+                                        
+                                        🟨 space-between    : 첫번째 요소아 마지막 요소가 flex-start와 flex-end에 자동으로 자리잡고, 
+                                                               그 사이에 간격들이 동일하게 나누어져서 정렬이 된다. 
+                                                               
                                         🟨 space-around     : flex-start와 flex-end를 기준으로, 간격이 각각이 요소 앞뒤로 동일한 여백을 추가하게 된다. 
                 
                           ⭐⭐ justify-content를 사용할때는, flex-direction을 먼저 확인한다!
@@ -90,8 +95,11 @@
                                  🟤 사용할 수 있는 값
                                  
                                       🟨 stretch  : height값이 따로 없다면, 차지할 수 있는 높이 전체를 전부 차지한다.    ⭐ 기본값
+                                      
                                       🟨 flex-start  : 교차축에 시작 부분에 자리잡게 된다. 
+                                      
                                       🟨 flex-end    : 교차축 끝 부분에 자리잡게 된다.
+                                      
                                       🟨 center      : 전체중에서 가운데에 자리잡게 된다. 
                                   
                 🟣 align-content        
@@ -282,6 +290,7 @@
                                 🟤 사용할 수 있는 값
                                 
                                      🟨 키워드 : auto / initial / none
+                                     
                                      🟨 flex-grow / flex-shrink / flex-basis
      
      
@@ -322,5 +331,4 @@
                                                                          ⭐ flex: 1 2 0; 으로 동작한다. 
                                           
                                 
-                                
-                                        
+                                    
