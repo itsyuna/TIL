@@ -1,0 +1,55 @@
+
+📂 flexbox
+
+          #️⃣ flexbox       (* 참고 : https://developer.mozilla.org/ko/docs/Learn/CSS/CSS_layout/Flexbox )
+          
+             : 행과 열 형태로 아이템 무리를 배치하는 '일차원 레이아웃 메서드'이다.
+               아이템은 부족한 공간에 맞추기 위해 축소되거나 여분의 공간을 채우기 위해 변형된다. 
+               
+               ⭐ CSS3부터 등장했고, 이 flexbox는 많은 레이아웃 작업을 훨씬 쉽게 만들어준다!
+               
+                      📌 사용하는 용어들
+                      
+                           🟥 flex container  : 부모 요소를 말한다. 
+                           🟥 flex item     : flex container 내부에 flexbox로 레이아웃되는 항목을 말한다.
+                           🟥 main axis     : 기본축. flex item이 배치되고 있는 방향으로 진행하는 축.    ⭐ 이 기본축의 시작과 끝을 main start / main end라고 한다.
+                           🟥 crss axis     : 교차축. flex item이 내부에 배치되는 방향에 직각을 이루는 축.  ⭐ 이 축의 시작과 끝을 cross start / cross end라고 한다.  
+          
+          
+          #️⃣ Container 속성들
+          
+                🟣 display    
+                
+                     -> <display-inside>와 <display-outside> 2가지의 카테고리로 나눌 수 있다.
+                      
+                        ▶ display-inside : inline, block, inline-block
+                        ▶ display-outside : flex, grid
+
+                            -> 둘은 완전히 다른 개념이다.
+                            
+                            ⭐ 2개의 키워드를 섞어서 사용할 수도 있다.
+                            
+                                 display: inline-flex;
+                                 
+                            ⭐ display를 설정할 때는, 내부 아이템들이 아니라 정렬을 하고 싶은 container에서 해야 한다!
+                            
+                            
+                🟣 flex-direction   (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/flex-direction )            
+                            
+                       : flex container 내의 아이템을 배치할 때 사용할 주축 및 방향(정방향, 역방향)을 지정한다. 
+                       
+                                🟤 사용할 수 있는 값
+                                
+                                    🟨 row      : flex container의 주축이 글의 작성방향과 동일.      ⭐ 왼쪽에서 오른쪽.
+                                    🟨 row-reverse      :   row와 동일하게 동작하지만, 시작점과 끝점이 반대에 위치.   ⭐ 오른쪽에서 왼쪽.
+                                    🟨 column     : flex container의 주축이 블록 축과 동일.          ⭐ 위에서 아래로.
+                                    🟨 column-reverse   :  column과 동일하게 동작하지만, 시작점과 끝점이 반대에 위치.   ⭐ 아래에서 위로. 
+                               
+                               
+                🟣 flex-wrap 
+                      
+                      
+                
+                
+                🟣 flex-flow (shorthand)
+                                    
