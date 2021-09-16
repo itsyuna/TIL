@@ -209,19 +209,117 @@
         
         #️⃣ Grid 단위 1
         
-                🟥 fr
+                🟥 fr       :  (=franction) 비율을 나눌 때 사용한다. 
                 
-                🟥 min-content
+                        Ex)
+                           grid-template-columns: 100px 1fr 1fr;    ⭐ 다른 절대길이와 섞어서 사용할 수도 있다. 
+                                                                    ⭐ 이런 경우에는,
+                                                                        절대 길이가 우선적으로 먼저 배정이되고, 남은 길이들을 가지고
+                                                                        fraction을 따라서 비율에 따라서 나눠서 갖게 된다. 
                 
-                🟥 max-content
+                🟥 min-content          : 가장 긴 단어를 기준으로, 다른 단어들의 위치가 쪼개져 있다. 
+                
+                      ⭐ 한글은 글자별로 쪼갤 수가 있는데, 영단어는 min-content에 의해서 더 잘게 줄어들 수가 없다. 
+                
+                        Ex)
+                           grid-template-columns: min-content 1fr 1fr;
+                 
+                🟥 max-content          : 컨텐츠를 자르지 않고, 최대한으로 컨텐츠를 한 줄에 볼 수 있는 형태까지 늘린다. 
+                        
+                        Ex)
+                           grid-template-columns: max-content 1fr 1fr;
         
         
-        
-        #️⃣ Grid 단위 2
+        #️⃣ Grid 단위 2           ⭐ 반응형으로 grid를 디자인할 경우, 유용하게 사용할 수 있는 단위들.
               
-                🟥 auto-fill
+                🟥 auto-fill     : 남는 공간에 자동으로 요소들을 채워준다.        ⭐ 빈 공간에 다음 요소들이 없다면, 그대로 빈 공간이 유지된다. 
+                             
+                     Ex)
+                         ⚪ HTML
+                                
+                                <div class="container">
+                                      <div class="item">1</div>
+                                      <div class="item">2</div>
+                                      <div class="item">3</div>
+                                      <div class="item">4</div>
+                                      <div class="item">5</div>
+                                      <div class="item">6</div>
+                                </div>
+                         
+                         ⚪ CSS
+                                
+                                 .container {
+                                      border: 5px dashed orange;
+
+                                      display: grid;
+                                       
+                                      grid-template-columns: repeat(3, 1fr);          ⭐ 3개의 칼럼이 고정이 됐기 때문에,
+                                                                                      화면을 줄이면 한 칸이 각각 작아지고,
+                                                                                      키우면 늘어난다.
+                                                                                      근데 늘어나는게 마음에 들지 않고,
+                                                                                      화면이 커지면 칼럼수가 많아졌으면 좋겠는데,
+                                                                                      
+                                                                                      grid-template-columns: repeat(3, 100px);      ⭐ 3칸으로 100px
+                                                                                      -> 이렇게 했을 경우, 
+                                                                                      화면을 늘리면 오른쪽에 남는공간이 많이 생기게 된다.
+                                                                                      이렇게되면 반응형으로 홈페이지를 만들기가 어렵기 때문에,
+                                                                                      
+                                                                                      이렇게 남는 공간이 생기면 칼럼 갯수가 늘어났으면 좋겠을 때,
+                                                                                      이럴 때 사용할 수 있는것이 auto-fill과 auto-fit이라는 개념이다. 
+                                                                                      
+                                      grid-template-columns: repeat(auto-fill, 100px);       ⭐ 칼럼의 갯수를 유연하게 내가 원하는 방식대로 바꿀 수 있다. 
+                                      grid-auto-rows: 50px;                               ⭐ 칼럼의 갯수가 바뀌기때문에, row의 길이를 지정해준다. 
+                                      
+                                                                                     ⭐ 세로로 할 때도 마찬가지로, 
+                                                                                        grid-template-rows를 사용해서 repaet 함수에 똑같이 auto-fill을 넣어주면 된다. 
+                                  }
+
+                                 .item {
+                                      background-color: paleturquoise;
+                                      border: 3px solid blue;
+                                 }   
                 
-                🟥 auto-fit
-        
-        
-        
+                        🔻 그런데 위와 같은 상황에서,
+                            100px로 고정을 했기 때문에 오른쪽에 빈공간이 남는다.
+                            이게 마음에 안들 때 사용할 수 있는 방법이 바로 min-max라는 함수를 사용하는거다. 
+                    
+                               ⭐ minmax(min, max)     : 가장 작아질 수 있는 최소의 크기와, 최대의 크기를 지정할 수 있다.
+                                
+                                Ex)
+                                   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr);         ⭐ 위에 코드처럼, 100px이라고 고정시키지 말고,
+                                                                                                           minmax 함수를 작성해준다. 
+                                                                                                           
+                                                                                                           -> 사이즈가 100px보다 작게 되면, 1fr, 1fr만큼 1:1로 나눠 갖는다. 
+                                                                                                             그리고 만약에 브라우저를 늘려서, 옆에 100px이 추가적으로 들어갈 수 있는 공간이 생기면
+                                                                                                             100px의 칼럼이 한 칸 더 추가된다.
+                                                                                                             그리고 더 땡겨서 100px만큼은 아니지만 남는공간이 생기면,
+                                                                                                             1:1로 나눠가지면서 가로를 꽉 채우게 된다. 
+                                                                                                             
+                                                                                                             이렇게 작성하게 되면, 
+                                                                                                             컨테이너의 가로에 1px도 빈 공간이 생기지 않게 된다.
+                                                                                                              그래서 가로로 움직일때마다, 자연스럽게 채워지게 된다. 
+                
+                
+                🟥 auto-fit      : 남는 공간에 전부 꽉 채워지게 된다. ⭐ auto-fill과 기본적으로는 똑같이 동작하지만, 뒤에 요소가 없어도 남는 공간을 꽉 채운다.
+                                        
+                                 .container {
+                                      border: 5px dashed orange;
+
+                                      display: grid;
+                                       
+                                                                                      
+                                      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr);      
+                                      grid-auto-rows: 50px;                               
+                                 }  
+                                 
+                                 .item {
+                                      background-color: paleturquoise;
+                                      border: 3px solid blue;
+                                 }    
+                        
+                        
+                              ⭐⭐ auto-fill과 auto-fit은 기본적으로는, 들어갈 수 있는 크기에 맞춰서 유동적으로 column 혹은 row의 개수를
+                                   조절할 수 있다는점은 동일하다. 
+                                   하지만, 남는 공간이 생겼을 때 어떻게 활용할지에 대한 부분은 auto-fill과 auto-fit이 약간 다르다.
+                                   
+                                   
