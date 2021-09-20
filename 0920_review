@@ -1,0 +1,425 @@
+
+[추가복습 및 remind]
+
+
+    📂 가상 요소 선택자
+    
+      #️⃣ before, after
+      
+          가상요소를 선택해서 글자를 만들게 되면, 가상 요소에 있는 content는 복사가 되지 않고 선택도 되지 않는다.
+          왜냐하면 CSS로 만들어낸 가상 요소이기때문에,
+          실제로 텍스트 컨텐츠라고 인식하는게 아니라 그냥 꾸밈을 위한 요소라고 생각하기 때문.
+          마치 백그라운드 컬러나, 테두리처럼 스타일적인 요소인걸로 옆에 붙어있는것.
+          
+          🔻 사용 목적
+            : 뱃지를 붙일 때, 메뉴 사이에 구분점이나 구분 바를 추가할 때 사용.
+             
+             실제로 컨텐츠의 내용을 가지고 있지만, 그 내용이 실제로 뭔가 의미가 있다라기보다
+             꾸밈의 요소로 사용되는걸 가상 요소로 만든다. 
+             
+          💡 컨텐츠에 꼭 내용을 입력하지 않아도, after나 before 가상 요소 자체를 가로, 세로 사이즈를 넣어서
+             색칠할 수도 있다. 
+             
+      #️⃣ first-letter, first-line, selection
+      
+            🟣 first-letter
+                
+                -> first-letter와 before가 있으면, before의 content 내용의 first-letter가 적용이 된다.
+                  (* after는 당연히 적용이 안 됨. 맨 뒤로 가니까)
+                  
+            🟣 first-line
+            
+                -> 첫 번째 줄은 한 문장이 끝나는 지점까지가 적용이 되는게 아니라,
+                   브라우저의 사이즈 즉, 가로폭에 의해서 개행이 된 기준으로 첫번재 줄을 의미한다.
+            
+            🟣 selection 
+            
+                -> 선택한 영역에 대해서 즉, drag된 영역에 적용이 된다. 
+               
+               
+   📂 선택자 결합
+   
+       #️⃣ 하위, 자식       ⭐ 2개 모두 자주 사용된다. 
+       
+            🟣 하위 선택자 : 상위요소 하위요소     ⭐ spacing으로 구분해준다.
+            
+                 Ex)
+                 
+                      ⚪ HTML
+                      
+                          <ul id="list">
+                              <li>
+                                 리스트1
+                                <ol>
+                                   <li>리스트1</li>
+                                   <li>리스트2</li>      ⭐ 아래 CSS 요소가 적용이 된다. 
+                                </ol>
+                              </li>
+                              <li>리스트2</li>
+                              <li>리스트3</li>           ⭐ 아래 CSS 요소가 적용이 된다. 
+                          </ui>
+                          
+                      ⚪ CSS
+                      
+                           #list li:last-of-type {      ⭐ list라는 아이디를 가진 <ul> 태그 안에 있는,
+                                                            li:last-of-type을 만족하는 모든 태그가 선택이 된다. 
+                                                            그래서 위에서 보면, 2개가 선택이 되는것!
+                               color: red;
+                           }
+
+
+            🟣 자식 선택자 :  상위요소 > 하위요소     ⭐ 꺾쇠로 표현. -> 바로 아래 자식 요소만 적용이 된다.        
+                    
+                       ⚪ HTML
+                      
+                          <ul id="list">
+                              <li>
+                                 리스트1
+                                <ol>
+                                   <li>리스트1</li>
+                                   <li>리스트2</li>      ⭐ 아래 CSS 요소가 적용이 된다. 
+                                </ol>
+                              </li>
+                              <li>리스트2</li>
+                              <li>리스트3</li>          
+                          </ui>
+                    
+                      ⚪ CSS
+                      
+                           #list > li:last-of-type {      ⭐ 위와 똑같은 HTML 코드지만,
+                                                             자식 선택자로 하면 위에 있는 <li> 태그 1만 CSS가 적용이 된다.
+                               color: red;
+                           }
+                        
+                          
+        #️⃣ 형제 선택자, 그룹화
+        
+              🟣 형제 선택자
+        
+                    1. 일반 형제 선택자 결합 (~)         ⭐⭐ 같은 부모를 가지고 있어야 한다. 
+
+                    2. 인접 형제 선택자 결합 (+)         ⭐⭐ 서로 완전히 붙어있어야 한다. 
+                    
+                    🔥 주의할점!
+                          -> '일반 형제 선택자 결합'과 '인접 형제 선택자 결합' 모두,
+                              앞에 있는 선택자는 뒤에 있는 선택자보다 무조건 위에 있어야 한다.
+                              선행 관계가 확실히 되어야함!
+                           
+                        🔻 일반 형제 선택자 결합 예시
+                        
+                              Ex)
+                              
+                                 ⚪ HTML 
+                                
+                                    <div>
+                                      <p>P</p>
+                                      <span>Span</span>
+                                      <code>Code</code>   
+                                      <p>P2</p>           ⭐ CSS 적용 대상 후보.
+                                      <div>Div</div>      ⭐ CSS 적용 대상 후보. 
+                                    </div>
+                                  
+                                 ⚪ CSS
+                                    
+                                    code ~ selector {     ⭐ code를 기준으로, 아래에 있는 <p>와 <div> 태그 둘 중에만 적용이 된다. 
+                                       
+                                    }   
+      
+                                    code ~ p {          ⭐ p를 선택하게 되면, <code> 태그를 기준으로 아래에 있는 p만 선택이 된다. 
+                                       color: red;
+                                    }
+                              
+                              📌 유용하게 쓰이는 경우
+
+                                부모를 가지고 선택하는것이 아니라, 같은 라인이면서 어떤 요소가 특정요소 뒤에 있을 때 사용한다.
+
+                                -> 선택한 앞에 태그 뒤에, 수십개의 코드들이 있더라도 하나라도 해당되는 태그가 있으면 스타일이 적용이 된다.  (* 여러개도 가능)
+
+                                 selector들은 태그뿐만 아니라, class나 id, attribute selector도 전부 사용 가능하다. 
+                            
+                            
+                         🔻 인접 형제 선택자 예시
+                         
+                                Ex)
+                              
+                                 ⚪ HTML 
+                                
+                                    <div>
+                                      <p class="red">P</p>
+                                      <span>Span</span>
+                                      <code>Code</code>   
+                                      <p>P2</p>           
+                                      <div>Div</div>  
+                                      <div class="red">Div</div>
+                                      <div>Div</div>
+                                      <p>p</p>
+                                      <div class="red">Div</div>
+                                      <span>Span</span>
+                                      <div>Div</div>
+                                    </div>
+                                  
+                                 ⚪ CSS
+                                    
+                                    code + p {     
+                                       background-color: blue;      ⭐ <code> 태그에 바로 인접한 <p>P2</p> 태그에만 적용된다. 
+                                    }   
+                         
+                                    code + div {
+                                       background-color: blue;      ⭐ <code> 태그에 인접한 <div> 태그가 없으므로, 아무것도 적용되지 않는다!
+                                    }
+                         
+                                    .red + div {
+                                       background-color: blue;      ⭐ .red라는 class 속성을 가진 태그 바로 뒤에 <div> 태그에만 해당이 된다. 
+                                                                       => 마지막 <div class="red"> 태그 바로 뒤에는 <span> 태그이기 때문에 적용이 되지 않는다. 
+                                    }
+                         
+                         
+                 🟣 그룹화   : 선택자가 2가지 이상이지만, 동일한 스타일을 가지고 있을 때 나눠서 작성할 필요없이 콤마(,)로 구분해서 작성해준다.
+                    
+                            Ex)
+                               p, span, code { 
+                                   color: purple;
+                               }
+                                
+                    
+       #️⃣ 전체 선택자
+       
+              🔥 주의할점
+                    -> CSS 맨 최상단에 작성하는것이 좋다. 
+                       이유는, 
+                       CSS 파일의 코드의 양이 많은데 전체 선택자(*)를 중간에 넣는다면
+                       다른 요소들이 왜 이 스타일이 적용이 됐는지 찾아나가기가 어려울 수 있다. 
+                       
+                     Ex)
+                        <div>
+                          <p class="red">P</p>
+                          <span class="red"></span>
+                          <code class="red">Code</code>
+                          <p>P2</p>
+                          <div class="red">Div</div>
+                        </div>
+                        
+                       ⚪ CSS
+                          .red {                  ⭐ .red는 사실 *.red이다.   (id selector도 마찬가지)
+                                                     즉, 우리가 평소에 selector를 사용할 때, 앞에 *는 생략이 된 것. 
+                                                     -> *는 이렇게 사용하면 생략할 수 있기 때문에. 
+                            color: red;
+                          }
+                          
+                          p.red {                 ⭐ <p>태그 중에서, .red 클래스를 가진 태그에만 적용이 된다.
+                            color: red;
+                          }
+                          
+                 
+                 🟡 전체 선택자(*)도 선택자이기때문에, 형제선택자등과 결합해서 사용이 가능하다. 
+                          
+                          Ex 1)
+                             p + * {              ⭐ <p> 태그 뒤에 어떤 태그가 오더라도, <p> 태그 뒤에 있는 모든 태그가 선택이 된다. 
+                               color: red;
+                             }
+                          
+                          Ex 2)
+                              div > * {           ⭐ <div> 태그 아래에 있는 모든 태그들 선택. 
+                                color: red;
+                              }
+    
+    
+          #️⃣ 상속 제어하기
+          
+                🟥 상속 : CSS의 캐스케이딩의 원칙 중 하나이기 때문에, 부모로부터 어떤값을 전파 받는것.  
+                
+                    ⭐ 상속중에서도, 상속이 되는 property와 되지 않는 property가 있다. 
+                    
+                    ⭐ color는 상속이 된다. 
+                   
+                    🟡 개발자 도구를 살펴보면,
+                        상속받은 Styles를 볼 수 있다.
+
+                        옆에 보면 user agent라고 나와있는것은, 
+                        브라우저의 기본값을 말한다.
+
+                        아래쪽에 있는 inherited form selector이름 부분은,
+                        부모로부터 상속받은 스타일을 보여준다. 
+               
+                    
+                          🔻 상속의 예
+                          
+                              ⚪ HTML
+                              
+                                  <div class="parent">
+                                    parent
+                                    <div class="child1">child1</div>
+                                    <div class="child2">child2</div>
+                                  </div>
+                              
+                              ⚪ CSS
+                              
+                                   div {
+                                      border: 1px solid silver;
+                                      margin: 2px;
+                                   }
+                                   
+                                   .parent {
+                                      color: blue;      ⭐ <parent> 클래스를 가진 부모 태그에만 스타일링을 주었지만, 
+                                                           아래 자식 태그들이 상속을 받았기 때문에, child1과 child2 글씨 색깔도 blue로 적용이 된다. 
+                                   }
+                                  
+                                  .child2 {           
+                                      color: red;       ⭐ 자기의 스타일이 있으면, 부모에게 상속받은 스타일과 상관없이 적용이 된다. 
+                                  }
+                        
+                  🟣 initial
+                  
+                        : 부모가 어떤 스타일을 가지고 있던지간에, 상속을 받고 싶지 않을 때 사용.
+                            
+                            Ex)
+                              
+                              .parent {
+                                 color: blue;
+                                 font-size: 7px;
+                              }
+                            
+                              .child2 {
+                                 color: initial;      ⭐ 원래부터 color가 없던것처럼, 브라우저가 지정한 초기값으로 돌아간다. 
+                                                         -> 여기서는 black으로 적용이 된다. 
+                                                         
+                                 font-size: initial;   ⭐ 글자 크기도 원래 크기로 돌아간다. 
+                              }
+                        
+                      💡 property가 여러개일 경우, 일일이 initial을 주기 번거로울 수 있다.
+                         그럴때는, all이라는 속성을 사용한다.
+                         
+                             Ex)
+                                .child2 {
+                                    all: initial;       ⭐ .child2에 설정된 모든 CSS값을 기본값으로 돌린다는 의미. 
+                                                            -> 이렇게 all: initial을 사용하면, 위에서부터 내려왔던 혹은 CSS파일로 개발자가 정의했던 
+                                                               모든 스타일들을 무시하고, 기본값으로 돌릴 수 있다. 
+                                }
+                       
+               
+                  🟣 inherit
+                  
+                        : initial과 완전히 반대로 동작한다.
+                          -> 무조건 상속을 받으라고 지정할 때 사용. 
+                          
+                         🔻 기본 사용 예시
+                         
+                           Ex)
+                              ⚪ HTML 
+                              
+                                  <div class="parent1">
+                                    parent
+                                    <div class="child1">child1</div>
+                                    <div class="child2">child2</div>
+                                  </div>
+                                  
+                                  <div class="parent2">
+                                    parent
+                                    <div class="child1">child1</div>
+                                    <div class="child2">child2</div>
+                                  </div>
+                                
+                              ⚪ CSS
+                              
+                                   .child1 {
+                                      color: red;             ⭐ child1은 부모 스타일과 상관없이, 글씨 색이 red로 적용이 된다. 
+                                   }
+                                   
+                                   .parent1, parent2 {
+                                      color: blue;            ⭐ 자기 스타일을 가진 child1을 빼고, 나머지 요소들은 모두 글씨 색이 blue가 적용이 된다. 
+                                   }   
+                                
+                                
+                            🔻 inherit을 적용할 때 예시       
+                                   
+                                   .parent2 * {               ⭐ parent2 밑에 있는 모든 요소 선택.
+                                       color: inherit;
+                                   }
+                                   
+                                   .parent2 * }     
+                                        all: inherit;         ⭐ 마찬가지로 all 속성을 사용할 수 있다. 
+                                   }
+                            
+                  🟣 unset
+                
+                        🔻 2가지 사용법
+                          
+                              1. 부모로부터 상속받을 값이 있을 때 : inherit
+
+                              2. 부모로부터 상속받을 값이 없을 때 : initial
+                          
+                                  Ex)
+                                     .paernt .child2 {
+                                        all: unset;           ⭐ color는 상속받을 값이 있기 때문에 blue로 유지가 되고, 나머지는 기본값으로 돌아간다. 
+                                     }
+                                     
+                             🔻 언제 사용이 될까?
+                                   -> 여러가지 CSS파일을 여기저기에서 import하게 되면,
+                                      이 태그에게 적용된 스타일이 어떤건지 예상하기 어려울 수 있다.
+                                      그래서 그 전에 all: unset을 해줌으로써, 이 태그를 깨끗하게 한번 초기화 시키고,
+                                      내가 지금 가지고 있는 부모것만 받아서 다른것만 재정의 할 수 있도록 사용할 수 있다. 
+                               
+    #️⃣ 우선순위          
+                             
+            -> 하나의 요소에 여러개의 똑같은 property를 정의할 때, 어떤 스타일을 선택할지에 대한 기준을 세우는것.          
+               
+               1. 선언된 곳
+               
+                    => 브라우저 입장에서 어떤걸 더 마지막에 읽느냐라고 생각하면 된다. 
+                    
+                    ⭐ 인라인이 적용되면, 인라인 스타일로 적용이 된다.  -> 많이 사용하지 않는게 좋다. 
+                    
+               2. 명시도 (적용범위가 적을수록 명시도가 높은 것!)
+               
+                    => 이 스타일이 적용이 될 요소들이 범위가 적을 경우. 대상을 특정할 수가 있는 경우가, 명시도가 높다. 
+                    
+                        Ex)
+                        
+                          ⚪ HTML
+                          
+                             <div id="box" class="class-box">
+                                Box
+                             </div>
+                                
+                          ⚪ CSS
+                          
+                             #box {
+                                color: blue;
+                             }
+
+                             .class-box {
+                                 color: red;        ⭐ 위치가 #box 선택자보다 아래에 있음에도 불구하고, #box가 명시도가 더 높기 때문에,
+                                                       #box의 스타일이 적용이 된다. 
+                             }
+                       
+                           
+               3. 코드의 위치
+                    => 좀 더 나중에 선언된 property가 덮어씌우게 된다. 
+                     
+                     !important     ⭐ 제일 셈!
+                     inline style >    
+                     ID > Class/Attribute/Pseduo Class 
+                     Type (tag)
+                     *
+                     inhertied(= 부모로부터 상속받은 속성 / 없으면 위에 *부터 우선순위가 적용이 된다.)
+                         
+                     🔻 !important 예시
+                     
+                          Ex)
+                              #box {
+                                color: blue;
+                             }
+
+                             .class-box {
+                                color: red;
+                             }
+                             
+                             div {
+                                color: purple !important;     ⭐ 우선순위에 따르면, tag 선택자가 위에 있는 selecotor들 보다 우선순위가 낮은데,
+                                                                 뒤에 !important가 있기 때문에 다 무시하고 color가 purple로 적용이 된다.
+                             }
+                    
+                 ⭐⭐ !important는 정말 불가피한 경우가 아니라면 절대 사용하면 안된다!   
+                       이 !important를 찾아나가는것도 어렵고, inline style을 지양해야되는것과 비슷한 원리가 그 이유이다. 
+                       
+                       
