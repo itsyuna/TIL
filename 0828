@@ -130,21 +130,31 @@ prettier - Code formatter : 코드의 서식을 잘못 작성되어 있는 부�
 # 단축키
 
 1. 에디터 창 제어 (윈도우 / 맥)
-파일 닫기 : Ctrl + w     / Cmd + w
-닫은 창 다시 열기 : Ctrl + Shift + t      / Cmd + Shift + t
+저장하기 : Ctrl + s / Cmd + s
+파일 열기 : Ctrl + o / Cmd + o
+
+⭐ 현재 창 닫기 : Ctrl + w     / Cmd + w          ⭐ 많이 사용하는 단축키
+⭐ 닫은 창 다시 열기 : Ctrl + Shift + t      / Cmd + Shift + t        ⭐ 많이 사용하는 단축키
+페이지 내에서 단어 찾기 : Ctr + f     / Cmd + f
 사이드바 토글 : Ctrl + b             / Cmd + b
 사이드바 - 탐색기 : Ctrl + Shift + e     /  Cmd + Shift + e
 사이드바 - 전체검색 : Ctrl + Shift + f    / Cmd Shift + f
-에디더 확대 : Ctrl + +     / Cmd + + 
+에디터 확대 : Ctrl + +(=)     / Cmd + +(=) 
 에디터 축소 : Ctrl + -     / Cmd + -
 
 2. 소스코드 편집
 들여쓰기 : Tab 혹은 Ctrl + ]     / Tab 혹은 Cmd + ]
 내어쓰기 : Shift + Tab 혹은 Ctrl + [   /   Shift + Tab 혹은 Cmd + [
-아래에 행 사입 : Ctrl + Enter     / Cmd + Enter
+    ⭐ Ctrl + ]와 Ctrl + [ 은 커서 위치 상관없이, 들여쓰기와 내어쓰기가 가능한 단축키이다. 
+
+⭐ 아래에 행 삽입 : Ctrl + Enter     / Cmd + Enter     ⭐ 많이 사용.
 위에 행 삽입 : Ctrl + Shift + Enter     / Cmd + Shift + Enter
+    ⭐ 커서 위치 상관없이, 바로 위와 아래에 새 행이 추가된다. 
+
 현재 행 이동 : Alt + 위 아래 방향키       / Opt + 위 아래 방향키
 현재 행 복사 : Alt + Shift + 위 아래 방향키    / Opt + Shift + 위 아래 방향키
-현재 행 삭제  : Ctrl + Shift + k            / Cmd + Shift + k
-주석 토글 : Ctrl + /           / cmd + / 
+잘라내기 : Ctrl + x    /   Cmd + x                  ⭐ '잘라내기'이기 때문에 바로 붙여넣기가 가능하다
+현재 행 삭제  : Ctrl + Shift + k        / Cmd + Shift + k        
+실행 취소 : Ctrl + z     /   Cmd + z
+주석 토글 : Ctrl + /    / Cmd + /                   ⭐ 취소하려면 다시 누르면 된다. 
 
