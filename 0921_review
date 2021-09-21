@@ -1,0 +1,329 @@
+
+[추가복습 및 remind]
+
+
+   📂 임베디드 요소
+   
+      #️⃣ 반응형 이미지 : srcset / sizes
+      
+            🟣 srcset
+            
+                🔻 srcset의 목적
+            
+                  -> '반응형 이미지(=responsive)'를 만들기 위해서이다!
+                      (사용자에 viewport에 따라서 반응한다.)
+
+                    Ex)
+                    
+                      ⚪ HTML
+                        
+                        <h2>반응형 이미지</h2>
+                        
+                        <img
+                           src="images/large.png"
+                           srcset="
+                                images/small.png  300w,       ⭐ 원래 이렇게 작은것부터 써줘야 한다.
+                                                                 사진 size는 300x300이기 때문에, 뒤에 300w라고 써준다.
+                                                                 -> px밀도가 다르면 1px과 1:1 대응이 되지 않을 수 있다.                       
+                                images/medium.png 450w,         
+                                images/large.png  600w
+                                "
+                           alt="responsive images"
+                        />
+                      
+                        🟠 실행 결과 -> 실행해서 개발자 도구를 열어서 보면, 
+                                      브라우저창을 늘렸다 줄였다 할 때마다, 오른쪽 위에 px값이 뜬다.
+                                      여기서는 제일 작은 사진 사이즈가 300px이기 때문에,
+                                      300보다 작은 사이즈로 하고 새로고침을 누르면 small.png 사진이 나온다.
+
+                                      * 만약 새로 고침을 눌렀는데도 나오지 않는다면,
+                                        이미지가 캐싱되어있어서 그럴수 있음.
+                                        개발자 도구에서 Network에 들어가면, Disable cache라고 되어있는 부분을 체크 해준다.
+                                        이게 뭐냐면, 이미지를 크롬이 한번 접속한 사이트에서 이미지를 받아서 저장소에 저장을 해둔다.
+                                        그리고 다시 똑같은 사이트에 방문을 하면, 그 이미지를 다시 꺼내와서 사용을 한다.
+                                        이걸 '캐싱'이라고 하는데, 이걸 막기 위해서 Disable cache를 사용하는것!
+
+                                     다시 돌아와서,
+                                     300px보다 작게하면 small 사진이 나오고, 점점 늘리다가 300px이 넘어가는 순간에 450px을 가진 medium 사진이 나오고,
+                                     또 점점 늘리다가 450px을 넘어가는 순간에 600px을 가진 large 사진이 나온다.
+
+                                     그리고 Network탭을 보면,
+                                     사이즈가 제일 작을때는, small.png를 다운받아 놓고,
+                                     늘려서 medium 사진이 나오면 medium.png를 다시 다운받는다.
+                                     그리고 다시 크게만들면 large.png를 다운 받는다.
+
+                                     -> 애초에 접속할때부터 작은 사이즈로 접속한 사람들한테는
+                                        큰 사이즈의 이미지를 굳이 다운받을 필요가 없으니까 
+                                        small.png만 먼저 다운을 받는것.
+
+                                        근데 지금 이미 3개를 다 받아놓고나서, 이미지를 조절하면
+                                        600px로 고정되어있는걸 볼 수 있다. (아무리 줄여도)
+                                        => 가장 큰 사이즈를 받았을 때는, 그 이미지로 유지하게 된다. 
+
+                                        그런데 화면을 크게 늘리면 이미지가 끝도 없이 늘어나는걸 볼 수 있다.
+                                        이미지의 사이즈를 viewport 사이즈에 맞춰서 조절할 수 있는 속성이 있는데
+                                        이게 바로 sizes 속성이다.
+      
+      
+                 🟣 sizes
+                  
+                        : srcset랑은 조금 개념이 다르다.
+                        
+                        srcset는 작은 화면에서 접속한 사람들한테는 작은 이미지를 주고,
+                        큰 화면에서 접속한 사람들은 제일 큰 이미지를 준다.
+                        -> 이렇게 뷰포트에 따라서 아예 다른 이미지를 주는게 srcset이다.
+                        
+                        size는,
+                        어떤 특정조건에 따라서 아예 다른 파일을 줄 때도 있고,
+                        그 다른 파일에 사이즈를 지정해준다. (*가로값 지정.)
+                        
+                        🟥 구성요소
+                          
+                          1. 미디어 조건. (마지막 항목에서는 생략해야 한다.)
+                          
+                              🔹 많이 쓰이는 2가지
+                              
+                                   1) min-width   : 최소 가로   (=> 이 값보다 큰 것을 얘기)
+                                   2) max-width   : 최대 가로   (=> 이 값보다 작은 것을 얘기)
+                                   
+                          2. 소스 크기 값. 
+                        
+                         -> 정말 작은 화면에서 접속한 사람들한테는, 이 이미지의 사이즈를
+                            이 사이즈로 보여달라고 딱 지정을 해주는거고,
+                            중간 사이즈에서도 그 이미지의 값을 지정할 수 있다. 
+                         
+                              Ex)
+                                img src="images/large.png"
+                                    srcset="images/small.png 300w,
+                                            images/medium.png 450w	
+                                            images/large.png 600w"
+                                    sizes="(min-width: 600px) 600px,      -> 600이상일때는 600px로 고정해줘.
+                                         (min-width: 450px) 450px,      -> 450px보다 크면서 600px보다 작으면, 450px로 보여줘. 
+                                                                        ⭐ 조건은 위에부터 읽는다. 첫번째 조건에 걸리면 그걸 사용하고, 
+                                                                           첫번재 조건에서 걸리지 않는다면 내려간다. 
+                                         300px"                         -> 나머지. 첫번째 조건과 두번째 조건에서 걸리지 않으면, 이 px로 보여줘. 
+                                    alt="responsive images" />
+                            
+                           🟠 실행 결과 -> 제일 작은 사이즈로 줄여서 새로고침하면 300px 사이즈의 이미지가 나온다.
+                                           그리고 이 상태에서 브라우저를 조금 더 늘리면, 450px이 되기전까지는 이미지가 늘어나지 않는다.
+                                           그러다가 450px를 넘어가는 순간에, 450px이 새로 다운로드가 되면서, 가로가 450px인 이미지로 변경이 된다.
+                                           600px도 마찬가지. 쭉 늘리다가 600px이 넘어가게되면, 600px의 사진이 나온다. 
+                                           여기서 아무리 가로길이를 넓혀도 이미지는 늘어나지 않는다.
+                                           왜냐하면 위에 미디어조건에, 600px 이상일때는 600px로 고정해줘 라고 sizes에 명시했기 때문에,
+                                           600px보다는 더 커지지 않는것.
+                                           
+                                           그래서 가로에 따라서 이미지의 넓이가 바뀌는게 아니라, 
+                                           세 가지 조건중에 하나로 지정되는것.
+                                           
+                                     🟡 srcset는 많이 사용이 되지만,
+                                        sizes는 CSS를 사용해서 비슷하게 구현할 수 있다. 
+
+      
+      #️⃣ video / audio
+      
+            🟣 video   : 동영상을 넣을 수 있는 태그
+            
+                -> <img> 태그와 비슷하기 때문에, 외부소스 즉 경로를 입력할 수 있는 속성이 필요하다.
+                   바로 src 속성.
+                 
+                 📌 <img> 태그와 다른점.
+                 
+                 1.
+                    <img> 태그는 빈 요소이기때문에, 내부에 자식요소를 가질 수 없지만,
+                    <video> 요소는 내부에 자식요소를 넣을 수 있다.    <video></video>
+                    -> 태그 안의 콘텐츠는 브라우저가 <video> 요소를 정상적으로 지원하지 못할 때 그 요소가 보여지게 된다. 
+                    
+                         Ex 1)
+                            <video src="videofile.ogg" autopaly poster="posteriamge.jpg">
+                                  Sorry, your browser doesn't support embedded videos,
+                                  but don't worry, you can <a href="videofile.ogg">download it</a>
+                                  and watch it with your favorite video player!
+                            </video>
+                        
+                        ⭐ <video> 태그에 자식으로 들어가있는 요소들은, src에 있는 파일형식을 재생하는 브라우저가 지원하지 않을 때 나타난다.  
+                      
+                         Ex 2)
+                            
+                           <video src="videos/sample-mp4-file.mp4">
+                            Sorry, your browser doesn't support embedded videos.
+                           </video>
+                
+               2. src 속성은 선택사항이다.  
+                
+                  -> 자식요소에 source라는 태그를 사용해서 동영상을 명시할 수도 있다.
+                    
+                    Ex)
+                       <video>
+                            <source src="videos/sample-mp4-file.mp4">   ⭐ source 태그를 만나는 순간, src 속성과 동일하게 비디오를 출력한다. 
+                                                                           만약에 mp4 파일이 크롬에서 지원이 안된다면, 
+                                                                           다음 자식 요소인 텍스트 컨텐츠가 드러나게 된다. 
+                                                                           정상적으로 인식될 수 있는 요소라면, 아래쪽은 아예 그리지 않고
+                                                                           위에 있는 source 태그가 비디오를 그리게 된다. 
+                             Sorry, your browser doesn't support embedded videos.
+                       </video>
+                
+                
+                      🟫 사용할 수 있는 속성들
+                
+                            🟢 controls : 컨트롤 패널이 나온다. Boolean 속성.
+                            
+                            🟢 autoplay : 비디오를 자동으로 재생시킨다. Boolean 속성.
+                              
+                                  * 새로고침을 누르면 재생이 되지 않는다. 
+                            
+                            🟢 muted : 사운드가 없는 상태로 재생을 시작한다. Boolean 속성.
+                            
+                                  Ex)
+                                     <video autoplay muted>
+                                        ...
+                                     </video>
+                                     
+                            🟢 loop : 동영상이 끝나면 다시 처음부터 재생이 된다. 
+                            
+                            🟢 width/ height : 가로 / 세로 높이 지정.
+                            
+                            🟢 poster : 썸네일 같은것. 재생이 되지 않을때, poster를 썸네일로 띄우게 된다.
+                                        만약에 poster 속성이 없을 경우, 첫번째 프레임을 포스터 프레임으로 출력한다. 
+                              
+                                 Ex)
+                                    <video poster="images/small.png" controls>
+                                      <source src="videos/sample-mp4-file.mp4" />
+                                      Sorry, your browser doesn't support embedded videos.
+                                    </video>
+                
+            🟣 audio
+            
+                : 대부분의 속성이 <video> 태그와 동일한 속성들로 사용이 된다. 
+                Ex) autoplya, controls, muted, loop, source 등..
+                
+                ⭐ src 속성을 사용하거나, 혹은 오디오 태그내에 자식요소로 source 태그를 가질 수 있다. 
+      
+                ⭐⭐ src 요소를 사용해서, 한 개 이상의 오디오 소스를 지정할 수 있다. 비디오도 동일!
+                
+                      Ex)        (* 참고 : https://developer.mozilla.org/ko/docs/Web/HTML/Element/audio 의 예제 부분 multiple <source> 참고)
+                      
+                          <audio controls>
+                           <source src="foo.opus" type="audio/ogg; codecs=opus"/>     ⭐ <source> 요소가 총 3개로, 다중으로 들어가있다. 
+                           <source src="foo.ogg" type="audio/ogg; codecs=vorbis"/>
+                           <source src="foo.mp3" type="audio/mpeg"/>
+                          </audio>                                                      ->이런 경우 브라우저가 어떻게 해석하냐면,
+                                                                                        첫번째 요소를 만나면 source 태그를 보고, 이 형식이 현재 브라우저가 지원 가능한
+                                                                                        형식인지를 본다. 만약에 문제없이 이 형식이 재생이 가능하다면 첫번째 소스를 재생하고,
+                                                                                        문제가 있다면, 그 다음 소스의 경로를 보게 된다. 
+                                                                                        
+                                                                                        이런식으로 차례차례 보면서 지원 가능한 형식을 찾게 되고,
+                                                                                        만약에 여기 있는 모든 소스들이 전부 다 브라우저에서 지원이 되지 않아서 
+                                                                                        재생을 할 수 없는 경우라면,
+                                                                                        <video> 태그에서 말했던것과 마찬가지로,
+                                                                                        source 태그 가장 마지막 자식의 모든 형식을 지원하지 않는다라고 했을 때
+                                                                                        나타낼 수 있는 문구같은걸 요소를 넣어주면 된다. 
+                                                                                        
+                                                                                        ⭐ <video> 태그 같은 경우,
+                                                                                        만약에 재생될 수 있는 sound가 있으면 autoplay 속성이 작동되지 않았다.
+                                                                                        
+                                                                                        <audio> 태그도 동일하게 동작하는데,
+                                                                                        sound를 포함한 오디오나 혹은 오디오를 가진 video는 autoplay 속성을 줘도,
+                                                                                        자동으로 재생이 되지 않는다. 
+                                                                                        
+                                                                                        이유는,
+                                                                                        만약에 sound가 있는 임베디드 요소가 사이트에 접속하자마자 갑자기 sound가 나게 된다면
+                                                                                        사이트에 접속한 user가 굉장히 깜짝 놀랄 수 있다 .그래서 사용자 경험에 악영향을 끼칠 수 있다는 이유로
+                                                                                        브라우저단에서 자동 재생을 막기도 한다. 
+                                                                                        
+                                                                                        <video> 같은 경우, muted 속성을 주면 audio를 포함하지 않기 때문에,
+                                                                                        화면상에 video가 재생되는 autoplay 속성은 muted와 함께 사용하면 문제없이 재생 할 수 있다.
+                                                                                        
+                                                                                        ⭐ 이런식으로 autoplay 속성은 오디오와 비디오에서는 사용하기 조금 어렵다. 
+                                           
+                      
+                     🔻 <figure> 태그로 감싸서 사용할 수 있다. 
+
+                          Ex)
+                             <figure>
+                                <figcaption>Listen to the T-Rex:</figcaption>
+                                <audio
+                                    controls
+                                    src="/media/cc0-audio/t-rex-roar.mp3">
+                                        Your browser does not support the
+                                        <code>audio</code> element.
+                                </audio>
+                             </figure>
+                      
+                      -> <figure>는 어떤 flow 요소를 설명하는 <figcaption>을 달 때 사용을 하는데,
+                         이렇게 들어가는 요소에 이미지나 비디오, 오디오까지도 사용이 가능하다.
+                         이런 경우에는 위에처럼 controls를 넣어서 재생을 하거나, 음량을 조절할 수 있는
+                         컨트롤 패널도 같이 포함을 시켜주는것이 좋다. 
+                         
+                         그래서 이렇게 위쪽에다 <figcaption>을 넣어주면 한덩어리로 작동하게 된다. 
+                 
+                
+      #️⃣ canvas / iframe
+      
+              🟣 canvas : 그래픽 캔버스 요소      
+              
+                    -> HTML만으로는 할 수 있는게 거의 없다. 
+                       마크업만 할 수 있고, 그래픽, 그림, 애니메이션 등을 그리기 위해서는 자바스크립트를 사용해야 한다.
+                       
+                        Ex)
+                            <canvas id="canvas" width="300" height="300">       ⭐ 가로, 세로 길이정도의 마크업만 가능하다.
+                                캔버스의 내용을 설명하는 대체 텍스트                  -> 실제로 캔버스 내부에 그림을 그리고 싶으면, 
+                            </canvas>                                                 아래와 같이 자바스크립트를 사용해서 그림을 그린다. 
+                            
+                            
+                            # JavaScript
+                                  const canvas = document.getElementById('canvas');
+                                  const ctx = canvas.getContext('2d');
+                                  ctx.fillStyle = 'green';
+                                  ctx.fillRect(10, 10, 150, 100);
+
+
+              🟣 iframe : 인라인 프레임 요소
+                
+                    -> 임베디드 요소는 우리가 직접 마크업 내부에 내용을 입력하지 않고, 외부 소스를 가져다가 쓰는것을 임베디드 요소라고 부른다.
+                       iframe도, src를 외부에서 불러와서 쓰는건데 이 src를 어떤 frame(창)안에 웹 사이트를 띄워주는 형태로 사용하게 된다.
+                       
+                      Ex)
+                         <iframe id="inlineFrameExample"
+                            title="Inline Frame Example"
+                            width="300"
+                            height="200"
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&layer=mapnik">
+                         </iframe>
+
+                       예시의 출력 결과를 보면,
+                       지도가 나와있는데 이 지도는 어디선가 이미지를 갖고 온게 아니라
+                       다른 HTML 페이지를 여기에 띄운거다.
+                       그래서 예를들면, 
+                       달력을 여기에다가 만든게 아니라 다른 웹페이지가 달력을 만들어놓은걸 가지고
+                       보여주기만 하는거다.
+                       
+                       그런데 '인라인 프레임 요소'는 아무 웹사이트나 막 가져와서 삽입할 수 있는게 아니라서,
+                       보통은 지도같은걸 삽입할 때 많이 사용한다.
+                       
+                       구글맵을 iframe으로 불러올 수도 있다.
+                       
+                       -> google map iframe 구글 검색.
+                       
+                          구글 개발자 사이트에 가보면, 어떻게 구글 지도를 웹 페이지내에 넣을 수 있는지에 대한 방법을 알려준다. 
+                        
+                          Ex)
+                             <iframe
+                                width="600"
+                                height="450"
+                                style="border:0"
+                                loading="lazy"
+                                allowfullscreen
+                                src="https://www.google.com/maps/embed/v1/place?key=API_KEY
+                                  &q=Space+Needle,Seattle+WA">
+                             </iframe>
+                          
+                          -> API 키가 필요하고, iframe이라는 요소를 사용해서 가로 세로를 지정해주고,
+                          여기서 제공하는 src를 입력하면 웹 페이지에 지도를 넣을 수 있다.
+                          
+                          ⭐ 지도를 만드는게 아니라, 지도를 띄워줄 수 있는 마크업 요소가 iframe이라는것!
+                          
+                          ⭐ 실습할 때, 구글이나 네이버를 src에 넣으면 간혹 안나오는 경우가 있다.
+                             이건 보안상의 이유로 iframe에 아무 페이지나 띄울 수 없기 때문에,            
+                             인라인 프레임으로 사용할 수 있도록 허용한 웹페이지만 띄울 수 있다.             
+              
+      
