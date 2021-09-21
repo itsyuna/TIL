@@ -350,8 +350,8 @@
                                                               <img src="images/large.png"
                                                                    srcset="images/small.png 300w,
                                                                           images/medium.png 450w	
-                                                                          images/large.png 600w
-                                                                  src="(min-width: 600px) 600px,      -> 600이상일때는 600px로 고정해줘.
+                                                                          images/large.png 600w"
+                                                                  sizes="(min-width: 600px) 600px,      -> 600이상일때는 600px로 고정해줘.
                                                                        (min-width: 450px) 450px,
                                                                        300px"
                                                                   alt="responsive images" />
@@ -362,7 +362,7 @@
                           ▶ <video> 태그 : 빈 요소가 아니라서 안에 자식 요소를 가질 수 있다.
                                            <vido> 태그 안의 콘텐츠는 브라우저가 <video> 요소를 지원하지 않을 때 보여진다.
                         
-                                            (* 구글에 video sample이라고 검색해서 다운로드. 연습할 때 사용.)
+                                            (* 구글에 mp4 sample이라고 검색해서 다운로드. 연습할 때 사용.)
                                             
                                             (* 참고 : https://developer.mozilla.org/ko/docs/Web/HTML/Element/Video )
                                             
