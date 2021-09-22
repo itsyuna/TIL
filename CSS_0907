@@ -738,8 +738,14 @@
                                이 box를 어떤식으로 구성하게 될지가 박스모델이다.
                                
                           🟩 content: 콘텐츠가 표시되는 영역 (width, height)
-                          🟩 padding: 콘텐츠의 테두리(bordeR)사이의 여백
-                          🟩 border: padding과 margin 사이의 테두리
+                          🟩 padding: 콘텐츠와 테두리(border)사이의 여백
+                          🟩 border: padding과 margin 사이의 테두리. border는 있을수도 있고, 없을 수도 있다. 그리고 그 border 자체가 두께를 가지고 있을수도 있다.
+                                          기본값은 0이다. 별도로 border를 지정하지 않으면 눈에는 보이지 않지만, 실제로는 존재한다라고 생각하면 된다. 두께가 0px일 뿐이지,
+                                          border 영역이 존재한다.
+                                          ⭐ 점선이 아니라 실선으로 되어있다. Content 바깥에 실선이있고, border 영역 바깥에 실선이 있는걸 볼 수 있따.
+                                          총 4겹으로 구성되어있찌만, 4겹중에서도 핵심이 되는 영역이 2개로 나뉘워져있따고 보면 된다.
+                                          content만 감싸고 있는 박스를 content-box라고 부르고, border 바깥쪽에 있는것을 border box라고 부른다.
+                                          
                           🟩 margin: 가장 바깥 쪽 레이어로 콘텐츠와 패딩, 테두리를 둘러싸면서
                                      해당 박스와 다른 요소 사이 공백 역할을 한다.
                       
@@ -779,25 +785,94 @@
             3️⃣ 크기 - max-width, min-width, max-height, min-height
             
                   (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/max-width )
-            
+                        
+                  * width나 height의 연속성이 있는 속성이라고 생각하면 된다. 
+                  * 사용방법은 width와 height와 동일하다.
+                  
+                  ⭐ 초기값이 auto이다.
+                  
                   ⭐ 상속이 되지 않는다.
             
                         🟩 max-width : 요소의 최대 너비를 설정한다. width의 속성의 사용값이 자신의 값보다 커지는걸 방지한다.
-                        
-                             Ex) 
-                                    #container {
-                                          width: 300px;
-                                          min-width: 300px;
+                    
+                              Ex)
+                                  ⚪ HTML
+                                    
+                                       <div id="parent">
+                                         <div id="child"></div>
+                                       </div>
+                                    
+                                    ⚪ CSS
+                                    
+                                       #parent {
+                                          width: 800px;                
                                           height: 300px;
 
                                           background-color: lightcoral;
-                    
+                                       }
+                                       
+                                       #child {
+                                         width: 50%;              ⭐ 부모의 width값인 800px의 50%면 400px이어야 하는데,
+                                                                      개발자 도구에 있는 computed 탭에 가서 실제로 계산한걸 보면, width값이 300px까지 밖에 안늘어난걸 볼 수 있다.
+                                                                      부모요소에 의해서 계속 늘어나야 하는데, max-width에 의해서 한계점이 걸려있기 때문에 더이상 커지지가 않는다.
+                                         max-width: 300px;  
+                                         height: 100px;
+                                         
+                                         background-color: lightgreen;
+                                       }
+                                   
+                                   ⭐ can i use에 들어가서 max-width를 검색해보면,
+                                       IE 7버젼부터는 전혀 문제없이 지원하는걸 볼 수 있다.
+                                       -> 그래서 가로나 세로 길이의 최소값과 최대값을 지정하고 싶다면,
+                                       함수표기법인 min()이나 max()를 사용하는것보다 min-width 혹은, max-width와 같은 위의 4가지 property를 사용하는게 좋다.
+                                       반응형 사이트를 만들 때 굉장히 유용하게 사용할 수 있는 property들이다. 
+                       
+                       
                         🟩 min-width : 요소의 최소 너비를 설정한다. width의 속성의 사용값이 자신의 값보다 작아지는걸 방지한다.
-                      
+                        
+                                Ex) 
+                                    #container {
+                                          width: 50%;                   ⭐ min-width없이 width 속성만 쓰면, 줄이면 줄일수록 크기가 작아진다.     
+                                          min-width: 300px;          ⭐ 브라우저를 줄일 때, 300px이 되는 순간부터는 더이상 줄어들지 않는다.
+                                          height: 300px;
+
+                                          background-color: lightcoral;
+                                     }
+                                     
+                               🔻 부모와 자식 요소로 살펴보는 예시
+                               
+                                    ⚪ HTML
+                                    
+                                       <div id="parent">
+                                         <div id="child"></div>
+                                       </div>
+                                    
+                                    ⚪ CSS
+                                    
+                                       #parent {
+                                          width: 50px;      ⭐ min-widht 값보다 작게 설정.             
+                                          height: 300px;
+
+                                          background-color: lightcoral;
+                                       }
+                                       
+                                       #child {
+                                         width: 50%;
+                                         min-width: 100px;  ⭐ 부모에 따라서 작아지는게 아니라, 어느 시점부터는 더이상 작아지지 않고
+                                                                부모 컨테이너 밖으로 삐져나온걸 볼 수 있다.
+                                         height: 100px;
+                                         
+                                         background-color: lightgreen;
+                                       }
+                            
+                            
                         🟩 max-height : 요소의 최대 높이를 설정한다. height의 속성의 사용값이 자신의 값보다 커지는걸 방지한다.
                         
                         🟩 min-height : 요소의 최소 높이를 설정한다. height의 속성의 사용값이 자신의 값보다 작아지는걸 방지한다.
                         
+                                ⭐ 위의 min-width 예시와 동일하다.
+                                   -> height를 percentage로 줬을 때, 뷰포트를 아무리 줄여도 min-height 값보다는 줄어들지 않는다. 
+                              
                   ⭐ 반응형 사이트를 만들 때 유용하게 사용할 수 있는 property들이다.
             
             
