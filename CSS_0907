@@ -594,61 +594,142 @@
              6️⃣ 퍼센트 
              
                        🟥 percentage : 백분율 값을 나타낸다. -> 부모 객체의(부모요소)의 해당값이 100%라고 보면된다.
+                                        (부모의 값에 상대적으로 계산이 된다)
              
                                     Ex)
-                                       .parent {
-                                          width: 100px;
-                                          height: 100px;
-                                          background-color: blue;
-                                        }
+                                    
+                                        ⚪ HTML
                                         
-                                        .child {
-                                           width: 50%;
-                                           height: 30px;
-                                           background-color: indianred;
-                                        }
-              
+                                          <div class="parent">
+                                             <div class="child"></div>
+                                          </div>
+                                         
+                                        ⚪ CSS
+                                        
+                                             .parent {
+                                                width: 100px;
+                                                height: 100px;
+                                                background-color: blue;
+                                              }
+
+                                              .child {
+                                                 width: 50%;         ⭐ 부모의 가로길이의 절반만 차지하게 된다. 
+                                                 height: 30px;
+                                                 background-color: indianred;
+                                              }
+                              
+                              🔻 부모에게도 %를 주면?
+                              
+                                         ⚪ HTML
+                                        
+                                          <div class="parent">
+                                             <div class="child"></div>
+                                          </div>
+                                         
+                                        ⚪ CSS
+                                                
+                                             body {
+                                                margin: 0;
+                                             }
+                                             
+                                             .parent {
+                                                width: 50%;             ⭐ 전체의 절반을 차지하게 된다.  
+                                                                           -> body의 브라우저를 늘렸다 줄여도, 전체 가로길의 100%를 기준으로 절반인 50%으로 조절이 된다. 
+                                                height: 100px;
+                                                background-color: blue;
+                                              }
+
+                                              .child {
+                                                 width: 50%;            
+                                                 height: 30%;           ⭐ height도 마찬가지.
+                                                 background-color: indianred;
+                                              }   
+             
+                                                * 계산되어져있는 값들은 computed라는 탭을 통해서
+                                                정확히 몇px로 계산됐는지 확인할 수 있다.
+                                                height를 보면 30%가 아니라 30px로 계산된걸 볼 수 있다.
+                                                -> 부모의 값을 알고 있기 때문에 이렇게 계산이 된 것!
+                                                
+                                       ⭐ font-size, line-height등 퍼센티지(%)를 사용할 수 있는 속성들은, 마찬가지로 부모의 퍼센티지(%)된 값을 계산해서 보여지게 된다. 
+             
              
              7️⃣ 함수 표기법 - calc(), min(), max()
-                        
+             
+                        * 함수 표기법 : 단위들에 대한 계산식을 얘기한다. 
+                         
+                         🔻 사용하는 이유
+                            
+                            -> 예를들어서, 100%중에서 50px정도만 빼고싶을 수 있다.
+                               그런데 100%는 상대길이이고, 50px은 절대길이이다.
+                               두개의 단위가 다 다르기때문에 작성할 수 없다.
+                               만약에 px로 쓰면 반응형을 대응할 수 없고, 
+                               퍼센트로 쓰면 정확하게 50%만 빼고싶은데 이걸 사용할 수가 없을것이다.
+
+                               그래서 이런식으로 여래개의 단위를 섞어서 사용할 수 있도록 하는것이 cal() 함수 표현식이다.  
+                         
+                         
                          🟥 calc() : 여러개의 단위를 섞어서 사용할 있도록 하는것.
                          
-                              Ex)
-                                  .container {
-                                       width: cal(100% - 50px;)         -> 100%중에서 50px을 뺀 값을 사용한다.
-                                       height: 200px;
-                                       
-                                       background-color: wheat;
-                                  }
+                              ⭐ 사칙연산을 지원한다. +, -, *, / 
                                   
+                                  ⭐⭐ 곱셉과 나눗셈 같은 경우, 두가지의 단위를 섞어서 쓰는것이 아니라 숫자로만 곱하거나 나눌 수 있다. 
+                                  
+                                    Ex)   width: cal(100% / 3);
+                                 
+                                 
+                              🔻 사용 예시
+                              
+                                    Ex)
+                                        .container {
+                                             width: cal(100% - 50px);        ⭐ 100%중에서 50px을 뺀 값을 사용한다.
+                                                                                 -> 반응형도 대응이 되고, 우측에 정확하게 50px의 여백이 생기게 된다. 
+                                             height: 200px;
+
+                                             background-color: wheat;
+                                        }
+
+                              🔻 em도 사용할 수 있다.
+                              
+                                    width: cal(100% - 1em);
+                                    
+
                               ⭐  더하기(+)와 빼기(-)를 사용 할때는 좌, 우에 공백을 꼭 넣어줘야 한다.
                                   곱하기(*)와 나누기(/)도 코드의 일관성을 위해서 연산자의 좌우에는 공백을 넣어주는게 좋다!
+                  
                  
-                 
-                         🟥 min() : 둘 중에 작은 값을 사용한다.
+                         🟥 min() : 둘 중에 작은 값을 사용한다.    ⭐ 콤마(,)를 사용해서 나열한다.
                               
                                 Ex)
                                   .container {
-                                       width: min(100%, 500px;)         
+                                       width: min(100%, 500px;)      ⭐ 자동으로 작은값을 브라우저가 선택해준다.    
+                                                                        -> 브라우저를 늘리면 끝까지 늘어나는게 아니라 500px이 되었을 때는 더이상 늘어나지 않는다.
+                                                                        왜냐하면 이 경우에는 500px이 100%보다 더 작기 때문에, 브라우저가 자동으로 500xp를 선택해 준것!
                                        height: 200px;
                                        
                                        background-color: wheat;
                                   }
                               
                               
-                         🟥 max() : 둘 중에 큰 값을 사용한다.
+                         🟥 max() : 둘 중에 큰 값을 사용한다.      ⭐ min()과 동일하게 사용. 
                               
                                  Ex)
                                   .container {
-                                       width: max(100%, 500px;)         
+                                       width: max(100%, 500px;)      ⭐ 자동으로 큰 값을 브라우저가 선택해준다.     
+                                                                         -> 브라우저를 늘리면 끝까지 늘어나게 되고, 줄이면 계속 줄어드는게 아니라 어느 시점에서는 
+                                                                         가로로 500px보다는 더이상 작아지지 않는걸 볼 수 있다. 
+                                                                            
                                        height: 200px;
                                        
                                        background-color: wheat;
                                   }
                               
-                             ⭐ can i use에서 검색해 보면, 인터넷익스플로러에서는 아예 지원을 하지 않는다.
-                                
-                              
+                             ⭐⭐ can i use에서 css min이라고 검색해 보면, 
+                             CSS math functions min(), max()이라고 나와있는데 인터넷익스플로러에서는 아예 지원을 하지 않는다.
+                             그래서 보통은 min-width나 max-width로 대체 할 수 있는데,
+                             이 min()과 max() function은 유용하게 사용할 수 있지만
+                             익스플로러에서는 지원이 안된다는것! 
+                   
+                   
   📂 박스 모델        
   
             1️⃣ 박스 모델이란
