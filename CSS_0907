@@ -762,14 +762,14 @@
             2️⃣ 크기 - width, height
             
             
-                              🟩 width : 가로         ⭐ 상속이 되지 않는다.
+                              🟩 width : 요소의 너비 설정.   -> 가로         ⭐ 상속이 되지 않는다.
 
                                     Ex)
                                         .box {
                                           width: 200px;
                                         }
 
-                                  🟡 초기값 -> width: auto;
+                                  🟡 초기값 -> width: auto;   
 
                               🟩 height : 세로        ⭐ 상속이 되지 않는다.
 
@@ -781,7 +781,23 @@
                                   🟡 초기값 -> height: auto;
            
            
-           
+                           🔻 block과 inline의 width, height 지정 예시
+                           
+                                 Ex)
+                                    .block {                   * width값을 지정해주지 않았다면(auto), 자기가 차지할 수 있는 너비 전체를 차지한다.  그래서 width의 auto값은 100%이다.
+                                                                  height는 컨텐츠의 높이를 가지고 있다.
+                                        width: 300px;             ⭐ 300px만큼만 너비를 가지게 된다.
+                                        height: 100px;            ⭐ 100px만큼만 높이를 가지게 된다.
+                                        background-color: wheat;
+                                    }
+                                     
+                                    .inline {                
+                                        width: 300px;            ⭐ width와 height가 가지고 있는 컨텐츠에 의해서 자동으로 계산되어지기 때문에, width와 height값이 적용되지 않는다. 
+                                        height: 100px;              -> 변경하고 싶다면, display: block; 으로 변경해서 적용시킬 수 있다. 
+                                        background-color: yellowgreen;
+                                    }
+                       
+                       
             3️⃣ 크기 - max-width, min-width, max-height, min-height
             
                   (* 참고 : https://developer.mozilla.org/ko/docs/Web/CSS/max-width )
@@ -878,23 +894,54 @@
             
             4️⃣ 여백 - margin    
             
-                        🟩 margin: 가장 바깥쪽 레이어.  ⭐ 단축 속성이다.
-                        
-                              #parent {
-                                    width: 300px;
-                                    height: 200px;
-                                    
-                                    border: 5px solid blue;
-                              }
+                        🟩 margin: 가장 바깥쪽 레이어.  ⭐ 단축 속성이다.  (margin-top, margin-right, margin-bottom, margin-left)
+                                                           -> 위의 4가지의 initial값은 0이다. 
+                                                      ⭐ 상속이 되지 않는다.
                               
-                              # child {
-                                    width: 50px;
-                                    height: 50px;
-                                    
-                                    margin: 10px 20px 30px 20;    ⭐ 시계방향이다. 위, 오른쪽, 아래, 왼쪽.
-                                    
-                                    border: 5px solid tomato;
-                              }
+                                 🟤 사용할 수 있는 값
+                                 
+                                     🟨 <length>    -> px, em, rem..
+                                     🟨 percentage   : 여백의 크기로 컨테이닝 블록 너비의 백분율 사용.
+                                          
+                                          🔥 percentage는 주의해서 사용해야 한다!
+                                             
+                                               Ex)
+                                                  margin: 30%;
+                                                  
+                                                  원래는 percentage가 부모값의 percentage를 얘기하는데,
+                                                  이건 부모의 margin을 따라가는게 아니라, 부모의 width값을 따라가게 된다.
+                                                  => 부모의 'width'의 퍼센트(%).
+                                          
+                                     🟨 auto      : 브라우저가 적절한 여백 크기를 선택. 예를 들어, 요소를 중앙 정렬하고 싶을 때 사용할 수 있다. 
+                              Ex)
+                              ⚪ HTML
+                              
+                                   <div id="parent">
+                                      <div id="child"></div>
+                                   </div>
+                                 
+                              ⚪ CSS
+                              
+                                    #parent {
+                                          width: 300px;
+                                          height: 200px;
+
+                                          border: 5px solid blue;
+                                    }
+
+                                    # child {
+                                          width: 50px;
+                                          height: 50px;
+                                          
+                                          margin: 30px;                 ⭐ 1개 입력시 -> 같은값으로 다 적용이 된다.
+                                          margin : 10px 20px;           ⭐ 2개 입력시 -> 왼쪽: 위, 아래 / 오른쪽: 좌,우 
+                                          margin: 10px 20px 30px;       ⭐ 3개 입력시 -> 왼쪽: 위 / 가운데: 좌, 우 / 오른쪽: 아래
+                                          margin: 10px 20px 30px 20;    ⭐ 4개 입력시 -> 시계방향이다. 위, 오른쪽, 아래, 왼쪽.
+                                          
+                                          
+                                          margin : 1rem;             ⭐ 16px로 설정. 
+                                          border: 5px solid tomato;
+                                    }
             
             5️⃣ 여백 - margin collapsing 1
             
@@ -903,6 +950,15 @@
                              ⭐⭐ 어려운 개념이지만 꼭 알고 있어야 하는 개념이다.
                         
                                   ◽ 여러 블록(block)요소들의 위/아래 margin이 경우에 따라 가장 큰 크기를 가진 margin으로 결합(상쇄)되는 현상.
+                                  
+                                      -> 요소가 블록이어야 한다. 블록 요소이거나 하나이거나 두개 이상의 요소들.
+                                         margin-top, margin-bottom에만 일어나는 현상이다. 좌 / 우에는 발생하지 X.
+                                         
+                                         인라인 요소에서는 발생하지 않는다.
+                                         애초에 인라인에는 margin-top과 margin-bottom에 설정할 수 없음.
+                                         좌,우에만 설정할 수 있음.
+                                         
+                                  
                                   ◽ 아래의 3가지 경우에 일어난다.
                                     
                                           1. 인접 형제
@@ -910,19 +966,39 @@
                                              ● 두 형제 요소의 위/아래 여백이 만나 상쇄된다.
                                           
                                                 Ex) 
-                                                
-                                                  body {
-                                                      margin: 0;
-                                                  }
-                                                
-                                                   .box {
+                                                 
+                                                 ⚪ HTML
+                                                 
+                                                    <div class="box"></div>
+                                                    <div class="box"></div>
+                                                    <div class="box"></div>
+                                                   
+                                                 ⚪ CSS
+                                                  
+                                                    body {
+                                                       margin: 0;      ⭐ body에 기본 margin이 있어서 0으로 해줌. 
+                                                    }
+                                                   
+                                                    .box {
+                                                       width: 50px;
+                                                       height: 50px;
+                                                       background-color: tomato;
+                                                     
+                                                       margin: 20px;    ⭐ 이렇게 전체 20px를 주면, 예상했을 때 3개의 box 위,아래에 20px의 margin이 있기 때문에
+                                                                           박스 사이의 2개의 마진, 즉 40px의 margin이 있을거라고 예상하지만 실제로는 합쳐져 있다. 
+                                                                           -> 이게 바로 margin-collapsing 현상. 
+                                                    }
+                                                    
+                                                    🔻 margin-top과 margin-bottom에 각각 값을 주었을 때.
+                                                    
+                                                    .box {
                                                       width: 50px;
                                                       height: 50px;
                                                       background-color: tomato;
-                                                      
+
                                                       margin-top: 10px;
-                                                      margin-bottom: 20px;    -> 가장 크기 때문에 20px로 보여진다.
-                                                   }
+                                                      margin-bottom: 20px;         ⭐ 가장 크기 때문에 20px로 보여진다.
+                                                    }
             
             6️⃣ 여백 - margin collapsing 2
             
