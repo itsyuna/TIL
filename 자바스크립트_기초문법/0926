@@ -219,7 +219,8 @@
                                               // TypeError: Assignment to constant variable
                            
                             const C;          // 초기화 없이 상수 선언 -> 에러     ⭐ 이미 C라는 공간이 readonly 즉, 변경 불가능한 값으로 선언되기 때문에 
-                            C = 123;          // SyntaxError: Missing initializer in const delcaration      ⭐ 이렇게 값을 넣을 수 없다. 애초에 위의 단계(const C)에서 컴파일 에러가 발생한다. 
+                            C = 123;          // SyntaxError: Missing initializer in const delcaration      ⭐ 이렇게 값을 넣을 수 없다. 
+                                                                                                                애초에 위의 단계(const C)에서 컴파일 에러가 발생한다. 
                           
                           
                         ⭐ 변수와 상수가 나뉘어져 있는 이유
@@ -263,9 +264,9 @@
                       🔻 예제
                       
                           // using var
-                          console.log(name_1);    // output: undefined
-                          var name_1 = "john";
-                          console.log(name_1);    // output: john
+                             console.log(name_1);    // output: undefined
+                             var name_1 = "john";
+                             console.log(name_1);    // output: john
                           
                             🔺 위에 코드가 내부적으로 hosting되는 과정은,
                             // hosting
@@ -278,10 +279,10 @@
                             
                             이렇게 hosting이 되면, 선언부가 위로 올라간다. 
                   
-                          // using let/const
-                          // ReferenceError: Cannot access 'name_2' before initialization
-                          console.log(name_3);      ⭐ 에러 발생. 아직 초기화를 하지 않았는데 사용했기 때문에.
-                          let name_3 = "john";
+                         // using let/const
+                         // ReferenceError: Cannot access 'name_2' before initialization
+                            console.log(name_3);      ⭐ 에러 발생. 아직 초기화를 하지 않았는데 사용했기 때문에.
+                            let name_3 = "john";
                           
                           -> 이렇게 의도치않은 행위를 했기 때문에, 바로 알아챌 수 있어서 좀 더 문법적 오류나 코딩 오류를 줄일 수 있게 된다.
                           그래서 변수를 쓸 때는 var를 쓰는것보다 let을 쓰는것을 권장한다. 
