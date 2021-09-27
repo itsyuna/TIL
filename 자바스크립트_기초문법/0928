@@ -1,0 +1,113 @@
+
+📂 자바스크립트 기초문법
+
+    🐥 오늘의 목표 : 조건문, 반복문, 함수, 배열 익히기.
+    
+    
+    1️⃣3️⃣ 비교 / 논리 연산자          ⭐ 조건문에서 많이 사용된다. 
+      
+      
+        🔎 비교 연산자
+            
+            ● 좌항과 우항의 피연산자를 비교한 다음 결과값을 논리적 자료형으로 반환하는 연산자
+            ● ==은 단순 값의 같음을 비교하는 동등 비교, ===는 자료형까지 같음을 판단하는 일치 비교 연산자
+            
+               a > b        :  a가 b보다 크면 true, 아니면 false
+               
+               a < b        :  a가 b보다 작으면 true, 아니면 false
+               
+               a >= b       :  a가 b보다 크거나 같으면 true, 아니면 false
+               
+               a <= b       :  a가 b보다 작거나 같으면 true, 아니면 false
+               
+               a == b       :  a와 b가 같으면 true, 아니면 false    ⭐ ==는 값에 대한 casting(형변환)까지 해줘서 같은지를 비교. 
+               
+                    Ex) 5 == '5'     -> true                       ⭐ 데이터가 달라도 자동으로 형변환이 되기 때문에, 값에 대한 본질은 같다라고 판단해서 true이다.
+               
+               a != b  :  a와 b가 같지 않으면 true, 아니면 false
+               
+                    Ex) 5 != '5'     -> false
+               
+               a === b   :  a와 b의 자료형과 값이 같으면 true, 아니면 false
+               
+                    Ex) 5 === '5'     -> false                     ⭐ ===는 casting이 안되고, 자료형까지 같은지를 체크해서 좀 더 완벽하게 일치하는지 비교.
+               
+               a !== b   :  a와 b의 자료형과 값이 다르면 true, 아니면 false
+                  
+                    Ex) 5 !== '5'     -> true
+        
+                  
+                  🔻 예시
+                  
+                      console.log("Z" > "A");         // true   -> A가 Z보다 순서상 위에 있기 때문에, Z가 산술적으로 더 크다라고 계산한다. 
+                      
+                      console.log("Hello" < "Hi");    // true     ⭐ H는 똑같기 때문에, 2번째에 대한 비교를 한다. 
+                                                                     e보다 i가 좀 더 순서가 뒤에 있기 때문에, i가 크다라고 판단해서 true 값을 리턴한다.  
+                      
+                      console.log("Hello" >= "Helloo");     // false    ⭐ 앞에 hello까지는 동일하나, 오른쪽에 o가 하나 더 있기 때문에 이 문자열이 좀 더 크다라고 판단한다.
+                                                                        문자열의 비교는 첫번째부터 순차적으로 비교한다.
+                                                                        
+                                                                        그래서 console.log("ZA" > "AAAA");   같은경우,
+                                                                        오른쪽이 문자가 더 길다고 하더라도,
+                                                                        첫번째 글자부터 비교하기 때문에, Z가 더 커서 이것도 true값이 나온다. 
+                                                                          
+                                                                        -> 문자열에 대한 비교는, 첫번째부터 비교를해서
+                                                                        이미 비교가 이 시점에 끝나면 논리적인 연산이 종료된다.   -> 이미 결과값이 단정지어 진다. 
+                      
+                      console.log("5" <= 10);         // true           ⭐ 문자열과 숫자의 비교 
+                      
+                      console.log(true == 1);         // true
+                      
+                      console.log(false != 123);      // true           ⭐ 123은 변환을 하게 되면 true이기 때문에, 같지 않다. 
+                      
+                      console.log(true === 1);        // false          ⭐ 두 개의 값에 대한 본질은 같지만, 일치비교이기 때문에 각각의 타입이 다르므로 false가 나온다. 
+                      
+                      console.log(false !== 123);     // true         ⭐ 이건 이미 값이 다르지 않더라도, type이 다르기 때문에 false가 나온다. 
+                      
+                      
+         🔎 논리 연산자
+         
+              ● 좌항과 우항의 피연산자 간 논리 값을 연산하여 참 또는 거짓을 결과로 얻는 연산자
+              ● 논리 연산자: &&(AND), ||(OR), !(NOT)
+              
+              🔻 논리 연산자 예제
+              
+                  console.log(true || false);     // true       ⭐ OR은 둘 중 하나라도 true이면 true이기 때문에, true가 나온다. 
+                  
+                  console.log(Boolean(0 || false));       // false
+                  
+                  console.log(Boolean(123 || false));     // true
+                  
+                  console.log(Boolean(123 && 0));         // false
+                  
+                  console.log(Boolean(false && true));    // false
+                  
+                  console.log(Boolean(true && 3));        // true
+                  
+                  console.log(Boolean(0 && false));       // false
+                  
+                  console.log(!false);              // true
+                  
+                  console.log(!123);              // false
+         
+            
+    1️⃣4️⃣ SCOPE
+    
+              ● 변수 혹은 상수에 접근할 수 있는 범위
+              ● 모듈/함수 내 코드에서 동일한 변수 사용시 간섭을 줄이는 용도로 사용          -> 코드간에 구역을 나눈다. 
+              ● Scope는 Global Scope와 Local Scope의 타입으로 구분
+                  
+                  ◽ Global Scope: 전역에 선언되어 어디에서도 접근 가능
+                  ◽ Local Scope(block, function level scope): 특정 지역에 선언되어, 해당 지역 내에서만 접근 가능
+    
+    
+    
+    1️⃣5️⃣ 조건문
+    1️⃣6️⃣ 조건문 switch
+    1️⃣7️⃣ 연습문제
+    1️⃣8️⃣ 반복문
+    1️⃣9️⃣ 반복문 while
+    2️⃣0️⃣ 반복문 제어
+    2️⃣1️⃣ 반복문 연습문제
+    
+    
