@@ -1,0 +1,200 @@
+
+📂 자바스크립트 기초 문법
+
+    8️⃣ 자료형
+    
+      ● 목적에 따라 특별한 성질이나 정해진 범주를 갖고 있는 데이터의 종류
+      ● 자바스크립트에서는 6가지의 원시 타입 자료 형과 1가지의 객체 타입 자료형으로 구성
+          ( * 정확히는 한가지 더 있다. bigint라는것)
+          
+          🟣 원시 타입(primitive type)
+                
+                ▶ Boolean : 논리적 값으로 true, false
+                ▶ null : 존재하지 않거나 유효하지 않은 주소 표시
+                ▶ undefined : 선언 후 값을 할당하지 않은 변수
+                ▶ number : 정수, 실수 등의 숫자, 정수의 한계는 +-25의 53승.  -> 그 이상의 정수를 표현하고 싶을 때 bigint를 쓸 수 있지만, 많이 사용하지는 않는다. 
+                ▶ string : 빈 문자열이나 글자들을 표현하는 문자열
+                ▶ symbol : 문자열과 함께 객체 property로 사용, ES6에 추가   -> 자주 사용되는 원시 타입은 아니다. 
+          
+          🟣 객체 타입(object type)
+           
+               ▶ object : 두개 이상의 복잡한 개체 저장 가능
+                
+                
+         🔎 원시 타입에 대해서 자세히 알아보기
+             
+             * 원시 타입 전에, 먼저 typeof 라는 연산자 살펴보기.
+             
+             🟥 typeof
+             
+                ● typeof는 인수의 자료형을 반환하는 연산자
+                ● 연산자인 typeof x와 함수인 typeof(x)로 문법 지원
+                
+                  🔻 예시
+                  
+                  let str = "hello, world!";
+                  console.log(str);                 -> 출력결과 : string
+                  
+                  console.log(typeof undefined);          -> undefined
+                  console.log(typeof 123);                -> number
+                  console.log(typeof 456n);               -> bigint                               ⭐ bigint를 쓸 때는, 이렇게 뒤에 n을 붙여준다.
+                  console.log(typeof 123.123);            -> number
+                  console.log(typeof true);               -> boolean
+                  console.log(typeof "hello");            -> string
+                  console.log(typeof symbol("id");        -> symbol
+                  console.log(typeof Math);               -> Object                               ⭐ Math : 수학 관련된 Object.
+                  console.log(typeof null);               -> Object       ⭐ 하위 호환성, 즉 버젼 호환성때문에 예전에는 null이 object로 표현되면 오류가 있었지만,
+                                                                             구 버젼의 호환성을 위해서 그대로 버그를 고치지 않고 냅둠. 
+                  console.log(typeof console.log);        -> function
+            
+            
+            🟣 boolean
+              
+                ● boolean은 논리적인 값을 표현하는 자료형
+                ● 참인 ture와 거짓인 false, 두 가지 값만 존재
+                ● 줄조 조건문 등에서 동작 판단의 기준으로 사용
+                
+                    🔻 예시
+                    
+                       let name_check = ture;   // 네, name이 입력이 확인되었습니다.    ⭐ ture, false를 이렇게 직접 넣어줄 수도 있따. 
+                       let age_check = false;   // 아니요, age 입력이 확인되지 않았습니다.
+                       
+                       let value_check = 10 > 3;    // 비교 결과: 참 -> true       ⭐ 조건문의 등위 연산자를 통해서, 결과를 리턴값으로 넣어준다. 그리고 그 리턴값이 변수에 저장된다. 
+                       
+                       console.log(value_check);      // output: true;
+          
+            🟣 null & undefined
+            
+                ◻ null
+                
+                  ● null은 값이 비어 있다는 의미로 표현되는 자료형
+                  ● 존재하지 않는(nothing), 비어 있는(empty), 알 수 없는(unknown) 값을 나타내는데 사용
+                  
+                     🔻 예시
+                     
+                         console.log(typeof null);      // output: object <- 하위 버젼 호환성으로 object 표기
+                                                          ⭐ 만약에 변경을 햇을 때, 특정 버젼 이전은 object로 나오고 특정 버젼 이후로는 null로 나오기 때문애
+                                                              변경된것만큼 코드를 수정해야하는데, 하지만 우리는 다양한 필드에서 많은 프로그램에서 자바스크립트가 사용되고 있기 때문애ㅔ
+                                                              버젼이 바뀔 때마다 이걸 모두 다 바꿔야하니까, 그런 버젼 호환성으로 인해서 아직 이런 문법적 버그가 있지만 그대로 둔다.  
+                         
+                         const null_check = null;         ⭐ null은 실제로 변수의 값이 비어있을 때 체크하는 용도로 많이 쓰인다. 
+                         console.log(null_check === null);     // output: true
+                       
+                        * 만약에 값이 할당이 되어 있다면, false가 나온다.
+                          
+                         const null_check = 123;
+                         console.log(null_check === null);      // output: false
+                         
+                         
+                ◻ undefined
+                
+                   ● undefined는 값이 할당되어 있지 않은 상태를 나타날 때 사용되는 자로형
+                   ● 변수 선언 후 초기화 하지 않는다면, undefined가 자동으로 할당
+                   
+                      🔻 예시
+                      
+                          let name;       // 할당 후 초기화 하지 않음
+                          
+                          console.log(name);      // output: undefined
+            
+            
+            🟣 number         ⭐많이 쓰임.
+              
+              ● number(숫자형)은 정수, 부동소수점(floating point) 숫자를 표현하는 자료형
+              ● number와 관련된 연산은 사칙연산(+, -, *, /)가 대표적
+              ● number에는 일반적인 숫자 외에 Infinity, -Infinity, NaN(Not a Number) 같은 특수 숫자 값이 포함
+              ● number에서는 2의 53승 -1보다 큰값을 사용할 수 없으며, 더 큰 정수를 다루고 싶다면 bigint 자료형 사용 필요
+              
+                  🔻 예시
+                  
+                     let num_1 = 123.0
+                     let num_2 = 123.456
+                     let num_3 = 1 / 0;
+                     let num_4 = 123456n;   // Bigint("123456")
+                     
+                     console.log(num_1 - num_2);    // output: -0.456000000000307
+                                                      ⭐ 우리가 기대한 결과값은 -0.456인데, 뒤에 이렇게 소수점으로 나온 이유는?
+                                                         -> 사실 컴퓨터는 소수점 연산은 100% 클리어하게 하지 못한다. 
+                                                            변수에 대한 메모리공간이 한계가 있기 때문에, 최적화해서 하는데 
+                                                            최적화 연산에 의해서 일부의 오차가 발생한다.
+                                                            
+                                                            그래서 실제 C언어 같은경우에서도,
+                                                            float자료형과 double 자료형이 있는데
+                                                            float 자료형으로 하면, 이렇게 일부의 소수점 계산 오차가 발생하게 되고
+                                                            double 같은 경우는 좀 더 정확한 값이 나오게 된다.
+                                                            
+                                                            이 자바스크립트에서도 number 객체를 쓰면 일부 자료형에 대한 0.소수점에 대한 처리가 100% 클리어하게 
+                                                            되지 않지만, Math라는 좀 더 수학적인 객체를 통해서 이런 부분도 해결되서 좀 더 완벽하게 소수점에 대한 처리가 가능하다.
+                                                            
+                     console.log((num_1 - num_2).toFixed(3));      // output: -0.456      ⭐ number는 toFixed()라는 함수를 제공한다.
+                                                                                             인자값으로 3을 주게도미ㅕㄴ, 3이하의 값들은 모두 반올림처리를 해서 값이 나온다. 
+                                                                                             
+                                                                                             -> 오차는 대부분 수많은 소수점 아래에서 오차가 발생하기 때문에,
+                                                                                                웬만한 사칙연산에 대한 소수점 처리들은 이렇게 fixed를 통해서 보완할 수 있다. 
+                     console.log(num_3);      // Infinity
+                     console.log(num_1 / "hello");      // NaN            ⭐ 우리가 쓰는 변수중에, 숫자가 아닌것이 있다라는걸 결과값을 통해서 파악할 수 있다. 
+                     console.log(typeof num_4);       // bigint
+          
+          
+            🟣 string         ⭐⭐ 원시 자료형 중에서, 가장 많이 쓰이는 자료형
+             
+                ● string은 문자, 문자열을 표현하는 자료형
+                ● 자바스크립트에서 문자열은 3가지 종류의 따옴표로 표현 가능
+                
+                    ◽ 큰 따옴표: "hello"
+                    ◽ 작은 따옴표: 'hello'
+                    ◽ 역 따옴표(백틱, backtick): `hello`      ⭐⭐ 백틱은, 문자열 안에 변수를 같이 쓸 수 있다!
+                    
+                    🔻 예시
+                    
+                        let str_1 = "hello_1";
+                        let str_2 = "hello_2";
+                        
+                        let num = 3;
+                        let str_3 = `hello_${num}`;
+                        
+                        console.log(str_1);   // output: hello_1
+                        console.log(str_2);   // output: hello_2
+                        console.log(str_3);   // output: hello_3
+              
+                    
+    9️⃣ 객체타입      ⭐⭐ 매우 중요!!
+    
+            ● object는 다수의 원시 자료형을 포함하거나 복잡한 개체(entity)를 표현할 수 있는 자로형
+            ● object는 Object() 혹은 중괄호({})를 통해 생성
+            ● object의 개체는 key: value 형태로 표현하며, 접근은 object.key 형태로 표현
+            
+                  🔻 예시
+                  
+                        let user = {
+                           name: "john",
+                           age: 27,
+                        };
+                      
+                  ⭐⭐ user라는 변수에는, name과 age라는 2가지의 entity가 저장되는 것이 아니라,
+                        메모리만 저장이 되고, reference 참조를 통해서 실제 데이터는 다른곳에 저장되고 
+                        그곳에 대한 데이터를 접근만 할 수 있다.
+    
+                          🔻 예시
+                          
+                              let user = {
+                                 name: "john",    // key: "name", value: "john"
+                                 age: 27,         // key: age, value: 27
+                              };
+                              
+                              console.log(typeof user);     // output: object
+                              console.log(typeof user.name);    // output: string
+                              console.log(typeof user.age);     // output: number
+                              
+                              console.log(user.name);     // output: "john"
+                              console.log(user.age);      // output: 27
+                              
+                              user.age = 30;
+                              console.log(user.age);      // output: 30
+                                
+    
+    
+    
+    🔟 객체 복사 문제점
+  
+
