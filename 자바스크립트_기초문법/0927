@@ -62,9 +62,11 @@
                            let name_check = ture;   // 네, name이 입력이 확인되었습니다.    ⭐ ture, false를 이렇게 직접 넣어줄 수도 있따. 
                            let age_check = false;   // 아니요, age 입력이 확인되지 않았습니다.
 
-                           let value_check = 10 > 3;    // 비교 결과: 참 -> true       ⭐ 조건문의 등위 연산자를 통해서, 결과를 리턴값으로 넣어준다. 그리고 그 리턴값이 변수에 저장된다. 
+                           let value_check = 10 > 3;    // 비교 결과: 참 -> true       ⭐ 조건문의 등위 연산자를 통해서, 결과를 리턴값으로 넣어준다. 
+                                                                                          그리고 그 리턴값이 변수에 저장된다. 
 
                            console.log(value_check);      // output: true;
+
 
                 🟣 null & undefined
 
