@@ -1,200 +1,651 @@
 
 📂 자바스크립트 기초 문법
 
-    8️⃣ 자료형
+    🐥 오늘의 목표 : 중요한 객체(object)에 대해서 이해하기!
     
-      ● 목적에 따라 특별한 성질이나 정해진 범주를 갖고 있는 데이터의 종류
-      ● 자바스크립트에서는 6가지의 원시 타입 자료 형과 1가지의 객체 타입 자료형으로 구성
-          ( * 정확히는 한가지 더 있다. bigint라는것)
-          
-          🟣 원시 타입(primitive type)
-                
-                ▶ Boolean : 논리적 값으로 true, false
-                ▶ null : 존재하지 않거나 유효하지 않은 주소 표시
-                ▶ undefined : 선언 후 값을 할당하지 않은 변수
-                ▶ number : 정수, 실수 등의 숫자, 정수의 한계는 +-25의 53승.  -> 그 이상의 정수를 표현하고 싶을 때 bigint를 쓸 수 있지만, 많이 사용하지는 않는다. 
-                ▶ string : 빈 문자열이나 글자들을 표현하는 문자열
-                ▶ symbol : 문자열과 함께 객체 property로 사용, ES6에 추가   -> 자주 사용되는 원시 타입은 아니다. 
-          
-          🟣 객체 타입(object type)
-           
-               ▶ object : 두개 이상의 복잡한 개체 저장 가능
-                
-                
-         🔎 원시 타입에 대해서 자세히 알아보기
-             
-             * 원시 타입 전에, 먼저 typeof 라는 연산자 살펴보기.
-             
-             🟥 typeof
-             
-                ● typeof는 인수의 자료형을 반환하는 연산자
-                ● 연산자인 typeof x와 함수인 typeof(x)로 문법 지원
-                
-                  🔻 예시
-                  
-                  let str = "hello, world!";
-                  console.log(str);                 -> 출력결과 : string
-                  
-                  console.log(typeof undefined);          -> undefined
-                  console.log(typeof 123);                -> number
-                  console.log(typeof 456n);               -> bigint                               ⭐ bigint를 쓸 때는, 이렇게 뒤에 n을 붙여준다.
-                  console.log(typeof 123.123);            -> number
-                  console.log(typeof true);               -> boolean
-                  console.log(typeof "hello");            -> string
-                  console.log(typeof symbol("id");        -> symbol
-                  console.log(typeof Math);               -> Object                               ⭐ Math : 수학 관련된 Object.
-                  console.log(typeof null);               -> Object       ⭐ 하위 호환성, 즉 버젼 호환성때문에 예전에는 null이 object로 표현되면 오류가 있었지만,
-                                                                             구 버젼의 호환성을 위해서 그대로 버그를 고치지 않고 냅둠. 
-                  console.log(typeof console.log);        -> function
-            
-            
-            🟣 boolean
-              
-                ● boolean은 논리적인 값을 표현하는 자료형
-                ● 참인 ture와 거짓인 false, 두 가지 값만 존재
-                ● 줄조 조건문 등에서 동작 판단의 기준으로 사용
-                
-                    🔻 예시
-                    
-                       let name_check = ture;   // 네, name이 입력이 확인되었습니다.    ⭐ ture, false를 이렇게 직접 넣어줄 수도 있따. 
-                       let age_check = false;   // 아니요, age 입력이 확인되지 않았습니다.
-                       
-                       let value_check = 10 > 3;    // 비교 결과: 참 -> true       ⭐ 조건문의 등위 연산자를 통해서, 결과를 리턴값으로 넣어준다. 그리고 그 리턴값이 변수에 저장된다. 
-                       
-                       console.log(value_check);      // output: true;
-          
-            🟣 null & undefined
-            
-                ◻ null
-                
-                  ● null은 값이 비어 있다는 의미로 표현되는 자료형
-                  ● 존재하지 않는(nothing), 비어 있는(empty), 알 수 없는(unknown) 값을 나타내는데 사용
-                  
-                     🔻 예시
-                     
-                         console.log(typeof null);      // output: object <- 하위 버젼 호환성으로 object 표기
-                                                          ⭐ 만약에 변경을 햇을 때, 특정 버젼 이전은 object로 나오고 특정 버젼 이후로는 null로 나오기 때문애
-                                                              변경된것만큼 코드를 수정해야하는데, 하지만 우리는 다양한 필드에서 많은 프로그램에서 자바스크립트가 사용되고 있기 때문애ㅔ
-                                                              버젼이 바뀔 때마다 이걸 모두 다 바꿔야하니까, 그런 버젼 호환성으로 인해서 아직 이런 문법적 버그가 있지만 그대로 둔다.  
-                         
-                         const null_check = null;         ⭐ null은 실제로 변수의 값이 비어있을 때 체크하는 용도로 많이 쓰인다. 
-                         console.log(null_check === null);     // output: true
-                       
-                        * 만약에 값이 할당이 되어 있다면, false가 나온다.
-                          
-                         const null_check = 123;
-                         console.log(null_check === null);      // output: false
-                         
-                         
-                ◻ undefined
-                
-                   ● undefined는 값이 할당되어 있지 않은 상태를 나타날 때 사용되는 자로형
-                   ● 변수 선언 후 초기화 하지 않는다면, undefined가 자동으로 할당
-                   
-                      🔻 예시
-                      
-                          let name;       // 할당 후 초기화 하지 않음
-                          
-                          console.log(name);      // output: undefined
-            
-            
-            🟣 number         ⭐많이 쓰임.
-              
-              ● number(숫자형)은 정수, 부동소수점(floating point) 숫자를 표현하는 자료형
-              ● number와 관련된 연산은 사칙연산(+, -, *, /)가 대표적
-              ● number에는 일반적인 숫자 외에 Infinity, -Infinity, NaN(Not a Number) 같은 특수 숫자 값이 포함
-              ● number에서는 2의 53승 -1보다 큰값을 사용할 수 없으며, 더 큰 정수를 다루고 싶다면 bigint 자료형 사용 필요
-              
-                  🔻 예시
-                  
-                     let num_1 = 123.0
-                     let num_2 = 123.456
-                     let num_3 = 1 / 0;
-                     let num_4 = 123456n;   // Bigint("123456")
-                     
-                     console.log(num_1 - num_2);    // output: -0.456000000000307
-                                                      ⭐ 우리가 기대한 결과값은 -0.456인데, 뒤에 이렇게 소수점으로 나온 이유는?
-                                                         -> 사실 컴퓨터는 소수점 연산은 100% 클리어하게 하지 못한다. 
-                                                            변수에 대한 메모리공간이 한계가 있기 때문에, 최적화해서 하는데 
-                                                            최적화 연산에 의해서 일부의 오차가 발생한다.
-                                                            
-                                                            그래서 실제 C언어 같은경우에서도,
-                                                            float자료형과 double 자료형이 있는데
-                                                            float 자료형으로 하면, 이렇게 일부의 소수점 계산 오차가 발생하게 되고
-                                                            double 같은 경우는 좀 더 정확한 값이 나오게 된다.
-                                                            
-                                                            이 자바스크립트에서도 number 객체를 쓰면 일부 자료형에 대한 0.소수점에 대한 처리가 100% 클리어하게 
-                                                            되지 않지만, Math라는 좀 더 수학적인 객체를 통해서 이런 부분도 해결되서 좀 더 완벽하게 소수점에 대한 처리가 가능하다.
-                                                            
-                     console.log((num_1 - num_2).toFixed(3));      // output: -0.456      ⭐ number는 toFixed()라는 함수를 제공한다.
-                                                                                             인자값으로 3을 주게도미ㅕㄴ, 3이하의 값들은 모두 반올림처리를 해서 값이 나온다. 
-                                                                                             
-                                                                                             -> 오차는 대부분 수많은 소수점 아래에서 오차가 발생하기 때문에,
-                                                                                                웬만한 사칙연산에 대한 소수점 처리들은 이렇게 fixed를 통해서 보완할 수 있다. 
-                     console.log(num_3);      // Infinity
-                     console.log(num_1 / "hello");      // NaN            ⭐ 우리가 쓰는 변수중에, 숫자가 아닌것이 있다라는걸 결과값을 통해서 파악할 수 있다. 
-                     console.log(typeof num_4);       // bigint
-          
-          
-            🟣 string         ⭐⭐ 원시 자료형 중에서, 가장 많이 쓰이는 자료형
-             
-                ● string은 문자, 문자열을 표현하는 자료형
-                ● 자바스크립트에서 문자열은 3가지 종류의 따옴표로 표현 가능
-                
-                    ◽ 큰 따옴표: "hello"
-                    ◽ 작은 따옴표: 'hello'
-                    ◽ 역 따옴표(백틱, backtick): `hello`      ⭐⭐ 백틱은, 문자열 안에 변수를 같이 쓸 수 있다!
-                    
-                    🔻 예시
-                    
-                        let str_1 = "hello_1";
-                        let str_2 = "hello_2";
-                        
-                        let num = 3;
-                        let str_3 = `hello_${num}`;
-                        
-                        console.log(str_1);   // output: hello_1
-                        console.log(str_2);   // output: hello_2
-                        console.log(str_3);   // output: hello_3
-              
-                    
-    9️⃣ 객체타입      ⭐⭐ 매우 중요!!
-    
-            ● object는 다수의 원시 자료형을 포함하거나 복잡한 개체(entity)를 표현할 수 있는 자로형
-            ● object는 Object() 혹은 중괄호({})를 통해 생성
-            ● object의 개체는 key: value 형태로 표현하며, 접근은 object.key 형태로 표현
-            
-                  🔻 예시
-                  
-                        let user = {
-                           name: "john",
-                           age: 27,
-                        };
-                      
-                  ⭐⭐ user라는 변수에는, name과 age라는 2가지의 entity가 저장되는 것이 아니라,
-                        메모리만 저장이 되고, reference 참조를 통해서 실제 데이터는 다른곳에 저장되고 
-                        그곳에 대한 데이터를 접근만 할 수 있다.
-    
-                          🔻 예시
-                          
-                              let user = {
-                                 name: "john",    // key: "name", value: "john"
-                                 age: 27,         // key: age, value: 27
-                              };
-                              
-                              console.log(typeof user);     // output: object
-                              console.log(typeof user.name);    // output: string
-                              console.log(typeof user.age);     // output: number
-                              
-                              console.log(user.name);     // output: "john"
-                              console.log(user.age);      // output: 27
-                              
-                              user.age = 30;
-                              console.log(user.age);      // output: 30
-                                
-    
-    
-    
-    🔟 객체 복사 문제점
-  
 
+        8️⃣ 자료형
+
+          ● 목적에 따라 특별한 성질이나 정해진 범주를 갖고 있는 데이터의 종류
+          ● 자바스크립트에서는 6가지의 원시 타입 자료 형과 1가지의 객체 타입 자료형으로 구성
+              ( * 정확히는 한가지 더 있다. bigint라는것)
+
+              🟣 원시 타입(primitive type)
+
+                    ▶ Boolean : 논리적 값으로 true, false
+                    ▶ null : 존재하지 않거나 유효하지 않은 주소 표시
+                    ▶ undefined : 선언 후 값을 할당하지 않은 변수
+                    ▶ number : 정수, 실수 등의 숫자, 정수의 한계는 +-25의 53승.  -> 그 이상의 정수를 표현하고 싶을 때 bigint를 쓸 수 있지만, 많이 사용하지는 않는다. 
+                    ▶ string : 빈 문자열이나 글자들을 표현하는 문자열
+                    ▶ symbol : 문자열과 함께 객체 property로 사용, ES6에 추가   -> 자주 사용되는 원시 타입은 아니다. 
+
+              🟣 객체 타입(object type)
+
+                   ▶ object : 두개 이상의 복잡한 개체 저장 가능
+
+
+             🔎 원시 타입에 대해서 자세히 알아보기
+
+                 * 원시 타입 전에, 먼저 typeof 라는 연산자 살펴보기.
+
+                 🟥 typeof
+
+                    ● typeof는 인수의 자료형을 반환하는 연산자
+                    ● 연산자인 typeof x와 함수인 typeof(x)로 문법 지원
+
+                      🔻 예시
+
+                      let str = "hello, world!";
+                      console.log(str);                 -> 출력결과 : string
+
+                      console.log(typeof undefined);          -> undefined
+                      console.log(typeof 123);                -> number
+                      console.log(typeof 456n);               -> bigint                               ⭐ bigint를 쓸 때는, 이렇게 뒤에 n을 붙여준다.
+                      console.log(typeof 123.123);            -> number
+                      console.log(typeof true);               -> boolean
+                      console.log(typeof "hello");            -> string
+                      console.log(typeof symbol("id");        -> symbol
+                      console.log(typeof Math);               -> Object                               ⭐ Math : 수학 관련된 Object.
+                      console.log(typeof null);               -> Object       ⭐ 하위 호환성, 즉 버젼 호환성때문에 예전에는 null이 object로 표현되면 오류가 있었지만,
+                                                                                 구 버젼의 호환성을 위해서 그대로 버그를 고치지 않고 냅둠. 
+                      console.log(typeof console.log);        -> function
+
+
+                🟣 boolean
+
+                    ● boolean은 논리적인 값을 표현하는 자료형
+                    ● 참인 ture와 거짓인 false, 두 가지 값만 존재
+                    ● 줄조 조건문 등에서 동작 판단의 기준으로 사용
+
+                        🔻 예시
+
+                           let name_check = ture;   // 네, name이 입력이 확인되었습니다.    ⭐ ture, false를 이렇게 직접 넣어줄 수도 있따. 
+                           let age_check = false;   // 아니요, age 입력이 확인되지 않았습니다.
+
+                           let value_check = 10 > 3;    // 비교 결과: 참 -> true       ⭐ 조건문의 등위 연산자를 통해서, 결과를 리턴값으로 넣어준다. 그리고 그 리턴값이 변수에 저장된다. 
+
+                           console.log(value_check);      // output: true;
+
+                🟣 null & undefined
+
+                    ◻ null
+
+                      ● null은 값이 비어 있다는 의미로 표현되는 자료형
+                      ● 존재하지 않는(nothing), 비어 있는(empty), 알 수 없는(unknown) 값을 나타내는데 사용
+
+                         🔻 예시
+
+                             console.log(typeof null);      // output: object <- 하위 버젼 호환성으로 object 표기
+                                                              ⭐ 만약에 변경을 햇을 때, 특정 버젼 이전은 object로 나오고 특정 버젼 이후로는 null로 나오기 때문애
+                                                                  변경된것만큼 코드를 수정해야하는데, 하지만 우리는 다양한 필드에서 많은 프로그램에서 자바스크립트가 
+                                                                  사용되고 있기 때문에  버젼이 바뀔 때마다 이걸 모두 다 바꿔야하니까, 
+                                                                  그런 버젼 호환성으로 인해서 아직 이런 문법적 버그가 있지만 그대로 둔다.  
+                                                                 
+
+                             const null_check = null;         ⭐ null은 실제로 변수의 값이 비어있을 때 체크하는 용도로 많이 쓰인다. 
+                             console.log(null_check === null);     // output: true
+
+                            * 만약에 값이 할당이 되어 있다면, false가 나온다.
+
+                             const null_check = 123;
+                             console.log(null_check === null);      // output: false
+
+
+                    ◻ undefined
+
+                       ● undefined는 값이 할당되어 있지 않은 상태를 나타날 때 사용되는 자로형
+                       ● 변수 선언 후 초기화 하지 않는다면, undefined가 자동으로 할당
+
+                          🔻 예시
+
+                              let name;       // 할당 후 초기화 하지 않음
+
+                              console.log(name);      // output: undefined
+
+
+                🟣 number         ⭐많이 쓰임.
+
+                  ● number(숫자형)은 정수, 부동소수점(floating point) 숫자를 표현하는 자료형
+                  ● number와 관련된 연산은 사칙연산(+, -, *, /)가 대표적
+                  ● number에는 일반적인 숫자 외에 Infinity, -Infinity, NaN(Not a Number) 같은 특수 숫자 값이 포함
+                  ● number에서는 2의 53승 -1보다 큰값을 사용할 수 없으며, 더 큰 정수를 다루고 싶다면 bigint 자료형 사용 필요
+
+                      🔻 예시
+
+                         let num_1 = 123.0
+                         let num_2 = 123.456
+                         let num_3 = 1 / 0;
+                         let num_4 = 123456n;   // Bigint("123456")
+
+                         console.log(num_1 - num_2);    // output: -0.456000000000307
+                                                          ⭐ 우리가 기대한 결과값은 -0.456인데, 뒤에 이렇게 소수점으로 나온 이유는?
+                                                             -> 사실 컴퓨터는 소수점 연산은 100% 클리어하게 하지 못한다. 
+                                                                변수에 대한 메모리공간이 한계가 있기 때문에, 최적화해서 하는데 
+                                                                최적화 연산에 의해서 일부의 오차가 발생한다.
+
+                                                                그래서 실제 C언어 같은경우에서도,
+                                                                float자료형과 double 자료형이 있는데
+                                                                float 자료형으로 하면, 이렇게 일부의 소수점 계산 오차가 발생하게 되고
+                                                                double 같은 경우는 좀 더 정확한 값이 나오게 된다.
+
+                                                                이 자바스크립트에서도 number 객체를 쓰면 일부 자료형에 대한 0.소수점에 대한 처리가 100% 클리어하게 
+                                                                되지 않지만, Math라는 좀 더 수학적인 객체를 통해서 이런 부분도 해결되서 좀 더 완벽하게 소수점에 대한 처리가 가능하다.
+
+                         console.log((num_1 - num_2).toFixed(3));      // output: -0.456      ⭐ number는 toFixed()라는 함수를 제공한다.
+                                                                                                 인자값으로 3을 주게도미ㅕㄴ, 3이하의 값들은 모두 반올림처리를 해서 값이 나온다. 
+
+                                                                                                 -> 오차는 대부분 수많은 소수점 아래에서 오차가 발생하기 때문에,
+                                                                                                    웬만한 사칙연산에 대한 소수점 처리들은 이렇게 fixed를 통해서 보완할 수 있다. 
+                         console.log(num_3);      // Infinity
+                         console.log(num_1 / "hello");      // NaN            ⭐ 우리가 쓰는 변수중에, 숫자가 아닌것이 있다라는걸 결과값을 통해서 파악할 수 있다. 
+                         console.log(typeof num_4);       // bigint
+
+
+                🟣 string         ⭐⭐ 원시 자료형 중에서, 가장 많이 쓰이는 자료형
+
+                    ● string은 문자, 문자열을 표현하는 자료형
+                    ● 자바스크립트에서 문자열은 3가지 종류의 따옴표로 표현 가능
+
+                        ◽ 큰 따옴표: "hello"
+                        ◽ 작은 따옴표: 'hello'
+                        ◽ 역 따옴표(백틱, backtick): `hello`      ⭐⭐ 백틱은, 문자열 안에 변수를 같이 쓸 수 있다!
+
+                        🔻 예시
+
+                            let str_1 = "hello_1";
+                            let str_2 = "hello_2";
+
+                            let num = 3;
+                            let str_3 = `hello_${num}`;
+
+                            console.log(str_1);   // output: hello_1
+                            console.log(str_2);   // output: hello_2
+                            console.log(str_3);   // output: hello_3
+
+
+        9️⃣ 객체타입      ⭐⭐ 매우 중요!!
+
+                ● object는 다수의 원시 자료형을 포함하거나 복잡한 개체(entity)를 표현할 수 있는 자로형
+                ● object는 Object() 혹은 중괄호({})를 통해 생성
+                ● object의 개체는 key: value 형태로 표현하며, 접근은 object.key 형태로 표현
+
+                      🔻 예시
+
+                            let user = {
+                               name: "john",
+                               age: 27,
+                            };
+
+                      ⭐⭐ user라는 변수에는, name과 age라는 2가지의 entity가 저장되는 것이 아니라,
+                            메모리만 저장이 되고, reference 참조를 통해서 실제 데이터는 다른곳에 저장되고 
+                            그곳에 대한 데이터를 접근만 할 수 있다.
+
+                              🔻 예시
+
+                                  let user = {
+                                     name: "john",    // key: "name", value: "john"
+                                     age: 27,         // key: age, value: 27
+                                  };
+
+                                  console.log(typeof user);     // output: object
+                                  console.log(typeof user.name);    // output: string
+                                  console.log(typeof user.age);     // output: number
+
+                                  console.log(user);           // output: { name: 'john', age: 27 }
+                                  console.log(user.name);     // output: "john"
+                                  console.log(user.age);      // output: 27
+
+                                        ⭐ 접근은 점(ex: user.name)으로 해도 되지만, 배열 형태로 할 수도 있다.
+
+                                              console.log(user["name"]);
+                                              console.log(user["age"]);
+
+                                              -> 이렇게 해도 되지만, 심플하게 점(.)으로 표현하는걸 권장한다.
+
+                                  user.age = 30;        ⭐ 개체(entity) 수정.
+                                  console.log(user.age);      // output: 30
+
+
+                                     🔺 개체(entity) 추가 및 삭제 방법
+
+                                            ● 객체(object)에 개체 추가는 obj.key = value, 삭제는 delete 명령어를 통해 수행
+
+                                                    🔻 예시
+
+                                                          let user = {
+                                                             name = "john",
+                                                             age: 27,
+                                                          };
+
+                                                          console.log(user);        // output: { name: 'john', age: 27 }
+
+                                                          user.weight = 72;         // or user["weight"] = 72;      ⭐ field 추가. 
+                                                          console.log(user);        // output: { name: 'john', age: 27, weight: 72 }
+
+                                                          delete user.age;
+                                                          console.log(user);        // output: { name: 'john', weight: 72 }
+
+
+                                    🔴🔴 객체 복사 문제점
+
+                                           let user = {
+                                              name: "john",
+                                              age: 23,
+                                           };
+
+                                           let admin = user;            ⭐ user의 데이터 내용을 그대로 admin으로 복사한다. 
+
+                                           admin.name = "park";
+
+                                           console.log(admin.name);     // output: "park"   ⭐ admin의 name을 park로 바꿔준다.
+                                           console.log(user.name);      // output: "park"   ⭐ user.name은 바꾼적이 없는데, john이 아닌 park이 나온다.
+
+                                           user.age = 30;                                   ⭐ user의 age를 30으로 바꿔준다.
+                                           console.log(user.age);       // output: 30       
+                                           console.log(admin.age);      // output: 30       ⭐ admin.age를 바꾼적이 없는데, 23이 아닌 30이 나온다. 
+
+
+        🔟 객체 복사 문제점
+
+                🔻  위와 같은 상황이 발생하는 이유 
+
+                   🟡 object 복사
+
+                        ● object의 값을 복사할 때는 대상 전체가 아닌 object 내 주소 값만 복사되는 문제 발생
+                        ● 가리키는 대상 전체를 복사하는 방법은 얕은 복사(Shallow copy), 깊은 복사(Deep copy)를 통해 가능
+
+                        객체에 대한 데이터들(여기서는 name과 age)이 모두 복사되는것이 아니라,
+                        실제 user가 갖고있는 주소값만 복사가 되는것!
+
+                        이 주소값이 admin이라는 메모리 공간을 만들고, 이 user를 복사하니까 주소값이 admin으로 들어가게 된다.
+                        그래서 주소값은 같은 공간을 가르키게 된다.
+
+                       -> user.age나 admin.age 모두 같은 age를 가르키는것!
+
+                        그래서 위와 같은 현상은 '주소값'만 복사되기 때문에 발생한 것!!
+
+                        실제로 우리가 원하는 age와 name을 각각 별도의 공간을 만들어서,
+                        가리키는 방향을 다르게 하고싶다면 이 때 깊은 복사, 얕은 복사를 해야 한다.
+
+                        ⭐⭐⭐ 객체를 다룰 때는, 이렇게 주소가 사용된다는것을 항상 명심해야 한다!
+
+
+                           🔎 얕은 복사와 깊은 복사 사용 방법
+
+                                 🟩 얕은 복사
+
+                                  ⭐ 얕은 복사(Shallow Copy)는 크게 3가지 방법이 있다. 
+
+                                  🟠 반복문 for 문을 통한 객체 복사
+
+                                            🔻 예시
+
+                                                let user = {
+                                                   name: "john",
+                                                   age: 27,
+                                                };
+
+                                                // for loop 
+                                                let admin = {};         ⭐ 빈 객체를 만들어주고, 
+
+                                                // shallow copy
+                                                for (let key in user) {     ⭐ admin에 값을 넣어줘야하니까, user에 있는 값을
+                                                   admin[key] = user[key]       ⭐ admin에 일일이 복사하라는 뜻.
+                                                }
+
+                                                admin.name = "park";
+
+                                                console.log(admin.name);     // output: "park"
+                                                console.log(user.name);      // output: "john"
+
+                                                user.age = 30;
+                                                console.log(user.age);      // output: 30
+                                                console.log(admin.age);     // output: 27 
+
+
+                                            -> 각각의 admin과 user에 있는 데이터들을 변화 시켰는데도,
+                                             기존 데이터들이 영향 받지 않고 유지되는것을 볼 수 있다. 
+
+
+                                  🟠  Object.assign{} 함수를 이용한 복사
+
+                                            🔻 예시
+
+                                                let user = {
+                                                   name: "john",
+                                                   age: 27,
+                                                };
+
+                                                // using object
+                                                let admin = Object.assign({}, user);    ⭐ 두 객체를 병합해서 반환시키기. 
+                                                                                          -> 빈 객체{}에 user 객체를 merge 시켜서 admin에 넣어주기. 
+                                                admin.name = "park";
+
+                                                console.log(admin.name);     // output: "park"
+                                                console.log(user.name);      // output: "john"
+
+                                                user.age = 30;
+                                                console.log(user.age);      // output: 30
+                                                console.log(admin.age);     // output: 27
+
+
+                                 🟠 ES6부터 지원하는 전개 연산자(Spread Operator)를 통해서, 매우 심플하게 복사하는 방법
+
+                                            🔻 예시
+
+                                                let user = {
+                                                   name: "john",
+                                                   age: 27,
+                                                };
+
+                                                let admin = { ...user };    // 실제 이렇게 동작 -> {user.name, user.age}    ⭐ user내에 있는 모든 filed값을 전개시키라는 뜻. 
+
+                                                admin.name = "park";
+
+                                                console.log(admin.name);     // output: "park"
+                                                console.log(user.name);      // output: "john"
+
+                                                user.age = 30;
+                                                console.log(user.age);      // output: 30
+                                                console.log(admin.age);     // output: 27
+
+
+                          ❗ 얕은 복사의 문제점
+
+                            ● 객체 내 또 다른 객체가 있다면 복사되지 않는다.
+
+                                  🔻 예시
+
+                                      let user = {
+                                         name: "john",
+                                         age: 23,
+                                         sizes: {    ⭐ size라는 object를 또 만들었기 때문에, 이 size는 또 다른 주소값을 만들었다.  
+                                            height: 180,
+                                            weight: 72,
+                                         },
+                                       };
+                                       
+                                       // Shallow Copy problem
+                                       let admin_obj = Object.assign({}, user);     ⭐ user를 복사를 했는데, sizes는 name이나 age와는 달리 object이기 때문에, 주소값이 복사가 된다.
+
+                                       admin_obj.size.weight++;                     ⭐ 그래서 admin의 weight를 값을 증가시키고,    
+                                       --admin_obj.sizes.height;                        admin의 height 값을 감소시킨다고 했을 때,
+                                                                                              
+                                                                                     * 참고   
+                                                                                     ⭐ ++ : 증감 연산자 ( admin_obj.size.weight = admin_obj.size.weight + 1; ) -> 이것과 같음.
+                                                                                              => weight에 대한 기존값에 +1을 해서 다시 weight에 넣어줬다는 뜻.  72 -> 73.
+                                       
+                                       console.log(admin_obj.sizes.weight);     // output: 73
+                                       console.log(admin_obj.sizes.height);     // output: 179
+                                       console.log(user.sizes.weight);          // output: 73         ⭐ user.sizes는 ++라고 해주지 않았는데도, 
+                                                                                                         weight 값이 똑같이 증가된걸 볼 수 있다. 
+                                                                                                         
+                                       console.log(user.sizes.height);          // output: 179        ⭐ height도 마찬가지. 
+
+                                       -> 그럼 또 sizes내에서의 얕은 복사를 하면 복잡해지기 때문에,
+                                       이런문제를 해결하기 위해서 '깊은 복사'의 방법이 나오게 됐다.
+
+
+                               🟩 깊은 복사 
+
+                                 : 깊은 복사는, 내부에 대한 주소값이면 알아서 자동으로 내부적으로 얕은복사를 한번 더 하는것이다. 
+
+                                    🟠 재귀 함수를 이용한 깊은 객체 복사
+
+                                        🔻 예시
+
+                                            let user = {
+                                              name: "john",
+                                              age: 23,
+                                              sizes: { height: 180, weight: 72 },
+                                            };
+
+                                            function copyObj(obj) {
+                                              let result = {};
+                                              for (let key in obj) {        ⭐ for문 사용 
+                                                 if (typeof obj[key] === "object") result[key] = copyObj(obj[key]);
+                                                 else result[key] = obj[key];
+                                              }
+                                              return result;
+                                            }
+                                            let admin = copyObj(user);
+
+                                            admin.sizes.weight++;
+
+                                            console.log(admin.sizes.weight);        // output: 73
+                                            console.log(admin.sizes.weight);        // output: 72
+
+
+                                   🟠 JSON 객체를 이용한 깊은 복사, stringify는 객체를 문자열로 변환하는데 이 때 원본 객체와의 참조가 끊김
+
+                                        * JSON 객체 : RESTFUL API에서 보통 데이터 송수신을 할 때 많이 사용하는 포맷이다. 
+
+                                        🔻 예시
+
+                                           let user = {
+                                              name: "john",
+                                              age: 23,
+                                              sizes: {
+                                                 height: 180,
+                                                 weight: 72,
+                                              },
+                                           };
+
+                                           // stringfy: js object -> string, parse: string -> js object       
+                                           let admin_json = JSON.parse(JSON.stringify(user));   ⭐ json 객체를 통해서 한 줄로 간단하게 끝낼 수도 있다. 
+                                                        ⭐ stringify :  객체를 문자열로 변환 시켜준다. 그리고 변환 시켜준 문자열을 parse() 함수를 통해서 다시 object로 변환시킨다. 
+
+                                                        🔻 그럼 이렇게 문자열로 갔다가 다시 객체로 돌아오는 이유
+
+                                                          -> 문자열에서 object로 만들어줄 때, 
+                                                             이 문자열에 있는것들을 모두 다 object로 만들어주기 때문이다.
+                                                             그렇기 때문에, 위와 같이 내부적으로 단계적 object가 있어도 (* 여기서는 sizes라는 object를 말함)
+                                                             새로운 object로 모두 다 새롭게 만들어준다. 
+
+                                           admin_json.sizes.weight++;           ⭐ 그래서 이렇게 연산을 처리했을 때,
+                                           --admin_json.sizes.height;
+
+                                           console.log(admin_json.sizes.weight);      // output: 73         ⭐ 아래와 같이, 각각의 연산이 보장되는걸 볼 수 있다. 
+                                           console.log(admin_json.sizes.height);      // output: 179
+                                           console.log(user.sizes.weight);            // output: 72
+                                           console.log(user.sizes.height);            // output: 180
+
+    
+                        -> 이렇게 완벽한 객체 복사가 이루어진다. 그래서 이렇게 객체에 대한 복사를 의도할 때는, 되도록이면 깊은 복사를 사용하는게 좋다. 
+         
+         
+          1️⃣1️⃣ 형 변환
+          
+                ● 자바스크립트는 느슨한 타입 언어 혹은 동적 타입 언어로 변수의 자료형을 명시적으로 선언할 필요가 없는 언어
+                ● 연산자로 인한 계산이나 변수에 전달되는 값은 자동으로 암묵적 형 변환 수행
+                ● 강제적 형 변환을 위해서는 자료형 함수를 이용해 명시적 형 변환 수행
+                
+                      🔻 형 변환 예제 (String)
+                      
+                         console.log(String(123));          // output: 123
+                         console.log(String(1 / 0));        // output: Infinity
+                         console.log(String(-1 / 0));       // output: -Infinity
+                         console.log(String(NaN));          // output: NaN
+                         console.log(String(true));         // output: true
+                         console.log(String(false));        // output: false
+                         console.log(String(undefined));    // output: undefined
+                         console.log(String(null));         // output: null
+                         console.log(String("haha");        // output: haha
+                         
+                         console.log(typeof String(123));       // output: string       ⭐ 이런식으로 typeof로 확인을 해보면, 다 string 값이 나온다. 
+                         
+                
+                      🔻 형 변환 예제 (Number)
+                      
+                        ● Number는 정수와 실수를 모두 포함하는 자료 형 변환이므로, 정수 혹은 실수의 명시적 변환은 parse 함수 사용
+                        ● 정수 변환: parseInt(피연산자), 실수 변환: parseFloat(피연산자)
+                        
+                             console.log(Number(""));           // output: 0
+                             console.log(Number("123"));        // output: 123
+                             console.log(Number("hello"));      // output: NaN
+                             console.log(Number("123hello"));   // output: NaN
+                             console.log(Number(true));         // output: 1
+                             console.log(Number(false));        // output: 0
+                             console.log(Number(null));         // output: 0
+                             console.log(Number(undefined));    // output: NaN
+                        
+                             console.log(parseInt("123.123"));          // output: 123
+                             console.log(parseFloat("123.123"));        // output: 123.123
+                            
+                             console.log(typeof parseInt("123.123"));       // ouotput: number      ⭐ 숫자로 잘 변환된걸 확인할 수 있다. 
+                            
+                            
+                      🔻 형 변환 예제 (Boolean)
+                      
+                           console.log(Boolean(""));            // output: false    ⭐ 문자열이지만, 빈 문자열이기 때문에 false.
+                           console.log(Boolean("123"));         // output: true          
+                           console.log(Boolean("hello"));       // output: ture
+                           console.log(Boolean("0"));           // output: true     ⭐ 0이지만 문자열로 판단을 해서 true값이 나왔다. 
+                                                                                      => 문자열에 값이 있으면 전부 true이고, 빈 문자열이면 false라는 사실을 유추할 수 있다!
+                           console.log(Boolean(0));             // output: false
+                           console.log(Boolean(123));           // output: true         ⭐ 0이 아니면 다 true.
+                           console.log(Boolean(NaN));           // output: false
+                           console.log(Boolean(null));          // output: false
+                           console.log(Boolean(undefined));     // output: false 
+      
+      
+          1️⃣2️⃣ 산술대입 연산자
+          
+               🔎 연산자
+               
+                   ● 연산자는 프로그램에서 데이터를 처리하여 결과를 산출할 목적으로 사용되는 문자
+                   ● 연산의 대상 값은 피연산자라고 하며, 피 연산자의 개수에 따라 단항/이항/삼항 연산자의 종류 존재
+                   
+                        ◽ 단항 연산자 : 부호 연산자 / 증감 연산자 / 논리 연산자 / 비트 연산자
+                        ◽ 이항 연산자 : 산술 연산자 / 대입 연산자 / 비교 연산자 / 논리 연산자
+                        ◽ 삼항 연산자 : (조건식) ? 참일 경우의 식 : 거짓일 경우의 식
+          
+               🔎 산술 연산자
+               
+                    : 수학적 계산을 위해 제공하는 연산자이다.
+                    
+                        🔻 예시
+                        
+                            // 덧셈 연산자: +
+                            console.log(31 + 10);       // ouput: 41
+                            
+                            // 뺄셈 연산자: -
+                            console.log(31 - 10);       // output: 21
+                            
+                            // 곱셈 연산자: *
+                            console.log(31 * 10);       // output: 310
+                            
+                            // 나눗셈 연산자: /
+                            console.log(31 /10);        // output: 3.1
+                            console.log(parseInt(31 / 10);      // output: 3    ⭐ 몫만 구하기.
+                            
+                            // 나머지 연산자: %           ⭐ 프로그래밍에서 제공되는 연산자  ⭐⭐ 알고리즘에서 많이 사용된다!
+                            console.log(31 % 10);       // output: 1
+                            
+                            // 거듭제곱 연산자: **         ⭐ 자바스크립트에서 제공되는 간편한 연산자   
+                                                            (* C언어 같은경우, 거듭제곱 연산자가 없어서 pow() 함수를 구현해야 한다.)
+                            console.log(2 ** 3);        // output: 8
+               
+               
+                  🔎 대입 연산자
+                  
+                        : 계산한 결과를 하나의 변수에 저장하기 위한 연산자이다. 
+                
+                              🔻 예시
+                              
+                                // 대입 연산자: =
+                                let num_1 = 123;        ⭐ 오른쪽에 있는 피연산자 값이, 왼쪽에 변수로 들어간다. 
+                                let num_2 = 456;
+                                let str_1 = "hello";
+                                let str_2 = "world!";
+                                
+                                let num_3, str_3;
+                                num_3 = num_1 + num2;
+                                str_3 = str_1 + str_2;
+                                
+                                console.log(num_3);         // output: 579;
+                                console.log(str_3);         // output: helloworld!
+                                
+                                let num_4 = num_1 - num_2;
+                                console.log(num_4);         // output: ourput: -333
+                   
+                   
+                 🔎 복합 대입 연산자
+                   
+                        : 산술 연산자로 피연산자를 계산해 결과값을 한번에 대입시켜주는 연산자
+                        
+                             🔻 예시
+                                
+                                // 대입 연산자: =
+                                let num = 10;
+                                
+                                let result_1, result_2, result_3, result_4, result_5;       ⭐ 변수로 선언
+                                result_1 = result_2 = result_3 = result_4 = result_5 = 31;      ⭐ 초기화 (=재할당)
+                                
+                                // 복합 대입 연산자: +=
+                                result_1 += num;                // result_1 = result_1 + num;
+                                console.log(result_1);          // output: 41
+                                
+                                // 복합 대입 연산자: -=
+                                result_2 -= num;
+                                console.log(result_2);          // output: 21
+                                
+                                // 복합 대입 연산자: *=
+                                result_3 *= num;
+                                console.log(result_3);          // output: 310
+                                
+                                // 복합 대입 연산자: /=
+                                result_4 /= num;
+                                console.log(result_4);          // output: 3.1
+                                
+                                // 복합 대입 연산자: %=
+                                result_5 %= num;
+                                console.log(result_5);          // output: 1
+                    
+                    
+                  🔎 증가 / 감소 연산자            ⭐ 산술 연산자에서는 증가 / 감소 연산자인 단항 연산자를 사용할 수 있다. 
+                    
+                        ● 숫자 1만큼 증가시키거나 감소시킬 때 사용되는 연산자
+                        ● 증가 연산자: ++(피연산자), (피연산자)++;
+                            
+                           🔴 ++(피연산자)와 (피연산자)++ 이 둘의 차이점.
+                            
+                            -> ++(피연산자)는 같은 명령문내에서 대입에 대한, 결과값에 대한 리턴을 해줄 때
+                            증감 연산자가 반영이 된 결과가 리턴이 된다.
+                            
+                            피연산자(++)는 값을 넣을 때, 피연산자 먼저 값을 넣고 증가가 되고,
+                            그 증가가 된 값이 다음부터 반영이 된다.
+                            
+                                 ⭐ ++ 위치에 따라서, 증감 연산이 다음에서부터 진행이되는지, 
+                                    아니면 현재행부터 진행이 되는지 볼 수 있다. 
+                     
+                        ● 감소 연산자: --(피연산자), (피연산자)--;
+                        
+                            🔻 예시
+                               
+                               let num, result;
+                               
+                               num = 10;
+                               result = num++;              ⭐ ++가 뒤에 있으면, 현재 반영이 안되고 그 다음부터 반영이 되기 때문에
+                               console.log(result);         // output: 10           ⭐ 현재 num값은 10이다.
+                               console.log(num);            // output: 11           ⭐ 그리고 이후에는 ++가 되서 11이 된다. 
+                               
+                               num = 10;
+                               result = ++num;              ⭐ ++가 앞에 있으면, 이 행에서 바로 연산이 되서 반영이 되기 때문에,
+                               console.log(result);         // output: 11           ⭐ num은 지금 10이지만, ++가 먼저 반영이 되서 11이 되고,
+                                                                                       그 11에 대한 결과값이 result에 반영이 되서 result가 11로 출력 된다. 
+                               console.log(num);            // output: 11          
+                               
+                               num = 10;
+                               result = num--;              ⭐ --가 뒤에 있으면, 먼저 반영되기 전에 값이 복사가 되기 때문에,
+                               console.log(result);         // output: 10           ⭐ result는 10이 된다. 
+                               console.log(num);            // output: 9            ⭐ 그리고 그 다음부터 num의 값이 9. 
+                               
+                               num = 10;
+                               result = --num;              ⭐ --가 앞에 있으면, 반영이 되고 복사가 되기 때문에 
+                               console.log(result);         // output: 9        ⭐ result는 바로 9가 된다. 
+                               console.log(num);            // output: 9
+
+                        🔥 증감 연산자는 위치에 따라서 실제 동작이 달라지기 때문에, 매우 주의해서 사용해야 한다. 
+             
+            
