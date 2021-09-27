@@ -368,14 +368,15 @@
                                        };
                                        
                                        // Shallow Copy problem
-                                       let admin_obj = Object.assign({}, user);     ⭐ user를 복사를 했는데, sizes는 name이나 age와는 달리 object이기 때문에, 주소값이 복사가 된다.
+                                       let admin_obj = Object.assign({}, user);     ⭐ user를 복사를 했는데, 
+                                                                                        sizes는 name이나 age와는 달리 object이기 때문에, 주소값이 복사가 된다.
 
                                        admin_obj.size.weight++;                     ⭐ 그래서 admin의 weight를 값을 증가시키고,    
                                        --admin_obj.sizes.height;                        admin의 height 값을 감소시킨다고 했을 때,
                                                                                               
-                                                                                     * 참고   
-                                                                                     ⭐ ++ : 증감 연산자 ( admin_obj.size.weight = admin_obj.size.weight + 1; ) -> 이것과 같음.
-                                                                                              => weight에 대한 기존값에 +1을 해서 다시 weight에 넣어줬다는 뜻.  72 -> 73.
+                                                                                   * 참고   
+                                                                                   ⭐ ++ : 증감 연산자 ( admin_obj.size.weight = admin_obj.size.weight + 1; ) -> 이것과 같음.
+                                                                                          => weight에 대한 기존값에 +1을 해서 다시 weight에 넣어줬다는 뜻.  72 -> 73.
                                        
                                        console.log(admin_obj.sizes.weight);     // output: 73
                                        console.log(admin_obj.sizes.height);     // output: 179
