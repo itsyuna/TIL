@@ -683,4 +683,177 @@
         ● 함수는 가급적 한가지 일만 하며, 매개 변수는 최대 3개 이내로 작성을 권장
         
         ⭐ 함수는 한가지 일만 한다!
-    
+        
+                🟥 함수 정의
+
+                    1. 함수 선언식(Function Declarations)
+
+                    2. 함수 표현식(Function Expressions)
+
+                    3. 화살표 함수 (Arrow Function)
+             
+                🟥 함수 호출
+                
+                  ● 자바스크립트 함수는 매개변수와 인수의 개수가 일치하는지 확인하지 않음
+                  ● ES6에서 도입된 기본값을 통해 undefined 변수가 들어올 경우 값 초기화 지정 가능
+                  
+                    ⭐ 다른 언어에서는 매개변수와 인수의 개수가 일치하지 않으면, 컴파일 에러를 발생시키지만
+                       자바스크립트는 개수가 일치하지 않아도 상관 없다. 
+                  
+                  ⭐ 함수 이름을 정할 때는, 함수 이름만 봐도 어떤 일을 하는지 유추할 수 있게 이름을 정해주는것이 좋다. 
+        
+        
+                🔻 default value 예시
+        
+                    function print_add(x, y) {
+                       console.log(x + y);
+                    }
+                    
+                    print.add();        // NaN      ⭐ 아무것도 안넣었기 때문에, x와 y가 undefined라는 자료형이 들어가게 되서 undefined + undefined = NaN
+                    print.add(10);      // NaN      ⭐ x는 10이지만, y는 아직 undefined이기 때문에 NaN가 된다. 
+                    print.add(10,20);   // 30
+                    print.add(10,20,3);         // 30           ⭐ x, y 이외의 또하나의 매개변수가 있다면, 넘어는 오지만 핸들링을 하지 않기 때문에 무시된다. 
+                  
+                  
+                🔻 기본값 설정이 가능하다.
+                    
+                    function print_add(x, y = 10) {     ⭐ 기본값 설정. 
+                       console.log(x + y);
+                    }
+                    
+                    print.add(10);      // 20      ⭐ y가 undefined일 때 기본값이 설정이 되서, 10 + 10 = 20
+                    
+                    ⭐⭐ 기본값은 undefined일때만 수행이 되서, 실제 y를 넣어주면 넣어준 값이 더 우선시 된다.
+                          -> 없을때만, 기본값으로 설정.
+                          
+                          Ex)
+                             print.add(10, 20);         // 30
+                    
+                    
+                  🔻 dynamic parameter 예시  
+                    
+                        : 매개변수에 아무것도 없어도, 실제 넘어오는 매개변수 값을 핸들링 할 수 있다. 
+                          -> 내부에 arguments라는 변수가, 넘어오는 변수들을 자동으로 처리. 
+                          
+                          function print_min() {
+                             console.log(argumnets)   // output: [Arguments] {'0': 10, '1': 20, '2': 30} 
+                          }                             ⭐ -> 넣어준 인덱스에 맞춰서 값이 넘어온다.                           
+                          print_min(10, 20, 30);
+                          
+                          
+                          🔻 연산처리도 할 수 있따.
+                            
+                             function print_min() {
+                                console.log(argumnets[0] - arguments[1]);       // output: -10 
+                             }
+                             
+                             print.min(10, 20, 30);
+                    
+                        ⭐⭐ 일반적으로 함수는 이렇게 dynamic parameter로 사용하지 않고,
+                              매개 변수로 데이터를 명시 해주는것이 일반적이다.
+                              -> default 방법을 사용하는것이 좋다. 
+
+                    
+                🟥 함수 반환
+                
+                       위에서 했던 함수는, 반환이 없는 함수를 수행했다. -> void 함수 
+                       
+                       🟠 함수 반환 : 바로 출력하지말고, 결과값만 받고싶을 때 return value로 결과값을 전달해준다. 
+                       
+                            🔻 예시
+                            
+                               function add(x, y) {
+                                  return x + y;
+                               }
+                               
+                               add(10, 20);     ⭐ 이 상태로 실행하면 아무것도 나오지 않는다.
+                                                    -> console.log를 찍지 않은것도 있지만,
+                                                      실제 add를 호출한 다음에, 이 add 호출한것을 어디에 저장하지 않았다. (=> 받지 않음)
+                              
+                              그래서 아래와 같이 변경하면,
+                              
+                              function add(x, y) {
+                                  return x + y;
+                              }
+                              
+                              let result = add(10, 20);     ⭐ add에 대한 결과값을, result 변수에 저장.   -> 반환값을 넣어준다.
+                              console.log(result);      // output: 30                    
+                            
+                            
+                            ⭐⭐ return이 또 중요한 이유는, 결과에 대한 처리도 있지만 반복문에서 배웠던 break 역할도 한다.
+                            
+                                function add(x, y) {
+                                    return x + y;       // break        -> ⭐ return 뒤에 코드는 수행이 안되고, 여기서 함수에 대한 break가 이루어진다. 
+                                    console.log("hello!");                  ⭐ VS Code에서 보면, 이 부분이 흐릿하게 보이고 '접근할 수 없는 코드가 있습니다.'라고 나온다. 
+                                }                                               -> 왜냐하면, 이 함수 내에서 이 부분으로 절대 올 수 없다. 이 전에 처리가 되기 때문에. 
+                                
+                                let result = add(10, 20);
+                                console.log(result);    // output: 30
+                                
+                                🔻 위에 "hello!"를 나오게 하려면,
+                                   순서를 위로 올려준다.
+                                   
+                                 function add(x, y) {
+                                    console.log("hello!"); 
+                                    return x + y;       
+                                 }                                              
+                                
+                                 let result = add(10, 20);
+                                 console.log(result);   
+                                 
+                                    🟠 출력결과 -> hello!
+                                                   30
+                                                   
+                                                   
+                    함수에 대한 break 역할도 return이 해줄 수 있다.
+                    어떠한 결과값도 반환하지 않고 그냥 return을 하게되면, break처럼 쓸 수 있다.
+                                   
+                                 function add(x, y) {
+                                    return;
+                                    console.log("hello!");       
+                                 }                                              
+                                
+                                 let result = add(10, 20);
+                                 console.log(result);   
+                                
+                                    🟠 출력결과 -> undefined        ⭐ 어떠한 값도 return을 해주지 않았기 때문에. 
+                            
+                            ⭐ 값에 대한 반환(return) 뿐만 아니라, 함수에 대한 종료 역할도 같이 갖고 있다.
+                                반복문과 마찬가지로 함수에서도 조건문과 같이 연동이 되서 사용한다.
+                                
+                                function checkAge(age) {
+                                   if (age >= 18) return true;      ⭐ 조건문은 반복문에 이어서, 함수와도 같이 연동되서 많이 쓰인다.  
+                                   else return false;
+                                }
+                                
+                                console.log(checkAge(14));      // output: false  
+                                checkAge(20);                   // output: true
+                                                                  ⭐ checkAge를 변수로 바로 받아서 출력을 해도 된다.
+                                                                     return 값을 직접적으로 바로 direct로 출력해도 되니까, 동일한 결과값이 나온다. 
+         
+         2️⃣3️⃣ 재귀 함수
+         
+            ● 함수 스스로 자신을 참조해 호출하면서 동일한 코드가 계속적으로 수행되는 함수 호출 방법
+            ● 재귀 함수는 특정 조건이 됐을 때 자신을 그만 호출되도록 제한하는 exit code가 필요
+          
+         🟡 실제 컴퓨터는 재귀 함수를 몇번 호출되는지 stack이라는 영역을 통해서 기록하고 있다. 
+             stack에 점진적으로 내부 호출했던 함수들이 쌓이면, 이 함수가 어떤 exit 코드에 의해서 종료되고
+             그 이후 코드를 수행시킬 때, 어디로 가야되는지를 다 이 stack을 통해서 관리하게 된다. 
+             -> 함수 내부적으로는 이렇게 동작.
+             
+             🔻 예시
+             
+                function recurse() {
+                  // function code
+                  recurse();
+                }
+                
+                recurse();
+        
+         2️⃣4️⃣
+         2️⃣5️⃣
+         2️⃣6️⃣
+         2️⃣7️⃣
+         2️⃣8️⃣
+         2️⃣9️⃣
+         3️⃣0️⃣
