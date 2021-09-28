@@ -836,7 +836,7 @@
             ● 함수 스스로 자신을 참조해 호출하면서 동일한 코드가 계속적으로 수행되는 함수 호출 방법
             ● 재귀 함수는 특정 조건이 됐을 때 자신을 그만 호출되도록 제한하는 exit code가 필요
           
-         🟡 실제 컴퓨터는 재귀 함수를 몇번 호출되는지 stack이라는 영역을 통해서 기록하고 있다. 
+           🟡 실제 컴퓨터는 재귀 함수를 몇번 호출되는지 stack이라는 영역을 통해서 기록하고 있다. 
              stack에 점진적으로 내부 호출했던 함수들이 쌓이면, 이 함수가 어떤 exit 코드에 의해서 종료되고
              그 이후 코드를 수행시킬 때, 어디로 가야되는지를 다 이 stack을 통해서 관리하게 된다. 
              -> 함수 내부적으로는 이렇게 동작.
@@ -850,10 +850,119 @@
                 
                 recurse();
         
-         2️⃣4️⃣
-         2️⃣5️⃣
-         2️⃣6️⃣
-         2️⃣7️⃣
-         2️⃣8️⃣
-         2️⃣9️⃣
-         3️⃣0️⃣
+        
+         2️⃣4️⃣ 콜백 함수 
+         
+            ● 콜백 함수(Callback Function)란 다른 함수의 매개변수로 전달되어 수행되어지는 함수
+            ● 고차 함수(Higher-order Function)란 매개변수를 통해 함수를 받아 호출하는 함수
+            
+                 🔻 예시
+                 
+                    function callback_func() {
+                       console.log("I'm callback function");
+                    }
+                    
+                    function higher_order_func(callback) {
+                       console.log("I'm higher-order function");
+                       callback();
+                    }
+              
+                    higher_ordedr_func(callback_func);
+                
+         
+         2️⃣5️⃣ 연습 문제 
+         
+             🟠 문제
+             
+                ● 두 정수를 입력 받아 가장 큰 값을 출력해주는 함수를 작성하시오.
+                
+                // case 1
+                function MAX(x, y) {
+                   if (x > y) {
+                     return x;
+                   } else {
+                     return y;
+                   }
+                }
+                
+                // case 2 
+                function MAX(x, y) {
+                   return x > y ? x : y;
+                }
+   
+                console.log(MAX(0, 3));         // output: 3
+                console.log(MAX(-1, 5));       // output: 5
+                consoel.log(MAX(100, 7));      // output: 100
+    
+    
+         2️⃣6️⃣ method
+         
+            🔎 method
+                
+                ● 객체에 저장된 값이 함수인 경우, 이를 메서드(method)라고 부른다.
+                
+                    🔻 예시
+                    
+                       let user = {
+                          name: "john",
+                          age: 27,
+                          hello_func() {
+                             console.log("hello");
+                          }
+                       };
+            
+             🔎 this
+             
+                  ● 메서드에서 객체 내부의 속성(property) 값을 접근할 수 있는 지시자
+                  
+                        🔻 예시
+                        
+                           let obj = {
+                              name: "john",
+                              age: 27,
+                              hello_func() {
+                                 console.log(
+                                     "hello " + this.name);
+                              },
+                            };
+         
+         
+         2️⃣7️⃣ Number
+            
+            🔎 Number
+                
+               ● 자바스크립트에서 일반적인 숫자는 64비트 형식의 IEEE-754 표준 기반 형태로 저장되는 자료형
+               ● 10진수 외에도 16진수, 2진수, 8진수 다양한 진수 사용
+                  ◽ 16진수(hEXADECIMAL) 표기 : 0xFF
+                  ◽ 8진수(Octal) 표기 : 0o71
+                  ◽ 2진수(Binary) 표기 : 0b1101
+               ● 대표 상수 값
+                  ◽ [MAX | MIN]_VALUE, [MAX|MIN]_SAFE_INTEGER, [POSITIVE|NAGATIVE}_INFINITY, NaN
+               ● 대표 메서드
+                  ◽ 문자열로 변환 : Number.toString()
+                  ◽ 특정 자리수까지 제한하여 숫자 표현: Number.toFixed(), Number.toPrecision()
+                  ◽ 타입 확인 : Number.isNaN(), Number.isFinite()
+           
+           
+         2️⃣8️⃣ String
+         
+             🔎 String
+             
+                ● 텍스트 길이에 상관없이 문자열 형태로 저장되는 자료형
+                ● 자바스크립트에서는 글자 하나만 저장할 수 있는 char 자료형이 없음 
+                ● 자바스크립트에서 문자열은 페이지 인코딩 방식과 상관없이 항상 UTF-16 형식을 따름
+                ● 대표 속성(property)과 메서드(method)
+                    
+                    ◽ 문자열 길이: String.length
+                    ◽ 문자열 접근: String.charAt(index), Stirng.charCodeAt(index)
+                    ◽ 문자열 검색: String.indexOf(), String.lastindexOf(), String.includes(), String.startsWith() 등
+                    ◽ 문자열 변환: String.toUpperCase(), String.toLowerCase()
+                    ◽ 문자열 치환: String.replace()
+                    ◽ 문자열 추출: String.slice(), String.substring(), String.substr()
+                    ◽ 문자열 분할: String.split()
+             
+             
+         2️⃣9️⃣ 문자열 변환
+         
+         
+         3️⃣0️⃣ Array
