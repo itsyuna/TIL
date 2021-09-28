@@ -99,15 +99,561 @@
                   
                   ◽ Global Scope: 전역에 선언되어 어디에서도 접근 가능
                   ◽ Local Scope(block, function level scope): 특정 지역에 선언되어, 해당 지역 내에서만 접근 가능
+                    
+                    🔻 예제
+                    
+                    let x = 1;
+                    let y = 2;
+                    
+                    console.log(x);     // 1
+                    console.log(y);     // 2
+                    
+                    {                           ⭐ 중괄호 안에 있는것이, 하나의 영역이다.
+                      // local scope
+                      let x = 3;
+                      let y = 4;
+                      console.log(x);        // 3
+                      console.log(y);        // 4
+                    }
+                    
+                    function scope() {
+                       let x = 5;
+                       let y = 6;
+                       console.log(x);      // 5
+                       console.log(y);      // 6
+                    }
+                    
+                    console.log(x);         // 1
+                    console.log(y);         // 2
+                    
+                    ⭐ 전역 변수에 있는 변수는 누구나 접근 가능하다. 
+                    
+                         Ex)
+                             let z = 3;
+                             
+                             {
+                               console.log(z);     ⭐ z를 선언하지 않고, 전역 변수에 있는 z를 접근했을때, 접근이 가능하다.      // z = 3;
+                             }                        다만 local scope에서, 전역 변수에 있는 변수와 동일한 식별자를 통해서 새로 변수를 선언해주면
+                                                      오버랩되서 지워진다. 
+                      
+                      
+                      🔻 예제코드 - 1
+                      
+                            // global scope
+                            let A = 1;
+                            let B = 2;
+
+                            {
+                               // local scope
+                               let C = 3;
+                               let D = 4;
+
+                               console.log(A);      // 1
+                               console.log(C);      // 3        
+                            }                           ⭐ 이 local scope를 나가는 순간, garbage collector에 의해서 더 이상 참조하는것이 없어서
+                                                            이 변수는 초기화 된다. 
+
+                            console.log(C);         // ReferenceError: C is not defined
+                                                     -> global scope에는 C가 없기 때문에, 접근할 수 없는 not defined가 발생한다. 
+                       
+                       🔻 예제코드 - 2
+                            
+                            // global scope
+                            let A = 1;
+                            
+                            {
+                               // local scope
+                               let C = 3;
+                               let D = 4;
+                              
+                               console.log(C);       // 3
+                              
+                               {                        ⭐ local scope내에 또 다른 local scope가 있는 경우.
+                                 // local scope             -> 각각의 local scope에 대해서 오버라이딩 돼서 값을 참조한다. 
+                                 let C = 5;
+                                 let D = 6;
+                                
+                                 console.log(C);      // 5
+                               }
+                            }
+                       
+                        
+                        🔻 예제코드 - 3
+                        
+                            * Local Scope내에서의 block level scope와 function level scope
+                        
+                            let index = 1000;
+                            
+                            function local_func() {         ⭐ function level scope  (-> function 내부에서 모두 접근 가능)
+                               let index = 100;
+                               
+                               for (let index = 0; index < 10; index++) {       ⭐ block level scope (-> for문 안에 있는 블록에서만 유효)
+                                  console.log(index);         // output: 0 ~ 9
+                               }
+                               
+                               console.log(index);          // output: 100
+                             }
+                             
+                             local_func();
+                             console.log(index);        // output: 10000
+                             
+                             
+    1️⃣5️⃣ 조건문      ⭐⭐ 중요!
     
     
+          ● 알고리즘에서 논리적 비교를 할 때 사용되는 조건식
+          ● if, if else, else 키워드를 통해 구성되며, 조건식에 맞을 경우 중괄호 {} 내에 있는 명령문을 수행
+          ● 단, 실행 문장이 단일 문장인 경우에는 {} 생략 가능
+            
+            🔻 if-else 예제
+            
+                let apple_price = 9;
+                
+                if (apple_price >= 10) {
+                    // 10 ~
+                    console.log("very expensive :(");
+                } else if (apple_price < 5) {
+                    // 5 ~ 
+                    console.log("very cheap :)");
+                } else {
+                    // 5 ~ 9
+                    console.log("nice!");       // output: nice!
+                }
+                
+                let age = 10;
+                
+                if (age < 10) // ~ 9
+                    console.log("young!");
+                else // 10 ~
+                    console.log("old!");        // output: old!
     
-    1️⃣5️⃣ 조건문
+                console.log("done!");
+    
+    
+        🔎  3항 연산자          ⭐ 간단한 if-else일때는 한 줄로 쓸 수 있기 때문에, 많은 언어에서 3항 연산자를 사용한다. 
+            
+                ● 3항 연산자를 통해 if-else를 대체하여 사용 가능
+                ● 3항 연산자: 변수 = (조건식) ? 참일 때 값 : 거짓일 때 값
+                
+                    🔻 예제
+                    
+                    let age = 20;
+                    
+                    // 조건문: if-else
+                    if (age < 19) {
+                       msg = "The user is not an adult.";
+                    } else {
+                       msg = "The user is an audlt.";
+                    }
+                    
+                    console.log(msg);       // output: The user is an adult;
+                    
+                    // 조건문: 3항 연산자
+                    msg_another = age < 19 ? The user is not an adult." : "The user is an adult.";
+                    console.log(msg_another);           // output: The user is an adult.
+    
+    
     1️⃣6️⃣ 조건문 switch
+    
+           🔎 조건문 switch
+           
+                ● switch는 표현식을 평가하여 그 값이 일치하는 case문을 실행하는 조건문
+                ● switch, case, break, default 키워드를 통해 구성되며, swtich의 조건에 맞는 case 구문을 수행
+                ● 일반적으로 하나의 case만 수행되도록 case 끝을 break로 끝맺음
+                
+                      🔻 예제
+                      
+                        switch (ch) {           
+                           case 1:
+                             statements;
+                             break;         ⭐ 원한다면, 여러개의 case가 실행되도록 break를 넣지 않는 경우도 있다. 
+                           case 2;
+                             statements;
+                             break;
+                           case 3;
+                             statements;
+                             break;
+                        }                   ⭐ 위와 같이 default가 따로 없고, 해당하는 변수가 없으면 그대로 실행되지 않고 종료된다.
+    
+   
+                🔻 switch 예제 - 1
+                
+                    let day_number = 1;
+                    let day;        // 또는 let day = "";
+                    
+                    switch (day_number) {
+                        case 0:
+                          day = "Sunday"; break;        ⭐ break : 구문을 끝냄.
+                        case 1:
+                          day = "Monday"; break;
+                        case 2:
+                          day = "Tuesday"; break;
+                        case 3:
+                          day = "Wednesday"; break;
+                        case 4:
+                          day = "Thursday"; break;
+                        case 5:
+                          day = "Friday"; break;
+                        case 6:
+                          day = "Saturday"; break;
+                        default:
+                          day = "error"; break;
+                      }
+                      
+                      console.log(day);                 // output: monday
+                    
+                    
+                            🔻 break를 하지 않았을 경우,
+
+                                let day_number = 4;
+                                let day = "";
+
+                                switch (day_number) {
+                                  case 0:
+                                    day = "Sunday"; break;
+                                    .
+                                    .
+                                    .
+                                  case 4:
+                                    day = "Thurday";    ⭐ break가 없기 때문에, 
+                                  case 5:               ⭐ case5로 넘어가고, Friday가 출력이 된다. 
+                                    day = "Friday"; break;
+                    
+                    
+                🔻 switch 예제 - 2
+                    
+                        let browser = "Chrome";
+                        
+                        switch (browser) {
+                           case "Explorer":         ⭐ String뿐만 아니라 다른 논리적인 연산의 비교는 무조건 다 된다. 
+                             msg = "ActiveX installation required.";
+                             break;
+                           case "Chrome":       ⭐ 구문도 없고, break도 없다.
+                           case "Firefox":          -> case는 이미 비교를 하면 그 다음에 break를 만날 때 까지, 쭉 내려간다. 
+                           case "Safari":
+                           case "Opera":
+                              msg = "Suppported browsers!";
+                              break;
+                           
+                           default:
+                              msg = "Unsupported browsers!";
+                              break;
+                         }
+                         
+                         console.log(msg);              // output: Supported browsers!
+                         
+                         ⭐⭐ 이런 케이스는, 특정 케이스 하나뿐만 아니라 여러개의 케이스에 대해서 모두 공통된 로직을 처리하는 내용이 있을 때,
+                               이렇게 여러개의 케이스를 다중 중첩 시켜서 사용한다.
+                         
+                               -> 변경에 대한 최소화(문구가 한 개 변경되더라도 모두 다 변경 시켜야 하니까)와, 라인에 대한 최소화로 코드에 대한 효율성을 증가시킨다. 
+     
+     
     1️⃣7️⃣ 연습문제
+    
+         🔴 문제
+         
+             ● 조건문 switch를 이용하여 1~7사이의 숫자를 입력 받으면 요일을 출력해주는 코드를 작성하시오.
+             ● 1(월요일) ~ 7(일요일)로 맵핑된다.
+             
+                  const day = 3;      ⭐ const로 했기 때문에, 코드 내에서 변하지 않는다. 
+                  let weekend = "";
+                    
+                  switch (day) {
+                      case 1: 
+                        weekend = "월요일"; break;
+                      case 2:
+                        weekend = "화요일"; break;
+                      case 3:
+                        weekend = "수요일"; break;
+                      case 4:
+                        weekend = "목요일"; break;
+                      case 5:
+                        weekned = "금요일"; break;
+                      case 6:
+                        weekend = "토요일"; break;
+                      case 7:
+                        weekend = "일요일"; break;
+                    }
+
+                    console.log(weekend);
+         
+    
     1️⃣8️⃣ 반복문
+    
+         🔎 반복문 for
+         
+            ● 선언문(Init Expression), 조건문(Test Expression), 증감문(Update Expression) 형태로 이루어진 반복문
+            ● 조건문이 fail이 되기 전까지 코드 블록을 계속적으로 반복 수행
+            ● 선언문, 조건문, 증감문 자리에 공백 입력 가능
+                
+                🔻 예시
+                
+                   for (Init Expression; Test Expression; Update Expression) {
+                      
+                      // Statement Block
+                   }      
+                    
+                    🔺 실행 순서
+                    
+                      1. Init expression : 변수에 대한 초기화가 이루어진다. let i = 0;
+                      2. Test Expression : 앞에서 선언한 선언문에 대한 변수에 대한 컨트롤을 통해 조건문을 판단하게 된다. i < 5; 
+                                           -> 논리적인 리턴값이 나오도록 부등호나 equal을 통해서 조건을 넣게 된다.
+                      3. true가 나올 경우, for문안에 있는 코드가 수행된다.
+                      4. 종료되면 block을 빠져 나와서 밖으로 가는게 아니라, Update Expression으로 이동한다. 
+                      5. Update Expression : 선언문과 조건문에서 컨트롤해줬었던 변수에 대해서 업데이트를 해준다. i++, i-- 등. 
+                      6. 업데이트 해준것이, 조건문에 부합되는지 확인하고 true이면 또 block안에 있는 코드를 실행 시킨다.
+                      7. 그리고 다시 증감문으로 가서 업데이트가 된다.
+                      8. 이 과정을 반복하다가, 조건문에서 더이상 true가 아니면 for문을 종료한다. 
+                      
+                      ⭐ 선언문(Init Expression)은 최초 1회만 실행이 되고, 그 이후에는 Test Expression과 Statement Block과 Update Expression을
+                         반복하면서 조건판단을 한다. 
+                      
+                      
+                    🔻 for 예제
+            
+                        // output: 0 1 2
+                        for (let i = 0; i < 3; i++) {
+                          console.log(i);
+                        }
+                        
+                        // output: 
+                        for (let i = 10; i < 3; i++) {
+                          console.log(i);
+                        }
+                        
+                        // output: 0 1
+                        let num = 0;            ⭐ 변수 초기화를 여기에 함.
+                        for (; num <2; ) {          ⭐ 선언문과 증감문이 없을 때.
+                           console.log(num);
+                           num++;               ⭐ 증감문이 없으면, 0에 대한 값이 변하지 않고 0인 상태로 실행되기 때문에 무한루프에 바지게 된다.       
+                        }                           -> 무한루프에 빠지게 되면, 계속적으로 반복하기 때문에, 우리가 원하는 논리적인 코드를 작성할 수 없다.
+                                                       그래서 이것을 멈추기 위해서 num++를 해준다. 
+            
+            
+                    🔻 2중 for 예제        ⭐ 2중 / 3중 for문은 알고리즘에서도 많이 쓰인다. 
+                        
+                         for (let i = 0; i < 3; i++) {
+                           for (let j = 0; j < 3; j++) {
+                             console.log(`${i} + ${i + j}`);
+                           }
+                         }
+                         
+                         /* ouotput
+                         0 + 0 = 0
+                         0 + 1 = 1
+                         0 + 2 = 2
+                         ...
+                         2 + 1 = 3
+                         2 + 2 = 4
+                         */
+                    
+               🔎 반복문 for (확장)
+               
+                  ◻ for..in 반복문
+                    ● 객체의 key, value 형태를 반복하여 수행하는데 최적화 된 유형
+                    ● 첫번째부터 마지막까지, 객체의 키 개수만큼 반복
+                        
+                        Ex)
+                           // Syntax
+                              for (key in object) {
+                                 // code block to be executed
+                              }
+                        
+                        🔻 예시
+                            
+                            // Example
+                            const person = { frame: "John", lname: "Bob", age: 25 };
+                            
+                            let text = "";
+                            for (let x in person) {   ⭐ x에 key 값이 반환된다. 
+                               text += person[x];
+                            }
+                            console.log(text);      // output: JohnBob25
+                   
+                   
+                  ◻ for..of 반복문
+                    ● Collection 객체 자체가 Symbol.iterator 속성(property)을 가지고 있어야 동작 가능한 유형
+                    ● ES6에 새로 추가된 Collection 기반의 반복 구문
+                        
+                          Ex)
+                             // Syntax
+                              for (variable of iterable) {
+                                 // code block to be executed
+                              }
+                        
+                        🔻 예시
+                            
+                            // Example
+                            let langauge = "JavaScript";    ⭐ String(문자형 자료형)에서 iterator 속성을 제공하기 때문에,
+                                                               문자형에 대해서 for..of 반복문을 수행하게 되면 한 자, 한 자 나오게 된다. 
+                            let text = "";
+                            
+                            for (let x of language) {
+                               text += x;           ⭐ text에 x에 대한 값을 계속 누적시킨다. 
+                               console.log(x);          // output: J \n a \n ... t
+                            }
+                            
+                            console.log(text);          // output: JavaScript
+            
+    
     1️⃣9️⃣ 반복문 while
+    
+         🔎 반복문 while
+         
+            ● 조건문이 참일 때 코드 블록을 계속해서 반복 수행하는 반복문
+            ● for문에 비해 선언문과 증감문 없이 loop를 수행하며, 무한 loop등 수행 시 많이 사용
+            ● 조건문을 코드 블록보다 아래로 옮긴 do...while 반복문도 존재 (최소 한번 수행이 필요할 때 많이 사용)
+    
+                  🔻 예시
+                  
+                        🟠 While
+                        
+                        while (Test Expression) {       ⭐ Test Expression이 지속적으로 돌게 되면 무한 루프에 바지기 때문에
+                                                             종료를 위한 변수 업데이트가 필요하다. 
+                           // ... Statement Block ...
+                                                            ⭐ 그래서 조건 판단에 대한 업데이트가 Statement Blcok안에서 이루어직 ㅔ된다.
+                                                              조건이 false가 됬을때 구문 종료가 된다. 
+                        }
+                        
+                        🟠 do...while
+                        
+                        do {
+                           
+                           // ... Statement Blcok ...
+                           
+                        } while (Test Expression);
+    
+    
+                    ✅ while과 do...while의 차이점!
+    
+                        while은 처음 코드를 시작할 때, 조건문을 무조건 판단해서 만약에 false라면 수행을 안하고,
+                        do...while은 일단 무조건 수행하고, 조건에 대한 판단은 마지막에 하게된다. return 값이 true이면, 다시 위로 올라가ㅓ서 수행을 한다.
+                        
+                        조건에 대한 판단을 앞에서 하면 while,
+                        조건에 대한 판단을 뒤에서 하면 do...while이다.
+                        
+                        do...while은 뒤에서 하니까, 무조건 최초1회는 수행이 된다는 특성이 있어서,
+                        어떤 코드가 무조건 한 번 수행이 되어야 할 때 많이 쓴다. 
+                        
+                        일반적으로는,
+                        while이 do...while보다 더 많이 쓴다. 
+                        
+                            
+                           🔻 while 예제
+                           
+                                let i = 0;
+                                // output: 0 1 2        ⭐ 증감문이 없다면, 계속 0을 출력한다. 
+                                while (i < 3) {
+                                   console.log(i);
+                                   i++;                 ⭐ while문은 변수에 대한 업데이트가 중요하다. 안그러면 무한 loop에 빠지게 된다. 
+                                }
+                               
+                               🔻 do...while문
+                               
+                                // output: 0 1 2
+                                i = 0;          ⭐ 현재 i가 2이기 때문에, 0으로 다시 초기화 해준다. 
+                                do {
+                                  console.log(i);
+                                  i++;
+                                } while (i < 3);
+                                
+                                
+                                // output: 4
+                                i = 4;;
+                                do {
+                                  console.log(i);
+                                  i++;
+                                } while (i < 3);
+                     
+    
     2️⃣0️⃣ 반복문 제어
+    
+           ◻ break
+           
+              ● 반복문 수행 시 코드 블록을 탈출할 때 사용되는 식별자
+              ● 다중 반복문일 경우 가장 안쪽의 반복문을 종료
+              ● Label을 통하여 다중 반복문을 한번에 종료 가능
+                ※ Label : 반복문 앞에 콜론과 함께 쓰이는 식별자
+           
+           ◻ continue           ⭐ 특정 조건의 뒷 코드를 스킵하고 싶을 때 많이 사용한다. 
+             
+              ● 반복문 수행 시 코드 블록 실행을 해당 라인에서 중지하고,
+                블록 코드를 종료 시킨 후 반복문 내 명시된 조건 판단.
+    
+             
+             🔻 break, continue 예제
+             
+                // break
+                   
+                   let text = "";
+                   
+                   for (let i = 0; i < 10; i++) {
+                     if ( i === 3) break;               ⭐ if / break가 없으면 0123456789이 출력 된다. 
+                     text = text + i;                   ⭐ text += 1; 이렇게 해도 된다. 
+                   }
+                   
+                   console.log(text);       // output: "012"
+               
+               // continue
+                
+                  text = "";
+                  
+                  for (let i = 0; i < 10; i++) {
+                     if (i === 3) continue;         ⭐ i가 3일때 continue가 되서, i에 대한 값이 text에 업데이트가 안되고,
+                     text = text + i;                   그 다음 for문이 이어서 수행된다. 
+                  }
+                  
+                  console.log(text);         // output: "012456789"     ⭐ 3이 없음. 
+             
+             
+             🔻 Label 예제
+             
+                  ● 프로그램 내 특정 영역을 지정하여 별도 이름을 붙이는 식별자   -> C언어 같은 경우, go-to 문법과 같이 쓰인다. 
+                  ● break와 continue를 사용하는 반복문 안에서만 사용 가능하며, break나 continue 지시자 위에 있어야 함
+                  
+                        🔻 예제
+                            
+                            // output: 0 * 0 = 0 \n 1 * 0 = 0 \n 2 * 0 = 0
+                            for (let i = 0; i < 3; i++) {
+                              for (let j = 0; j < 3; j++) {
+                                console.log(i + " * " + j + " = " + i * j);
+                                break;       ⭐ 2중 for문일 때, break가 있으면 안쪽 for문에 대한 break만 수행이 된다. 
+                              }                 -> 그래서 여기에서도 j가 0일때만 수행이 되고, break가 되기 대문에 j에 대한 1,2 case는 없다. 
+                            }
+                            
+                            // output: 0 * 0 = 0    
+                            end: for (let i = 0; i < 3; i++) {      ⭐ 2중 for문 자체를 종료시키고 싶을 때, 밖에 또 break를 해야할 때 좀 더 심플하게 할 수 있다. 
+                               for (let j = 0; j < 3; j++) {
+                                  console.log(i + " * " + j + " = " + i *j);
+                                  break end;                ⭐ end의 전체에 대한 구문이 break 된다. 
+                               }                                -> 그래서 i와 j모두 0까지만 출력이 된다. 
+                            }   
+           
+                일반적으로는 label이 프로그램에 대한 가독성과 로직을 망가트리는 이유로 인해서,
+                보통은 많이 사용하지 않는다. 현업에서도 사용하는걸 권장하는 분위기는 아니다. 
+                
+                일반적으로 로직을 구현할 때는, 특정 조건에 맞춰서 for문과 break를 통해서 잘 조합을 시켜서 로직을 구현하는게 좋다.  
+           
+           
     2️⃣1️⃣ 반복문 연습문제
+    
+          🟠 문제 1
+          
+                ● 반복문 for를 이용하여 0부터 10까지의 정수 중 짝수의 합을 구한 뒤 출력해주는 코드를 작성하시오.
+                    
+                    const UNTIL_NUM = 10;
+                    let sum = 0;
+
+                    for (let i = 0; i <= UNTIL_NUM; i++) {
+                      if (i % 2 == 0) sum += i;
+                    }
+
+                    // 0 ~ 10: 10 8 6 4 2 -> 30
+                    console.log(sum);   // output: 30
+                
+    
+    
+    
+    
     
     
