@@ -381,11 +381,168 @@
       
       3️⃣3️⃣ 고차함수
           
-          : 하나 이상의 함수를 배개변수로 취하거나 함수를 결과로 반환하는 함수이다.    
+          : 하나 이상의 함수를 매개변수로 취하거나 함수를 결과로 반환하는 함수이다.    
       
       
       3️⃣4️⃣ 그 외 고차함수
-      3️⃣5️⃣ 생성자
-             
-             
+      
+            🟠 forEach()
+            
+                  ● 배열 요소 별 콜백 함수 각각에 실행: Array..forEach(function(item, index, array){})
+                  ● item: 배열 요소, index: 배열 위치, array: 배열
+                  
+                       🔻 예시
+                        
+                              // use for loop
+                              // output: 1 2 3
+                              let nums = [1, 2, 3];
+                              for (let i = 0; i < nums.lenght; i++) {
+                                 console.log(nums[i]);
+                              }
+                              
+                               🔻 for문 자체를 forEach로 다시 변환 시킬 수 있다.
+                              
+                                    // use forEach
+                                    // output: 1 2 3
+                                    nums.forEach(function (i) {
+                                       console.log(i);
+                                    });
+              
+              🟠 map()
+              
+                   ● 배열 요소 별 함수 호출 및 결과를 배열로 반환: Array.map(function(item, index, array){})
+                   ● item: 배열 요소, index: 배열 위치, array: 배열
+                   
+                       🔻 예시
+                       
+                           let num = [1, 2, 3, 4, 5];
+                           
+                           let use_map = num.map(function (item) {
+                              return item * 2;
+                           });
+                           console.log(use_map);            // [2, 4, 6, 8, 10 ]
+                        
+                        
+              🟠 find()       
+                  
+                   ● 콜백 함수의 조건을 만족하는, 단 하나의 값만 반환: Array.find(function(item, index, array){})
+                   ● item: 배열 요소, index: 배열 위치, array: 배열
+                   
+              🟠 filter()
+                  
+                   ● 콜백 함수의 조건을 만족하는 값을 배열로 반환: Array.filter(function(item, index, array){})
+                   ● item: 배열 요소, index: 배열 위치, array: 배열
+                   
+            ⭐ find()와 filter()의 차이점
+                -> find()는 단 하나, 최초 발견되는 객체만 반환되고, 
+                   filter()는 조건을 만족하는 모든 elements들이 반환된다. 
                 
+               
+               🟠 reduce()
+                  
+                   ● 요소 별 함수 수행 누적 결과값 반환: Array.reduce(function(accumulator, item, index, array){})
+                   ● accumulator: 이전 함수 결과(initial로 초기값 설정 가능), item: 배열 요소, index: 배열 위치, array: 배열
+                   
+                      ⭐기존과 다르게, 맨 앞에 accumulator가 있다.
+                        -> accumulator는 이전 함수에 대한 결과값이 누적 되서 저장된다.
+            
+            
+      3️⃣5️⃣ 생성자
+      
+             ● 유사한 객체를 다중으로 만들 때 사용되는 함수 (타 언어에서의 class 개념과 유사)
+             ● 일반적으로 생성자 함수의 첫 글자는 대문자로 시작
+             ● 생성자 함수로 객체 생성 시 new 연산자를 통해 객체 생성
+             
+             ⭐ 생성자 함수를 사용할 때, new를 쓰지 않으면 안된다. 
+             
+                  Ex)
+                     let bread_1 = Fishbread("cream", 1200);
+                     
+                     console.log(bread_1);            // undefined      ⭐ undefined가 나온다.
+             
+             
+     3️⃣6️⃣ Collection
+     
+           ● 구조 혹은 비구조화 형태로 프로그래밍 언어가 제공하는 값을 담을 수 있는 공간
+           ● 자바스크립트에서 제공하는 Collection 
+           
+              🟨 Indexed Collection       : index를 통해서 반복문을 돌면서 접근할 수 있다.
+              
+                 Array / Typed Array
+              
+              🟨 keyed Collection         : Object와 같이 특정 String 혹은 자료형을 통해서 접근할 수 있는 구조타입.
+              
+                 Object / Map / Set / Weak map / Weak Set
+           
+           
+     3️⃣7️⃣ Map
+     
+          ● 다양한 자료형의 key를 허용하고, key-value 형태의 자료형을 저장 가능할 수 있는 Collection.
+          ● Map은 Object 대비 비교하면 다양한 key의 사용을 허용하고, 값의 추가/삭제 시 메서드를 통해 수행이 필요함.
+          ● 대표 속성(property) 및 메서드(method)
+          
+               ◽ 생성자: new Map()
+               ◽ 개수 확인: Map.size
+               ◽ 요소 추가: Map.set(key,value)
+               ◽ 요소 접근: Map.get(key)
+               ◽ 요소 삭제: Map.delete(key)
+               ◽ 전체 삭제: Map.clear()
+               ◽ 요소 존재 여부 확인: Map.has(key)
+               ◽ 그 밖의 메서드: Map.keys(), Map.values(), Map.entires()
+            
+            
+     3️⃣8️⃣ Set
+     
+            ● value만을 저장하며 중복을 허용하지 않는 Collection
+            ● 대표 속성(property) 및 메서드(method)
+              
+               ◽ 생성자: new Set()
+               ◽ 개수 확인: Set.size
+               ◽ 요소 추가: Set.add(value)
+               ◽ 요소 삭제: Set.delete(value)
+               ◽ 전체 삭제: Set.clear()
+               ◽ 요소 존재 여부 확인: Set.has(key)
+               ◽ 그 밖의 메서드: Set.keys(), Set.values(), Set.entires()
+              
+            ⭐ value만 저장하고, 중복을 허용하지 않는다는것 기억하기!
+            
+     
+     3️⃣9️⃣ Math
+     
+            ● 표준 Built-in 객체로써 수학적인 연산을 위한 속성값과 메서드를 제공하는 객체
+            ● Math는 생성자 함수가 아니며, 모든 속성과 메서드는 정적이기에 Math.function()으로 언제든 호출 가능
+            ● 대표 속성(property) 및 메서드(method)
+            
+                  ◽ 오일러 상수(e): Math.E
+                  ◽ PI(파이): Math.PI
+                  ◽ 절대값: Math.abs(x)
+                  ◽ 최대값: Math.max(x)
+                  ◽ 최소값: Math.min(x)
+                  ◽ 랜덤 난수 값: Math.random()
+                  ◽ 제곱과 제곱근: Math.pow(x,y), Math.sqrt(x)
+                  ◽ 소수점 처리: Math.round(x), Math.ceil(x), Math.floor(x)
+          
+          
+     4️⃣0️⃣ Date 
+     
+             ● 표준 Built-in 객체로써 날짜와 시간을 위한 속성값과 메서드를 제공하는 객체
+             ● Date 객체는 1970년 1월 1일 UTC(협정 세계시) 자정과의 시간 차이를 밀리초로 나타내는 정수 값으로 표현
+             ● 생성자 및 대표 메서드 (method)
+                  
+                ◽ Date 객체 생성자: new Date()
+                ◽ 현재 시간 기준 문자열: Date()
+                ◽ 날짜 정보 얻기 (년/월/일): Date.getFullYear(), Date.getMonth(), Date.getDate()
+                ◽ 날짜 정보 얻기 (시/분/초): Date.getHours(), Date.getMinutes(), Date.getSeconds()
+                ◽ 날짜 정보 설정 (년/월/일): Date.setFullYear(), Date.setMonth(), Date.setDate()
+                ◽ 날짜 정보 설정 (시/분/초): Date.setHours(), Date.setMinutes(), Date.setSeconds()
+                ◽ 그 외 날짜 정보 얻기: Date.getDay(), Date.getTime(), Date.getTimezoneOffset()
+                ◽ 그 외 날짜 정보 설정: Date.parse(string)
+
+
+     4️⃣1️⃣ N차원 Array     
+     
+     
+     
+     
+     
+     
