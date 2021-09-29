@@ -151,200 +151,200 @@
  
       #️⃣ 배열조작
         
-        🟧 배열 조작 - 1
-        
-             ◻ 배열 추가/삭제 (LIFO - Back)      ⭐ LIFO : Last In Frist out. 보통 스택에서 많이 쓰이는 표현이다.
-                                                      (= 마지막으로 들어온것이 먼저 나간다.) 
-            
-                  ● 배열 추가: Array.push(element), 배열 삭제: Array.pop()
-           
-             ◻ 배열 추가/삭제 (LIFO - Front)
-          
-                  ● 배열 추가: Array.unshift(element), 배열 삭제: Array.shift()
-      
-              🔻 push 예시
-              
-                  let fruits = ["apple", "orange", "melon"];
-                  let ret;
-                  
-                  ret = fruits.push["watermelon"]
-                  
-                  console.log(fruits);              // [ 'apple', 'orange', 'melon', 'watermelon' ]
-                  console.log(fruits.length);      // 4
-                  console.log(ret);                // 4      ⭐ push를함과 동시에 fruits.push("watermelon") 대한 현재 객체 length를 return 해준다. 
-                                                                -> push에 대한 return value는 현재 배열에 대한 크기이다. 
-                  
-              🔻 pop 예시    
-              
-                  
-                  let fruits = ["apple", "orange", "melon"];
-                  let ret;
-                  
-                  ret = fruits.push["watermelon"]
-                  
-                  console.log(fruits);            // [ 'apple', 'orange', 'melon', 'watermelon' ]
-                  console.log(fruits.length);     // 4
-                  console.log(ret);
-                  
-                  fruits.pop();
-                  console.log(fruits);              // [ 'apple', 'orange', 'melon']      ⭐ 끝에 있던 watermelon이 삭제되고,
-                  console.log(fruits.lenght);       // 3                ⭐ 길이도 3으로 변경되었다. 
-              
-                    🔻 그럼 pop에 대한 return value는 뭘까?
+                       🟧 배열 조작 - 1
 
-                        ret = fruits.pop();
+                               ◻ 배열 추가/삭제 (LIFO - Back)      ⭐ LIFO : Last In Frist out. 보통 스택에서 많이 쓰이는 표현이다.
+                                                                        (= 마지막으로 들어온것이 먼저 나간다.) 
 
-                        console.log(ret);   // watermelon       ⭐ 방금 삭제되었던 watermelon이 return value로 return 된다. 
+                                    ● 배열 추가: Array.push(element), 배열 삭제: Array.pop()
 
-                                                                    -> pop을 통해서 데이터 삭제뿐만 아니라, 삭제된 데이터가 반환되서
-                                                                       다룰 수 있다는걸 알 수 있다.
+                               ◻ 배열 추가/삭제 (LIFO - Front)
 
-              🔻 unshift 예제
+                                    ● 배열 추가: Array.unshift(element), 배열 삭제: Array.shift()
 
-                    let fruits = ["apple", "orange", "melon"];
+                                🔻 push 예시
 
-                    ret = fruits.unshift("watermelon");
-                    console.log(fruits);              // [ 'watermelon', 'apple', 'orange', 'melon' ]     ⭐ 맨 처음으로 데이터가 추가된다.
-                    console.log(fruits.length);       // 4
-                    console.log(ret);                 // 4      ⭐ return value는 lenght와 동일.
+                                    let fruits = ["apple", "orange", "melon"];
+                                    let ret;
 
-                    ret = fruits.shift();
-                    console.log(fruits);              // [ 'apple', 'orange', 'melon' ]       ⭐ 맨 처음에 있는 데이터가 삭제된다.
-                    console.log(fruits.length);       // 3
-                    console.log(ret);                 // watermelon             ⭐ 빠져나온 데이터가 return value로 저장이되서, watermelon이 나온다. 
-         
-         
-         🟧 배열 조작 - 2
-          
-            ◻ 배열 삭제/변경 (index)
-                
-                ● 배열 요소 삭제/변경: Array.splice(index[, deleteCount, elem1, ..., elemN])
-                
-                * splice라는 메서드를 통해서 배열을 쪼갤 수 있다.
-                
-                      🔻 예시
-                            
-                            let fruits = ["apple", "orange", "melon"];
-                            
-                            console.log(fruits.splice(1));      // [ 'orange', 'melon' ]
-                
-                         ⭐ splice 함수는 매개변수로 받은 index 이후로, 배열을 잘라서 return 한다.
-                      
-                      
-                      🔻 return value로 받아서 저장하기
-                            
-                            let fruits = ["apple", "orange", "melon"];
-                            let ret;
-                            
-                            ret = fruits.splice(1);
-                            console.log(ret);       // [ 'orange', 'melon' ]
-                            console.log(fruits);      // [ 'apple' ]      ⭐ 잘린 부분 나머지의 apple값만 나오게 된다. 
-                            
-                            -> splice는 함수가 호출되고 나서, 실제 fruits에 업데이트를 해주고 
-                              그것에 대한 return 값을 반환시켜 준다.
-                            
-                       🔻 뒷부분 전체말고, 가운데에 있는 orange만 날리고 싶다면?     
-                            
-                             let fruits = ["apple", "orange", "melon", "strawberry"];
-                             
-                             ret = fruits.splice(1, 1);    ⭐ 2개의 매개 변수.   -> delete count 추가
-                             
-                             첫번째에서 삭제를 할건데, 하나만 삭제한다는 뜻. 
-                             -> orange만 삭제가 되고, 나머지 fruits 데이터는 그대로 남아있다.
-                             
-                             console.log(ret);        // [ 'orange' ]
-                             console.log(fruits);     // [ 'apple', 'melon', 'strawberry' ]
-                             
-                             ⭐이렇게 splice를 통해서 앞, 뒤 뿐만 아니라 중간 부분에서도 얼마든지 삭제가 가능하다.
-                             
-                             ⭐⭐splice는 삭제뿐만 아니라, 삭제된 위치에서 데이터를 추가할 수도 있다.
-                             
-                                  🔻 예시
-                                  
-                                      let fruits = ["apple", "melon", "strawberry"];
-                                      
-                                      ret = fruits.splice(1,1, "mango", "kiwi");      ⭐ 데이터가 삭제된 자리에, 새 데이터 추가.
-                                      console.log(ret);         // [ 'melon']
-                                      console.log(fruits);      // [ 'apple', 'mango', 'kiwi', 'strawberry']
-                                      
+                                    ret = fruits.push["watermelon"]
+
+                                    console.log(fruits);              // [ 'apple', 'orange', 'melon', 'watermelon' ]
+                                    console.log(fruits.length);      // 4
+                                    console.log(ret);                // 4      ⭐ push를함과 동시에 fruits.push("watermelon") 대한 현재 객체 length를 return 해준다. 
+                                                                                  -> push에 대한 return value는 현재 배열에 대한 크기이다. 
+
+                                🔻 pop 예시    
+
+
+                                    let fruits = ["apple", "orange", "melon"];
+                                    let ret;
+
+                                    ret = fruits.push["watermelon"]
+
+                                    console.log(fruits);            // [ 'apple', 'orange', 'melon', 'watermelon' ]
+                                    console.log(fruits.length);     // 4
+                                    console.log(ret);
+
+                                    fruits.pop();
+                                    console.log(fruits);              // [ 'apple', 'orange', 'melon']      ⭐ 끝에 있던 watermelon이 삭제되고,
+                                    console.log(fruits.lenght);       // 3                ⭐ 길이도 3으로 변경되었다. 
+
+                                      🔻 그럼 pop에 대한 return value는 뭘까?
+
+                                          ret = fruits.pop();
+
+                                          console.log(ret);   // watermelon       ⭐ 방금 삭제되었던 watermelon이 return value로 return 된다. 
+
+                                                                                      -> pop을 통해서 데이터 삭제뿐만 아니라, 삭제된 데이터가 반환되서
+                                                                                         다룰 수 있다는걸 알 수 있다.
+
+                                🔻 unshift 예제
+
+                                      let fruits = ["apple", "orange", "melon"];
+
+                                      ret = fruits.unshift("watermelon");
+                                      console.log(fruits);              // [ 'watermelon', 'apple', 'orange', 'melon' ]     ⭐ 맨 처음으로 데이터가 추가된다.
+                                      console.log(fruits.length);       // 4
+                                      console.log(ret);                 // 4      ⭐ return value는 lenght와 동일.
+
+                                      ret = fruits.shift();
+                                      console.log(fruits);              // [ 'apple', 'orange', 'melon' ]       ⭐ 맨 처음에 있는 데이터가 삭제된다.
+                                      console.log(fruits.length);       // 3
+                                      console.log(ret);                 // watermelon             ⭐ 빠져나온 데이터가 return value로 저장이되서, watermelon이 나온다. 
+
+
+                       🟧 배열 조작 - 2
+
+                              ◻ 배열 삭제/변경 (index)
+
+                                  ● 배열 요소 삭제/변경: Array.splice(index[, deleteCount, elem1, ..., elemN])
+
+                                  * splice라는 메서드를 통해서 배열을 쪼갤 수 있다.
+
+                                        🔻 예시
+
+                                              let fruits = ["apple", "orange", "melon"];
+
+                                              console.log(fruits.splice(1));      // [ 'orange', 'melon' ]
+
+                                           ⭐ splice 함수는 매개변수로 받은 index 이후로, 배열을 잘라서 return 한다.
+
+
+                                        🔻 return value로 받아서 저장하기
+
+                                              let fruits = ["apple", "orange", "melon"];
+                                              let ret;
+
+                                              ret = fruits.splice(1);
+                                              console.log(ret);       // [ 'orange', 'melon' ]
+                                              console.log(fruits);      // [ 'apple' ]      ⭐ 잘린 부분 나머지의 apple값만 나오게 된다. 
+
+                                              -> splice는 함수가 호출되고 나서, 실제 fruits에 업데이트를 해주고 
+                                                그것에 대한 return 값을 반환시켜 준다.
+
+                                         🔻 뒷부분 전체말고, 가운데에 있는 orange만 날리고 싶다면?     
+
+                                               let fruits = ["apple", "orange", "melon", "strawberry"];
+
+                                               ret = fruits.splice(1, 1);    ⭐ 2개의 매개 변수.   -> delete count 추가
+
+                                               첫번째에서 삭제를 할건데, 하나만 삭제한다는 뜻. 
+                                               -> orange만 삭제가 되고, 나머지 fruits 데이터는 그대로 남아있다.
+
+                                               console.log(ret);        // [ 'orange' ]
+                                               console.log(fruits);     // [ 'apple', 'melon', 'strawberry' ]
+
+                                               ⭐이렇게 splice를 통해서 앞, 뒤 뿐만 아니라 중간 부분에서도 얼마든지 삭제가 가능하다.
+
+                                               ⭐⭐splice는 삭제뿐만 아니라, 삭제된 위치에서 데이터를 추가할 수도 있다.
+
+                                                    🔻 예시
+
+                                                        let fruits = ["apple", "melon", "strawberry"];
+
+                                                        ret = fruits.splice(1,1, "mango", "kiwi");      ⭐ 데이터가 삭제된 자리에, 새 데이터 추가.
+                                                        console.log(ret);         // [ 'melon']
+                                                        console.log(fruits);      // [ 'apple', 'mango', 'kiwi', 'strawberry']
+
                        
                        🟧 배열 조작 - 3
                             
-                            ◻ 배열 삭제 (index)
-                              
-                                ● 배열 요소 삭제: Arry.slice([start], [end])
-                                
-                                    * slice : 객체를 자를 수 있다.
+                                  ◻ 배열 삭제 (index)
 
-                                    ⭐⭐splice와 다르게 원본 객체에 영향을 미치지 않는다.     -> 그대로 보존.
+                                      ● 배열 요소 삭제: Arry.slice([start], [end])
 
-                                    자른 대상에 대해서 return 되는건 동일하다.
-                                    보통 slice는 어떤 배열에서 일부분만 발췌해서 가져오고 싶을 때,
-                                    return value로 저장해서 많이 쓰인다.
-                            
-                            ◻ 배열 병합 
-                              
-                                ● 다중 배열 병합: Array.concat(arg1, arg2...)
-                             
-                                      : 기존 배열이 있는 상태에서, 새로운 여러개의 배열을 추가하고 싶을 때 추가할 수 있다. 
-                                  
-                                  
-                                  🔻 slice 예시
-                                  
-                                      let fruits = ["apple", "orange", "melon"];
-                                      
-                                      console.log(fruits.slice(1));     // [ 'orange', 'melon' ]
-                                      console.log(fruits);              // [ 'apple', 'orange', 'melon' ]   ⭐ 데이터가 그대로 남아있다. 
-                                
-                                ⭐ slice는 String과 동일하게, index로 이루어져서 개수가 아니라 index이다.
-                                
-                                     * orange만 자르고 싶을 때,
-                                     
-                                     console.log(fruits.slice(1, 2));     // [ 'orange' ]
-                                     console.log(fruits.slice(-2));       // [ 'orange', 'melon' ]    ⭐ 음수(-)로도 가능하다. 음수는 뒤에서부터. 
-                               
-                               
-                                🔻 concat 예시
-                                
-                                     let fruits = ["apple", "orange", "melon"];
-                                     let fruits_add = ["cherry", "banana"];
-                                     
-                                     console.log(fruits.concat(fruits_add));      // [ 'apple', 'orange', 'melon', 'cherry', 'banana' ]
-                                                                                    
-                                     console.log(fruits);                         // [ 'apple', 'orange', 'melon' ]
-                                     
-                                      ⭐ 원본 데이터를 건드리지 않고, concat을 통해서 배열을 병합해서 병합된 데이터를 변수로 저장할 수 있다.
-                      
+                                          * slice : 객체를 자를 수 있다.
+
+                                          ⭐⭐splice와 다르게 원본 객체에 영향을 미치지 않는다.     -> 그대로 보존.
+
+                                          자른 대상에 대해서 return 되는건 동일하다.
+                                          보통 slice는 어떤 배열에서 일부분만 발췌해서 가져오고 싶을 때,
+                                          return value로 저장해서 많이 쓰인다.
+
+                                  ◻ 배열 병합 
+
+                                      ● 다중 배열 병합: Array.concat(arg1, arg2...)
+
+                                            : 기존 배열이 있는 상태에서, 새로운 여러개의 배열을 추가하고 싶을 때 추가할 수 있다. 
+
+
+                                        🔻 slice 예시
+
+                                            let fruits = ["apple", "orange", "melon"];
+
+                                            console.log(fruits.slice(1));     // [ 'orange', 'melon' ]
+                                            console.log(fruits);              // [ 'apple', 'orange', 'melon' ]   ⭐ 데이터가 그대로 남아있다. 
+
+                                      ⭐ slice는 String과 동일하게, index로 이루어져서 개수가 아니라 index이다.
+
+                                           * orange만 자르고 싶을 때,
+
+                                           console.log(fruits.slice(1, 2));     // [ 'orange' ]
+                                           console.log(fruits.slice(-2));       // [ 'orange', 'melon' ]    ⭐ 음수(-)로도 가능하다. 음수는 뒤에서부터. 
+
+
+                                      🔻 concat 예시
+
+                                           let fruits = ["apple", "orange", "melon"];
+                                           let fruits_add = ["cherry", "banana"];
+
+                                           console.log(fruits.concat(fruits_add));      // [ 'apple', 'orange', 'melon', 'cherry', 'banana' ]
+
+                                           console.log(fruits);                         // [ 'apple', 'orange', 'melon' ]
+
+                                            ⭐ 원본 데이터를 건드리지 않고, concat을 통해서 배열을 병합해서 병합된 데이터를 변수로 저장할 수 있다.
+
                         
                         🟧 배열 반복문       ⭐ 배열은 반복문과 많이 쓰인다. 
                         
                               : 다양한 반복문 문법을 통해서 배열 요소에 접근이 가능하다.
                               
                               🔎 문법
-                              
+
                                   for...length(index 접근), for...of(element 접근), for...in(key 접근)
-                                  
+
                                   🟡 index
-                                       
+
                                        let fruits = ["apple", "orange", "melon"];
-                                       
+
                                        for (let i = 0; i < fruits.length; i++) {
                                           console.log(fruits[i]);
                                        }                              // output: apple orange melon 
-                                       
+
                                   🟡 element
-                                  
+
                                        for (let fruit of fruits) {   ⭐ fruit라는 변수에, fruits의 값이 하나하나 들어가게 된다.
                                            console.log(fruit);
                                        }                              // output: apple orange melon
-                                       
+
                                   🟡 key
-                                  
+
                                         for (let key in fruits) {     ⭐ for문의 in은 key를 반환.
                                            console.log(key);            // output: 0 apple 1 orange 2 melon   
                                                                     ⭐ key는 하나 하나의 index이다. 
                                                                     -> 인덱스에 대한 접근은, 맨 위에것을 써도 되고, 이 in으로 써도 된다. 
-                                                                    
+
                                                                     이 in에서 lenght 길이만큼, 변수를 컨트롤해서 각각에 대한 index를 반환하고
                                                                     그것을 통해서 배열에 대한 index로 배열값에 접근할 수 있다. 
                                            console.log(fruits[key]);          
@@ -379,23 +379,23 @@
                   ● 배열 값을 문자열로 변환: Array.join(separator)
       
       
-      3️⃣3️⃣ 고차함수
+      #️⃣ 고차함수
           
-          ● 하나 이상의 함수를 매개변수로 취하거나 함수를 결과로 반환하는 함수   
-          ● 매개변수로 전달되는 함수는 콜백 함수(Callback function)
-          ● 대표 배열 조작 메서드
-            
-            ◽ 임의 정렬: Array.sort(callback function)
-            ◽ 반복 작업: Array.forEach()
-            ◽ 콜백함수 결과 배열 반환: Array.map()
-            ◽ 조건 만족하는 하나의 값 반환: Array.find()
-            ◽ 조건 만족하는 값 배열로 반환: Array.filter()
-            ◽ 누적 결과 값 반환: Array.reduce()
+                ● 하나 이상의 함수를 매개변수로 취하거나 함수를 결과로 반환하는 함수   
+                ● 매개변수로 전달되는 함수는 콜백 함수(Callback function)
+                ● 대표 배열 조작 메서드
+
+                  ◽ 임의 정렬: Array.sort(callback function)
+                  ◽ 반복 작업: Array.forEach()
+                  ◽ 콜백함수 결과 배열 반환: Array.map()
+                  ◽ 조건 만족하는 하나의 값 반환: Array.find()
+                  ◽ 조건 만족하는 값 배열로 반환: Array.filter()
+                  ◽ 누적 결과 값 반환: Array.reduce()
           
       
-      3️⃣4️⃣ 그 외 고차함수
+      #️⃣ 그 외 고차함수
       
-            🟠 forEach()
+              🟠 forEach()
             
                   ● 배열 요소 별 콜백 함수 각각에 실행: Array..forEach(function(item, index, array){})
                   ● item: 배열 요소, index: 배열 위치, array: 배열
@@ -442,12 +442,12 @@
                    ● 콜백 함수의 조건을 만족하는 값을 배열로 반환: Array.filter(function(item, index, array){})
                    ● item: 배열 요소, index: 배열 위치, array: 배열
                    
-            ⭐ find()와 filter()의 차이점
-                -> find()는 단 하나, 최초 발견되는 객체만 반환되고, 
-                   filter()는 조건을 만족하는 모든 elements들이 반환된다. 
+                  ⭐ find()와 filter()의 차이점
+                      -> find()는 단 하나, 최초 발견되는 객체만 반환되고, 
+                         filter()는 조건을 만족하는 모든 elements들이 반환된다. 
                 
                
-               🟠 reduce()
+              🟠 reduce()
                   
                    ● 요소 별 함수 수행 누적 결과값 반환: Array.reduce(function(accumulator, item, index, array){})
                    ● accumulator: 이전 함수 결과(initial로 초기값 설정 가능), item: 배열 요소, index: 배열 위치, array: 배열
@@ -456,83 +456,83 @@
                         -> accumulator는 이전 함수에 대한 결과값이 누적 되서 저장된다.
             
             
-      3️⃣5️⃣ 생성자
+      #️⃣ 생성자
       
-             ● 유사한 객체를 다중으로 만들 때 사용되는 함수 (타 언어에서의 class 개념과 유사)
-             ● 일반적으로 생성자 함수의 첫 글자는 대문자로 시작
-             ● 생성자 함수로 객체 생성 시 new 연산자를 통해 객체 생성
+                 ● 유사한 객체를 다중으로 만들 때 사용되는 함수 (타 언어에서의 class 개념과 유사)
+                 ● 일반적으로 생성자 함수의 첫 글자는 대문자로 시작
+                 ● 생성자 함수로 객체 생성 시 new 연산자를 통해 객체 생성
+
+                   ⭐ 생성자 함수를 사용할 때, new를 쓰지 않으면 안된다. 
+
+                        Ex)
+                           let bread_1 = Fishbread("cream", 1200);
+
+                           console.log(bread_1);            // undefined      ⭐ undefined가 나온다.
              
-             ⭐ 생성자 함수를 사용할 때, new를 쓰지 않으면 안된다. 
              
-                  Ex)
-                     let bread_1 = Fishbread("cream", 1200);
-                     
-                     console.log(bread_1);            // undefined      ⭐ undefined가 나온다.
-             
-             
-     3️⃣6️⃣ Collection
+      #️⃣ Collection
      
-           ● 구조 혹은 비구조화 형태로 프로그래밍 언어가 제공하는 값을 담을 수 있는 공간
-           ● 자바스크립트에서 제공하는 Collection 
+                ● 구조 혹은 비구조화 형태로 프로그래밍 언어가 제공하는 값을 담을 수 있는 공간
+                ● 자바스크립트에서 제공하는 Collection 
            
-              🟨 Indexed Collection       : index를 통해서 반복문을 돌면서 접근할 수 있다.
-              
-                 Array / Typed Array
-              
-              🟨 keyed Collection         : Object와 같이 특정 String 혹은 자료형을 통해서 접근할 수 있는 구조타입.
-              
-                 Object / Map / Set / Weak map / Weak Set
+                     🟨 Indexed Collection       : index를 통해서 반복문을 돌면서 접근할 수 있다.
+
+                          Array / Typed Array
+
+                     🟨 keyed Collection         : Object와 같이 특정 String 혹은 자료형을 통해서 접근할 수 있는 구조타입.
+
+                          Object / Map / Set / Weak map / Weak Set
+
            
-           
-     3️⃣7️⃣ Map
+      #️⃣ Map
      
-          ● 다양한 자료형의 key를 허용하고, key-value 형태의 자료형을 저장 가능할 수 있는 Collection.
-          ● Map은 Object 대비 비교하면 다양한 key의 사용을 허용하고, 값의 추가/삭제 시 메서드를 통해 수행이 필요함.
-          ● 대표 속성(property) 및 메서드(method)
+                ● 다양한 자료형의 key를 허용하고, key-value 형태의 자료형을 저장 가능할 수 있는 Collection.
+                ● Map은 Object 대비 비교하면 다양한 key의 사용을 허용하고, 값의 추가/삭제 시 메서드를 통해 수행이 필요함.
+                ● 대표 속성(property) 및 메서드(method)
+
+                     ◽ 생성자: new Map()
+                     ◽ 개수 확인: Map.size
+                     ◽ 요소 추가: Map.set(key,value)
+                     ◽ 요소 접근: Map.get(key)
+                     ◽ 요소 삭제: Map.delete(key)
+                     ◽ 전체 삭제: Map.clear()
+                     ◽ 요소 존재 여부 확인: Map.has(key)
+                     ◽ 그 밖의 메서드: Map.keys(), Map.values(), Map.entires()
+            
+            
+     #️⃣ Set
+     
+               ● value만을 저장하며 중복을 허용하지 않는 Collection
+               ● 대표 속성(property) 및 메서드(method)
+
+                     ◽ 생성자: new Set()
+                     ◽ 개수 확인: Set.size
+                     ◽ 요소 추가: Set.add(value)
+                     ◽ 요소 삭제: Set.delete(value)
+                     ◽ 전체 삭제: Set.clear()
+                     ◽ 요소 존재 여부 확인: Set.has(key)
+                     ◽ 그 밖의 메서드: Set.keys(), Set.values(), Set.entires()
+
+                  ⭐ value만 저장하고, 중복을 허용하지 않는다는것 기억하기!
+            
+     
+     #️⃣ Math
+     
+              ● 표준 Built-in 객체로써 수학적인 연산을 위한 속성값과 메서드를 제공하는 객체
+              ● Math는 생성자 함수가 아니며, 모든 속성과 메서드는 정적이기에 Math.function()으로 언제든 호출 가능
+              ● 대표 속성(property) 및 메서드(method)
+
+                    ◽ 오일러 상수(e): Math.E
+                    ◽ PI(파이): Math.PI
+                    ◽ 절대값: Math.abs(x)
+                    ◽ 최대값: Math.max(x)
+                    ◽ 최소값: Math.min(x)
+                    ◽ 랜덤 난수 값: Math.random()
+                    ◽ 제곱과 제곱근: Math.pow(x,y), Math.sqrt(x)
+                    ◽ 소수점 처리: Math.round(x), Math.ceil(x), Math.floor(x)
+
           
-               ◽ 생성자: new Map()
-               ◽ 개수 확인: Map.size
-               ◽ 요소 추가: Map.set(key,value)
-               ◽ 요소 접근: Map.get(key)
-               ◽ 요소 삭제: Map.delete(key)
-               ◽ 전체 삭제: Map.clear()
-               ◽ 요소 존재 여부 확인: Map.has(key)
-               ◽ 그 밖의 메서드: Map.keys(), Map.values(), Map.entires()
-            
-            
-     3️⃣8️⃣ Set
-     
-            ● value만을 저장하며 중복을 허용하지 않는 Collection
-            ● 대표 속성(property) 및 메서드(method)
-              
-               ◽ 생성자: new Set()
-               ◽ 개수 확인: Set.size
-               ◽ 요소 추가: Set.add(value)
-               ◽ 요소 삭제: Set.delete(value)
-               ◽ 전체 삭제: Set.clear()
-               ◽ 요소 존재 여부 확인: Set.has(key)
-               ◽ 그 밖의 메서드: Set.keys(), Set.values(), Set.entires()
-              
-            ⭐ value만 저장하고, 중복을 허용하지 않는다는것 기억하기!
-            
-     
-     3️⃣9️⃣ Math
-     
-            ● 표준 Built-in 객체로써 수학적인 연산을 위한 속성값과 메서드를 제공하는 객체
-            ● Math는 생성자 함수가 아니며, 모든 속성과 메서드는 정적이기에 Math.function()으로 언제든 호출 가능
-            ● 대표 속성(property) 및 메서드(method)
-            
-                  ◽ 오일러 상수(e): Math.E
-                  ◽ PI(파이): Math.PI
-                  ◽ 절대값: Math.abs(x)
-                  ◽ 최대값: Math.max(x)
-                  ◽ 최소값: Math.min(x)
-                  ◽ 랜덤 난수 값: Math.random()
-                  ◽ 제곱과 제곱근: Math.pow(x,y), Math.sqrt(x)
-                  ◽ 소수점 처리: Math.round(x), Math.ceil(x), Math.floor(x)
-          
-          
-     4️⃣0️⃣ Date 
+     #️⃣ Date 
      
              ● 표준 Built-in 객체로써 날짜와 시간을 위한 속성값과 메서드를 제공하는 객체
              ● Date 객체는 1970년 1월 1일 UTC(협정 세계시) 자정과의 시간 차이를 밀리초로 나타내는 정수 값으로 표현
@@ -548,7 +548,7 @@
                 ◽ 그 외 날짜 정보 설정: Date.parse(string)
 
 
-     4️⃣1️⃣ N차원 Array     
+     #️⃣ N차원 Array     
      
             ● 배열(Array) 안에 N개 만큼의 배열이 존재하는 객체
             ● 2/3차원 지도 정보, RGB를 저장하는 2차원 사진 파일 등을 표현할 때 활용 가능
