@@ -143,158 +143,158 @@
                         
                  
             
-           #️⃣ 연결 리스트 구현하기 - 3          ⭐ insert 메서드 만들기.
+           #️⃣ 연결 리스트 구현하기 - 3          ⭐ insert 메서드 구현.
            
-                 🔻 예제
-                 
-                     // insert(): position 위치에 노드 추가
-                     LinkedList.prototype.insert = function (value, position = 0) {         ⭐ position 추가.
-                        if (position < 0 || position > this.length) {                       -> 만약에 poisition, 즉 매개변수를 넣지 않을 경우,
-                                                                                               0으로 default 값 설정. 
-                             return false;                                                     가장 첫번째 위치(=HEAD와 가까운 위치)에 계속 넣어주겠다는 뜻.
-                        }
-                        
-                        let node = new Node(value),
-                          current = this.head,
-                          index = 0,
-                          prev;
-                        
-                        if (position == 0) {
-                           node.next = current;
-                           this.head = node;
-                        } else {
-                          while (index++ < position) {
-                             prev = current;
-                             current = current.next;
-                          }
-                          
-                          node.next = current;
-                          prev.next = node;
-                        }
-                        
-                        this.length++;
-                        
-                        return true;
-                     };
-                     
-                     /* Test code */
-                     let ll = new LinkedList();
-                     
-                     ll.insert(1);
-                     ll.insert(10);
-                     ll.insert(100);
-                     ll.printNode();                // 100 -> 10 -> 1 -> null
-                     console.log(ll.size());        // 3
-                     
-                     ll.insert(2, 1);
-                     ll.printNode();                // 100 -> 2 -> 10 -> 1 -> null
-                     ll.insert(3, 3);
-                     ll.printNode();                // 100 -> 2 -> 10 -> 2 -> 1 -> null
-                     console.log(ll.size());        // 5
-            
+                    🔻 예제
+
+                         // insert(): position 위치에 노드 추가
+                         LinkedList.prototype.insert = function (value, position = 0) {         ⭐ position 추가.
+                            if (position < 0 || position > this.length) {                       -> 만약에 poisition, 즉 매개변수를 넣지 않을 경우,
+                                                                                                   0으로 default 값 설정. 
+                                 return false;                                                     가장 첫번째 위치(=HEAD와 가까운 위치)에 계속 넣어주겠다는 뜻.
+                            }
+
+                            let node = new Node(value),
+                              current = this.head,
+                              index = 0,
+                              prev;
+
+                            if (position == 0) {
+                               node.next = current;
+                               this.head = node;
+                            } else {
+                              while (index++ < position) {
+                                 prev = current;
+                                 current = current.next;
+                              }
+
+                              node.next = current;
+                              prev.next = node;
+                            }
+
+                            this.length++;
+
+                            return true;
+                         };
+
+                         /* Test code */
+                         let ll = new LinkedList();
+
+                         ll.insert(1);
+                         ll.insert(10);
+                         ll.insert(100);
+                         ll.printNode();                // 100 -> 10 -> 1 -> null
+                         console.log(ll.size());        // 3
+
+                         ll.insert(2, 1);
+                         ll.printNode();                // 100 -> 2 -> 10 -> 1 -> null
+                         ll.insert(3, 3);
+                         ll.printNode();                // 100 -> 2 -> 10 -> 2 -> 1 -> null
+                         console.log(ll.size());        // 5
+
            
            #️⃣ 연결 리스트 구현하기 - 4            ⭐ remove 메서드 구현. (-> 노드 삭제하는 메서드)
            
-                🔻 예제
-                
-                   // remove(): value 데이터를 찾아 노드 삭제
-                   LinkedList.prototype.remove = function (value) {
-                     let current = this.head,
-                       prev = current;
-                       
-                     while (current.date != value && current.next != null 
-                   ) {
-                       prev = current;
-                       current = current.next;
-                     }
-                     
-                     if (current.date != value) {
-                        return null;
-                     }
-                     
-                     if (current === this.head) {
-                        this.head = current.next;
-                     } else {
-                       prev.next = current.next;
-                     }
-                     
-                     this.length--;
-                     
-                     return current.date;
-                   };
-                   
-                   /* Test Code */
-                   let ll = new LinkedList();
-                   
-                   ll.insert(1);
-                   ll.insert(10);
-                   ll.insert(100);
-                   ll.insert(2, 1);
-                   ll.insert(3, 3);
-                   ll.printNode();                  // 100 -> 2 -> 10 -> 3 -> 1 -> null        ⭐ 현재 상태.
-                   
-                   console.log(ll.remove(1000));      // null               ⭐ 1000은 맵핑되는게 없어서 remove 하면 null이 나온다. 
-                   ll.printNode();                    // 100 -> 2 -> 10 -> 3 -> 1 -> null      ⭐ 그래서 여기서는 기존과 동일한 출력값이 나옴.
-                   console.log(ll.remove(1));         // 1
-                   ll.printNode();                    // 100 -> 2 -> 10 -> 3 -> null
-                   console.log(l;l.remove(2));        // 2
-                   ll.printNode();                    // 100 -> 10 -> 3 -> null
-                   console.log(ll.remove(100));       // 100
-                   ll.printNode();                    // 10 -> 3 -> null
-                   console.log(ll.size());            // 2
+                    🔻 예제
+
+                       // remove(): value 데이터를 찾아 노드 삭제
+                       LinkedList.prototype.remove = function (value) {
+                         let current = this.head,
+                           prev = current;
+
+                         while (current.date != value && current.next != null 
+                       ) {
+                           prev = current;
+                           current = current.next;
+                         }
+
+                         if (current.date != value) {
+                            return null;
+                         }
+
+                         if (current === this.head) {
+                            this.head = current.next;
+                         } else {
+                           prev.next = current.next;
+                         }
+
+                         this.length--;
+
+                         return current.date;
+                       };
+
+                       /* Test Code */
+                       let ll = new LinkedList();
+
+                       ll.insert(1);
+                       ll.insert(10);
+                       ll.insert(100);
+                       ll.insert(2, 1);
+                       ll.insert(3, 3);
+                       ll.printNode();                  // 100 -> 2 -> 10 -> 3 -> 1 -> null        ⭐ 현재 상태.
+
+                       console.log(ll.remove(1000));      // null               ⭐ 1000은 맵핑되는게 없어서 remove 하면 null이 나온다. 
+                       ll.printNode();                    // 100 -> 2 -> 10 -> 3 -> 1 -> null      ⭐ 그래서 여기서는 기존과 동일한 출력값이 나옴.
+                       console.log(ll.remove(1));         // 1
+                       ll.printNode();                    // 100 -> 2 -> 10 -> 3 -> null
+                       console.log(l;l.remove(2));        // 2
+                       ll.printNode();                    // 100 -> 10 -> 3 -> null
+                       console.log(ll.remove(100));       // 100
+                       ll.printNode();                    // 10 -> 3 -> null
+                       console.log(ll.size());            // 2
                    
            
            #️⃣ 연결 리스트 구현하기 - 5            ⭐ removeAt() 메서드 구현. -> 매개변수로 position 위치를 받는다. 
                                                     그래서 poisition에 해당하는, 즉 이 index에 해당하는 노드를 삭제해주는 메서드이다. 
            
-                🔻 예제
-                
-                    // removeAt(): position 위치 노드 삭제
-                    LinkedList.prototype.removeAt = function (position = 0
-                    ) {
-                      if (position < 0 || position >= this.length) {
-                        return null;
-                      }
-                      
-                      let current = this.head,
-                         index = 0,
-                         prev;
-                         
-                      if (position == 0) {
-                         this.head = current.next;
-                      } else {
-                        while (index++ < position) {
-                           prev = current;
-                           current = current.next;
-                        }
-                        
-                        prev.next = current.next;
-                      }
-                      
-                      this.length--;
-                      
-                      return current.data;
-                   };
-                   
-                   /* Test code */
-                   let ll = new LinkedList();
-                   
-                   ll.insert(1);
-                   ll.insert(10);
-                   ll.insert(100);
-                   ll.insert(2, 1);
-                   ll.insert(3, 3);
-                   ll.printNode();                        // 100 -> 2 -> 10 -> 3 -> 1 -> null
-                   
-                   console.log(ll.removeAt(1000));        // null
-                   ll.printNode();                        // 100 -> 2 -> 10 -> 3 -> 1 -> null
-                   console.log(ll.removeAt(4));           // 1
-                   ll.printNode();                        // 100 -> 2 -> 10 -> 3 -> null
-                   consoele.log(ll.removeAt());           // 100
-                   ll.printNode();                        // 2 -> 10 -> 3 -> null
-                   console.log(ll.removeAt(1));           // 10       
-                   ll.printNode();                        // 2 -> 3 -> null
-                   console.log(ll.size());                // 2
+                    🔻 예제
+
+                          // removeAt(): position 위치 노드 삭제
+                          LinkedList.prototype.removeAt = function (position = 0
+                          ) {
+                            if (position < 0 || position >= this.length) {
+                              return null;
+                            }
+
+                            let current = this.head,
+                               index = 0,
+                               prev;
+
+                            if (position == 0) {
+                               this.head = current.next;
+                            } else {
+                              while (index++ < position) {
+                                 prev = current;
+                                 current = current.next;
+                              }
+
+                              prev.next = current.next;
+                            }
+
+                            this.length--;
+
+                            return current.data;
+                         };
+
+                         /* Test code */
+                         let ll = new LinkedList();
+
+                         ll.insert(1);
+                         ll.insert(10);
+                         ll.insert(100);
+                         ll.insert(2, 1);
+                         ll.insert(3, 3);
+                         ll.printNode();                        // 100 -> 2 -> 10 -> 3 -> 1 -> null
+
+                         console.log(ll.removeAt(1000));        // null
+                         ll.printNode();                        // 100 -> 2 -> 10 -> 3 -> 1 -> null
+                         console.log(ll.removeAt(4));           // 1
+                         ll.printNode();                        // 100 -> 2 -> 10 -> 3 -> null
+                         consoele.log(ll.removeAt());           // 100
+                         ll.printNode();                        // 2 -> 10 -> 3 -> null
+                         console.log(ll.removeAt(1));           // 10       
+                         ll.printNode();                        // 2 -> 3 -> null
+                         console.log(ll.size());                // 2
              
            
            #️⃣ 연결 리스트 구현하기 - 6             ⭐ indexOf / remove2 구현하기.   
@@ -306,54 +306,53 @@
                                                      별도의 remove 함수 구현없이 할 수 있다.
                                                      -> 2가지 메서드를 통해서 하나의 remove 함수를 대체할 수 있다. 
                        
-               🔻 예제
-               
-                  // indexOf(): value 값을 갖는 노드 위치 반환
-                  LinkedList.prototype.indexOf = function (value) {
-                    let current = this.head,
-                      index = 0;
-                    
-                    while (current != null) {
-                      if (current.data === value) {
-                        return index;
-                      }
-                      
-                      index++;
-                      current = current.next;
-                    }
-                    
-                    return -1;
-                  };
-                  
-                  // remove2(): indexOf + removeAt = remove
-                  LinkedList.prototype.remove2 = function (value) {
-                    let index = this.indexOf(value);
-                    return this.removeAt(index);
-                  };
-                  
-                  /* Test code */
-                  let ll = new LinkedList();
-                  
-                  ll.insert(1);
-                  ll.insert(10);
-                  ll.insert(100);
-                  ll.insert(2, 1);
-                  ll.insert(3, 3);
-                  ll.printNode();                       // 100 -> 2 -> 10 -> 3 -> 1 -> null
-                  
-                  console.log(ll.indexOf(1000));        // -1
-                  console.log(ll.indexOf(1));           // 4
-                  console.log(ll.indexOf(100));         // 0
-                  console.log(ll.indexOf(10));          // 2
-                  
-                  console.log(ll.remove2(1000));        // null
-                  ll.printNode();                       // 100 -> 2 -> 10 -> 3 -> 1 -> null
-                  console.log(ll.remove2(1));           // 1
-                  ll.printNode();                       // 100 -> 2 -> 10 -> 3 -> null
-                  console.log(ll.remove2(2));           // 2
-                  ll.printNode();                       // 100 -> 10 -> 3 -> null
-                  console.log(ll.remove2(100));         // 100
-                  ll.printNode();                       // 10 -> 3 -> null
-                  console.log(ll.size());               // 2
+                    🔻 예제
+
+                        // indexOf(): value 값을 갖는 노드 위치 반환
+                        LinkedList.prototype.indexOf = function (value) {
+                          let current = this.head,
+                            index = 0;
+
+                          while (current != null) {
+                            if (current.data === value) {
+                              return index;
+                            }
+
+                            index++;
+                            current = current.next;
+                          }
+
+                          return -1;
+                        };
+
+                        // remove2(): indexOf + removeAt = remove
+                        LinkedList.prototype.remove2 = function (value) {
+                          let index = this.indexOf(value);
+                          return this.removeAt(index);
+                        };
+
+                        /* Test code */
+                        let ll = new LinkedList();
+
+                        ll.insert(1);
+                        ll.insert(10);
+                        ll.insert(100);
+                        ll.insert(2, 1);
+                        ll.insert(3, 3);
+                        ll.printNode();                       // 100 -> 2 -> 10 -> 3 -> 1 -> null
+
+                        console.log(ll.indexOf(1000));        // -1
+                        console.log(ll.indexOf(1));           // 4
+                        console.log(ll.indexOf(100));         // 0
+                        console.log(ll.indexOf(10));          // 2
+
+                        console.log(ll.remove2(1000));        // null
+                        ll.printNode();                       // 100 -> 2 -> 10 -> 3 -> 1 -> null
+                        console.log(ll.remove2(1));           // 1
+                        ll.printNode();                       // 100 -> 2 -> 10 -> 3 -> null
+                        console.log(ll.remove2(2));           // 2
+                        ll.printNode();                       // 100 -> 10 -> 3 -> null
+                        console.log(ll.remove2(100));         // 100
+                        ll.printNode();                       // 10 -> 3 -> null
+                        console.log(ll.size());               // 2
                    
-     
