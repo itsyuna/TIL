@@ -1,0 +1,164 @@
+
+📂 선형 자료구조
+  
+      🐥 오늘의 목표 : 연결 리스트와 이중 연결 리스트 파악하기!
+      
+
+           #️⃣ 연결 리스트 (Linked List)
+
+                 ● 각 노드가 데이터와 포인터를 가지며, 한 줄로 연견될어 있는 방식으로 데이터를 저장하는 자료 구조
+                 ● 구현 메서드(method)
+
+                     ◽ 노드 개수 / 비어 있는지 확인 / 노드 출력: LinkedList.size(), LinkedList.isEmpty(), LinkedList.printNode()
+                     ◽ 노드 추가: LinkedList.append(), LinkedList.insert()
+                     ◽ 노드 삭제: LinkedList.remove(), LinkedList.removeAt()
+                     ◽ 데이터 위치 확인: LinkedList.indexOf()
+
+                     ⭐ 연결 리스트는 '한 줄로' 연결되어있다는것이 가장 중요!
+                     그리고 구성 요소는 Node와 Linked List인 HEAD를 갖고 있다.
+
+                     노드에는 속성값으로(property) data와 next가 있다.
+                     data는 어떤 element를 실제로 갖고 있는 속성값.
+                     next는 보통 포인터라고 하는데, 또 다른 노드를 가르킬 수 있는 reference이다.
+
+                     HEAD도 여기서는 포인트이고, Linekd List는 HEAD를 기반으로 여러 노드들로 구성되어 있다.
+
+                     -> 이런 노드들을 넣고 빼는데 좀 더 자유롭게 하기 위해서 Linked List가 있다고 보면 된다.
+
+                     만약에 여기에 어떤 새로운 Node가 추가된다고 했을 때,
+                     (* 노드와 노드사이에 넣고 싶다고 가정)
+
+                     그러면 이 기존에 있던 노드가 가르키고 있던 화살표를 없애고,
+                     새로 추가된 노드를 가리키면서 변환을 시켜주고,  
+
+                     새로 추가된 노드가 그 다음 노드로 가리키게끔 하면,
+                     단 2번의 작업만으로 데이터를 가운데에 쏙 집어넣을 수 있다.
+                     => 매우 빠른시간안에 데이터에 대한 추가 혹은 삭제가 다이나믹하게 가능하기 때문에
+                     연결리스트가 자료구조에서 많이 활용되고 있다. 퍼포먼스도 좋음.
+
+                     HEAD라는건, 실제 노드를 어느 위치에서부터 시작할지 정해야
+                     그 노드들과의 연관 관계를 따라가면서 끝지점인 null까지 간다.     (*null = 끝지점)
+                     더이상 가리킬 노드가 없을 때는, next(포인트)라는 속성값에 null이 저장되게 된다. 
+
+                     null을 만날때까지 결국 하나의 Linked List가 연결이 되는것. -> 한줄 형태로.
+
+                     그래서 HEAD는 첫번째 Node를 가리키는 포인터라고 보면 된다.
+
+                     ⭐⭐ 노드는, element를 저장하는 data와 실제 다음 노드를 가르키고 있는 next로 이루어져 있다라는것 기억하기!
+                     
+                     
+           #️⃣ 연결 리스트 구현하기 - 1
+             
+                    🔻 예제
+                    
+                        // Node(): data와 point를 가지고 있는 객체
+                        function Node(data) {
+                            this.data = data;
+                            this.next = null;
+                        }
+                        
+                        // LinkedList(): head와 length를 가지고 있는 객체
+                        function LinkedList() {
+                            this.head = null;
+                            this.length = 0;
+                        }
+                        
+                        // size(): 연결 리스트 내 노드 개수 확인
+                        LinkedList.prototype.size = function () {
+                            return this.length;
+                        };
+                        
+                        // is Empty(): 객체 내 노드 존재 여부 파악
+                        LinkedList.prototype.isEmpty = function () {
+                            return this.length === 0;
+                        };
+                        
+                        /* Test code */
+                        let ll = new LinkedList();
+                        console.log(ll);                        // LinkedList { head: null, length: 0 }
+                        
+                        ll.head = new Node(123);
+                        ll.length++;
+                        console.log(ll);                        // LinkedList { head: Node { data: 123, next: null }, length: 1 }
+                        
+                        ll.head.next = new Node(456);          
+                        ll.length++;
+                        console.log(ll);                       // LinkedList { head: Node { data: 123, next: Node { data: 456, next: null } },
+                                                                   length: 2 }
+                        
+                        
+           #️⃣ 연결 리스트 구현하기 - 2
+           
+                    🔻 예제
+                    
+                        🟡  // printNode(): 노드 출력
+                            LinkedList.prototype.printNode = function () {
+                                for (let node = this.head; node != null; node = node.next) {      ⭐ 반복문으로 Linekd List 탐색하기.
+                                     process.stdout.write(`$(node.data} -> `);                    ⭐ 개행 없이, 실제 low한 데이터를 출력할 수 있다. 
+                                }                                                                     
+                                console.log("null");
+                            };
+
+                            /* Test Code */
+                            let ll = new LinkedList();
+                            console.log(ll);
+
+                            ll.head = new Node(ll);
+                            ll.length++;
+                            console.log(ll);
+
+                            ll.head.next = new Node(ll);
+                            ll.length++;
+                            console.log(ll);
+
+                            ll.printNode();                         // 123 -> 456 -> null
+                        
+                      
+                        🟡  // append(): 연결 리스트 가장 끝에 노드 추가
+                            LinkedList.prototype.append = function (value) {
+                                let node = new Node(value),
+                                   current = this.head;
+
+                                if (this.head === null) {
+                                   this.head = node;
+                                } else {
+                                  while (current.next != null) {
+                                     current = current.next;
+                                  }
+                                  current.next = node;
+                                }
+
+                                this.length++;
+                            };
+
+                            /* Test code */
+                            let ll = new LinekdList();
+
+                            ll.append(1);
+                            ll.append(10);
+                            ll.append(100);
+
+                            ll.printNode();                // 1 -> 10 -> 100 -> null
+                            console.log(ll.size());       // 3
+                        
+                 
+            
+           #️⃣ 연결 리스트 구현하기 - 3
+           #️⃣ 연결 리스트 구현하기 - 4
+           #️⃣ 연결 리스트 구현하기 - 5
+           #️⃣ 연결 리스트 구현하기 - 6
+            
+                       
+                       
+                       
+                       
+                       
+                       
+             
+             
+             
+             
+             
+             
+             
+             
