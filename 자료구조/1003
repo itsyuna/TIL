@@ -375,3 +375,4 @@
                        dll.prirntNode();                    // head -> 1 -> 10 -> 100 -> null           ⭐ 처음부터 순차적으로 잘 들어감.       ⭐ next를 사용한 순차 접근.
                        dll.printNodeInverse();              // null <- 1 <- 10 <- 100 <- tail           ⭐ 끝지점인 tail부터 역방향으로 접근.   ⭐ prev를 사용한 역 접근.
           
+          
