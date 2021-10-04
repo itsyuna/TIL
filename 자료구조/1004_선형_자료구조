@@ -173,25 +173,211 @@
                         dll.inserT(2, 1);
                         dll.insert(3, 3);
                         dll.printNode();                // head -> 100 -> 2 -> 10 -> 3 -> 1 -> null
-                        dll.printNodeInverse();         // 
+                        dll.printNodeInverse();         // null <- 100 <- 2 <- 10 <- 3 <- 1 <- tail
                         
                         
-                        console.log(dll.removeAt(1000));
-                        dll.printNode();
-                        dll.printNodeInverse();
-                        console.log(dll.removeAt(4));
-                        dll.printNode();
-                        dll.printNodeInverse();
-                        console.log(dll.removeAt());
-                        dll.printNode();
-                        dll.printNodeInverse();
-                        console.log(dll.removeAt(1));
-                        dll.printNode();
-                        dll.printNodeInverse();
+                        console.log(dll.removeAt(1000));    // null
+                        dll.printNode();                    // head -> 100 -> 2 -> 10 -> 3 -> 1 -> null
+                        dll.printNodeInverse();             // null <- 100 <- 2 <- 10 <- 3 <- 1 <- tail
+                        console.log(dll.removeAt(4));       // 1
+                        dll.printNode();                    // head -> 100 -> 2 -> 10 -> 3 -> null
+                        dll.printNodeInverse();             // null <- 100 <- 2 <- 10 <- 3 <- tail
+                        console.log(dll.removeAt());        // 100
+                        dll.printNode();                    // head -> 2 -> 10 -> 3 -> null
+                        dll.printNodeInverse();             // null <- 2 <- 10 <- 3 <- tail
+                        console.log(dll.removeAt(1));       // 10
+                        dll.printNode();                    // head -> 2 -> 3 -> null
+                        dll.printNodeInverse();             // null <- 2 <- 3 <- tail
                         
+                                        
+             #️⃣ 원형 연결 리스트 (Circular Linked List)       ⭐ 연결리스트와 거의 동일하다.
+             
+                  ● 각 노드가 데이터와 포인터를 가지며, 원형 형태로 연결되어 있는 방식으로 데이터를 저장하는 자료 구조
+                  
+                  🔻 구현 메서드(method)
+                  
+                      🟡 노드 개수 / 비어 있는지 확인: CircularLinkedList.size(), CircularLinkedList.isEmpty()
+                      
+                      🟡 노드 추가: CircularLinkedList.append(), CircularLinkedList.insert()
+                      
+                      🟡 노드 삭제: CircularLinkedList.remove(), CircularLinkedList.removeAt()
+                      
+                      🟡 데이터 위치 확인 / 노드 출력: CircularLinkedList.indexxOf(), CircularLinkedList.printNode()
+                      
+                            연결리스트와 다른점은, 원형으로 순한하도록 되어있다.    -> 원형 형태로 지속적으로 탐색이 된다. 
+                            그리고 마지막 노드가 원래는 null을 가르키고 있었는데
+                            이제 HEAD가 가르키고 있는 노드를 가르킨다. 
+                            
+                            node가 갖고 있는 property도 data와 next만 가지고 있고,
+                            Circular LinkedL List가 갖고 있는 property도 HEAD와 length 2가지만 갖고 잇다. TAIL 프로퍼티는 없음.
+                            
+             
+             #️⃣ 원형 연결리스트 구현 - 1
+             
+                    🔻 예제
+                    
+                        // Node(): data와 point를 가지고 있는 객체
+                        function Node(data) {
+                           this.data = data;
+                           this.next = null;
+                        }
                         
+                        // LinkedList(): head와 length를 가지고 있는 객체
+                        function CircularLinkedList() {
+                           this.head = null;
+                           this.length = 0;
+                        }
                         
+                        // size(): 연결 리스트 내 노드 개수 확인
+                        CircularLinkedList.prototype.size = function () {
+                           return this.length;
+                        };
                         
+                        // isEmpty(): 객체 내 노드 존재 여부 파악
+                        CircularLinkedList.prototype.isEmpty = function () {
+                           return this.length === 0;
+                        };
+                        
+                        /* Test code */
+                        let cll = new CircularLinkedList();
+                        let node;
+                        console.log(cll);             // CircularLinkedList { head: null, length: 0 }
+                        
+                        node = new Node(123);
+                        cll.head = node;
+                        node.next = cll.head;
+                        cll.length++;
+                        console.log(cll);             // CircularLinkedList { 
+                                                          head: <ref *1> Node { data: 123, next [Circular *1] },
+                                                          length: 1 
+                                                         }  
+                        
+                        node = new Node(456);
+                        node.next = cll.head.next;
+                        cll.head.next = node;
+                        cll.length++;
+                        console.log(cll);             // CircularLinkedList {
+                                                           head: <rev *1> Node {
+                                                             data: 123,           ⭐ 123이 
+                                                             next: Node { data: 456, next: [Circular *1] }    ⭐ 456을 가르키고, 456이 다시 Circular로 순환되는 구조로 되어있다.
+                                                             },
+                                                             length: 2
+                                                         }
+                  
+             
+             #️⃣ 원형 연결리스트 구현 - 2
+             
+                    🔻 예제
+                    
+                        // printNode(): 노드 출력
+                        CircularLinkedList.prototype.printNode = function () {
+                           process.stdout.write("head -> ");
+                           
+                           if (this.length != 0) {
+                              process.stdout.write(`${this.head.data} -> `);
+                              for (let node = this.head.next; node != this.head; node = node.next) {
+                                 process.stdout.write(`${node.data} -> `);
+                              }
+                           }
+                           console.log("null");
+                        };
+                        
+                        // append(): 연결 리스트 가장 끝에 노드 추가
+                        CircularLinkedList.prototype.apped = function (value) {
+                           let node = new Node(value),
+                              current = this.head;
+                              
+                           if (this.head === null) {
+                              this.head = node;
+                           } else {
+                             while (current.next != this.head) {
+                                current = current.next;
+                             }
+                             current.next = node;
+                           }
+                           node.next = this.head;
+                           
+                           this.length++;
+                        };
+                        
+                        /* Test code */
+                        let cll = new CircularLinkedList();
+                        
+                        cll.append(1);
+                        cll.append(10);
+                        cll.append(100);
+                        
+                        cll.printNode();                 // head -> 1 -> 10 -> 100 -> null
+                        console.log(cll.size());         // 3
+                        
+             
+             #️⃣ 원형 연결리스트 구현 - 3
+             
+                    🔻 예제
+                    
+                        // insert(): position 위치에 노드 추가
+                        CircularLinkedList.prototype.insert = function (value, position = 0) {
+                          if (position < 0 || position > this.length) {
+                             return false;
+                          }
+                          
+                          let node = new Node(value),
+                             current = this.head,
+                             index = 0,
+                             prev;
+                             
+                          if (position === 0) {
+                             node.next = current;
+                             
+                             if (this.isEmpty()) {
+                                current = node;
+                             } else {
+                               while (current.next != this.head) {
+                                  current = current.next;
+                               }
+                             }
+                             
+                             this.head = node;
+                             current.next = this.head;
+                          } else {
+                             whwile (index++ < position) {
+                               prev = current;
+                               current = current.next;
+                             }
+                             
+                             node.next = current;
+                             prev.next = node;
+                             
+                             if (node.next === null0 {
+                                node.next = this.head;
+                             }
+                          }
+                          
+                          this.length++;
+                          
+                          return true;
+                       };
+                       
+                       /* Test code */
+                       let cll = new CircularLinkedList();
+                       cll.insert(1);
+                       cll.insert(10);
+                       cll.insert(100);
+                       cll.printNode();         // head -> 100 -> 10 -> 1 -> null                 ⭐ 앞에서부터 각각 잘 추가됨.
+                       
+                       cll.insert(2, 1);
+                       cll.insert(3, 3);
+                       cll.printNode();         // head -> 100 -> 2 -> 10 -> 3 -> 1 -> null       ⭐ 2와 3이 10과 1사이에 각각 잘 배치된것을 볼 수 있다. 
+          
+             
+             #️⃣ 원형 연결리스트 구현 - 4
+             
+             #️⃣ 원형 연결리스트 구현 - 5
+             
+             #️⃣ 원형 연결리스트 구현 - 6
+                            
+                            
+                          
                         
                         
                         
