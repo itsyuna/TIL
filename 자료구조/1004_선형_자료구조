@@ -256,13 +256,13 @@
                         node.next = cll.head.next;
                         cll.head.next = node;
                         cll.length++;
-                        console.log(cll);             // CircularLinkedList {
-                                                           head: <rev *1> Node {
-                                                             data: 123,           ⭐ 123이 
-                                                             next: Node { data: 456, next: [Circular *1] }    ⭐ 456을 가르키고, 456이 다시 Circular로 순환되는 구조로 되어있다.
-                                                             },
-                                                             length: 2
-                                                         }
+                        console.log(cll);            // CircularLinkedList {
+                                                          head: <rev *1> Node {
+                                                            data: 123,           ⭐ 123이 
+                                                            next: Node { data: 456, next: [Circular *1] }   ⭐ 456을 가르키고, 456이 다시 Circular로 순환되는 구조로 되어있다.
+                                                            },
+                                                            length: 2
+                                                        }
                   
              
              #️⃣ 원형 연결리스트 구현 - 2
@@ -372,30 +372,169 @@
              
              #️⃣ 원형 연결리스트 구현 - 4
              
+                    🔻 예제
+                    
+                        // remove(): value 데이터를 찾아 노드 삭제
+                        CircularLinkedList.prototype.remove = function (value) {
+                           let current = this.head,
+                              prev = current,
+                              data;
+                              
+                           while (current.data != value && current.next != this.head) {
+                              prev = current;
+                              current = current.next;
+                           }
+                           
+                           if (current.data != value) {
+                              return null;
+                           }
+                           
+                           data = current.data;
+                           if (current === this.head) {
+                              while (current.next != this.head) {
+                                 current = current.next;
+                              }
+                              
+                              this.head = this.head.next;
+                              current.next = this.head;
+                           } else {
+                              prev.next = current.next;
+                           }
+                           
+                           this.length--;
+                           
+                           return data;
+                        };
+                        
+                        /* Test code */
+                        let cll = new CircularLinkedList();
+                        cll.insert(1);
+                        cll.insert(10);
+                        cll.insert(100);
+                        cll.insert(2, 1);
+                        cll.insert(3, 3);
+                        cll.printNode();
+                        
+                        console.log(cll.remove(1000));            // null
+                        cll.printNode();                          // head -> 100 -> 2 -> 10 -> 3 -> 1 -> null
+                        console.log(cll.remove(1));               // 1
+                        cll.printNode();                          // head -> 100 -> 2 -> 10 -> 3 -> null
+                        console.log(cll.remove(2));               // 2
+                        cll.printNode();                          // head -> 100 -> 10 -> 3 -> null
+                        console.log(cll.remove(100));             // 100
+                        cll.printNode();                          // head -> 10 -> 3 -> null
+                        console.log(cll.size());                  // 2
+                   
+                   
              #️⃣ 원형 연결리스트 구현 - 5
              
-             #️⃣ 원형 연결리스트 구현 - 6
-                            
-                            
-                          
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                                  
-                                  
+                    🔻 예제
+                    
+                        // removeAt(): position 위치 노드 삭제
+                        CircularLinkedList.prototype.removeAt = function (position = 0) {
+                           if (position < 0 || positon >= this.length) {
+                             return null;
+                           }
                            
+                           let current = this.head,
+                             index = 0,
+                             prev;
+                             data;
+                           
+                           if (position === 0) {
+                             data = current.data;
+                             
+                             while (current.next != this.head) {
+                               current = current.next;
+                             }
+                             
+                             this.head = this.head.next;
+                             current.next = this.head;
+                           } else {
+                             while (index++ < position) {
+                                prev = current;
+                                current = current.next;
+                             }
+                                data = curent.data;
+                                prev.next = current.next;
+                             }
+                             
+                             this.length--;
+                             
+                             return data;
+                          };
+                          
+                          /* Test code */
+                          let cll = new CircularLinkedList();
+                          
+                          cll.insert(1);
+                          cll.insert(10);
+                          cll.insert(100);
+                          cll.insert(2, 1);
+                          cll.insert(3, 3);
+                          cll.printNode();                      // head -> 100 -> 2 -> 10 -> 3 -> 1 -> null
+                          
+                          console.log(cll.removeAt(1000));      // null
+                          cll.printNode();                      // head -> 100 -> 2 -> 10 -> 3 -> 1 -> null
+                          console.log(cll.removeAt(4));         // 1
+                          cll.printNode();                      // head -> 100 -> 2 -> 10 -> 3 -> null
+                          console.log(cll.removeAt());          // 100
+                          cll.printNode();                      // head -> 2 -> 10 -> 3 -> null
+                          console.log(cll.removeAt(1));         // 10
+                          cll.printNode();                      // head -> 2 -> 3 -> null
+                          console.log(cll.size());              // 2
+             
+             
+             #️⃣ 원형 연결리스트 구현 - 6
+             
+                    🔻 예제
+                     
+                        // indexOf(): value 값을 갖는 노드 위치 반환
+                        CircularLinkedList.prototype.indexOf = function (value) {
+                           let current = this.head,
+                              index = 0;
+                              
+                           do {
+                              if (current.data === value) {
+                                 return index;
+                              }
+                              
+                              index++;
+                              current = current.next;
+                           } while (current != this.head);
+                           
+                           return -1;
+                        };
                         
+                        // remove2(): indexOf + removeAt = remove
+                        CircularLinkedList.prototype.remove2 = function (value) {
+                           let index = this.indexOf(value);
+                           return this.removeAt(index);
+                        };
                         
+                        /* Test code */
+                        let cll = new CircularLinkedList();
                         
-        
+                        cll.insert(1);
+                        cll.insert(10);
+                        cll.insert(100);
+                        cll.insert(2, 1);
+                        cll.insert(3, 3);
+                        cll.printNode();                          // head -> 100 -> 2 -> 10 -> 3 -> 1 -> null
+                        
+                        console.log(cll.indexOf(1000));           // -1
+                        console.log(cll.indexOf(1));              // 4
+                        console.log(cll.indexOf(100));            // 0
+                        console.log(cll.indexOf(10));             // 2
+                        
+                        console.log(cll.remove2(1000));           // null
+                        cll.printNode();                          // head -> 100 -> 2 -> 10 -> 3 -> 1 -> null
+                        console.log(cll.remove2(1));              // 1
+                        cll.printNode();                          // head -> 100 -> 2 -> 10 -> 3 -> null
+                        console.log(cll.remove2(2));              // 2
+                        cll.printNode();                          // head -> 100 -> 10 -> 3 -> null
+                        console.log(cll.remove2(100));            // 100
+                        cll.printNode();                          // head -> 10 -> 3 -> null
+                        console.log(cll.size());                  // 2
+            
+            
