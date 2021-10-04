@@ -1,0 +1,215 @@
+
+  📂 선형 자료구조
+    
+    🐥 오늘의 목표 : 이중 연결리스트와 원형 연결리스트 이해하기!
+    
+    
+            #️⃣ 이중 연결 리스트 구현 - 3
+            
+                    🔻 예제
+                  
+                        // insert(): position 위치에 노드 추가
+                        
+                        DoubleLinkedList.prototype.insert = function (value, position = 0) {
+                           if (position < 0 || position > this.length) {
+                              return false;
+                           }
+                           
+                           let node = new Node(value),
+                              current = this.head,
+                              index = 0,
+                              prev;
+                              
+                           if (position === -) {
+                              if (this.head === null) {
+                                 this.head = node;
+                                 this.tail = node;
+                              } else {
+                                 node.next = current;
+                                 current.prev = node;
+                                 this.head = node;
+                              }
+                           } else if (position === this.length) {     ⭐ 기존과 다른점
+                              current = this.tail;                        -> tail에 대한 업데이트때문에 else if가 추가되었다.
+                              curren.next = node;
+                              node.prev = current;
+                              this.tail = node;
+                           } else {
+                               while (index++ < position) {
+                                  prev = current;
+                                  current - current.next;
+                               }
+                               
+                               node.next = current;
+                               prev.next = node;
+                               
+                               current.prev = node;       ⭐ prev에 대한 pointer 처리도 추가되었다.
+                               node.prev = prev;
+                           }
+                           
+                           this.length++;
+                           
+                           return true;
+                        };
+                        
+                        /* Test code */
+                        let dll = new DoubleLinkedList();
+                        
+                        dll.insert(1);
+                        dll.insert(10);
+                        dll.insert(100);
+                        dll.printNode();                  // head -> 100 -> 10 -> 1 -> null
+                        dll.printNodeInverse();           // null <- 100 <- 10 <- 1 <- tail
+                        
+                        dll.insert(2, 1);
+                        dll.insert(3, 3);
+                        dll.printNode();                  // head -> 100 -> 2 -> 10 -> 3 -> 1 -> null
+                        dll.printNodeInverse();           // null <- 100 <- 2 <- 10 <- 3 <- 1 <- tail
+          
+          
+            #️⃣ 이중 연결리스트 구현 - 4     
+            
+                    🔻 예제
+                        
+                        // remove(): value 데이터를 찾아 노드 삭제
+                        DoubleLinkedList.prototype.remove = function (value) {
+                            let current = this.head,
+                               prev = current;
+                            
+                            while (current.data != value && current.next != null) {
+                               prev = current;
+                               current = current.next;
+                            }
+                            
+                            if (current.data != value) {
+                               return null;
+                            }
+                            
+                            if (current === this.head) {
+                               this.head = current.next;
+                               if (this.length ===1) this.tail = null;
+                               else thi.shead.prev = null;
+                            } else if (current === this.tail) {
+                               this.tail = current.prev;
+                               this.tail.next = null;
+                            } else {
+                               prev.next = current.next;
+                               current.next.prev = prev;
+                            }
+                            
+                            this.length--;
+                            
+                            return current.data;
+                         };
+                         
+                         /* Test code */
+                         let dll = new DoubleLinkedList();
+                         
+                         dll.insert(1);
+                         dll.insert(10);
+                         dll.insert(100);
+                         dll.insert(2, 1);
+                         dll.insert(3, 3);
+                         dll.printNode();                   // head -> 100 -> 2 -> 10 -> 3 -> 1 -> null
+                         dll.printNodeInverse();            // null <- 100 <- 2 <- 10 <- 3 <- 1 <- tail
+                         
+                         console.log(dll.remove(1000));     // null
+                         dll.printNode();                   // head -> 100 -> 2 -> 10 -> 3 -> 1 -> null
+                         dll.printNodeInverse();            // null <- 100 <- 2 <- 10 <- 3 <- 1 <- tail
+                         console.log(dll.remove(1));        // 1
+                         dll.printNode();                   // head -> 100 -> 2 -> 10 -> 3 -> null
+                         dll.printNodeInverse();            // null <- 100 <- 2 <- 10 <- 3 <- tail
+                         console.log(dll.remove(2));        // 2
+                         dll.printNode();                   // head -> 100 -> 10 -> 3 -> null
+                         dll.printNodeInverse();            // null <- 100 <- 10 <- 3 <- tail
+                         console.log(dll.remove(100));      // 100
+                         dll.printNode();                   // head -> 10 -> 3 -> null
+                         dll.printNodeInverse();            // null <- 10 <- 3 <- tail
+                         
+                         
+            #️⃣ 이중 연결리스트 구현하기 - 5
+            
+                   🔻 예제
+                   
+                        // removeAt(): position 위치 노드 삭제
+                        DoubleLinkedList.prototype.removeAt = function (position = 0) {
+                           if (position < 0 || position >= this.length) {
+                              return null;
+                           }
+                           
+                           let current = this.head,
+                              index = 0,
+                              prev;
+                              
+                           if (position === 0) {
+                              this.head = current.next;
+                              if (this.length === 1) this.tail = null;
+                              else this.head.prev = null;
+                           } else if (position === this.length - 1) {
+                              current = this.tail;
+                              this.tail = current.prev;
+                              this.tail.next = null;
+                           } else {
+                              while (index++ < position) {
+                                 prev = current;
+                                 current = current.next;
+                              }
+                              
+                              prev.next = current.next;
+                              current.next.prev = prev;
+                           }
+                           
+                           this.length--;
+                           
+                           return current.data;
+                        };
+                        
+                        /* Test code */
+                        let dll = new DoubleLinkedList();
+                        
+                        dll.insert(1);
+                        dll.insert(10);
+                        dll.insert(100);
+                        dll.inserT(2, 1);
+                        dll.insert(3, 3);
+                        dll.printNode();                // head -> 100 -> 2 -> 10 -> 3 -> 1 -> null
+                        dll.printNodeInverse();         // 
+                        
+                        
+                        console.log(dll.removeAt(1000));
+                        dll.printNode();
+                        dll.printNodeInverse();
+                        console.log(dll.removeAt(4));
+                        dll.printNode();
+                        dll.printNodeInverse();
+                        console.log(dll.removeAt());
+                        dll.printNode();
+                        dll.printNodeInverse();
+                        console.log(dll.removeAt(1));
+                        dll.printNode();
+                        dll.printNodeInverse();
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                                  
+                                  
+                           
+                        
+                        
+                        
+        
