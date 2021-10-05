@@ -1,113 +1,284 @@
 
 📂 선형 자료구조
 
-    #️⃣ 스택 (Stack)
+    🐥 오늘의 목표 : 스택과 큐 이해하기!
     
-       ● 나중에 넣은 데이터가 먼저 나오는 LIFO(Last In First Out) 기반의 선형 자료 구조
-       
-       ● 구현 메서드 (method)
-       
-          ◽ 데이터 전체 획득 / 비어 있는지 확인: Stack.getBuffer(), Stack.isEmpty()
-          
-          ◽ 추가 / 삭제 / 마지막 데이터 조회 / 크기 확인: Stack.push(), Stack.pop(), Stack,peak(), Stack.size() 
-          
-          ◽ 데이터 위치 / 존재 여부 확인: Stack.indexOf(), Stack.includes()
-          
-   #️⃣ 스택 구현하기 - 1
-          
-          🔻 예제
-              // Stack(): 생성자 함수로 초기 데이터 설정
-              function Stack(array) {
-                this.array = array ? array : [];
-              }
-              
-              // getBuffer(): 객체 내 데이터 셋 반환
-              Stack.prototype.getuffer = function() {
-                 reutrn this.array.slice();
-              }
-              
-              // isEmpty(): 객체 내 데이터 존재 여부 파악
-              Stack.prototype.isEmpty = function () {
-                return this.array.length == 0;
-              };
-              
-              let stack = new Stack([1, 2, 3]);
-              
-              console.log(stack): // output: Stack { array: [1, 2, 3] }
-              
-              let data = stack.getBuffer();
-              console.log(data === stack.array);  // output: false
-              console.log(data);    // output: [ 1, 2, 3 ]
-              
-              console.log(stack.isEmpty());      // false
-              
-              console.log(OBject.getOwnPropertyDescriptors(Stack.prototype));
-           
-   
-   #️⃣ 스택 구현하기 - 2
-   
-            🔻 예제
+
+            #️⃣ 스택 (Stack)
+
+               ● 나중에 넣은 데이터가 먼저 나오는 LIFO(Last In First Out) 기반의 선형 자료 구조
+
+               ● 구현 메서드 (method)
+
+                  ◽ 데이터 전체 획득 / 비어 있는지 확인: Stack.getBuffer(), Stack.isEmpty()
+
+                  ◽ 추가 / 삭제 / 마지막 데이터 조회 / 크기 확인: Stack.push(), Stack.pop(), Stack,peak(), Stack.size() 
+
+                  ◽ 데이터 위치 / 존재 여부 확인: Stack.indexOf(), Stack.includes()
+
+            #️⃣ 스택 구현하기 - 1
+
+                  🔻 예제
+                      // Stack(): 생성자 함수로 초기 데이터 설정
+                      function Stack(array) {
+                        this.array = array ? array : [];
+                      }
+
+                      // getBuffer(): 객체 내 데이터 셋 반환
+                      Stack.prototype.getuffer = function() {
+                         reutrn this.array.slice();
+                      }
+
+                      // isEmpty(): 객체 내 데이터 존재 여부 파악
+                      Stack.prototype.isEmpty = function () {
+                        return this.array.length == 0;
+                      };
+
+                      let stack = new Stack([1, 2, 3]);
+
+                      console.log(stack): // output: Stack { array: [1, 2, 3] }
+
+                      let data = stack.getBuffer();
+                      console.log(data === stack.array);  // output: false
+                      console.log(data);    // output: [ 1, 2, 3 ]
+
+                      console.log(stack.isEmpty());      // false
+
+                      console.log(OBject.getOwnPropertyDescriptors(Stack.prototype));
+
+
+              #️⃣ 스택 구현하기 - 2
+
+                    🔻 예제
+
+                        Stac.prototype.push = function (element) {           // push(): 데이터 추가
+                           reutrn this.array.push(element);
+                        };
+
+                        Stack.prototype.pop = funciton () {                 // pop(): 데이터 삭제
+                            return this.array.pop();
+                        }
+
+                        Stack.prototype.peek = function () {                // peek: 가장 끝 데이터 반환
+                           return this.array[this.array.length - 1];        
+                        };
+
+                        Stack.prototype.size = function () {                // size(): 스택 내 데이터 개수 확인
+                           return this.array.length;
+                        };
+
+                        let stack = new Stack 
+
+                        console.log(stack);   // Stack { array [ 1, 2 ] }
+                        stack.push(3);
+                        console.log(stack)l    // Stack { array [ 1, 2, 3 ] }
+
+                        console.log(stack.pop());       // 3
+                        console.log(stack.pop());       // 2
+                        console.log(stack.peek());      // 1
+                        console.log(stack.size());      // 1
+
+
+              #️⃣ 스택 구현하기 - 3
+
+                    🔻 예제
+                       // indexOf(): 데이터 위치 값 조회
+                       Stack.prototype.indexOf() = function (element, position = 0) {
+                         /* case 1 */
+                         // return this.array.indexOf(element, position);
+                         /* case 2 */
+                         for (let i = position; i < element; i++) {
+                           if (element == this.array[i]) reutrn i;
+                         }
+
+                         reutrn - 1;
+                      };
+
+                      // idnexOf(): 데이터 존재 여부 확인
+                      Stack.prototype.incluldes = function (element, position = 0) {
+                        /* case 1 */
+                        // return this.array.includes(element, position);
+                        /* case 2 */
+                        for (let i = positiono; i < element; i++) {
+                          if (element =- this.array[i] return ture;
+                        }
+
+                        return false;
+                     };
+
+                     let stack = new Stack{[1, 2, 3]}
+
+                     console.log(stack.indexOf(1)); // output: 0
+                     console.log(stack.indexOf(1, 2));     // output: -1
+                     console.log(stack.includes(1));       // true
+                     console.log(stack.incluldes(1, 2));    // output: false
             
-                Stac.prototype.push = function (element) {        // push(): 데이터 추가
-                   reutrn this.array.push(element);
-                };
-                
-                Stack.prototype.pop = funciton () {             // pop(): 데이터 삭제
-                    return this.array.pop();
-                }
-                
-                Stack.prototype.peek = function () {
-                   return this.array[this.array.length - 1];        // peek: 가장 끝 데이터 반환
-                };
-                
-                Stack.prototype.size = function () {
-                   return this.array.length;
-                };
-                
-                let stack = new Stack 
-                
-                console.log(stack);   // Stack { array [ 1, 2 ] }
-                stack.push(3);
-                console.log(stack)l    // Stack { array [ 1, 2, 3 ] }
-                
-                console.log(stack.pop());       // 3
-                console.log(stack.pop());       // 2
-                console.log(stack.peek());      // 1
-                console.log(stack.size());      // 1
-  
-  
-   #️⃣ 스택 구현하기 - 3
-   
-            🔻 예제
-               // indexOf(): 데이터 위치 값 조회
-               Stack.prototype.indexOf() = function (element, position = 0) {
-                 /* case 1 */
-                 // return this.array.indexOf(element, position);
-                 /* case 2 */
-                 for (let i = position; i < element; i++) {
-                   if (element == this.array[i]) reutrn i;
-                 }
+            
+            #️⃣ 큐 (Queue)
+            
+                 ● 먼저 넣은 데이터가 먼저 나오는 FIFO(First In First Out) 기반의 선형 자료 구조
                  
-                 reutrn - 1;
-              };
-              
-              // idnexOf(): 데이터 존재 여부 확인
-              Stack.prototype.incluldes = function (element, position = 0) {
-                /* case 1 */
-                // return this.array.includes(element, position);
-                /* case 2 */
-                for (let i = positiono; i < element; i++) {
-                  if (element =- this.array[i] return ture;
-                }
+                 🔻 구현 메서드(method)
+                    
+                    ◽ 데이터 전체 획득 / 비어 있는지 확인: Queue.getBuffer(), Queue.isEmpty()
+                    
+                    ◽ 데이터 추가 / 삭제: Queue.enqueue(), Queue.dequeue()
+                    
+                    ◽ 첫번째 데이터 / 사이즈 / 전체 삭제: Queue.front(), Queue.size(), Queue.clear()
+           
+           
+            #️⃣ 큐 구현하기
+            
+                 🔻 예제 1
+                 
+                    // Queue(): 생성자 함수로 초기 데이터 설정
+                    function Queue(array) {
+                       this.array = array ? array : [];
+                    }
+                    
+                    // getBuffer(): 객체 내 데이터 셋 반환
+                    Queue.prototype.getBuffer = function () {
+                       return this.array.slice();
+                    };
+                    
+                    // is Empty(): 객체 내 데이터 존재 여부 파악
+                    Queue.prototype.isEmpty = function () {
+                      return this.aray.length == 0;
+                    };
+                    
+                    let queue = new Queue([1, 2, 3]);
+                    
+                    console.log(queue);      // output: queue { array: [ 1, 2, 3 ] }
+                    
+                    let data = queue.getBuffer();
+                    console.log(data === queue.array);      // false
+                    console.log(data);                      // output: [1, 2, 3]
+                    
+                    console.log(queue.isEmpty());           // false
+                    
+                    console.log(Object.getOwnPropertyDescriptors(Queue.prototype));
+                 
+                 
+                 🔻 예제 2
+                    
+                    // enqueue(): 데이터 추가
+                    Queue.prototype.enqueue = function (element) {
+                       return this.array.push(element);
+                    };
+                    
+                    // dequeue(): 데이터 삭제
+                    Queue.prototype.dequeue = function () {
+                       return this.array.shift();
+                    };
+                    
+                    let queue = new Queue([1, 2]);
+                    console.log(queue);                  // Queue { array: [ 1, 2] }
+                    
+                    queue.enqueue(3);
+                    queue.enqueue(4);
+                    console.log(queue);             // Queue { array: [ 1, 2, 3, 4 ] }
+                    
+                    console.log(queue.dequeue());         // 1
+                    console.log(queue.dequeue());         // 2
+                    console.log(queue);                 // Queue { array [ 3, 4 ] }
+               
+                 
+                 🔻 예제 3
+                 
+                    // front(): 가장 첫 데이터 반환
+                    Queue.prototype.front = function () {
+                       return this.array.length == 0 ? undefined : this.array[0];
+                    };
+                    
+                    // size(): 큐 내 데이터 개수 확인
+                    Queue.prototype.size == function () {
+                       return this.array.length;
+                    };
+                    
+                    // clear(): 큐 초기화
+                    Queue.prototype.clear = function() {
+                        this.array = [];
+                    };
+                    
+                    let queue = new Queue([1, 2, 3, 4]);
+                    
+                    queue.dequeue();
+                    console.log(queue.front());         // 2
+                    console.log(queue);               // output: Queue { array: [ 2, 3, 4 ] }
+                    
+                    console.log(queue.size());          // 3
+                    queue.clear();
+                    console.log(queue);                // output: Queue { array: [] }
+                    console.log(queue.size());         // 0
+               
+            
+            #️⃣ 큐 최적화
+            
+                 🟡 방식 개선 : enqueue/dequeue 방식을 push/shift에서 index로 변경 (shift는 O(n), index는 O(1))
+                 
+                        🔻 예제
+                        
+                           function Queue(array) {
+                              this.array = array ? array : [];
+                              this.tail = array ? array.length : 0;
+                              this.head = 0;
+                           }
+                           
+                           Queue.prototype.enqueue = function (element) {
+                              return (this.array[this.tail++] = element);
+                           };
+                           
+                           Queue.prototype.dequeue = function () {              ⭐ 개선할 부분: dequeue
+                              if (this.tail === this.head) return undefined;
+                              
+                              let element = this.array[this.head];          
+                              delete this.array[this.head++];
+                              return element;
+                           };
+                           
+                           let queue = new Queue([1, 2]);
+                           console.log(queue);         // Queue { array: [ 1, 2 ], tail: 2, head: 0 }
+                           
+                           queue.enqueue(3);
+                           queue.enqueue(4);
+                           console.log(queue);        // Queue { array: [ 1, 2, 3, 4 ], tail: 4, head: 0 }
+                           
+                           console.log(queue.dequeue());       // 1
+                           console.log(queue.dequeue());       // 2
+                           console.log(queue);                 // Queue { array: [ <2 empty itmes>, 3, 4 ], tail: 4, head: 2 }
+                   
+                   
+                🔻 benchmark
                 
-                return false;
-             };
-             
-             let stack = new Stack{[1, 2, 3]}
-             
-             console.log(stack.indexOf(1)); // output: 0
-            
-            
-            
-            
-      
+                     🟡 성능 측정
+                     
+                        ◽ enqueue/dequeue 성능 비교: push/shift 사용한 queue_1과 index 사용한 queue_2로 성능 비교
+                        
+                            🔻 예제
+                            
+                                let queue_1 = new Queue_1();
+                                let queue_2 = new Queue_2();
+                                const count = 100000;
+                                
+                                function benchmark(queue, enqueue) {
+                                   let start = Date.now();
+                                   for (let i = 0; i < count; i++) {
+                                      enqueue ? queue.enqueue() : queue.dequeue();
+                                   }
+                                   return Date.now() - start;
+                                }
+                                
+                                console.log("enqueue queue_1: " + benchmark(queue_1, 1) + "ms");        // queue_1: 8ms
+                                console.log("enqueue queue_2: " + benchmark(queue_2, 1) + "ms");        // queue_2: 6ms
+                                
+                                console.log("enqueue queue_1: " + benchmark(queue_1, 0) + "ms");        // queue_1: 5695ms      
+                                                                                                        ⭐ 기업 알고리즘 평가할 때, 5초 이상 걸리면 매우 많이 걸리는것. 
+                                console.log("enqueue queue_2: " + benchmark(queue_2, 0) + "ms");        // queue_2: 9ms
+                          
+                          
+                      ⭐ 배열할 때도 인덱스 기반으로 접근한 이유도 여기에 있다.
+                          그래서 인덱스로 핸들링 하는걸 권장한다. 
+                          
+                          처음에 익숙하지 않으면 그 때는 method를 사용하고, 익숙해지면 인덱스 기반으로 구현하기!
+                          
+                          
