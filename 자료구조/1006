@@ -1,0 +1,285 @@
+
+[개인복습 및 예습]
+
+
+    📂 선형 자료구조
+
+          #️⃣ 이중 연결 리스트 (Double Linked List)
+
+              : 각 노드가 데이터와 포인터를 가지고 있으며, 두 줄로 연결되어 있는 방식으로 데이터를 저장하는 자료 구조
+
+                    ⭐ 기존 자료구조와의 차잊엄
+
+                        1. Node 부분에서 다름. next뿐만 아니라 prev라는 또 하나의 point 추가.
+
+                        2. Double Linked List라는 객채내에서도, 기존 HEAD와 length에 더불어서
+                           뒤에서부터 시작할 수 있는 TAIL이 추가됨.
+
+                    ⭐ 장점 
+
+                          -> current에 prev라는 내장되어 있는 property를 통해서,
+                             이전 객체에 접근이 가능하다!
+                             또, TAIL을 통해서 뒤에서부터 바로 탐색이 가능하다.
+                         
+                    🔻 구현 메서드(method)
+
+                          🟡 DoubleLinkedList.size()                  : 노드 개수
+
+                          🟡 DoubleLinkedList.isEmpty()               : 비어 있는지 확인
+
+                          🟡 DoubleLinkedList.printNode()             : 순차 출력
+
+                          🟡 DoubleLinkedList.printNodeInverse()      : 역 출력
+
+                          🟡 DoubleLinkedList.append()                : 노드 추가
+
+                          🟡 DoubleLinkedList.insert()                : 노드 추가
+
+                          🟡 DoubleLinkedList.remove()                : 노드 삭제
+
+                          🟡 DoubleLinkedList.removeAt()              : 노드 삭제
+
+                          🟡 DoubleLinkedList.indexOf()               : 데이터 위치 확인
+              
+              
+          #️⃣ 원형 연결 리스트 (Circular Linked List)          ⭐ 연결리스트와 거의 동일.
+    
+                    : 각 노드가 데이터와 포인터를 가지며, 원형 형태로 연결되어 있는 방식으로 데이터를 저장하는 자료 구조
+
+                    🔻 구현 메서드(method)
+
+                         🟡 CircularLinkedList.size()               : 노드 개수
+
+                         🟡 CircularLinkedList.isEmpty()            : 비어 있는지 확인
+
+                         🟡 CircularLinkedList.append()             : 노드 추가
+
+                         🟡 CircularLinkedList.insert()             : 노드 추가
+
+                         🟡 CircularLinkedList.remove()             : 노드 삭제
+
+                         🟡 CircularLinkedList.removeAt()           : 노드 삭제
+
+                         🟡 CircularLinkedList.indexOf()            : 데이터 위치 확인
+
+                         🟡 CircularLinkedList.printNode()          : 노드 출력
+
+
+                       🔥 연결 리스트와 차이점!
+
+                              -> 원형 연결리스트는 말그대로, '원형'으로 순환하도록 되어있다.
+
+                                 그리고 마지막 노드가 원래는 null을 가르키고 있었는데,
+                                 원형 연결리스트에서는 HEAD가 가르키고 있는 노드를 가르킨다.
+
+                                 + node가 갖고 있는 property도 data와 next만 가지고 있고,
+                                   Circular Linked List가 갖고 있는 property도 HEAD와 length 2가지만 있다.  -> TAIL은 없음!
+
+      
+          #️⃣ 스택 (Stack)
+     
+                : 나중에 넣은 데이터가 먼저 나오는 LIFO(Last In First Out) 기반의 선형 자료 구조 
+                
+                🔻 구현 메서드 (method)
+                
+                      🟡 Stack.getBuffer()            : 데이터 전체 획득
+                      
+                      🟡 Stack.isEmpty()              : 비어 있는지 확인
+                      
+                      🟡 Stack.push()                 : 추가
+                      
+                      🟡 Stack.pop()                  : 삭제
+                      
+                      🟡 Stack.peak()                 : 마짐작 데이터 조회
+                      
+                      🟡 Stack.size()                 : 크기 확인
+                      
+                      🟡 Stack.indexOf()              : 데이터 위치
+                      
+                      🟡 Stack.includes()             : 존재 여부 확인
+                      
+                      
+          #️⃣ 큐 (Queue)
+          
+                  : 먼저 넣은 데이터가 먼저 나오는 FIFO(First In First Out) 기반의 선형 자료 구조
+                  
+                     🔻 구현 메서드(method)
+                     
+                        🟡 Queue.getBuffer()            : 데이터 전체 획득
+                        
+                        🟡 Queue.isEmpty()              : 비어 있는지 확인
+                        
+                        🟡 Queue.enqueue()              : 데이터 추가
+                        
+                        🟡 Queue.dequeue()              : 데이터 삭제
+                        
+                        🟡 Queue.front()                : 첫번째 데이터
+                        
+                        🟡 Queue.size()                 : 사이즈
+                        
+                        🟡 Queue.clear()                : 전체 삭제
+     
+     
+    📂 비선형 자료구조                       (+ 예습)
+   
+            #️⃣ 우선순위 큐(Priority Queue)
+            
+                ● 우선순위를 고려하여 먼저 넣은 데이터가 먼저 나오는 FIFO(First In First Out) 기반의 선형 자료 구조
+                
+                ● 우선순위 정렬 방식: 배열 기반, 연결리스트 기반, 힙(Heap) 기반 등의 정렬 방식 존재
+                
+                ● 구현 메서드(method)
+                
+                     ◽ 데이터 전체 획득 / 비어 있는지 확인: PriorityQueue.getBuffer(), PriorityQueue.isEmpty()
+                     
+                     ◽ 데이터 추가 / 삭제: PriorityQueue.enqueue(), PriorityQueue.dequeue()
+                     
+                     ◽ 첫번째 데이터 / 사이즈 / 전체 삭제: PriorityQueue.front(), PriorityQueue.size(), PriorityQueue.clear()
+            
+            
+            #️⃣ 원형 큐(Circular Queue)      
+            
+                ● 원형 형태를 가지며, 먼저 넣은 데이터가 먼저 나오는 FIFO(First In First Out) 기반의 선형 자료 구조
+                
+                ● 구현 메서드(method)
+                
+                     ◽ 데이터 꽉 찼는지 / 비어 있는지 확인: CircularQueue.isEmpty(), CircularQueue.isFull()
+                     
+                     ◽ 데이터 추가 / 삭제 / 반환: CircularQueue.enqueue(), CircularQueue.dequeue(), CircularQueue.getBuffer()
+                     
+                     ◽ 첫번째 데이터 / 사이즈 / 전체 삭제: CircularQueue.front(), CircularQueue.size(), CircularQueue.clear()
+                     
+           
+            #️⃣ 데크 (Deque)
+            
+                ● Double-Ended Queue 약자로, 삽입과 삭제가 양쪽 끝에서 모두 발생할 수 있는 선형 자료 구조
+                
+                ● 구현 메서드(method)
+                    
+                    ◽ 데이터 전체 획득 / 비어 있는지 확인: Deque.getBuffer(), Deque.isEmpty()
+                    
+                    ◽ 데이터 추가 / 삭제: Deque.pushFront(), Deque.popFront(), Deque.pushBack(), Deque.popBack()
+                    
+                    ◽ 첫번째 & 끝 데이터 반환 / 사이즈 / 전체 삭제: Deque.front(), Deque.back(), Deque.size(), Deque.clear()
+                    
+                    
+            #️⃣ 데크 구현하기 - 1    
+                     
+                  🔻 예제
+                  
+                      // Deque(): 초기 속성값 설정을 위한 생성자 함수
+                      function Deque(array = []) {
+                          this.array = array;
+                      }
+                      
+                      // getBuffer(): 객체 내 데이터 셋 반환
+                      Deque.prototype.getBuffer = function () {
+                         return this.array.slice();
+                      };
+                      
+                      // isEmpty(): 데이터 비어 있는지 확인
+                      Deque.prototype.isEmpty = function () {
+                         return this.array.length == 0;
+                      };
+                      
+                      let dq = new Deque([1, 2, 3]);
+                      
+                      console.log(dq);                        // Deque { array: [ 1, 2, 3 ] }       
+                      
+                      let data = dq.getBuffer();
+                      console.log(data === dq.array);         // false
+                      console.log(data);                      // [ 1, 2, 3]
+                      
+                      console.log(dq.isEmpty()):              // false
+                      
+                      console.log(Object.getOwnPropertyDescriptors(Deque.prototype));          // {
+                                                                                                    constructor: {
+                                                                                                       value: [function: Deque],
+                                                                                                       writable: true,
+                                                                                                       enumerable: false,
+                                                                                                       configurable: true
+                                                                                                    },
+                                                                                                    getBuffer: {
+                                                                                                       value: [function (anonymous)],
+                                                                                                       writable: true,
+                                                                                                       enumerable: true,
+                                                                                                       configurable: true
+                                                                                                    },
+                                                                                                    isEmpty: {
+                                                                                                       value: [function (anonymous)],
+                                                                                                       writable: true,
+                                                                                                       enumerable: true,
+                                                                                                       configurable: true
+                                                                                                    }
+                                                                                                  }
+                                                                                                  
+            #️⃣ 데크 구현하기 - 2      
+                
+                   🔻 예제
+                   
+                         // pushFront(): 앞쪽 데이터 추가
+                         Deque.prototype.pushFront = function (element) {
+                            return this.array.unshift(element);
+                         };
+
+                         // popFront(): 앞쪽 데이터 삭제
+                         Deque.prototype.popFront = function () {
+                            return this.array.shift();
+                         };
+
+                         // pushBack(): 뒤쪽 데이터 추가
+                         Deque.prototype.pushBack = function (element) {
+                            return this.array.push(element);
+                         };
+
+                         // popBack(): 뒤쪽 데이터 삭제
+                         Deque.prototype.popBack = function () {
+                            return this.array.pop();
+                         };
+
+                         let dq = new Deque([1, 2, 3]);
+                         console.log(dq);                     // Deque { array: [1, 2, 3 ] }
+
+                         dq.pushFront(0);                   
+                         dq.pushBack(4);
+                         console.log(dq);                     // Deque { array: [ 0, 1, 2, 3, 4 ] }                 
+
+                         console.log(dq.popFront());          // 0
+                         console.log(dq.popBack());           // 4
+                         console.log(dq);                     // Deque { array: [1, 2, 3] }
+
+                
+            #️⃣ 데크 구현하기 - 3
+          
+                  🔻 예제
+                
+                        // front(): 가장 첫 데이터 반환
+                        Deque.prototype.front = function () {
+                           return this.array.length == 0 ? undefined : this.array[0];
+                        };
+
+                        // back(): 가장 끝 데이터 반환
+                        Deque.prototype.back = function () {
+                           return this.array.length == 0 ? undefined : this.array[this.array.length - 1];
+                        };
+
+                        // size(): 큐 내 데이터 개수 확인
+                        Deque.prototype.size = function () {
+                           return this.array.length;
+                        };
+
+                        // clear(): 큐 초기화
+                        Deque.prototype.clear = function () {
+                           this.array = [];
+                        };
+
+                        let dq = new Deque([1, 2, 3]);
+                        console.log(dq);                              // Deque { array: [ 1, 2, 3 ] }
+
+                        console.log(dq.front());                      // 1
+                        console.log(dq.back());                       // 3
+                        console.log(dq.size());                       // 3
+
+                        dq.clear();                                   ⭐ 초기화 시키기
+                        console.log(dq);                              // Deque { array: [] }        
+
