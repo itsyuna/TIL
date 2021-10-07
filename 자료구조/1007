@@ -1,0 +1,352 @@
+
+  📂 비선형 자료 구조
+
+       🐥 오늘의 목표 : 딕셔너리 / 해시테이블 / 선형 조사법 / 체이닝 해시테이블 파악하기!
+    
+
+        #️⃣ 딕셔너리          ⭐ 파이썬에서 지원하고 있는 자료형 중 하나이다. 유사하게 자바스크립트에서도 key-value 형태로 저장할 수 있다.
+        
+            ● key-value 형태로 다양한 자료형 개체(Entity)를 저장하는 자료구조 (=> Map과 유사)
+            
+            ● 구현 메서드(method)
+            
+               ◽ 전채 개체 획득 / 초기화 / 크기 반환: Dictionary.getBuffer(), Dictionary.clear(), Dictionary.size()
+               
+               ◽ 개체 추가 / 삭제 / 반환 / 여부: Dictionary.set(), Dictionary.remove(), Dictionary.get(), Dictionary.has()
+               
+               ◽ key, value 배열 반환 / 고차 함수: Dictionary.keys(), Dictionary.values(), Dictionary.each()
+               
+               
+        #️⃣ 딕셔너리 구현 - 1
+        
+            🔻 예제
+            
+                // Dictinary(): 개체(Entity)를 저장할 생성자
+                function Dictionary(items = {}) {
+                   this.items = items;
+                }
+                
+                // getBuffer(): 모든 개체(Entity) 반환
+                Dictionary.prototype.getBuffer = function () {
+                   return { ...this.items };
+                };
+                
+                // clear(): 초기화
+                Dictionary.prototype.clear = function () {
+                   this.items = {};
+                };
+                
+                // size(): 크기 반환
+                Dictionary.prototype.size = function () {
+                   return Object.keys(this.items).length;
+                };
+                
+                let dict = new Dictionary({ age: 19, name: "alice" });
+                console.log(dict);                                        // Dictionary { items: { age: 19, name: 'alice' } }
+                
+                console.log(dict.getBuffer());                            //  { age: 19, name: 'alice' }
+                console.log(dict.size());                                 // 2
+                dict.clear();
+                console.log(dict);                                        // Dictionary { items: {} }
+                
+                
+        #️⃣ 딕셔너리 구현하기 - 2
+        
+              🔻 예제
+              
+                  // has(): 개체 존재 여부 확인 (key 정보를 배열로 반환)
+                  Dictinary.prototype.has = function (key) {
+                     // return value in this.items;
+                     return this.items.hasOwnProperty(key);
+                  };
+                  
+                  // set(): 개체(Entity) 추가
+                  Dictionary.prototype.set = function (key, value) {
+                     this.items[key] = value;
+                  };
+                  
+                  // get(): 개체(Entity)의 value 반환
+                  Dictionary.prototype.get = function (key) {
+                     return this.has(key) ? this.items[key] : undefined;
+                  };
+                  
+                  // remove(): 개체(Entity) 삭제
+                  Dictinary.prototype.remove = function (key) {
+                     if (this.has(key)) {
+                        delete this.items[key];
+                        return true;
+                     }
+                     
+                     return false;
+                  };
+                  
+                  let dict = new Dictionary();
+                  dict.set("age", 19);
+                  dict.set("name", "alice");
+                  dict.set("height", 172);
+                  console.log(dict);                    // Dictionary { itmes: { age: 19, name: 'alice', height: 172 } }
+                  
+                  dict.remove("age");
+                  console.log(dict);                    // Dictionary { items: { name: 'alice', height: 172 } }
+                    
+                  console.log(dict.has("age"));         // false
+                  console.log(dict.has("name"));        // true
+                  console.log(dict.get("age"));         // undefined
+                  console.log(dict.get("name"));        // alice
+        
+        
+        #️⃣ 딕셔너리 구현하기 - 3
+            
+                🔻 예제
+                    
+                    // keys(): 모든 key 값을 배열 형태로 반환
+                    Dictionary.prototype.keys = function () {
+                       return Object.keys(this.items);
+                    };
+                    
+                    // value(): 모든 value 값을 배열 형태로 반환
+                    Dictionary.prototype.values = function () {
+                       //   let values = [];
+                       //   for (let k in this.items) {
+                       //      if (this.has(k)) {
+                       //         values.push(this.items[k]);
+                       //      }
+                       //   }
+                       //   return values;
+                       return Object.values(this.items);
+                    };
+                    
+                    // each(): 모든 개체 요소에 대해 callback 함수 수행 (:= foreach)
+                    Dictionary.prototype.each = function (fn) {
+                       for (let k in this.items) {
+                          if (thi.s.has(k) {
+                             fn(k, this.items[k]);
+                          }
+                       }
+                    };
+                    
+                    // printDictionary(): 개체 출력 callback
+                    function printDictionary(key, value) {
+                       console.log(`key: ${key}`);
+                       console.log(`value: ${value}`);
+                    }
+                    
+                    let dict = new Dictionary();
+                    dict.set("age", 19);
+                    dict.set("name", "alice");
+                    dict.set("height", 172);
+                    console.log(dict);
+                    
+                    console.log(dict.keys());                 // [ 'name', 'height' ]
+                    console.log(dict.values());               // [ 'alice', 172 ]
+                    dict.each(printDictionary);               // key: nmae
+                                                                 value: alice
+                                                                 key: height
+                                                                 value: 172
+                    
+                  
+        #️⃣ 해시테이블
+        
+            💡 해시테이블을 알기 전에 먼저 '해시 함수' !
+            
+                   🟧 해시 함수 (Hash Function)
+
+                      ● 임의의 길이의 데이터를 고정된 길이의 데이터로 매핑하는 함수
+
+                      ● 해시 함수 특성
+
+                          ◽ 압축성: 다양한 가변 길이의 입력에 대해 고정된 크기의 결과값을 반환하는 성질
+
+                          ◽ 효율성: 어떤 입력 값에 대해서도 많은 자원과 시간이 소요되지 않고 처리되는 성질
+
+                          ◽ 저항성: 결과값을 바탕으로 입력 값을 찾는 것이 불가능한 성질
+                      
+                   🟧 해시테이블 (Hash Table)
+                   
+                      ● Hash 함수를 사용하여 평균 O(1) 시간 복잡도로 특정 값을 신속하게 찾는 자료구조
+                      
+                      ● 충돌(Collision) 해결 방법
+                      
+                          ◽ 해시 함수 변경: 더 큰 숫자의 공간과 Modular 산술 값을 이용해 충돌 최소화
+                          
+                          ◽ 자료구조 확장: Open Addressing Method (선형 조사법, 이중해시), Close Addressing Method(체이닝)
+                          
+                      ● 구현 메서드(method)
+                          
+                          ◽ 객체 초기화 / 크기 반환: HashTable.clear(), HashTable.size()
+                          
+                          ◽ 전체 데이터 반환, 전체 데이터 출력: HashTable.getBuffer(), HashTable.print()
+                          
+                          ◽ 데이터 추가 / 삭제 / 반환: HashTable.put(), HashTable.remove(), HashTable.get()
+    
+        
+        #️⃣ 해시테이블 구현하기 - 1
+        
+              🔻 예제
+              
+                  const HASH_SIZE = 37;
+                  
+                  // Element(): key, value 저장을 위한 생성자
+                  function Element(key, value) {
+                     this.key = key;
+                     this.value = value;
+                  }
+                  
+                  // HashTable(): 생성자
+                  function HashTable() {
+                     this.table = new Array(HASH_SIZE);
+                     this.length = 0;
+                  }
+                  
+                  // hashCode(): 해시 함수
+                  HashTable.prototype.hashCode = function (key) {
+                     let hash = 0;
+                     for (let i = 0; i < key.length; i++) {
+                        hash += key.charCodeAt(i);
+                     }
+                     return hash% HASH_SIZE;
+                  };
+                  
+                  let ht = new HashTable();
+                  console.log(ht);                      // HashTable: { table: [ <37 empty Items> ], length: 0 }
+                  
+                  console.log(ht.hashCode("Ana"));      // 13       ⭐ 이 'Ana'라는 키에 대한 index 값. 
+                  console.log(ht.hashCode("Sue"));      // 5
+                  console.log(ht.hashCode("Paul"));     // 32
+       
+        
+        #️⃣ 해시테이블 구현하기 - 2
+        
+              🔻 예제
+              
+                  // put(): 데이터 추가
+                  HashTable.prototype.put = function (key, value) {
+                     let index = this.hashCode(key);
+                     consol.elog(`key: ${key} -> index: ${index}`);
+                     
+                     if (this.table[index] !== undefined) {
+                        return false;
+                     }
+                     
+                     this.table[index] = new Element(key, value);
+                     this.length++;
+                     
+                     return true;
+                  };
+                  
+                  // get(): 데이터 조회
+                  HashTable.prototype.get = function (key) {
+                     return this.table[this.hashCode(key)];
+                  };
+                  
+                  // remove(): 데이터 삭제
+                  HashTable.prototype.remove = function (key) {
+                     let element = this.table[this.hashCode(key)];
+                     
+                     if (element !== undefined) {
+                        delete this.table[this.hashCode(key)];
+                        this.length--;
+                     }
+                     
+                     return element;
+                  };
+                  
+                  let ht = new HashTable();
+                  
+                  ht.put("Ana", 172);             // key: Ana -> index: 13
+                  ht.put("Sue", 163);             // key: Sue -> index: 5
+                  ht.put("Paul", 190);            // key: Paul -> index: 32
+                  console.log(ht);                // HashTable {
+                                                       table: [
+                                                         <5 empty items>
+                                                         Element { key: 'Sue', value: 163 },
+                                                         <7 empty items>
+                                                         Element { key: 'Ana', value: 172 },
+                                                         <18 empty items>
+                                                         Element { key: 'Paul', value: 190 },
+                                                         <4 empty items>
+                                                       ],
+                                                       length: 3
+                                                    }
+                  
+                  console.log(ht.get("Paul"));            // Element { key: 'Paul', value: 190 }
+                  console.log(ht.remove("Paul"));         // Element { key: 'Paul', value: 190 }
+                  
+                  console.log(ht.get("Paul"));            // undefined
+                  console.log(ht.remove("Paul"));         // undefined
+                  
+                  console.log(ht);                      // HashTable {
+                                                             table: [
+                                                               <5 empty items>,
+                                                               Element { key: 'Sue', value: 163 },
+                                                               <7 empty items>,
+                                                               ELement { key: 'Ana', value: 172 {,
+                                                               <23 empty items>
+                                                             ],
+                                                             length: 2
+                                                           }
+        
+        
+        #️⃣ 해시테이블 구현하기 - 3
+        
+               🔻 예제
+                  
+                  // clear(): 초기화
+                  HashTable.prototype.clear = function () {
+                     this.table = new Array(HASH_SIZE);
+                     this.length = 0;
+                  };
+                  
+                  // size(): 크기 변환
+                  Hashtable.prototype.size = function () {
+                     return this.length;
+                  };
+                  
+                  // getBuffer(): 데이터 셋 반환
+                  HashTable.prototype.getBuffer = function () {
+                     let array = [];
+                     for (let i = 0; i < this.table.length; i++) {
+                        if (this.table[i]) {
+                           array.push(this.table[i]);
+                        }
+                     }
+                     return array;
+                  };
+                  
+                  // print(): 데이터 셋 출력
+                  HashTable.prototype.print = function () {
+                     for (let i = 0; i < this.table.length; i++) {
+                        if (this.table[i]) {
+                           console.log(i + " -> "
+                                  + this.table[i].key + ": " + this.table[i].value);
+                        }
+                     }
+                   };
+                   
+                   let ht = new HashTable();
+                   
+                   ht.put("Ana", 172);        // key: Ana -> index: 13
+                   ht.put("Sue", 163);        // key: Sue -> index: 5
+                   ht.put("Paul", 190);       // key: Paul -> index: 32
+                   
+                   console.log("");           ⭐ 개행을 위한 코드
+                   ht.print();                // 5 -> Sue: 163
+                                                 13 -> Ana: :172
+                                                 32 -> Paul: 190
+                                                 
+                   console.log(ht.getBuffer());       // [
+                                                           Element { key: 'Sue', value: 163 },
+                                                           Element { key: 'Ana', value: 172 },
+                                                           Element { key: 'Paul', value: 190 }
+                                                         ]          ⭐ 리스트형태로 Element들이 실제 사용되는것들만 저장되서 출력된다. 
+                   
+                   console.log(ht.size());            // 3
+                   ht.clear();
+                   console.log(ht);                   // HashTable { Table: [ <37 empty items> ], length: 0 }
+             
+        
+        #️⃣ 선형 조사법
+    
+        #️⃣ 체이닝 해시테이블
+    
+    
