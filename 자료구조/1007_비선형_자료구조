@@ -346,7 +346,32 @@
              
         
         #️⃣ 선형 조사법
+        
+            🟨 선형 조사법 해시테이블 (Linear probing Hash Table)
+            
+                ● Hash 충돌이 발생했을 때, 그 다음 주소를 확인하고 비어 있다면 그 자리에 대신 저장하는 해시테이블 기반 자료구조
+                
+                ● 구현 메서드(method)
+                
+                    ◽ 객체 초기화 / 크기 반환: LinearHashTable.clear(), LinearHashTable.size()
+                    
+                    ◽ 전체 데이터 반환, 전체 데이터 출력: LinearHashTable.getBuffer(), LinearHashTable.print()
+                    
+                    ◽ 데이터 추가 / 삭제 / 반환: LinearHashTable.put(), LinearHashTable.remove(), LinearHashTable.get()
+             
     
         #️⃣ 체이닝 해시테이블
     
+           🟨 체이닝 해시테이블(Chaining Hash Table)
+           
+                ● 별도의 자료구조인 연결 리스트를 병합 사용하여 Hash 충돌을 해결한 해시테이블 기반 자료구조
+                
+                ● 구현 메서드(method)
+                
+                    ◽ 객체 초기화 / 크기 반환: ChainingHashTable.clear(), ChainingHashTable.size()
+                    
+                    ◽ 전체 데이터 반환, 전체 데이터 출력: ChainingHashTable.getBuffer(), ChainingHashTable.print()
+                    
+                    ◽ 추가 / 삭제 / 반환: ChainingHashTable.put(), ChainingHashTable.remove(), ChainingHashTable.get()
+                    
     
