@@ -1,7 +1,7 @@
 
 📂 비선형 자료구조
 
-    🐥 오늘의 목표 : 트리 3총사! 트리 / 이진트리 / 이진탐색 트리 익히기!
+    🐥 오늘의 목표 : 트리 3총사! 트리 / 이진트리 / 이진탐색 트리와 그래프 익히기!
     
     
         #️⃣ 트리 (Tree) 
@@ -167,114 +167,156 @@
         
         #️⃣ 이진 트리 
           
-            ● 각각의 노드가 최대 두개의 자식 노드를 가지는 트리 자료 구조
-            
-            ● 활용 방식
-            
-                ◽ 검색과 정렬: 이진 탐색 트리와 이진 힙 구현에 활용
+                ● 각각의 노드가 최대 두개의 자식 노드를 가지는 트리 자료 구조
+
+                ● 활용 방식
+
+                    ◽ 검색과 정렬: 이진 탐색 트리와 이진 힙 구현에 활용
+
+                    ◽ 허프만 코딩: 연관 분기 구조 위한 데이터 표현에 활용
+
+                ● 이진 트리의 종류
+
+                    ◽ 포화 이진 트리 (Perfect binary tree)
+
+                    ◽ 완전 이진 트리 (Complete binary tree)
+
+                    ◽ 정 이진 트리 (Full binary tree)
+
+                    ◽ 편향 이진 트리 (Skewed binary tree)
+
+                    ◽ 균형 이진 트리 (Balanced binary tree)
                 
-                ◽ 허프만 코딩: 연관 분기 구조 위한 데이터 표현에 활용
-                
-            ● 이진 트리의 종류
-            
-                ◽ 포화 이진 트리 (Perfect binary tree)
-                
-                ◽ 완전 이진 트리 (Complete binary tree)
-                
-                ◽ 정 이진 트리 (Full binary tree)
-                
-                ◽ 편향 이진 트리 (Skewed binary tree)
-                
-                ◽ 균형 이진 트리 (Balanced binary tree)
-                
                     
-                    🟡 포화 이진 트리 (Perfect binary tree)
-                    
-                        ● 모든 레벨의 노드가 가득 채워져 있는 트리
-                        
-                        ● 특징
-                        
-                           ◽ Leaf 노드를 제외한 모든 자식은 2개의 노드를 보유
-                           
-                           ◽ 노드의 개수: n = 2의 h승 - 1
-                           
-                    🟡 완전 이진 트리 (Complete binary tree)
-                    
-                        ● 마지막 레벨 전까지 노드가 가득 채워져 있고, 마지막 레벨은 왼쪽부터 순차적으로 채워져 있는 트리
-                    
-                        ● 특징
-                        
-                           ◽ 배열을 사용해 효율적인 표현이 가능
-                           
-                           ◽ 노드의 개수: n < 2의 h승 - 1
-                    
-                    🟡 정 이진 트리 (Full binary tree)
-                    
-                        ● 모든 노드가 0개 또는 2개의 자식 노드만 갖는 트리
-                        
-                        ● 특징
-                        
-                           ◽ proper 또는 plane 이진 트리라고도 불림
-                           
-                           ◽ 노드의 개수: n ≤ 2의 h승 - 1
-                    
-                    🟡 편향 이진 트리 (Skewed binary tree)
-                    
-                        ● 왼쪽 혹은 오른쪽으로 편향되게 치우쳐 있는 트리
-                        
-                        ● 특징
-                        
-                           ◽ 각가의 높이에 하나의 노드만 존재
-                           
-                           ◽ 노드의 개수: h
-                    
-                    🟡 균형 이진 트리 (Balanced binary tree)
-                    
-                        ● 삽입/삭제가 이루어 질 때, 왼쪽 서브 트리와 오른쪽 서브 트리의 높이 차를 1이하로 맞추는 이진 탐색 트리
-                        
-                        ● 특징
-                        
-                           ◽ 서브 트리 높이 차이가 항상 1 이하로 유지
-                           
-                           ◽ 균형 트리 종류: AVL 트리, Red-Black 트리, B트리, B+트리, B*트리
+                        🟡 포화 이진 트리 (Perfect binary tree)
+
+                            ● 모든 레벨의 노드가 가득 채워져 있는 트리
+
+                            ● 특징
+
+                               ◽ Leaf 노드를 제외한 모든 자식은 2개의 노드를 보유
+
+                               ◽ 노드의 개수: n = 2의 h승 - 1
+
+                        🟡 완전 이진 트리 (Complete binary tree)
+
+                            ● 마지막 레벨 전까지 노드가 가득 채워져 있고, 마지막 레벨은 왼쪽부터 순차적으로 채워져 있는 트리
+
+                            ● 특징
+
+                               ◽ 배열을 사용해 효율적인 표현이 가능
+
+                               ◽ 노드의 개수: n < 2의 h승 - 1
+
+                        🟡 정 이진 트리 (Full binary tree)
+
+                            ● 모든 노드가 0개 또는 2개의 자식 노드만 갖는 트리
+
+                            ● 특징
+
+                               ◽ proper 또는 plane 이진 트리라고도 불림
+
+                               ◽ 노드의 개수: n ≤ 2의 h승 - 1
+
+                        🟡 편향 이진 트리 (Skewed binary tree)
+
+                            ● 왼쪽 혹은 오른쪽으로 편향되게 치우쳐 있는 트리
+
+                            ● 특징
+
+                               ◽ 각가의 높이에 하나의 노드만 존재
+
+                               ◽ 노드의 개수: h
+
+                        🟡 균형 이진 트리 (Balanced binary tree)
+
+                            ● 삽입/삭제가 이루어 질 때, 왼쪽 서브 트리와 오른쪽 서브 트리의 높이 차를 1이하로 맞추는 이진 탐색 트리
+
+                            ● 특징
+
+                               ◽ 서브 트리 높이 차이가 항상 1 이하로 유지
+
+                               ◽ 균형 트리 종류: AVL 트리, Red-Black 트리, B트리, B+트리, B*트리
                  
         
         #️⃣ 이진 트리 순회
         
-              🟢 이진 트리 순회 (Binary Tree Traversal)
-              
-                  ● 각각의 노드가 최대 두개의 자식 노드를 가지는 트리 자료 구조를 순회하는 방법
-                  
-                  ● 구현 메서드(method)
-                  
-                    ◽ 노드 추가: BinaryTree._insertNode(), BinaryTree.insert()
-                    
-                    ◽ 전위 순회(Pre-order): BinaryTree._preOrderTraverseNode(), BinaryTree.preOrderTraverse()
-                    
-                    ◽ 중위 순회(In-order): BinaryTree._inOrderTraverseNode(), BinaryTree.inOrderTraverse()
-                    
-                    ◽ 후위 순회(Post-order): BinaryTree._postOrderTraverseNode(), BinaryTree.postOrderTraverse()
-                    
-                    ◽ 층별 순회(Level-order): BinaryTree.levelOrderTraverse()
-        
-        
+                  🟢 이진 트리 순회 (Binary Tree Traversal)
+
+                      ● 각각의 노드가 최대 두개의 자식 노드를 가지는 트리 자료 구조를 순회하는 방법
+
+                      ● 구현 메서드(method)
+
+                        ◽ 노드 추가: BinaryTree._insertNode(), BinaryTree.insert()
+
+                        ◽ 전위 순회(Pre-order): BinaryTree._preOrderTraverseNode(), BinaryTree.preOrderTraverse()
+
+                        ◽ 중위 순회(In-order): BinaryTree._inOrderTraverseNode(), BinaryTree.inOrderTraverse()
+
+                        ◽ 후위 순회(Post-order): BinaryTree._postOrderTraverseNode(), BinaryTree.postOrderTraverse()
+
+                        ◽ 층별 순회(Level-order): BinaryTree.levelOrderTraverse()
+
+
         #️⃣ 이진 탐색 트리 (Binary Search Tree)
         
-            ● 현재 노드를 기준으로 왼쪽에는 작은 값, 오른쪽은 큰 값으로 정렬해 놓는 이진 트리 기반 자료 구조
+                ● 현재 노드를 기준으로 왼쪽에는 작은 값, 오른쪽은 큰 값으로 정렬해 놓는 이진 트리 기반 자료 구조
+
+                ● 구현 메서드(method)
+
+                    ◽ 노드 추가: BinarySearchTree._insertNode(), BinarySearchTree.insert()
+
+                    ◽ 노드 탐색(최댓값): BinarySearchTree._maxNode(), BinarySearchTree.max()
+
+                    ◽ 노드 탐색(최솟값): BinarySearchTree._minNode(), BinarySearchTree.min()
+
+                    ◽ 노드 탐색(특정값): BinarySearchTree._searchNode(), BinarySearchTree.search()
+
+                    ◽ 노드 삭제: BinarySearchTree._findMinNode(), BinarySearchTree._removeNode(), BinarySearchTree.remove()
+
+
+        #️⃣ 그래프 (Graph)
+        
+                ● 정점과 간선으로 구성되어 네트워크 구조를 추상화한 비선형 자료 구조
+                
+                ● 그래프 특징
+                
+                    ◽ 정점(Vertex)과 간선(Edge)의 집합
+                    
+                    ◽ 다양한 그래프 종류를 혼합하여 표현 가능
+                    
+                    ⭐ 대부분 그래프는, 길찾기, 게임, 지도, 네비게이션, 네트워크 등에 많이 사용된다!
+               
+                ● 그래프 종류
+                
+                    ◽ 방향 그래프(Directed Graph): 간선에 특정 방향이 존재하는 그래프 (A->B로 표현, A에서 B로만 이동 가능)
+                    
+                    ◽ 무방향 그래프(Undirected Graph): 간선에 특정 방향이 존재하지 않는 그래프 (A->B로 표현, 양방향 이동 가능)
+                    
+                    ◽ 가중치 그래프(Weighted Graph): 간선에 비용이나 가중치가 할당된 그래프
+                    
+                    ◽ 연결 그래프(Connected Graph): 무방향 그래프에 있는 몯믄 정점쌍에 대해 항상 경로가 존재하는 ㄱ느래프
+                    
+                    ◽ 비연결 그래프(Disconnected Graph): 무방향 그래프에서 특정 정점쌍 사이에 경로가 존재하지 않는 그래프
+                    
+                    ◽ 순환 그래프(Cycle): 단순 경로의 시작 정점과 종료 지점이 동일하여 순환 지점이 존재하는 그래프
+                    
+                    ◽ 비순환 그래프(Acyclic Graph): 순환 지점이 존재하지 않는 그래프
+                    
+                    ◽ 완전 그래프(Complete Graph): 그래프에 속해 있는 모든 정점이 서로 연결되어 있는 그래프
+                    
+               ● 그래프 표현 방법
             
-            ● 구현 메서드(method)
-              
-                ◽ 노드 추가: BinarySearchTree._insertNode(), BinarySearchTree.insert()
-                
-                ◽ 노드 탐색(최댓값): BinarySearchTree._maxNode(), BinarySearchTree.max()
-                
-                ◽ 노드 탐색(최솟값): BinarySearchTree._minNode(), BinarySearchTree.min()
-                
-                ◽ 노드 탐색(특정값): BinarySearchTree._searchNode(), BinarySearchTree.search()
-                
-                ◽ 노드 삭제: BinarySearchTree._findMinNode(), BinarySearchTree._removeNode(), BinarySearchTree.remove()
+                    ◽ 인접 리스트(Adjacency List): 정점에 연결된 다른 정점을 리스트로 표현            ⭐ 연결리스트, 배열, Dictionary, hash등 다양한 방법들을 통해서 
+                                                                                                      인접한 정점들을 리스트 형태로 연결시켜서 표현. 
+                    
+                    ◽ 인접 행렬(Adjacency Matrix): 정점에 연결된 다른 정점을 정점x정점 크기의 매트릭스로 표현
+                 
+               ● 구현 메서드(method)
+               
+                    ◽ 정점/간선 추가: Graph.addVertex(), Graph.addEdge()
+                    
+                    ◽ 정점/간선 삭제: Graph.removeVertext(), Graph.removeEdge()
+                    
+                    ◽ 정점/간선 개수, 그래프 출력: Graph.sizeVertex(), Graph.sizeEdge(), Graph.print()
      
-        #️⃣
-        #️⃣
-        
-        
