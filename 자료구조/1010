@@ -1,0 +1,347 @@
+
+[개인복습 및 추가학습]
+
+
+     📂 비선형 자료구조
+  
+          #️⃣ 딕셔너리
+
+              : key-value 형태로 다양한 자료형 개체(Entity)를 저장하는 자료구조이다.  => Map과 유사함.
+
+                🟡 Dictionary.getBuffer()       : 전체 개체 획득
+
+                🟡 Dictionary.clear()           : 초기화
+
+                🟡 Dictionary.size()            : 크기 반환
+
+                🟡 Dictionary.set()             : 개체 추가
+
+                🟡 Dictionary.remove()          : 삭제
+
+                🟡 Dictionary.get()             : 반환
+
+                🟡 Dictionary.has()             : 여부
+
+                🟡 Dictionary.keys()            : key 배열 반환
+
+                🟡 Dictionary.values()          : value 배열 반환
+
+                🟡 Dictionary.each()            : 고차 함수
+                
+          
+          #️⃣ 해시 테이블
+          
+                🟠 Hash Function (해시 함수)
+                
+                      : 임의의 길이의 데이터를 고정된 길이의 데이터로 매핑하는 함수이다.
+                      
+                      🔻 특징
+                      
+                         ● 압축성 : 다양한 가변 길이의 입력에 대해서 고정된 크기의 결과값을 반환하는 성질.
+                         
+                         ● 효율성 : 어떤 입력 값에 대해서도 많은 자원과 시간이 소요되지 않고 처리.
+                         
+                         ● 저항성 : 결과값을 바탕으로 입력 값을 찾는것이 불가능한 성질.
+                         
+               🟠 Hash Table (해시 테이블)
+               
+                      : Hash 함수를 사용하여 평균 O(1) 시간 복잡도로 특정 값을 신속하게 찾는 자료구조이다.
+                      
+                      🔻 충돌(Collision) 해결 방법
+                      
+                         ● 해시 함수 변경 : 더 큰 숫자의 공간과 Modular 산술 값을 이용해서 충돌을 최소화한다.
+                         
+                         ● 자료구조 확장 : Open Addressing Method (선형 조사법, 이중해시), Close Addressing method(체이닝) 
+          
+                      🔻 구현 메서드(method)
+                      
+                         🟡 HashTable.clear()           : 객체 초기화
+                         
+                         🟡 HashTable.size()            : 크기 반환
+                         
+                         🟡 HashTable.getBuffer()       : 전체 데이터 반환
+                            
+                         🟡 HashTable.print()           : 전체 데이터 출력
+                         
+                         🟡 HashTable.put()             : 데이터 추가
+                         
+                         🟡 HashTable.remove()          : 데이터 삭제
+                         
+                         🟡 HashTable.get()             : 데이터 반환
+                         
+          
+          #️⃣ 선형 조사법
+          
+                🟠 선형 조사법 해시테이블 (Linear probing Hash Table)
+                
+                    : Hash 충돌이 발생했을 때, 그 다음 주소를 확인하고 비어 있다면 그 자리에 대신 저장하는 해시테이블 기반 자료구조이다. 
+                    
+                    🔻 구현 메서드(method)
+                    
+                        🟡 LinearHashTable.clear()            : 객체 초기화
+                        
+                        🟡 LinearHashTable.size()             : 크기 반환
+                        
+                        🟡 LinearHashTable.getBuffer()        : 전체 데이터 반환
+                        
+                        🟡 LinearHashTable.print()            : 전체 데이터 출력
+                          
+                        🟡 LinearHashTable.put()              : 데이터 추가
+                        
+                        🟡 LinearHashTable.remove()           : 데이터 삭제
+                        
+                        🟡 LinearHashTable.get()              : 데이터 반환
+                        
+          
+          #️⃣ 체이닝 해시 테이블 (Chaining Hash Table)
+          
+                : 별도의 자료구조인 연결 리스트를 병합 사용하여 Hash 충돌을 해결한 해시테이블 기반 자료구조이다.
+                
+                🔻 구현 메서드(method)
+                
+                     🟡 ChainingHashTable.clear()             : 객체 초기화
+                     
+                     🟡 ChainingHashTable.size()              : 크기 반환
+                     
+                     🟡 ChainingHashTable.getBuffer()         : 전체 데이터 반환
+                     
+                     🟡 ChainingHashTable.print()             : 전체 데이터 출력
+                     
+                     🟡 ChainingHashTable.put()               : 추가
+                     
+                     🟡 ChainingHashTable.remove()            : 삭제
+                     
+                     🟡 ChainingHashTable.get()               : 반환
+               
+               
+          #️⃣ 트리 (Tree)
+          
+                : 그래프의 일종으로 두 노드 사이의 하나의 간선만 연결되어 있는, 최소 연결과 계층 형태의 비선형 자료구조를 말한다.
+                
+                      🟪 트리 구조 & 용어
+
+                         🟢 node   : 하나 이상의 값을 갖는 객체 단위
+
+                         🟢 edge   : 두 노드를 연결하는 선
+
+                         🟢 Root node     : 부모가 없는 최상위 노드 (=>시작 위치 노드)
+
+                         🟢 Leaf node     : 자식이 없는 노드
+
+                         🟢 Parent node : 특정 Sub-Tree 내에서의 상위 노드
+
+                         🟢 Child node      : 특정 Sub-Tree 내에서의 하위 노드
+
+                         🟢 Sibling         : 같은 부모를 가르키고 있는 노드 
+                       
+                       
+                      🟪 트리 특징 
+
+                            🔻 주요 특징
+
+                                  : '최소 연결 트리'라고 불린다. 그리고 계층 모델, 방향 비순환 그래프(DAG)의 한 종류이다.
+
+                      🟪 트리 종류
+
+                          -> 이진 트리 / 이진 탐색 트리 / AVL 트리 / 힙(Heap)
+
+                       🟢 size (노드 크기)      : 자신을 포함한 모든 자손 노드의 개수
+
+                       🟢 depth (노드 깊이)     : 루트에서 특정 노드에 도달하기 위한 간선의 개수 
+
+                       🟢 level (노드 레벨)     : 트리의 특정 깊이를 가지는 노드의 집합
+
+                       🟢 degree (노드 차수)    : 노드가 지닌 가지의 수
+
+                       🟢 tree degree(트리 차수)    : 트리의 최대 차수
+
+                       🟢 height (트리 높이)        : 루트 노드에서 가장 깊숙이 있는 노드의 깊이 
+                    
+                    
+                      🟪 트리 순회
+                      
+                          : 트리 구조에서 각각의 노드를 정확히 한번씩 체계적인 방법으로 방문하는 과정을 말한다.
+                          
+                         ❗ 필요 용어
+                         
+                              ● N(Node)    : 해당 노드를 방문
+                              
+                              ● L(Left)    : 왼쪽 서브 트리로 이동
+                              
+                              ● R(Right)   : 오른쪽 서브 트리로 이동
+                              
+                         🔴 순회 방식
+                         
+                           -> 전위 순회 / 중위 순회 / 후위 순회 / 층별 순회
+                           
+                            
+                      🟨 전위 순회 (Pre-order)
+                      
+                          🔻 전위 순회 방법 : N-L-R
+                          
+                              1. 노드 방문.
+                              2. 왼쪽 서브 트리를 전위 순회.
+                              3. 오른쪽 서브 트리를 전위 순회.
+                              
+                      🟨 중위 순회 (In-order)
+                      
+                          🔻 중위 순회 방법 : L-N-R
+                          
+                              1. 왼쪽 서브 트리를 중위 순회.
+                              2. 현재 노드 방문.
+                              3. 오른쪽 서브 트리를 중위 순회.
+                              
+                      🟨 층별 순회 (Level-ordeR)
+                      
+                          🔻 낮은 Level부터 순차적으로 순회한다.
+                          
+                              1. root 노드 방문.
+                              2. Level 증가.
+                              3. 왼쪽에서 오른쪽 순으로 방문.
+                              
+                      🟨 후위 순회 (Post-order)
+                      
+                          🔻 후위 순회 방법 : L-R-N
+                          
+                              1. 왼쪽 서브 트리를 후위 순회.
+                              2. 오른쪽 서브 트리를 후위 순회.
+                              3. 현재 노드 방문.
+                
+                        
+          #️⃣ 이진 트리
+          
+                : 각각의 노드가 최대 두개의 자식 노드를 가지는 트리 자료 구조를 말한다.
+                
+                🟠 활용 방식
+                
+                    ● 검색과 정렬      : 이진 탐색 트리와 이진 힙 구현에 활용한다.
+                    
+                    ● 허프만 코딩      : 연관 분기 구조를 위한 데이터 표현에 활용한다.
+               
+                🟣 이진 트리 종류
+                
+                   -> 포화 이진 트리 / 완전 이진 트리 / 정 이진 트리 / 편향 이진 트리 / 균형 이진 트리
+                   
+                        🟨 포화 이진 트리 (Perfect binary tree)
+                        
+                              : 모든 레벨의 노드가 가득 채워져 있는 트리를 말한다.
+                              
+                              🔻 특징
+                              
+                                   ● Leaf 노드를 제외한 모든 자식은 2개의 노드를 보유한다. 
+                                   
+                                   ● 노드의 개수 : n = 2의 h승 - 1
+                            
+                        🟨 완전 이진 트리 (Complete binary tree)
+                        
+                              : 마지막 레벨전까지 노드가 가득 채워져 있고, 마지막 레벨은 왼쪽부터 순차적으로 채워져 있는 트리를 말한다.
+                              
+                              🔻 특징
+                              
+                                  ● 배열을 사용해서 표율적이 표현이 가능하다!
+                                  
+                                  ● 노드의 개수 : n < 2의 h승 - 1
+                                  
+                        🟨 정 이진 트리 (Full binary tree)
+                        
+                              : 모든 노드가 0개 또는 2개의 자식 노드만 갖는 트리를 말한다.
+                              
+                              🔻 특징
+                              
+                                  ● proper 또는 plane 이진 트리라고도 불린다. 
+                                  
+                                  ● 노드의 개수 : n ≤ 2의 h승 - 1
+                        
+                        🟨 편향 이진 트리 (Skewed binary tree)
+                        
+                              : 왼쪽 혹은 오른쪽으로 편향되게 치우쳐 있는 트리를 말한다. 
+                              
+                              🔻 특징
+                              
+                                  ● 각각이 높이에 하나의 노드만 존재한다.
+                                  
+                                  ● 노드의 개수 : h
+                                  
+                        🟨 균형 이진 트리 (Balanced binary tree)
+                        
+                              : 삽입/삭제가 이루어질 때, 왼쪽 서브 트리와 오른쪽 서브 트리의 높이차를 1이하로 맞추는 이진 탐색 트리.
+                              
+                              🔻 특징
+                              
+                                  ● 서브 트리 높이 차이가 항상 1이하로 유지된다.
+                                  
+                                  ● 균형 트리 종류 : AVL 트리 / Red-Black 트리 / B트리 / B+트리 / B*트리
+                        
+                        
+                  🟣 이진 트리 순회 (Binary Tree Traversal)
+                        
+                        : 각각의 노드가 최대 두개의 자식 노드를 가지는 트리 자료 구조를 순회하는 방법.
+                        
+                        🔻 구현 메서드(method)
+                        
+                            🟡 BinaryTree._insertNode(), BinaryTree.insert()      : 노드 추가
+                            
+                            🟡 BinaryTree._preOrderTraverseNode(), BinaryTree.preOrderTraverse()      : 전위 순회(Pre-order)
+                            
+                            🟡 BinaryTree._inOrderTraverseNode(), BinaryTree.inOrderTraverse()        : 중위 순회 (In-order)
+                            
+                            🟡 BinaryTree._postOrderTraverseNode(), BinaryTree.postOrderTraverse()    : 후위 순회(Post-order)
+                          
+                            🟡 BinaryTree.levelOrderTraverse()        : 층별 순회(Level-order)
+                  
+                  
+                  🟣 이진 탐색 트리 (Binary Search Tree)
+                  
+                        : 현재 노드를 기준으로 왼쪽에는 작은 값, 오른쪽은 큰 값으로 정렬해 놓는 이진 트리 기반 자료구조를 말한다.
+                        
+                        🔻 구현 메서드(method)
+                        
+                            🟡 BinarySearchTree._insertNode(), BinarySearchTree.insert()        : 노드 추가
+                            
+                            🟡 BinarySearchTree._maxNode(), BinarySearchTree.max()              : 노드 탐색(최대값)
+                            
+                            🟡 BinarySearchTree._minNode(), BinarySearchTree.min()              : 노드 탐색(최소값)
+                            
+                            🟡 BinarySearchTree._searchNode(), BinarySearchTree.search()        : 노드 탐색(특정값)
+                            
+                            🟡 BinarySearchTree._findMinNode(), BinarySearchTree._removeNode(), BinarySearchTree.remove()         : 노드 삭제
+                        
+                        
+          #️⃣ 그래프 (Graph)
+          
+                  : 정점과 간선으로 구성되어 네트워크 구조를 추상화한 비선형 자료 구조.
+                  
+                  🔻 그래프의 특징
+                  
+                      ● Vertex(정점)와 Edge(간선)의 집합.
+                      
+                      ● 다양한 그래프 종류를 혼합해서 표현이 가능하다!
+                  
+                  
+                  🟣 그래프의 종류
+                  
+                    -> 방향 그래프 / 무방향 그래프 / 가중치 그래프 / 연결 그래프 / 비연결 그래프 / 순환 그래프 / 비순환 그래프 / 완전 그래프
+                    
+                  🟣 그래프 표현 방법  
+                  
+                    -> 인접 리스트(Adjacency List) / 인접 행렬(Adjacency Matrix)
+                    
+                    
+                  🔻 구현 메서드(method)
+                      
+                      🟡 Graph.addVertex()          : 정점 추가
+                      
+                      🟡 Graph.addEdge()            : 간선 추가
+                      
+                      🟡 Graph.removeVertex()       : 정점 삭제
+                      
+                      🟡 Graph.removeEdge()         : 간선 삭제
+                      
+                      🟡 Graph.sizeVertex()         : 정점 개수
+                      
+                      🟡 Graph.sizeEdge()           : 간선 개수
+                      
+                      🟡 Graph.print()              : 그래프 출력
+                      
+                      
+          #️⃣
