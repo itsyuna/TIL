@@ -151,8 +151,10 @@
                              return x < y;
                           };
                           
-                          let bubbleSort = function (arr, compare) {       ⭐ compare라는 변수로 고차함수를 받아서, 콜백함수를 넘겨주면 오름차순인지 내림차순인지에 따라서 정렬이 될수 있또록
-                                                                              또다른 동일한 함수를 만들지 않고도, 콜백 매개변수만 변경을 해서 오름차순과 내림차순을 컨트롤할 수 있다. 
+                          let bubbleSort = function (arr, compare) {       ⭐ compare라는 변수로 고차함수를 받아서 콜백함수를 넘겨주면, 
+                                                                              오름차순인지 내림차순인지에 따라서 정렬이 될수 있도록
+                                                                              또다른 동일한 함수를 만들지 않고도, 콜백 매개변수만 변경을 해서 
+                                                                              오름차순과 내림차순을 컨트롤할 수 있다. 
                              for (let i = 0; i < arr.length - 1; i++) {
                                 for (let j = 0; j < arr.length - i - 1; j++) {
                                    if (compare(arr[j], arr[j + 1])) {
