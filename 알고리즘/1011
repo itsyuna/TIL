@@ -1,0 +1,439 @@
+
+📂 알고리즘
+
+    🐥 오늘의 목표 : 정렬 알고리즘 파악하기!
+    
+    
+           #️⃣ Overview
+
+                 정렬 알고리즘 + 이진 탐색 알고리즘(logN) 
+
+                 분할 정복 / 탐욕 알고리즘 / 동적 계획법     -> 대표적인 알고리즘 설계 기법들!
+
+                 🟡 정렬 알고리즘  -> Quicsort, Mergesort, Bubble Sort, Insertion Sort, Selection Sort (요렇게가 대표적)
+
+                 🟡 동적 계획법    -> 상향식, 하향식 둘 다 있고 Memoization을 쓰는 것이 특징.
+
+                 🟡 분할 정복      -> 겹치지 않는 서브 문제로 분할을 해서 문제를 풀어나간다. (-> 하향식 접근법을 통해서)
+
+                 🟡 탐욕 알고리즘   -> 현재 주어진 조건에 기반 해서 그 때 그 때 최선의 해를 탐색해나가면서 문제를 해결한다. 
+
+                    ➕ 백트래킹 : dfs등에 대한 완전탐색을 할 때 너무 시간이 오래거릴니까 답이 될 수 있는지 없는지 미리 판단을 하고,
+                                  답이 될 수 없는 노드는 skip처리를 해서 좀 더 시간 단축을 하는 기법.
+
+                              
+           #️⃣ 정렬 (Sorting)
+
+                 ⭐ 컴퓨터 사이언스 분야에서 가장 보편적으로 많이 쓰이는 알고리즘이다.
+
+                  ● 배열 내 원소들을 번호순이나 사전 순서와 같이 일정한 순서대로 열거하는 알고리즘
+
+                  ● 대표 정렬 알고리즘 별 구현 함수
+
+                      ◽ 거품 정렬(Bubble Sort): bubbleSort_1(), bubbleSort_2(), bubbleSort_3(), bubbleSort()
+
+                      ◽ 선택 정렬(Selection Sort): selectionSort()
+
+                      ◽ 삽입 정렬(Insertion Sort): insertionSort()
+
+                      ◽ 병합 정렬(Merge Sort): mergeSort()
+
+                      ◽ 퀵 정렬(Quick Sort): quickSort()
+
+                      ◽ 공통 함수: swap(), ascending(), descending()
+
+                     -> 이 정렬들 외에도, 
+
+                        Shell Sort, Radix Sort(기수 정렬), Bucket sort등 다양한 방법들이 있다.
+
+                     ⭐ 시간 복잡도 O(n제곱)을 갖는 정렬  -> 거품 정렬 / 선택 정렬 / 삽입 정렬
+
+                         시간 복잡도 O(n log n)을 갖는 정렬  -> 병합 정렬 / 퀵 정렬 
+
+         
+           #️⃣ 거품 정렬 (Bubble Sort)
+
+                ⭐ 정렬을 배울 때 가장 보편적으로, 첫번째로 배우는 정렬 방법이다.
+                
+                ● 정렬 알고리즘은, 동작 매커니즘이 ⭐서로 인접한⭐ ⭐두 원소⭐를 비교하면서 정렬하는 알고리즘이다.
+                
+                ● 평균 시간 복잡도: O(n제곱)
+               
+                ⭐ 거품 정렬은 보편적으로 뒷쪽부터 정렬되는 알고리즘이다.
+                
+                
+                🔴 알고리즘 동작 방식 (순서)
+                      
+                      1. 인접한 값 비교 -> 큰 값이면 교환한다.
+
+                      2. index N까지 반복
+
+                      3. N차례 반복 -> N-i    (= 한 칸 한 칸씩 줄어들면서 N차례 반복을 하게 되면, 정렬을 하게 된다.)
+                
+                  -> 인접한 두 원소끼리만 비교를 하기 때문에, Bubble Sort라는 이름이 붙여지게 됐다.
+                  
+                  
+                🟪 거품 정렬 구현하기 - 1
+                
+                      🔻 예제       (-> 3가지 버젼)
+
+                          let swap = function (arr, idx_1, idx_2) {
+                             let tmp = arr[idx_1];
+                             arr[idx_1] = arr[idx_2];
+                             arr[idx_2] = tmp;
+                          };
+
+                          let bubbleSort_1 = function (arr) {           ⭐ 1. 가장 기본적인 이중 for문으로 하는 방법.
+                             for (let i = 0l i < arr.length - 1; i++) {         // 총 수행 횟수
+                                for (let j = 0; j < arr.length - 1; j++) {       ⭐ 위와 아래와 같이 arr.length - 1로 하면, 이미 정렬이 되어 있는 뒷부분도 체크를 하게 된다.
+                                   if (arr[j] > arr[j + 1]) {
+                                      swap(arr, j, j + 1);
+                                   }
+                                }
+                             }
+                          };
+
+                          let bubbleSort_2 = function (arr) {           ⭐ 2. 인덱스에 대한 조정을 통해서 좀 더 빠르게 하는 방법. 
+                             for (let i = 0; i < arr.length - 1; i++) {
+                                for (let j = 0; j < arr.length - i - 1; j++) {      ⭐ arr.length - i - 1로 해주면, 이미 정렬되어 있는 부분은 skip 처리를 해서 더 체크하지 않는다. 
+                                   if (arr[j] > arr[j + 1]) {                             -> 시간 단축!
+                                      swap(arr, j, j + 1);
+                                   }
+                                }
+                             }
+                          };
+
+                          let bubbleSort_3 = function (arr) {           ⭐ 3. swapped라는 변수를 통해서 좀 더 최적화하는 방법.
+                             let swapped;
+                             for (let i = 0; i < arr.length - 1; i++) {
+                                swapped = false;
+                                for (let j = 0; j < arr.length - i - 1; j++) {
+                                   if (arr[j] > arr[j + 1]) {
+                                      swap(arr, j, j + 1);
+                                      swapped = true;
+                                   }
+                                }
+                                if (!swapped) break;        ⭐ 이미 정렬되어 있는 상태라면 for문을 끝낸다. 
+                             }
+                          };
+                        
+                        /* test code */
+                        let init_array = [6, 5, 1, 3, 2, 4];
+                        
+                        let array = [...init_array];
+                        bubbleSort_1(array);
+                        console.log(array);           // [1, 2, 3, 4, 5, 6]
+                        
+                        array = [...init_array];
+                        bubbleSort_2(array);
+                        console.log(array);           // [1, 2, 3, 4, 5, 6]
+                        
+                        array = [...init_array];
+                        bubbleSort_3(array);
+                        console.log(array);           // [1, 2, 3, 4, 5, 6]
+                 
+                 
+                 🟪 거품 정렬 구현하기 - 2
+                 
+                      🔻 예제
+                      
+                          let swap = function (arr, idx_1, idx_2) {
+                             let tmp = arr[idx_1];
+                             arr[idx_1] = arr[idx_2];
+                             arr[idx_2] = tmp;
+                          };
+                          
+                          let ascending = function (x, y) {     ⭐ 오름차순 콜백 함수
+                             return x > y;
+                          };
+                          
+                          let descending = function (x, y) {    ⭐ 내림차순 콜백 함수
+                             return x < y;
+                          };
+                          
+                          let bubbleSort = function (arr, compare) {       ⭐ compare라는 변수로 고차함수를 받아서, 콜백함수를 넘겨주면 오름차순인지 내림차순인지에 따라서 정렬이 될수 있또록
+                                                                              또다른 동일한 함수를 만들지 않고도, 콜백 매개변수만 변경을 해서 오름차순과 내림차순을 컨트롤할 수 있다. 
+                             for (let i = 0; i < arr.length - 1; i++) {
+                                for (let j = 0; j < arr.length - i - 1; j++) {
+                                   if (compare(arr[j], arr[j + 1])) {
+                                      swap(arr, j, j + 1);
+                                   }
+                                }
+                             }
+                          };
+                          
+                          /* test code */
+                          let init_array = [6, 5, 1, 3, 2, 4];
+                          let array;
+                          
+                          let sorting = [bubbleSort];
+                          let order = [ascending, descending];
+                          for (let i = 0; i < sorting.length; i++) {
+                             for (let j = 0; j < order.length; j++) {
+                                console.log(sorting[i].name, order[j].name);
+                                
+                                array = [...init_array];
+                                sorting[i](array, order[j]);
+                                console.log(array);                       // bubbleSort ascending
+                             }                                               [ 1, 2, 3, 4, 5, 6 ]
+                          }                                                  bubbleSort descending
+                                                                             [ 6, 5, 4, 3, 2, 1 ]
+                          
+               
+           #️⃣ 선택 정렬 (Selection Sort)
+           
+              ⭐ 앞에서부터 정렬한다.
+           
+              ● ⭐최소값을 찾아⭐ 데이터 영역의 가장 앞으로 이동하는 방식을 반복하여 전체 데이터 영역을 정렬하는 알고리즘
+              
+              ● 평균 시간 복잡도: O(n제곱)
+           
+              
+              🔴 동작 순서
+              
+                  1. 교환 위치 선택
+
+                  2. 최소값 탐색
+
+                  3. 교환
+
+             
+              🟪 선택 정렬 구현하기 
+              
+                  🔻 예제
+                  
+                      let swap = function (arr, indx_1, idx_2) {
+                         let tmp = arr[idx_1];
+                         arr[idx_1] = arrr[idx_1];
+                         arr[idx+2] = tmp;
+                      };
+                      
+                      let ascending = function (x, y) {
+                         return x > y;
+                      };
+                      
+                      let descending = function (x, y) {
+                         return x < y;
+                      };
+                      
+                      let selectionSort = function (arr, compare) {
+                         for (let i = 0; i < arr.length; i++) {
+                            let k = 1;
+                            for (let j = i + 1; j < arr.length; j++) {
+                               if (compare(arr[k], arr[j])) k = j;
+                            }
+                            swap(arr, i, k);
+                         }
+                      };
+                      
+                      /* test code */
+                      let init_array = [6, 5, 1, 3, 2, 4];
+                      let array;
+                      
+                      let sorting = [selectionSort];
+                      let order = [ascending, descending];
+                      for (let i = 0; i < sorting.length; i++) {
+                         for (let j = 0; j < order.length; j++) {
+                            console.log(sorting[i].name, order[j].name);        
+                            
+                            array = [...init_array];
+                            sorting[i](array, order[j]);
+                            console.log(array);                             // selectionSort ascending
+                         }                                                     [ 1, 2, 3, 4, 5, 6 ]
+                      }                                                        selectionSort descending
+                                                                               [ 6, 5, 4, 3, 2, 1 ]
+    
+    
+           
+           #️⃣ 삽입 정렬 (Insertion Sort)
+           
+                ⭐ 앞에서부터 정렬한다.
+                
+                ● 이미 정렬된 데이터 영역과 비교하면서, 자신의 위치를 찾아 요소를 삽입하며 정렬하는 알고리즘
+                
+                ● 평균 시간 복잡도: O(n제곱)
+                
+                
+                🔴 동작 순서
+                
+                    1. 요소 선택 + 저장.
+                    
+                    2. shift를 하고 -> 값을 비교해서 삽입 위치를 선택한다.
+                
+                    3. 요소 삽입
+                
+                
+                🟪 삽입 정렬 구현하기
+                
+                      🔻 예제
+                      
+                          let swap = function (arr, idx_1, idx_2) {
+                             let tmp = arr[idx_1];
+                             arr[idx_1] = arr[idx_2];
+                             arr[idx_2] = tmp;
+                          };
+                          
+                          let ascending = function (x, y) {
+                             return x > y;
+                          };
+                          
+                          let descending = function (x, y) {
+                             return x < y;
+                          };
+                          
+                          let insertionSort = function (arr, compare) {
+                             for (let i = 1; i < arr.length; i++) {
+                                let tmp = arr[i];
+                                let j;
+                                for (j = i - 1; j >= 0; j--) {
+                                   arr[j + 1] = arr[j];
+                                   if (compare(tmp, arr[j])) {
+                                      break;
+                                   }
+                                }
+                                arr[j + 1] = tmp;
+                             }
+                          };
+                          
+                          /* test code */
+                          let init_array = [6, 5, 1, 3, 2, 4];
+                          let array;
+                          
+                          let sorting = [selectionSort];
+                          let order = [ascending, descending];
+                          for (let i = 0; i < sorting.length; i++) {
+                             for (let j = 0; j < order.length; j++) {
+                                console.log(sorting[i].name, order[j].name);
+                                
+                                array = [...init_array];
+                                sorting[i](array.order[j]);
+                                console.log(array);                 // insertionSort ascending
+                             }                                         [ 1, 2, 3, 4, 5, 6 ]
+                          }                                            insertionSort descending
+                                                                       [ 6, 5, 4, 3, 2, 1 ]
+               
+                
+           #️⃣ 병합 정렬 (Merge Sort)
+           
+                ● 하나의 배열을 두 개의 균등한 크기로 분할하고, 부분 정렬하며, 이를 다시 합하면서 전체를 정렬해가는 알고리즘
+                
+                ● 평균 시간 복잡도: O(n log n)     ⭐ 위에서했던 정렬 방법들보다 좀 더 빠르다.
+           
+                🔴 동작 방식
+                
+                    -> 크게 '분할'과 '정렬', 2가지 파트로 나눠지게 된다.
+                
+                
+                🟪 병합 정렬 구현하기 
+                  
+                      🔻 예제
+                      
+                          let mergeSort = function (arr, compare) {       ⭐ 재귀함수로 되어있음.
+                             if (arr.length === 1) return arr;            ⭐⭐ 가장 중요한 종료 조건 설정.  -> 스택오버플로우가 나지 않고, 재귀가 무한반복하지 않는다. 
+                             
+                             let m = (arr.length / 2).toFixed(0);           // * m = middle index
+                             let left = mergeSort(arr.slice(0, m), compare);
+                             let right = mergeSort(arr.slice(m), compare);
+                             
+                             let i = 0,
+                                j = 0,
+                                k = 0;
+                              while (i < left.length && j < right.length) {
+                                 arr[k++] = compare(left[i], right[j]) ? right[j++] : left[i++];
+                              }
+                              while (i < left.length) arr[k++] = left[i++];
+                              while (j < right.length) arr[k++] = right[j++];
+                              
+                              return arr;
+                           };
+                           
+                           /* test code */
+                           let init_array = [6, 5, 1, 3, 2, 4];
+                           let array;
+                           
+                           let sorting = [mergeSort];
+                           let order = [ascending, descending];
+                           for (let i = 0; i < sorting.length; i++) {
+                              for (let j = 0; j < order.length; j++) {
+                                 console.log(sorting[i].name, order[j].name);
+                                 
+                                 array = [...init_array];
+                                 sorting[i](array, order[j]);
+                                 console.log(array);                      // mergeSort ascending
+                              }                                              [ 1, 2, 3, 4, 5, 6 ]
+                           }                                                 mergeSort descending
+                                                                             [ 6, 5, 4, 3, 2, 1 ]
+           
+           
+           #️⃣ 퀵 정렬 (Quick Sort)
+           
+                 ● 특정한 값(pivot)을 기준으로 큰 숫자와 작은 숫자를 분할하여 정렬하는 알고리즘    (* 나눠서 부분부분 해결한다는점은 mergeSort와 동일하다.)
+                 
+                 ● 평균 시간 복잡도: O(n log n)
+           
+                 🔴 동작 방식
+                 
+                      1. 분할 (기준에 따라서)
+                      
+                      2. 부분 배열 정렬 
+                      
+                      3. 전체 정렬
+           
+                  ⭐ 구현 방법들은 많이 있지만, 
+                      가장 심플하게 qsort() 방식으로 퀵정렬 이해하기.
+                      2way, 3way 등 다양한 퀵정렬 방법들이 있지만, 3way같은 경우 성능이 더 좋지만 구현하는데 좀 어려울 수 있다.
+                      
+                      🟡 qsort()에는 총 3가지 변수를 사용한다.
+                          
+                          -> pivot / start / target
+                          
+                          ● pivot : 기준점이 된다.
+                          
+                          ● start : 최초로 비교할 위치
+                          
+                          ● target : 비교 대상 
+                 
+                          ⭐ taget과 pivot을 비교해서, target이 pivot보다 작으면
+                             start와 target이 swap을 한다. 
+                          
+                          
+                 🟪 퀵 정렬 구현하기
+                 
+                      🔻 예제               -> 재귀를 통해 수행한다. 
+                      
+                          let quickSort = function (arr, compare, s = 0, e = arr.length - 1) {
+                             let start = s;                 ⭐ 아래 재귀 함수에 조건을 건 부분은, 아래 말고 여기에다가 해도 된다. 
+                             let pivot = arr[e];
+                             
+                             for (let i = s; i <= 3, i++) {
+                                if (compare(pivot, arr[i])) {
+                                   swap(arr, start, i);
+                                   start++;
+                                }
+                             }
+                             swap(arr, start, e);
+                             
+                             if (start - 1 > s)                           ⭐ 재귀를 할 때는 end 조건이 있어야하는데, end 조건 말고, 이렇게 들어가는쪽에 조건을 걸었다. 
+                                quickSort(arr, compare, s, start - 1);        -> 재귀 부분에 조건을 걸어서 판단을 할수 있도록 했다.
+                             if (start + 1 < e)
+                                quickSort(arr, compare, start + 1, e);
+                           };
+                           
+                           /* test code */
+                           let init_array = [6, 5, 1, 3, 2, 4];
+                           let array;
+                           
+                           let sorting = [quickSort];
+                           let order = [ascending, descending];
+                           for (let i = 0; i < sorting.length; i++) {
+                              for (let j = 0; j < order.length; j++) {
+                                 console.log(sorting[i].name, order[j].name);
+                                 
+                                 array = [...init_array];
+                                 sorting[i](array, order[j]);
+                                 console.log(array);                        // quickSort ascending
+                              }                                                [ 1, 2, 3, 4, 5, 6 ]
+                           }                                                   quickSort descending
+                                                                               [ 6, 5, 4, 3, 2, 1 ]
+           
+             
