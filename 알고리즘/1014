@@ -192,7 +192,7 @@
             
             #️⃣ dijkstra 알고리즘 구현
             
-                🔻 예제 - 1
+                🔻 예제 
                 
                     // ShortestPath(): edge object 객체 저장을 위한 생성자
                     // key: vertex
@@ -225,6 +225,65 @@
                        
                        return minVertex;
                     };
-                   
-               
-            🔻 예제 - 2
+                    
+                    // dijkstra(): 다익스트라 최단 경로 탐색
+                    ShortestPath.prototype.dijkstra = function (start) {
+                       let queue = {};
+                       let dist = {};
+                       
+                       for (let vertex in this.edges) {
+                          dist[vertex] = Number.POSITIVE_INFINITY;
+                          queue[vertex] = this.edges[vertex];
+                       }
+                       
+                       dist[start] = 0;
+                       while(Object.keys(queue).length != 0) {
+                          let u = this.extractMin(queue, dist);
+                          
+                          delete queue[u];
+                          
+                          for (let neightbor in this.edges[u]) {
+                             let alt = dist[u] + this.edges[u][neighbor];
+                             if (alt < dist[neighbor]) dist[neighbor] = alt;
+                          }
+                       }
+                       
+                       for (let vertex in this.edges)
+                          if (dist[vertex] === Number.POSITIVE_INFINITY)
+                             delete dist[vertex];
+                             
+                       return dist;
+                       
+                       // console.log(dist);
+                       // console.log(queue);
+                    };
+             
+             
+                    let path = new ShortestPath();
+                    path.addVertex("A");
+                    path.addVertex("B");
+                    path.addVertex("C");
+                    path.addVertex("D");
+                    path.addVertex("E");
+                    
+                    path.addEdge("A", "B", 10);
+                    path.addEdge("A", "C", 3);
+                    path.addEdge("B", "C", 1);
+                    path.addEdge("B", "D", 2);
+                    path.addEdge("C", "B", 4);
+                    path.addEdge("C", "D", 8);
+                    path.addEdge("C", "E", 2);
+                    path.addEdge("D", "E", 7);
+                    path.addEdge("E", "D", 9);
+                  
+                    console.log(path);                        // ShortestPath {
+                                                                     edges: {
+                                                                        A: { B: 10, C: 3 },
+                                                                        B: { C: 1, D: 2 },
+                                                                        C: { B: 4, D: 8, E: 2 },
+                                                                        D: { E: 7 },
+                                                                        E: { D: 9 }
+                                                                     }
+                                                                 }
+                    console.log(path.dijkstra("A");           // { A: 0, B: 7, C: 3, D: 9, E: 5 }   
+
