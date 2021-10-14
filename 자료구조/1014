@@ -1,0 +1,233 @@
+
+📂 알고리즘
+
+      🐥 오늘의 목표 : 동적 계획법 / 최단경로 파악하기!
+      
+      
+            #️⃣ 동적 계획법
+            
+                  ● Memoization으로 중복 연산을 방지하며, 작은 부분 문제로 큰 문제를 해결하며 해를 도출하는 알고리즘 설계 기법
+                  
+                  ● 동적 계획법 특징
+                  
+                      ◽ 부문 문제는 중복되며, 상위 문제 해결 시 재사용
+                      
+                      ◽ Memoizaion 기법을 사용 (동일한 계산을 반복할 때, 이전에 계산한 값을 메모리에 저장하여 중복 연산 방지)
+            
+                    ⭐ 보통 동적 계획법은, 점화식을 기반으로 코드를 작성해야 한다.
+                    그렇기 때문에, 피보나치 수열로 예제가 많이 표현이 되는데
+                    피보나치 수열은 함수로 표현하면, f(n) = f(n-1) + f(n-2) 이렇게 된다.  
+                                                    => n의 이전값과 이전값의 이전값을 더한것이 f(n)이 디ㅗㄴ다. 
+                    
+                  ● 동적 계획법 구현 방식
+                  
+                      ◽ Top-down: 재귀를 통해 큰 문제를 작은 문제로 나눠 해결하며 해를 찾는 기법
+                      
+                          🔻 예시
+                              
+                              /* top-down */
+                              function fibo_td(n, d = []) {
+                                 if (n < 2) return n;
+                                 if (d[n]) return d[n]);
+                                 
+                                 d[n] = fibo_td( - 1) + fibo_td(n - 2);
+                                 
+                                 return d[n];
+                              }
+                              
+                              console.log(fibo_td(5));
+                              console.log(fibo)td(6));
+                              console.log(fibo_td(7));
+                        
+                      ◽ Bottomp-up: 반복문을 통해 작은 문제부터 차례대로 해를 찾는 방법
+                      
+                          🔻 예시
+                          
+                              /* bottom-up */
+                              function fibo_bu(n, d = []) {
+                                d[0] = 0;
+                                d[1] = 1;
+                                
+                                for (let i = 2; i <= n; i++) {
+                                   d[i] = d[i - 1] + d[i - 2];
+                                }
+                                
+                                return d[n];
+                              }
+                              
+                              console.log(fibo_bu(5));
+                              console.log(fibo_bu(6));
+                              console.log(fibo_bu(7));
+                 
+                 
+            #️⃣ 문제풀이 - 거스름돈
+            
+                  🟨 문제         (* 문제 출처 : 프로그래머스 https://programmers.co.kr/learn/courses/30/lessons/12907)
+                  
+                      Finn은 편의점에서 야간 아르바이트를 하고 있습니다. 야간에 손님이 너무 없어 심심한 Finn은
+                      손님들께 거스름돈을 n원을 줄 때 방법의 경우의 수를 구하기로 하였습니다.
+                      
+                      예를 들어서 손님께 5원을 거슬러 줘야 하고 1원, 2원, 5원이 있다면 다음과 같이 4가지 방법으로 5원을 거슬러 줄 수 있습니다.
+                      
+                          ◽ 1원을 5개 사용해서 거슬러 준다.
+                          
+                          ◽ 1원을 3개 사용하고, 2원을 1개 사용해서 거슬러 준다.
+                          
+                          ◽ 1원을 1개 사용하고, 2원을 2개 사용해서 거슬러 준다.
+                          
+                          ◽ 5원을 1개 사용해서 거슬러 준다.
+                          
+                      거슬러 줘야 하는 금액 n과 Finn이 현재 보유하고 있는 돈의 종류 money가 매개변수로 주어질 때,
+                      Finn이 n원을 거슬러 줄 방법의 수를 return 하도록 solution 함수를 완성하시오.
+                      
+                      🔴 제한 사항
+                      
+                          ◽ n은 100,000 이하의 자연수입니다.
+                          
+                          ◽ 화폐 단위는 100종류 이하입니다.
+                          
+                          ◽ 모든 화폐는 무한하게 있다고 가정합니다.
+                          
+                          ◽ 정답이 커질 수 있으니, 1,000,000,007로 나눈 나머지를 return 해주세요.
+                          
+                      🔻 솔루션
+                      
+                          function solution(n, money) {
+                             let dp = new Array(n + 1).fill(0);
+                             var answer = 0;
+                             dp[0] = 1;
+                             
+                             for (let coin of money) {
+                                for (let price = coin; price <= n; price++) {
+                                   dp[price] += dp[price - coin];
+                                }
+                                console.log(coin);
+                                console.log(dp);                  // 1 [ 1, 1, 1, 1, 1, 1, ]
+                                                                     2 [ 1, 1, 2, 2, 3, 3, ]
+                                                                     5 [ 1, 1, 2, 2, 3, 4, ]
+                             
+                             return dp[n] % 1000000007;
+                          }
+                      
+                          
+            #️⃣ 문제풀이 - 정수 삼각형
+            
+                  🟨 문제       (* 문제 출처 : 프로그래머스  https://programmers.co.kr/learn/courses/30/lessons/43105)
+                    
+                     삼각형의 꼭대기에서 바닥까지 이어지는 경로 중, 거쳐간 숫자의 합이 가장 큰 경우를 찾아보려고 합니다.
+                     아래 칸으로 이동할 때는 대각선 방향으로 한 칸 오른쪽 또는 왼쪽으로만 이동 가능합니다.
+                     예를 들어 3에서는 그 아래칸의 8 또는 1로만 이동이 가능합니다.
+                     
+                     삼각형의 정보가 담긴 배열 triangle이 매개변수로 주어질 때, 거쳐간 숫자의 최대값을 return 하도록 solution 함수를 완성하시오.
+                     
+                  🔴 제한사항
+                  
+                        ◽ 삼각형의 높이는 1 이상 500 이하입니다.
+                        
+                        ◽ 삼각형을 이루고 있는 숫자는 0 이상 9,999 이하의 정수입니다.
+            
+                  🔻 솔루션
+                  
+                      function solution(triangle) {
+                         let answer = 0;
+                         let height = triangle.length;
+                         let d = Array(501)
+                             .fill(0)
+                             .map(() => Array(501).fill(0));
+                         answer = d[0][0] = triangle[0][0];
+                         
+                         for (let i = 1; i < height; i++) {
+                            for (let j = 0; j <= i; j++) {
+                               if (j == 0) d[i][j] = d[i -1][j] + triangle[i][j];
+                               else if (j == i) d[i][j] - d[i -1][j -1] + triangle[i][j];
+                               else d[i][j] = Math.max(d[i -1][j -1], d[i -1][j]) + triangle[i][j];
+                               
+                               answer = Math.max(answer, d[i][j];
+                            }
+                          }
+                          
+                         return answer;
+                     }
+                     
+                     const tc = [[7], [3, 8], [8, 1, 0], [2, 7, 4, 4], [4, 5, 2, 6, 5]];
+                     console.log(solution(tc));           // 30
+                   
+                      
+            #️⃣ 최단 경로 (Shortest Path)
+            
+                    ⭐ 최단 경로도 알고리즘 시험 문제에서 많이 나온다.
+                    
+                    ● 가중 그래프에서 구성하는 간선 간 가중치 합이 최소가 되도록 최단 경로를 찾는 알고리즘
+                    
+                    ● 최단 경로 알고리즘 유형
+                    
+                        🟣 Dijkstra 알고리즘 : 단일 최단 경로를 최소 비용을 통해서 산출   ⭐ 음수는 커버하지 못하고, 양의 가중치만 커버할 수 있다. 
+                        
+                        🟣 A* 알고리즘 (=A스타 알고리즘) : 휴리스틱 방법을 사용한 탐색    ⭐ 보통 게임에서 많이 사용된다. 
+                                                                                          Ex) 스타크래프트, 워크래프트같은 경우 어떤 유닛을 A에서 B로 보내라고 할 때,
+                                                                                          그 유닛이 정해진 경로들을 통해서 자동으로 찾아서 간다. 
+                                                                                          우리는 마우스를 해당 유닛이 있는 위치에서부터, 
+                                                                                          마우스는 특정 위치로 가라고 지정만 해 줄 뿐인데
+                                                                                          현재 유닛 위치랑 마우스로 지정된 위치, 이 두가지 포인터를 가지고 
+                                                                                          정해진 맵 내에서 휴리스틱한 방법을 통해서
+                                                                                          최단 경로를 찾아내는것이, 이 A* 알고리즘이다. 
+                                                               
+                        🟣 Bellman-Ford 알고리즘 : 음수 가중치를 허용한 비용 산출        ⭐ 음수를 커버하지 못하는 Dijkstra 알고리즘과 달리, 음수 가중치까지 허용한다.
+                        
+                        🟣 Floyd-Warshall 알고리즘 : 동적 계획법 기반의 고차원 기법      ⭐ 모든 정점간의 최단 거리를 찾아주는 알고리즘이다. 
+            
+            
+            #️⃣ dijkstra 알고리즘
+            
+                  ● 그래프에서 출발점과 도착점 사이의 최단 거리를 구하는 알고리즘
+                  
+                  ● 보통 단일 정점 간 최단 경로 산출 시 사용, 도로 교통 망이나 OSPF 등의 네트워크 라우팅 프로토콜에 널리 이용
+                  
+                  ● 구현 메서드(METHOD)
+                  
+                       ◽ 정점/간선 추가: ShortessPath.addVertex(), ShortestPath.addEdge()
+                       
+                       ◽ 다익스트라 알고리즘: ShortestPath._extractMin(), ShortestPath.dijkstra()
+            
+            
+            #️⃣ dijkstra 알고리즘 구현
+            
+                🔻 예제 - 1
+                
+                    // ShortestPath(): edge object 객체 저장을 위한 생성자
+                    // key: vertex
+                    // value: list 형태로 연결된 vertex를 표현하여 edge 연결 관계 표현
+                    function ShortestPath() {
+                       this.edges = {};
+                    }
+                    
+                    // addVertex(): 정점 추가 (간선 비용 표시를 위해 key/value object 형태로 저장)
+                    ShortestPath.prototype.addVertex = function (vertex) {
+                       this.edges[vertex] = {};
+                    };
+                    
+                    // addEdge(): 간선 추가
+                    ShortestPath.prototype.addEdge = function (srcVertex, dstVertex, weight) {
+                       this.edges[srcVertex][dstVertex] = weight;
+                    };
+                    
+                    // _extractMin(): 최단 거리 노드 검색
+                    ShortestPath.prototype._extractMin = function (queue, dist) {
+                       let minDistance = Number.POSITIVE_INFINITY;
+                       let minVertex = null;
+                       
+                       for (let vertex in queue) {
+                          if (dist[vertex] <= minDistance) {
+                             minDistance = dist[vertex];
+                             minVertex = vertex;
+                          }
+                       }
+                       
+                       return minVertex;
+                    };
+                   
+               
+            🔻 예제 - 2
+            
+            
+            
