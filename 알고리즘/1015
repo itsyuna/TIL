@@ -1,0 +1,204 @@
+
+📂 알고리즘
+
+      🐥 오늘의 목표 : floyd-warshall 알고리즘 마무리하고 문제풀이!
+      
+      
+            #️⃣ Flyod-Warshall 알고리즘
+
+                  ● 동적 계획법을 활용해, 그래프에서 가능한 모든 정점 쌍에 대해 최단 거리를 구하는 알고리즘
+
+                  ● 음의 가중치가 있어도 사용 가능하며, 많은 수의 간선으로 이루어져 있는 밀집 그래프(Dense Graph)에 사용 적합
+
+                  ● 구현 메서드(method)
+
+                        ◽ 정점/간선 추가: ShortestPath.addVertex(), ShortestPath.addEdge()
+
+                        ◽ 플로이드-워셜 알고리즘: ShortestPath.floydWarshall()
+                        
+            
+            #️⃣ Floyd-Warshall 알고리즘 구현
+            
+                  🔻 예제
+                  
+                      // floydwarshall(): 플로이드-워셜 최단 경로 탐색
+                      ShortestPath.prototype.floydWarshall = functioon () {
+                         let dist = {};
+                         
+                         for (let srcVertex = in this.edges) { 
+                            dist[srcVertex] = {};
+                            for (let dstVertex in this.edges) {
+                               if (srcVertex === dstVertex) dist[srcVertex][dstVertex] = 0;
+                               else dist[srcVertex][dstVertex] = Number.POSITIVE_INFINITY;
+                            }
+                         }
+                         
+                         for (let srcVertex in this.edges) {
+                            for (let dstVertex in this.edges[srcVertex])
+                               dist[srcVertex][dstVertex] = this.edges[srcVertex][dstVertex];
+                         }
+                         
+                         for (let midVertex in this.edges)
+                            for (let srcVertex in this.edges)
+                               for (let dstVertex in this.edges)
+                                  dist[srcVertex][dstVertex] = Math.min(
+                                     dist[srcVertex][dstVertex],
+                                     dist[srcVertex][midVertex] + dist[midVertex][dstVertex]
+                                  };
+                         
+                         for (let srcVertex in this.edges)
+                            for (let dstVertex in this.edges)
+                               if (dist[srcVertex][dstVertex] === Number.POSITIVE_INFINITY)
+                                  delete dist[srcVertex][dstVertex];
+                                  
+                         return dist;
+                       }
+                       
+                       let path = new ShortestPath();
+                       path.adVertex("A");
+                       path.adVertex("B");
+                       path.adVertex("C");
+                       path.adVertex("D");
+                       path.adVertex("E");
+                       
+                       path.addEdge("A", "B", 10);
+                       path.addEdge("A", "C", 3);
+                       path.addEdge("B", "C", 1);
+                       path.addEdge("B", "D", 2);
+                       path.addEdge("C", "B", 4);
+                       path.addEdge("C", "D", 8);
+                       path.addEdge("C", "E", 2);
+                       path.addEdge("D", "E", 7);
+                       path.addEdge("E", "D", 9);
+                      
+                       console.log(path);
+                       console.log(path.dijkstra("A"));
+                       console.log(path.dijkstra("B"));
+                       console.log(path.dijkstra("C"));
+                       console.log(path.dijkstra("D"));
+                       console.log(path.dijkstra("E"));
+                       console.log(path.floydWarshall());
+                
+                
+            #️⃣ 문제 풀이 - 별 찍기 10            (* 문제 출처 : 백준    https://www.acmipc.net/problem/2447 )
+            
+                  🟨 문제
+                  
+                      재귀적인 패턴으로 별을 찍어 보자. N이 3의 거듭제곱(3, 9, 27, ...)이라고 할 때, 크기 N의 패턴은 N*N 정사각형 모양이다.
+                      
+                      크기 3의 패턴은 가운데에 공백이 있고, 가운데를 제외한 모든 칸에 별이 하나씩 있는 패턴이다.
+                      
+                      N이 3보다 클 경우, 크기 N의 패턴은 공백으로 채워진 가운데의 (N/3)*(N/3) 정사각형을 크기 N/3의 패턴으로 둘러싼 형태이다.
+                     
+                      예를 들어 크기 27의 패턴은 예제 출력 1과 같다.
+                      
+                  🟩 입력
+                  
+                      첫째 줄에 N이 주어진다. N은 3의 거듭제곱이다. 즉 어떤 정수 k에 대해 N=3의 k제곱이며, 이 때 1 ≤ k < 8이다.
+                      
+                  🟥 출력
+                  
+                      첫째 줄부터 N번째 줄까지 별을 출력한다. 
+                      
+                      
+                  🔻 솔루션
+                  
+                      /* user code */
+                      function star(n, mat, x, y) {
+                         if (n ==1) {
+                            mat[y][x] = "*";
+                            return;
+                         }
+                         
+                         let size = Math.floor(n / 3);
+                         
+                         for (let j = 0; j < 3; j++) {
+                            for (let i = 0; i < 3; i++) {
+                               if (!(i == 1 && j == 1)) {
+                                  start(size, mat, x + i * size, y + j *size);
+                               }
+                            }
+                          }
+                       }
+                       function solution(n) {
+                          let mat = new Array(n).fill(0).map(() => new Array(n).fill(" "));
+                          
+                          start(n, mat, 0, 0);
+                          
+                          for (let i = 0; i < n; i++) {
+                             console.log(mat[i].join(""));
+                          }
+                       }
+                       
+                       solution(3);
+                       solution(9);
+                       solution(27);
+           
+            
+            #️⃣ 실전 문제풀이 - 가장 큰 수          ⭐정렬 문제   (* 문제 출처 : 프로그래머스   https://programmers.co.kr/learn/courses/30/lessons/42746)
+            
+                 🟨 문제
+                 
+                    0 또는 양의 정수가 주어졌을 때, 정수를 이어 붙여 만들 수 있는 가장 큰 수를 알아내 주세요.
+                    
+                    예를 들어, 주어진 정수가 [6, 10, 2]라면 [6102, 6210, 1062, 1026, 2610, 2106]를 만들 수 있고, 이 중 가장 큰 수는 6210입니다.
+                    
+                    0 또는 양의 정수가 담긴 배열 numbers가 매개변수로 주어질 때, 순서를 재배치하여 만들 수 있는 가장 큰 수를 문자열로 바꾸어
+                    
+                    return 하도록 solution 함수를 작성해주세요. 
+                 
+                 🔴 제한 사항
+                 
+                        ◽ numbers의 길이는 1 이상 100,000 이하입니다.
+                        
+                        ◽ numbers의 원소는 0 이상 1,000 이하입니다.
+                        
+                        ◽ 정답이 너무 클 수 있으니 문자열로 바꾸어 return 합니다.
+                        
+                 🔻 솔루션
+                 
+                      /* user code */
+                      function solution(numbers) {
+                         let answer = numbers
+                            .map((n) => n + "")
+                            .sort((x, y) => (y + x) - (x + y))
+                            .join("");
+                            
+                         return answer.split(0).join("") ? answer : "0";
+                      }
+              
+            
+            #️⃣ 실전 문제풀이 - H-Index            ⭐ 정렬 문제          (* 문제 출처 : 프로그래머스   https://programmers.co.kr/learn/courses/30/lessons/42747)
+            
+                  🟨 문제
+                  
+                      H-Index는 과학자의 생산성과 영향력을 나타내는 지표입니다. 어느 과학자의 H-Index를 나타내는 값인 h를 구하려고 합니다. 위키백과에 따르면, H-Index는 다음과 같이 구합니다.
+                      
+                      어떤 과학자가 발표한 논문 n편 중, h번 이상 인용된 논문이 h편 이상이고 나머지 논문이 h번 이하 인용되었다면
+                      
+                      h의 최대값이 이 과학자의 H-Index입니다.
+                      
+                      어떤 과학자가 발표한 논문의 인용 횟수를 담은 배열 citations가 매개변수로 주어질 때, 이 과학자의 H-Index를 return 하도록 solution 함수를 작성해주세요.
+                      
+                  🔴 제한사항
+                  
+                        ◽ 과학자가 발표한 논문의 수는 1편 이상 1,000편 이하입니다.
+                        
+                        ◽ 논문별 인용 횟수는 0회 이상 10,000회 이하입니다.
+                   
+                  🔻 솔루션
+                  
+                      /* user code */
+                      function solution(citations) {
+                         let answer = 0;
+                         
+                         citations = citations.sort((x, y) => y - x);
+                         while (answer + 1 <= citations[answer]) answer++;
+                         
+                         return answer;
+                      }
+            
+            
+            #️⃣
+                        
+                        
