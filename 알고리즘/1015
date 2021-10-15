@@ -238,18 +238,17 @@
                      
                      while (low <= high) {
                         mid = Math.floor(low + high) / 2);
-                        pass = times.reduce((sum, time) => (sum += Math.floor(mid / time)), 0);     ⭐ 배열을 모두 순회하면서, 
-                                                                                                        mid / times를 통해서 이 시간동안
-                                                                                                        이 부스에 있는 심사관이 정해진 시간동안 몇명을 처리할 수 있는지   
-                                                                                                        값이 나온다.      -> (* Math.floor()부분)
-                                                                                                        그럼 이걸 누적(* sum+= 부분)해서
-                                                                                                        pass(=총 처리할 수 있는 인원)라는 배열을 업데이트 한다.                                            
+                        pass = times.reduce((sum, time) => (sum += Math.floor(mid / time)), 0);    ⭐ 배열을 모두 순회하면서, 
+                                                                                                       mid / times를 통해서 이 시간동안
+                                                                                                       이 부스에 있는 심사관이 정해진 시간동안 몇명을 처리할 수 있는지   
+                                                                                                       값이 나온다.      -> (* Math.floor()부분)
+                                                                                                       그럼 이걸 누적(* sum+= 부분)해서
+                                                                                                       pass(=총 처리할 수 있는 인원)라는 배열을 업데이트 한다.                                            
                         
                         if (n <= pass) high = mid -1;       ⭐ 처리할 수 있는 경우, mid - 1로 좀 더 범위를 좁혀나간다.
                         else low = mid + 1;                 ⭐ 처리할 수 없는 경우, mid + 1로 계속 반복해 나간다. 
                      }                                                                    
                      
                      return low;                            
-                   }
-               
+                   }             
                
