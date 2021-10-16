@@ -1,0 +1,210 @@
+
+📂 알고리즘
+
+      🐥 오늘의 목표 : 알고리즘 마무리 및 문제풀이!
+      
+      
+            #️⃣ 실전 문제풀이 - 큰 수 만들기 (* 문제 출처 : 프로그래머스      https://programmers.co.kr/learn/courses/30/lessons/42883)
+
+                  🟨 문제
+
+                     어떤 숫자에서 k개의 수를 제거했을 때 얻을 수 있는 가장 큰 숫자를 구하려 합니다.
+
+                     예를 들어, 숫자 1924에서 수 두 개를 제거하면 [19, 12, 14, 92, 94, 24]를 만들 수 있습니다.
+                     이 중 가장 큰 숫자는 94입니다.
+
+                     문자열 형식으로 숫자 number와 제거할 수의 개수 k가 solution 함수의 매개변수로 주어집니다.
+
+                     number에서 k개의 수를 제거했을 때 만들 수 있는 수 중 가장 큰 숫자를 문자열 형태로 return 하도록 solution 함수를 완성하세요.
+
+                  🔴 제한 조건
+
+                       ◽ number는 1자리 이상, 1,000,000자리 이하인 숫자입니다.
+
+                       ◽ k는 1 이상 number의 자릿수 미만인 자연수입니다.
+
+
+                  🔻 솔루션    
+
+                      /* user code */
+                      function solution(number, k) {
+                         let stack = [];
+
+                         for (let i = 0; i < number.length; i++) {
+                            while(stack.length !== 0 && stack[stack.length - 1] < number[i] {
+                               stack.pop();
+
+                               if (--k === 0)
+                                  return stack.join("") + number.substr(i, number.length - i);
+                            }
+
+                            stack.push(number[i]);
+
+                         }
+
+                         return stack.join("").substr(0, stack.length -k);
+                      }  
+
+
+            #️⃣ 실전 문제풀이 - N-Queen   ((* 문제 출처 : 프로그래머스      https://programmers.co.kr/learn/courses/30/lessons/12952)
+
+                🟨 문제
+
+                    가로, 세로 길이가 n인 정사각형으로된 체스판이 있습니다. 체스판 위의 n개의 퀸이 서로를 공격할 수 없도록 배치하고 싶습니다. 
+
+                    예를 들어서 n인 4인 경우 다음과 같이 퀸을 배치하면 n개의 퀸은 서로를 한번에 공격할 수 없습니다.
+
+                    체스판의 가로 세로의 세로의 길이 n이 매개변수로 주어질 때, n개의 퀸이 조건에 만족 하도록 배치할 수 있는 방법의 수를 return하는
+                    solution 함수를 완성해주세요.
+
+                🔴 제한사항
+
+                        ◽ 퀸(Queen)은 가로, 세로, 대각선으로 이동할 수 있습니다.
+
+                        ◽ n은 12이하의 자연수 입니다.
+
+
+                🔻 솔루션
+
+                    /* user code */
+                    function isPossible(arr, row, col) {
+                       for (let c =0; c < col; c++) {
+                          if (arr[c] == row) return false;
+                          if (Math.abs(c = col) == Math.abs(arr[c] - row)) return false;
+                       }
+
+                       return true;
+                    }
+
+                    function dfs(n, arr, col) {
+                       if (col == n) return 1;
+
+                       let ret = 0;
+                       for (let row = 0; row < n; row++) {
+                          if (isPossible(arr, row, col)) {
+                             arr[col] = row;
+                             ret += dfs(n, arr, col + 1);
+                          }
+                       }
+                       return re;
+                    }
+
+                    function solution(n) {
+                       return dfs(n, [], 0);
+                    }
+
+
+            #️⃣ 실전 문제풀이 - 쿼드 압축 후 개수 세기           (* 문제 출처 : 프로그래머스      https://programmers.co.kr/learn/courses/30/lessons/68936)
+
+                  🟨 문제
+
+                     0과 1로 이루어진 2의n제곱 x 2의n제곱 크기의 2차원 정수 배열 arr이 있습니다.
+
+                     당신은 이 arr을 쿼드 트리와 같은 방식으로 압축하고자 합니다. 구체적인 방식은 다음과 같습니다.
+
+                          1. 당신이 압축하고자 하는 특정 영역을 S라고 정의합니다.
+
+                          2. 만약 S 내부에 있는 모든 수가 같은 값이라면, S를 해당 수 하나로 압축시킵니다.
+
+                          3. 그렇지 않다면, S를 정확히 4개의 균일한 정사각형 영역(입출력 예를 참고해주시기 바랍니다.)으로 쪼갠 뒤,
+                             각 정사각형 영역에 대해 같은 방식의 압축을 시도합니다.
+
+                     arr이 매개변수로 주어집니다. 위와 같은 방식으로 arr을 압축했을 때, 배열에 최종적으로 남는 0의 개수와 1의 개수를 배열에 담아서 
+                     return 하도록 solution 함수를 완성해주세요.
+
+                  🔴 제한사항
+
+                        ● arr의 행의 개수는 1 이상 1024 이하이며, 2의 거듭 제곱수 형태를 하고 있습니다.
+                          즉, arr의 행의 개수는 1, 2, 4, 8, ..., 1024 중 하나입니다.
+
+                            ◽ arr의 각 행의 길이는 arr의 행의 개수와 같습니다. 즉, arr은 정사각형 배열입니다.
+
+                            ◽ arr의 각 행에 있는 모든 값은 0 또는 1 입니다.
+
+
+                  🔻 솔루션
+
+                      /* user code */
+                      function dac(answer, arr, n, x, y) {
+                         let count = [0, 0];
+                         for (let j = y; j < y + n; j++) {
+                            for (let i = x; i < x + n; i++) {
+                               count[arr[j][j]++;
+                            }
+                         }
+
+                         if (count[0] === 0) {
+                            answer[1]++;
+                            return;
+                         }
+                         if (count[1] === 0) {
+                            answer[0]++;
+                            return;
+                         }
+
+                         dac(answer, arr, Math.floor(n / 2), x, y);
+                         dac(answer, arr, Math.floor(n / 2), Math.floor(x + n / 2), y);
+                         dac(answer, arr, Math.floor(n / 2), x, Math.floor(y + n / 2));
+                         dac(answer, arr, Math.floor(n / 2), Math.floor(x + n / 2), Math.floor(y + n / 2));
+                      }
+
+                      function solution(arr) {
+                         let answer = [0, 0];
+                         dac(answer, arr, arr.length, 0, 0);
+                         return answer;
+                      }
+
+
+            #️⃣ 실전 문제풀이 - N으로 표현          (* 문제 출처 : 프로그래머스      https://programmers.co.kr/learn/courses/30/lessons/42895)
+
+                  🟨 문제
+
+                      아래와 같이 5와 사칙연산만으로 12를 표현할 수 있습니다.
+
+                      12 = 5 + 5 + (5 / 5) + (5 / 5)
+                      12 = 55 / 5 + 5 / 5
+                      12 = (55 + 5) / 5
+
+                      5를 사용한 횟수는 각각 6,5,4 입니다. 그리고 이 중 가장 작은 경우는 4입니다.
+
+                      이처럼 숫자 N과 number가 주어질 때, N가 사칙연산만 사용해서 표현 할 수 있는 방법 중 N 사용횟수의 최소값을
+                      return 하도록 solution 함수를 작성하세요.
+
+                  🔴 제한사항
+
+                        ◽ N은 1 이상 9 이하입니다.
+
+                        ◽ number는 1 이상 32,000 이하입니다.
+
+                        ◽ 수식에는 괄호와 사칙연산만 가능하며 나누기 연산에서 나머지는 무시합니다.
+
+                        ◽ 최소값이 8보다 크면 -1을 return 합니다.
+
+
+                  🔻 솔루션
+
+                     /* user code */
+                     function solution(N, number) {
+                        const s = new Array(9).fill(0).map(() => new Set());
+                        for (let i = 1; i < 9; i++) {
+                           s[i].add(Number("".padStart(i, N)));     // Number -> * 1
+
+                           for (let j = 1; j < i; j++) {
+                              for (const arg1 of s[j]) {
+                                 for (const arg2 of s[i - j]) {
+                                    s[i].add(arg1 + arg2);
+                                    s[i].add(arg1 - arg2);
+                                    s[i].add(arg1 * arg2);
+                                    s[i].add(Math.floor(arg1 / arg2));    // Math.floor() -> (arg1 / arg2 >> 0)
+                                 }
+                              }
+                           }
+
+                           if (s[i].has(number)) return i;
+                        }
+
+                        return -1;
+                     }
+                  
+      
+        
