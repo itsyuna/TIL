@@ -1,7 +1,7 @@
 
 📂 알고리즘
 
-      🐥 오늘의 목표 : 알고리즘 마무리 및 문제풀이!
+      🐥 오늘의 목표 : 알고리즘 마무리 및 문제풀이!     + 기출문제 풀이 (* 강의자료 파일 참고)
       
       
             #️⃣ 실전 문제풀이 - 큰 수 만들기 (* 문제 출처 : 프로그래머스      https://programmers.co.kr/learn/courses/30/lessons/42883)
@@ -32,23 +32,28 @@
 
                          for (let i = 0; i < number.length; i++) {
                             while(stack.length !== 0 && stack[stack.length - 1] < number[i] {
-                               stack.pop();
+                                                  ⭐ stack에 값이 있다면, 가장 끝에 있는(위에 있는) 값하고 내가 지금 넣으려는 값하고 비교해서 
+                                                     stack에 있는 값보다 넣으려는 값이 더 크다면, 
+                               stack.pop();          -> stack에 있는 값을 제거해준다!
 
-                               if (--k === 0)
-                                  return stack.join("") + number.substr(i, number.length - i);
+                               if (--k === 0)        k를 감소시킬 때, 0이 되서 더이상 할 게 없다면
+                                  return stack.join("") + number.substr(i, number.length - i);   -> ⭐stack에 있는것 먼저 문자열로 이어붙여 주고, 그 나머지 현재 i에서 부터 시작해서 length-i까지 인덱스를 줘서
+                                                                                                      나머지 문자열을 이어붙이게 한다.
                             }
 
-                            stack.push(number[i]);
+                            stack.push(number[i]);  ⭐ 스택이 비어있거나, 앞에 값이 오름차순으로 잘 정렬되어 있다면, number 값을 뒤에 넣어준다. 
 
                          }
 
-                         return stack.join("").substr(0, stack.length -k);
+                         return stack.join("").substr(0, stack.length -k);  ⭐ 만약에 전체 순회를 했는데도 안끝났다면, stack에 모든 값들이 있으니까 이걸 0번부터 시ㅏㅈㄱ해서 stkac.length -1까지 매개변수를 주게도미ㅕㄴ
+                                                                                이제 k를 제외한 나머지가, 다 문자열 형태로 만들어져서 반환하게 된다. 
                       }  
 
 
             #️⃣ 실전 문제풀이 - N-Queen   ((* 문제 출처 : 프로그래머스      https://programmers.co.kr/learn/courses/30/lessons/12952)
+                                             ⭐ 대표적인 '백트래킹' 문제 중 하나!
 
-                🟨 문제
+                🟨 문제     * 체스 문제 (-> 참고로 이 N-Queen 문제는 매우 유명한 문제다.)
 
                     가로, 세로 길이가 n인 정사각형으로된 체스판이 있습니다. 체스판 위의 n개의 퀸이 서로를 공격할 수 없도록 배치하고 싶습니다. 
 
@@ -76,17 +81,25 @@
                        return true;
                     }
 
-                    function dfs(n, arr, col) {
-                       if (col == n) return 1;
+                    function dfs(n, arr, col) {       ⭐ 깊게 있게 내려가면서 전체 탐색을 해야하니까, dfs로 전체 탐색을 해준다. 
+                                                      
+                                                      ⭐ n = 몇개의 퀸을 놓아야 하는지 정보가 들어있다.  
+                                                         arr =각각의 인덱스별로 몇번째 위치에 퀸이 위치할것인지 값으로 나타내준다.
+                                                         col = y에 대한 위치가 지금 몇번째 depth까지 내려왔는지 나타내준다.  
+                       if (col == n) return 1;        ⭐ col이 4마리 말을 다 놨을때도 겹치지 않았다면, 즉 어떤 조건을 만족했다면 
+                                                         정답을 찾은거니까 그 때 return 1을 해준다.
 
-                       let ret = 0;
-                       for (let row = 0; row < n; row++) {
-                          if (isPossible(arr, row, col)) {
+                       let ret = 0;                         
+                       for (let row = 0; row < n; row++) {        ⭐ 나머지의 경우엔, row를 돌면서 rows는 정사각형이니까 n만큼 돌 수 있다.
+                                                                     row를 증가시키면서 이제 말을 row의 어느 위치에 둘 지 처음 판단을 한다. 
+                          if (isPossible(arr, row, col)) {        ⭐ isPossible를 통해서 가지치기를 하고, 
+                                                                     if에 대한 조건을 만족할때만 순회를 하도록 한다. 
+                                                                     그리고 조건을 만족하지 않으면 더 이상 depth를 내려가지 않는다라고 백트래킹을 해준다. 
                              arr[col] = row;
                              ret += dfs(n, arr, col + 1);
                           }
                        }
-                       return re;
+                       return ret;
                     }
 
                     function solution(n) {
@@ -96,7 +109,7 @@
 
             #️⃣ 실전 문제풀이 - 쿼드 압축 후 개수 세기           (* 문제 출처 : 프로그래머스      https://programmers.co.kr/learn/courses/30/lessons/68936)
 
-                  🟨 문제
+                  🟨 문제     (* 이 문제는 대표적인 분할 정복 문제이다)
 
                      0과 1로 이루어진 2의n제곱 x 2의n제곱 크기의 2차원 정수 배열 arr이 있습니다.
 
@@ -142,7 +155,7 @@
                             return;
                          }
 
-                         dac(answer, arr, Math.floor(n / 2), x, y);
+                         dac(answer, arr, Math.floor(n / 2), x, y);        ⭐ dac = divide and concor 
                          dac(answer, arr, Math.floor(n / 2), Math.floor(x + n / 2), y);
                          dac(answer, arr, Math.floor(n / 2), x, Math.floor(y + n / 2));
                          dac(answer, arr, Math.floor(n / 2), Math.floor(x + n / 2), Math.floor(y + n / 2));
@@ -150,7 +163,9 @@
 
                       function solution(arr) {
                          let answer = [0, 0];
-                         dac(answer, arr, arr.length, 0, 0);
+                         dac(answer, arr, arr.length, 0, 0);    ⭐ arr는 2차원 배열 탐색을 해준다.
+                                                                ⭐ arr.length는 재귀의 end조건이 된다. -> 처음에는 4, 반으로 쪼개면 2, 또 반으로 쪼개면 1. 1일때는 더이상 쪼갤깨 없기 때문에
+                                                                   1일 때 재귀를 break하도록 조건을 줄, 매트릭스의 x,y 크기가 된다. 
                          return answer;
                       }
 
@@ -206,5 +221,186 @@
                         return -1;
                      }
                   
+              
+            #️⃣ 기출 문제풀이 - 신규 아이디 추천 (Lv. 1)   (* 문제 출처 : 프로그래머스     https://programmers.co.kr/learn/courses/30/lessons/72410   
+                                                           ⭐2021 카카오 블라인드 채용 문제)      -> 자세한 문제 내용은 사이트 참고할 것! 
+                  
+                  🟨 문제 설명
+                  
+                     카카오에 입사한 신입 개발자 네오는 "카카오계정개발팀"에 배치되어, 카카오 서비스에 가입하는 유저들의 아이디를 생성하는 업무를 담당하게 되었스빈다.
+
+                     "네오"에게 주어진 첫 업무는 새로 가입하는 유저들이 카카오 아이디 규칙에 맞지 않는 아이디를 입력했을 때,
+                     입력된 아이디와 유사하면서 규칙에 맞는 아이디를 추천해주는 프로글매을 개발하는 것입니다.
+                     
+                     다음은 카카오 아이디의 규칙입니다.
+
+                        ◽ 아이디의 길이는 3자 이상 15자 이하여야 합니다.
+                        
+                        ◽ 아이디는 알파벳 소문자, 숫자, 빼기(-), 밑줄(_), 마침표(.) 문자만 사용할 수 있습니다.
+                        
+                        ◽ 단, 마침표(.)는 처음과 끝에 사용할 수 없으며 또한 연속으로 사용할 수 없습니다.
+                        
+                     네오는 다음과 같이 7단계의 순차적인 처리 과정을 통해 신규 유저가 입력한 아이디가 카카오 아이디 규칙에 맞는 지 검사하고
+                     규칙에 맞지 않은 경우 규칙에 맞는 새로운 아이디를 추천해 주려고 합니다.
+                     
+                     신규 유저가 입력한 아이디가 new_id라고 한다면,
+                     
+                     1단계 new_id의 모든 대문자를 대응되는 소문자로 치환합니다.
+                     2단계 new_id에서 알파벳 소문자, 숫자, 빼기(-), 밑줄(_), 마침표(.)를 제외한 모든 문자를 제거합니다.
+                     3단계 new_id에서 마침표(.)가 2번 이상 연속된 부분을 하나의 마침표(.)로 치환합니다.
+                     4단계 new_id에서 마침표(.)가 처음이나 끝에 위치한다면 제거합니다.
+                     5단계 new_id가 빈 문자열이라면, new_id에 "a"를 대입합니다.
+                     6단계 new_id의 길이가 16자 이상이면, new_id의 첫 15개의 문자를 제외한 나머지 문자들을 모두 제거합니다.
+                           만약 제거 후 마침표(.)가 new_id의 끝에 위치한다면 끝에 위치한 마침표(.) 문자를 제거합니다.
+                     7단계 new_id의 길이가 2자 이하라면, new_id의 마지막 문자를 new_id의 길이가 3이 될 때까지 반복해서 끝에 붙입니다.
+                     
+                     
+                   🟨 문제
+                     
+                        신규 유저가 입력한 아이디를 나타내는 new_id가 매개변수로 주어질 때,
+                        
+                        "네오"가 설계한 7단계의 처리 과정을 거친 후의 추천 아이디를 return 하도록 solution 함수를 완성해 주세요.
+                        
+                   🔴 제한사항
+                     
+                        ◽ new_id는 길이 1 이상, 1,000 이하인 문자열입니다.
+                        
+                        ◽ new_id는 알파벳 대문자, 알파벳 소문자, 숫자, 특수문자로 구성되어 있습니다.
+                        
+                        ◽ new_id에 나타날 수 있는 특수문자는 -_.~!@#$%^&*()=+[{]}:?,<>/ 로 한정됩니다.
+                     
+                     
+                   🔻 솔루션 (* 2가지)
+                   
+                      🟣 첫번째
+                     
+                         /* user code (1) */
+                         function solution(new_id) {
+                            let answer = "";
+                            
+                            new_id = new_id.toLowerCase();        // case 1
+                            
+                            let dot = false;
+                            for (let i = 0; i < new_id.length; i++) {
+                               if (answer.length === 15) break;   // cse 6
+                               
+                               let c = new_id[i];
+                               
+                               // case 2, 3, 4
+                               if ("a" <= c && c <= "z");
+                               else if ("0" <= c && c <= "9");
+                               else if (c === "-" || c === "_");
+                               else if (c === "." && dot) {
+                                  dot = false;
+                                  answer += c;
+                                  continue;
+                               } else continue;
+                               
+                               dot = true;
+                               answer += c;
+                            }
+                            
+                            // case 4, 6
+                            if (answer[answer.length - 1] === ".")
+                               answer = answer.substr(0, answer.length - 1);
+                               
+                            // case 5
+                            if (answer === "") answer ="a";
+                            
+                            // case 7
+                            if (answer.length <= 2)
+                               answer += answer[answer.length -1].repeaet(3 - answer.length);
+                               
+                               return answer;
+                            }
+                     
+                           
+                       🟣 두번째
+                        
+                           /* user code (2) */
+                           function solution(new_id) {
+                              const id = new_id
+                                 .toLowerCase()   // case 1
+                                 .replace(/[^\w-_.]/g, "")   // case 2
+                                 .replace(/\._/g, '-')       // case 3
+                                 .replace(/^\.|\.$/g, "")    // case 4
+                                 .padEnd(1, "a")             // case 5
+                                 .slice(0, 15).replace(/\.$/g, '');     // case 6
+                              return id.padEnd(3, id[id.length - 1]);   // case 7
+                           };
+                        
+                           
+            #️⃣ 기출 문제풀이 - 메뉴 리뉴얼 (Lv. 2)    (* 문제 출처 : 프로그래머스     https://programmers.co.kr/learn/courses/30/lessons/72411  
+                                                       ⭐2021 카카오 블라인드 채용 문제)    -> 자세한 문제 내용은 사이트 참고할 것!
+                                                       
+               🟨 문제 설명
+               
+                   레스토랑을 운영하던 스카피는 코로나19로 인한 불경기를 극복하고자 메뉴를 새로 구성하려고 고민하고 있습니다.
+                   
+                   기존에는 단품으로만 제공하던 메뉴를 조합해서 코스요리 형태로 재구성해서 새로운 메뉴를 제공하기로 결정했습니다.
+                   
+                   어떤 단품메뉴들을 조합해서 코스요리 메뉴로 구성하면 좋을 지 고민하던 "스카피"는 이전에 각 손님들이 주문할 때 가장 많이 함께 주문한
+                   
+                   단품메뉴들을 코스요리 메뉴로 구성하기로 했습니다.
+                   
+                   단, 코스요리 메뉴는 최소 2가지 이상의 단품메뉴로 구성하려고 합니다. 또한, 최소 2명 이상의 손님으로부터 주문된 단품메뉴 조합에 대해서만 코스요리 메뉴 후보에
+                   포함하기로 했습니다.
+                   
+               🟨 문제 
+                
+                  각 손님들이 주문한 단품메뉴들이 문자열 형식으로 담긴 배열 orders, "스카피"가 추가하고 싶어하는 코스요리를 구성하는 단품메뉴들의 갯수가 담긴
+                  
+                  배열 course가 매개변수로 주어질 때, "스카피"가 새로 추가하게 될 코스요리의 메뉴 구성을 문자열 형태로 배열에 담아
+                  
+                  return 하도록 solution 함수를 완성해 주세요.
+                  
+               🔴 * 제한 사항은 문제 사이트 참고!
+               
+               
+               🔻 솔루션
+                  
+                  /* user code */
+                  function combination(db, arr, data, s, idx, r) {
+                     if (s === r) {
+                        let str = data.join("");
+                        if (db[str]) db[str]++;
+                        else db[str] = 1;
+                        return;
+                     }
+                     
+                     for (let i = idx; arr.length - i >= r - s; i++) {
+                        data[s] = arr[i];
+                        combination(db, arr, data, s + 1, i + 1, r);
+                     }
+                  }
+                  
+                  function solution(order, course) {
+                     let answer = [];
+                     
+                     let sort_order = [];
+                     for (let i = 0; i < orders.length; i++) 
+                        sort_order.push(orders[i].split("").sort().join(""));
+                        
+                     for (let j = 0; j < course.length; j++) {
+                        let db = {};
+                        let output = [];
+                        for (let i = 0; i < sort_orders.length; i++)
+                           combination(db, sort_orders[i], output, 0, 0, course[j]
+                  };
+                  
+                        if (Object.keys(db).length !== 0) {
+                           let max = Math.max(...Object.values(db));
+                           if (max > 1) {
+                              let result = Object.keys(db).reduce(function (r, e) {
+                                 if (db[e] === max) r.push(e);
+                                 return r;
+                              }; []);
+                              answer = answer.concat(result);
+                           }
+                        }
+                     }
+                     
+                     return answer.sort();
+                  }
+                  
       
-        
