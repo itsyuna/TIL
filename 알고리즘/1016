@@ -37,7 +37,8 @@
                                stack.pop();          -> stack에 있는 값을 제거해준다!
 
                                if (--k === 0)        k를 감소시킬 때, 0이 되서 더이상 할 게 없다면
-                                  return stack.join("") + number.substr(i, number.length - i);   -> ⭐stack에 있는것 먼저 문자열로 이어붙여 주고, 그 나머지 현재 i에서 부터 시작해서 length-i까지 인덱스를 줘서
+                                  return stack.join("") + number.substr(i, number.length - i);   -> ⭐stack에 있는것 먼저 문자열로 이어붙여 주고, 
+                                                                                                      그 나머지 현재 i에서 부터 시작해서 length-i까지 인덱스를 줘서
                                                                                                       나머지 문자열을 이어붙이게 한다.
                             }
 
@@ -45,7 +46,8 @@
 
                          }
 
-                         return stack.join("").substr(0, stack.length -k);  ⭐ 만약에 전체 순회를 했는데도 안끝났다면, stack에 모든 값들이 있으니까 이걸 0번부터 시ㅏㅈㄱ해서 stkac.length -1까지 매개변수를 주게도미ㅕㄴ
+                         return stack.join("").substr(0, stack.length -k);  ⭐ 만약에 전체 순회를 했는데도 안끝났다면, 
+                                                                                stack에 모든 값들이 있으니까 이걸 0번부터 시작해서 stkac.length -1까지 매개변수를 주게되면
                                                                                 이제 k를 제외한 나머지가, 다 문자열 형태로 만들어져서 반환하게 된다. 
                       }  
 
