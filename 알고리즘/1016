@@ -155,7 +155,7 @@
                             return;
                          }
 
-                         dac(answer, arr, Math.floor(n / 2), x, y);        ⭐ dac = divide and concor 
+                         dac(answer, arr, Math.floor(n / 2), x, y);        ⭐ dac = divide and conquer 
                          dac(answer, arr, Math.floor(n / 2), Math.floor(x + n / 2), y);
                          dac(answer, arr, Math.floor(n / 2), x, Math.floor(y + n / 2));
                          dac(answer, arr, Math.floor(n / 2), Math.floor(x + n / 2), Math.floor(y + n / 2));
@@ -164,7 +164,8 @@
                       function solution(arr) {
                          let answer = [0, 0];
                          dac(answer, arr, arr.length, 0, 0);    ⭐ arr는 2차원 배열 탐색을 해준다.
-                                                                ⭐ arr.length는 재귀의 end조건이 된다. -> 처음에는 4, 반으로 쪼개면 2, 또 반으로 쪼개면 1. 1일때는 더이상 쪼갤깨 없기 때문에
+                                                                ⭐ arr.length는 재귀의 end조건이 된다. 
+                                                                   -> 처음에는 4, 반으로 쪼개면 2, 또 반으로 쪼개면 1. 1일때는 더이상 쪼갤 없기 때문에
                                                                    1일 때 재귀를 break하도록 조건을 줄, 매트릭스의 x,y 크기가 된다. 
                          return answer;
                       }
@@ -172,7 +173,7 @@
 
             #️⃣ 실전 문제풀이 - N으로 표현          (* 문제 출처 : 프로그래머스      https://programmers.co.kr/learn/courses/30/lessons/42895)
 
-                  🟨 문제
+                  🟨 문제   (* DP(Dynamic Programming) 문제)
 
                       아래와 같이 5와 사칙연산만으로 12를 표현할 수 있습니다.
 
@@ -200,10 +201,25 @@
 
                      /* user code */
                      function solution(N, number) {
-                        const s = new Array(9).fill(0).map(() => new Set());
-                        for (let i = 1; i < 9; i++) {
-                           s[i].add(Number("".padStart(i, N)));     // Number -> * 1
-
+                        const s = new Array(9).fill(0).map(() => new Set());     ⭐ s에 array로 9개의 set을 만들어준다. 
+                                                                                     N이 1번부터 ~ 8번까지 어떠한 값들로 채워 나갈거니까,
+                                                                                     값들을 채워나갈 수 있는 공간인 SET자료 구조를 통해서
+                                                                                     SET 객체로 총 9개를 만들어준다. 
+                                                                                     (0번째는 안쓸거니까!) 
+                                                                                     
+                        for (let i = 1; i < 9; i++) {       ⭐ n의 개수가 0이면 있을 필요가 없으니까, 1번부터 시작. 
+                                                                i가 9 이하일때까지, 8까지만 판단을 하고 그 이상은 -1을 return 한다. 
+                                                                
+                           s[i].add(Number("".padStart(i, N)));     // Number -> * 1로도 형변환 가능!          
+                                                                  ⭐ s[i]에는 최초의 i의 개수만큼의 연달아 연결되어 있는 최초의 값을 설정해줘야 한다. 
+                                                                      Ex) n = 1 -> 5(: 소문자 n이 1일때는 5 1개), n = 2 -> 55, n = 3 -> 555 
+                                                                          이런식으로 최초에 대한 5를 만들어준다.
+                                              
+                                              ⭐ padStart 메서드 사용 = i값을 몇번 반복할건지 설정(N)                                                                   
+                                                  => 안에 어떤 문자열("")이 있으면, 그 문자열을 제외한 나머지 수만큼 N값만큼 채워나가는건데
+                                                     지금은 아무것도 없으니까, 이 넘겨준 i라는 문자값을 N만큼 반복해서 Number()요기에다가 넣어준다. 
+                                                     처음에 문자열로 세팅이 되니까, 문자열로 만들어서 붙여준다음에 Number 값으로(: Number()) 반환을 시켜준다.
+                                                     
                            for (let j = 1; j < i; j++) {
                               for (const arg1 of s[j]) {
                                  for (const arg2 of s[i - j]) {
@@ -218,7 +234,7 @@
                            if (s[i].has(number)) return i;
                         }
 
-                        return -1;
+                        return -1;          ⭐ 만약에 위에서 for (let i = 1; i < 9; i++) { } 이렇게 했는데도 답을 못찾으면, -1을 return 해준다. 
                      }
                   
               
@@ -227,7 +243,7 @@
                   
                   🟨 문제 설명
                   
-                     카카오에 입사한 신입 개발자 네오는 "카카오계정개발팀"에 배치되어, 카카오 서비스에 가입하는 유저들의 아이디를 생성하는 업무를 담당하게 되었스빈다.
+                     카카오에 입사한 신입 개발자 네오는 "카카오계정개발팀"에 배치되어, 카카오 서비스에 가입하는 유저들의 아이디를 생성하는 업무를 담당하게 되었습니다.
 
                      "네오"에게 주어진 첫 업무는 새로 가입하는 유저들이 카카오 아이디 규칙에 맞지 않는 아이디를 입력했을 때,
                      입력된 아이디와 유사하면서 규칙에 맞는 아이디를 추천해주는 프로글매을 개발하는 것입니다.
@@ -282,7 +298,7 @@
                             
                             let dot = false;
                             for (let i = 0; i < new_id.length; i++) {
-                               if (answer.length === 15) break;   // cse 6
+                               if (answer.length === 15) break;   // case 6
                                
                                let c = new_id[i];
                                
@@ -343,8 +359,9 @@
                    
                    단품메뉴들을 코스요리 메뉴로 구성하기로 했습니다.
                    
-                   단, 코스요리 메뉴는 최소 2가지 이상의 단품메뉴로 구성하려고 합니다. 또한, 최소 2명 이상의 손님으로부터 주문된 단품메뉴 조합에 대해서만 코스요리 메뉴 후보에
-                   포함하기로 했습니다.
+                   단, 코스요리 메뉴는 최소 2가지 이상의 단품메뉴로 구성하려고 합니다. 
+                   또한, 최소 2명 이상의 손님으로부터 주문된 단품메뉴 조합에 대해서만 코스요리 메뉴 후보에 포함하기로 했습니다.
+                 
                    
                🟨 문제 
                 
