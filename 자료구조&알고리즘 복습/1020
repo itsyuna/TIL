@@ -328,4 +328,193 @@
             
             #️⃣ 데크 (Deque)
             
-
+                 : Double-Ended Queue 약자로, ⭐삽입과 삭제가 양쪽 끝에서 모두 발생⭐할 수 있는 선형 자료구조이다.
+                 
+                 🔻 구현 메서드(method)
+                 
+                       ◽ Deque.getBuffer()                                : 데이터 전체 획득
+                       
+                       ◽ Deque.isEmpty()                                  : 비어 있는지 확인
+                       
+                       ◽ Deque.pushFront() / Deque.pushBack()             : 데이터 추가
+                       
+                       ◽ Deque.popFront() / Deque.popBack()               : 데이터 삭제
+                       
+                       ◽ Deque.front()                                    : 첫번째 데이터 반환
+                       
+                       ◽ Deque.back()                                     : 끝 데이터 반환
+                       
+                       ◽ Deque.size()                                     : 사이즈
+                       
+                       ◽ Deque.clear()                                    : 전체 삭제
+                     
+                     
+            #️⃣ 큐, 데크 문제풀이 (1) - 카드 뽑기   
+            
+                  🟠 문제
+                  
+                       친구와 카드 게임을 하려고 한다. 카드는 총 N장 있으며, 1부터 N까지 번호가 차례대로 붙어 있다.
+                       
+                       카드의 순서는 1번 카드가 가장 위에 있고 N번 카드가 가장 아래인 상태로 놓여 있다.
+                       
+                       이 때 맨 위에 있는 한 장을 빼서 나누고, 그 다음 맨 위에 있는 한 장을 아래로 집어 넣으면서, 모든 카드를 분배할 때까지
+                       
+                       카드 한 장씩 빼고 넣는 작업을 반복한다.
+                       
+                       이러한 규칙으로 분배된 카드의 순서를 알려주는 프로그램을 작성하시오.
+                       
+                       입력 값은 자연수가 주어지며, 규칙에 따라 분배되는 카드의 순서를 기록해 배열 형태로 반환하시오.
+                       
+                       Ex)
+                           입력값 -> 4                출력값 : [ 1, 3, 2, 4 ]
+                           입력값 -> 7                출력값 : [ 1, 3, 5, 7, 4, 2, 6 ]
+                           입력값 -> 10               출력값 : [ 1, 3, 5, 7, 9, 2, 6, 10, 8, 4 ]
+                       
+                       
+                       🔻 솔루션
+                       
+                          /* user code */
+                          function Queue() {
+                             this.array = [];
+                          }
+                          
+                          Queue.prototype.enqueue = function (element) {
+                             this.array.push(element);
+                          };
+                          
+                          Queue.prototype.dequeue = function () {
+                             return this.array.shift();
+                          };
+                          
+                          function answer(n) {
+                             let result = [];
+                             
+                             let queue = new Queue();
+                             for (let i = 1; i <= n; i++) {
+                                queue.enqueue(i);
+                             }
+                             
+                             while (queue.array.length != 0) {
+                                result.push(queue.dequeue());
+                                if (queue.array.length != 0) {
+                                   queue.enqueue(queue.dequeue());
+                                }
+                             }
+                             
+                             return result;
+                          }
+                         
+                          
+                          /* main code */
+                          let input = [
+                             // TC: 1
+                             4,
+                             
+                             // TC: 2
+                             7,
+                             
+                             // TC: 3
+                             10,
+                          ];
+                          
+                          for (let i = 0; i < input.length; i++) {
+                             process.stdout.write(`#${i + 1} `);
+                             console.log(answer(input[i]));
+                          }
+                 
+                 
+            #️⃣ 큐, 데크 문제풀이 (2) - 프린터 출력
+            
+                 🟠 문제
+                 
+                     새로 구매한 프린터는 우선 순위를 고려해 프린트 결과물을 출력해주기 때문에 아래 규칙으로 동작한다.
+                     
+                     현재 등록된 프린트 문서들의 우선순위를 확인하고, 가장 높은 우선순위 문서가 먼저 출력되며
+                     
+                     현재 선택된 문서가 가장 높은 우선순위 문서가 아니라면, 취소되고 다시 뒤쪽 순서로 설정돼 추가된다.
+                     
+                     만약, 3개의 문서 A, B, C가 대기 상태이고, 중요도가 1, 2, 3이라면 "A B C -> B C A -> C A B -> C 출력 
+                     -> A B -> B A -> B 출력 -> A -> A" 출력으로 동작한다. 
+                     
+                     현재 등록된 문서 우선순위를 보고, 내가 등록한 문서가 언제 출력될 지 계산하는 프로그램을 작성하시오.
+                     
+                     입력은 우선순위와 0번부터 시작하는 문서 번호가 주어지고, 주어진 문서번호가 출력될 순서를 반환한다.
+                     
+                     Ex)
+                     
+                         입력값 -> [3], 0                     출력값 : 1
+                         입력값 -> [3, 4, 5, 6,], 2           출력값 : 2
+                         입력값 -> [1, 1, 5, 1, 1, 1], 0      출력값 : 5
+                            
+                    
+                    🔻 솔루션
+                    
+                       /* user code */
+                       function Queue() {
+                          this.array = [];
+                       }
+                       
+                       Queue.prototype.enqueue = function (element) {
+                          this.array.push(element);
+                       };
+                       
+                       Queue.prototype.front = function () {
+                          return this.array[0];
+                       };
+                       
+                       Queue.prototype.dequeue = function () {
+                          return this.array.shift();
+                       };
+                       
+                       Queue.prototype.max = function () {
+                          return Math.max(...this.array);
+                       };
+                       
+                       function answer(priorities, selecT) {
+                          let result = -1;
+                           let vq = new Queue();        // value
+                           let pq = new Queue();        // priority
+                           
+                           for (let i = 0; i < priorities.length; i++)+ {
+                              vq.enqueue(i);
+                              pq.enqueue(priorities[i]);
+                           }
+                           
+                           let count = 0;
+                           while (true) {
+                              if (pq.front() === pq.max()) {
+                                 count++;
+                                 if (vq.front() === select) {
+                                    result = count;
+                                    break;
+                                 } else {
+                                    vq.dequeue();
+                                    pq.dequeue();
+                                 }
+                              } else {
+                                vq.enqueue(vq.dequeue());
+                                pq.enqueue(pq.dequeue());
+                              }
+                           }
+                           
+                           return result;
+                       }
+                       
+                       /* main code */
+                       let input = [
+                          // TC: 1
+                          [[3, 0],
+                          
+                          // TC: 2
+                          [[3, 4, 5, 6], 2],
+                          
+                          // TC: 3
+                          [[1, 1, 5, 1, 1, 1], 0],
+                       ];
+                       
+                       for (let i = 0; i < input.length; i++) {
+                          process.stdout.write(`#${i + 1} `);
+                          console.log(answer(input[i]));
+                       }
+             
+   
