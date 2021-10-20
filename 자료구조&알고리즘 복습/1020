@@ -372,8 +372,7 @@
                        
                        
                        🔻 솔루션
-                       
-                          /* user code */
+                   
                           function Queue() {
                              this.array = [];
                           }
@@ -386,15 +385,22 @@
                              return this.array.shift();
                           };
                           
+                          /* user code */
                           function answer(n) {
                              let result = [];
+                             
+                             // 1. 첫번째 카드는 분배
+                             
+                             // 2. 두번재 카드는 맨 아래로 다시 넣는다.
+                             
+                             // 3. 카드가 없어질때까지 1, 2번을 반복한다. 
                              
                              let queue = new Queue();
                              for (let i = 1; i <= n; i++) {
                                 queue.enqueue(i);
                              }
                              
-                             while (queue.array.length != 0) {
+                             while (queue.array.length != 0) {               ⭐isEmpty가 아닐때까지 계속 while문으로 돈다. -> method로 isEmpty로 빼서 사용해도 됨!
                                 result.push(queue.dequeue());
                                 if (queue.array.length != 0) {
                                    queue.enqueue(queue.dequeue());
@@ -449,7 +455,6 @@
                     
                     🔻 솔루션
                     
-                       /* user code */
                        function Queue() {
                           this.array = [];
                        }
@@ -470,35 +475,46 @@
                           return Math.max(...this.array);
                        };
                        
-                       function answer(priorities, selecT) {
+                       /* user code */
+                       function answer(priorities, select) {
                           let result = -1;
-                           let vq = new Queue();        // value
-                           let pq = new Queue();        // priority
+                          
+                          // 1. 큐 내 우선순위가 가장 높은 문서를 확인
+                          
+                          // 2. 그 문서가 나올때까지, 나머지 문서는 dequeue -> enqueue (순서 바꿈)
+                          
+                          // 3. 문서 번호 select를 찾을때까지 계속 반복
+                          
+                          let vq = new Queue();        // value
+                          let pq = new Queue();        // priority
                            
-                           for (let i = 0; i < priorities.length; i++)+ {
-                              vq.enqueue(i);
-                              pq.enqueue(priorities[i]);
-                           }
+                          for (let i = 0; i < priorities.length; i++)+ {
+                             vq.enqueue(i);
+                             pq.enqueue(priorities[i]);
+                          }
                            
-                           let count = 0;
-                           while (true) {
-                              if (pq.front() === pq.max()) {
-                                 count++;
-                                 if (vq.front() === select) {
-                                    result = count;
-                                    break;
-                                 } else {
-                                    vq.dequeue();
-                                    pq.dequeue();
-                                 }
-                              } else {
-                                vq.enqueue(vq.dequeue());
-                                pq.enqueue(pq.dequeue());
-                              }
-                           }
+                          let count = 0;
+                          while (true) {
+                             ⭐ 출력 부분
+                             if (pq.front() === pq.max()) {
+                                count++;
+                                if (vq.front() === select) {
+                                   result = count;
+                                   break;
+                                ⭐ 다른 문서 제거 
+                                } else {
+                                   vq.dequeue();
+                                   pq.dequeue();
+                                }
+                             ⭐ 문서 변경 부분
+                             } else {
+                               vq.enqueue(vq.dequeue());
+                               pq.enqueue(pq.dequeue());
+                             }
+                          }
                            
-                           return result;
-                       }
+                          return result;
+                      }
                        
                        /* main code */
                        let input = [
