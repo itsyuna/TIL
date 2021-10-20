@@ -1,0 +1,331 @@
+
+[개인복습 및 추가학습]  + 문제 다시 풀어보기!
+
+
+       📂 선형 자료구조
+        
+            #️⃣ 스택 (Stack)   ⭐배열과 함께 알고리즘에서 정말 많이 사용되는 자료구조중 하나이다.
+            
+                : 나중에 넣은 데이터가 먼저 나오는 ⭐LIFO(Last In First Out)⭐ 기반의 선형 자료 구조
+                
+                🔻 구현 메서드(method)
+                
+                      ◽ Stack.getBuffer()       : 데이터 전체 획득
+                      
+                      ◽ Stack.isEmpty()         : 비어 있는지 확인
+                      
+                      ◽ Stack.push()            : 추가
+                      
+                      ◽ Stack.pop()             : 삭제
+                      
+                      ◽ Stack.peak()            : 마지막 데이터 조회
+                      
+                      ◽ Stack.size()            : 크기 확인
+                      
+                      ◽ Stack.indexOf()         : 데이터 위치
+                      
+                      ◽ Stack.includes()        : 존재 여부 확인
+                
+                
+                🟨 스택 문제풀이 (1) - 괄호 짝 찾기
+                
+                      🟠 문제 
+                      
+                         계산 수식이 주어졌을 때, 같은 짝의 괄호 위치를 찾는 프로그램을 제작하시오.
+                         
+                         입력은 계산 수식으로 주어지며, 괄호의 짝 별 위치를 [시작, 끝]으로 찾아 2차원 배열 형태로 반환한다.
+                         
+                         위치 시작 값은 0으로 시작하며, 하나라도 짝이 맞지 않을 경우 빈 배열을 반환한다.
+                         
+                         Ex) 
+                         
+                             입력값 -> (a+b)           출력값 : [ [ 0, 4 ] ]
+                                      (a*(b+c)+d)              [ [ 3, 7 ], [ 0, 10 ] ]
+                                      (a*(b+c)+d+(e)           []
+                                      (a*(b+c)+d)+e)           []
+                                      (a*(b+c)+d)+(e*(f+g))    [ [ 3, 7 ], [ 0, 10 ], [ 15, 19 ], [ 12, 20 ] ]
+                
+                         
+                         🔻 솔루션
+                         
+                            /* user code */
+                            if (!Array.prototype.peek) {
+                               Array.prototype.peek = function () {
+                                  return this[this.length - 1];
+                               };
+                            }
+                            
+                            if (!Array.prototype.isEmpty) {
+                               Array.prototype.isEmpty = funciton () {
+                                  return this.length == 0;
+                               };
+                            }
+                            
+                            function answer(str) {
+                               let result = [];
+                               
+                               let stack = [];
+                               for (let i = 0; i < str.length; i++) {
+                                  if (str[i] == "(") {
+                                     stack.push(i);
+                                  } else if (str[i] == ")") {
+                                    if (stack.isEmpty()) {
+                                       return [];
+                                    }
+                                    result.push([stack.pop(), i]);
+                                  }
+                                }
+                                
+                                if (!stack.isEmpty()) {
+                                  return [];
+                                }
+                                
+                                return result;
+                             }
+                         
+                             /* main code */
+                             let input = [
+                                // TC: 1
+                                "(a+b)",
+                               
+                                // TC: 2
+                                "(a*(b+c)+d)",
+                                
+                                // TC: 3
+                                "(a*(b+c)+d+(e)",
+                                
+                                // TC: 4
+                                "(a*(b+c)+d)+e)",
+                                
+                                // TC: 5
+                                "(a*(b+c)+d)+(e*(f+g))",
+                              ];
+                              
+                              for (let i = 0; i < input.length; i++) {
+                                 process.stdout.write(`#${i + 1} `);
+                                 console.log(answer(input[i]));
+                              }
+            
+            
+                🟨 스택 문제풀이 (2) - 접시 꺼내기
+                
+                     🟠 문제
+                     
+                         접시가 a, b, c, d 순으로 한쪽이 막혀 있는 세척기에 들어간다고 할 때, b a c d 순으로 꺼내기 위해서는
+                         
+                         push, push, pop, pop, push, pop, push, pop 순으로 꺼내면 된다. 세척기에 꺼내야 하는 접시의 순서가 주어질 때,
+                         
+                         push/pop으로 접시가 꺼내져야 하는 동작을 계산하는 프로그램을 작성하시오.
+                         
+                         입력은 접시의 수가 10개를 넘기지 않는 소문자 알파벳으로 주어지며, 접시 꺼내는 push/pop 연산 동작을 push -> 0, pop -> 1로 변환하여
+                         
+                         배열로 반환한다. (단, 주어진 순서로 못 꺼낼 경우, 빈 배열로 반환)
+                         
+                         Ex)
+                            
+                             입력값 -> bacd                출력값 : [ 0, 0, 1, 1, 0, 1, 0, 1 ]
+                                       dabc                        []
+                                       edcfgbijha                  [ 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1 ]
+                
+                         
+                         🔻 솔루션
+                          
+                            /* user code */
+                            if (!Array.prototype.peek) {
+                               Array.prototype.peek = function () {
+                                  return this[this.length - 1];
+                               };
+                            }
+                            
+                            if (!Array.prototype.isEmpty) {
+                               Array.prototype.isEmpty = function () {
+                                  return this.length == 0;
+                               };
+                            }
+                            
+                            /* user code */
+                            function answer(str) {
+                               let result = [];
+                               
+                               let stack = [];
+                               let dish = str.split("").sort().join("");
+                               let dish_index = 0;
+                               
+                               for (let i = 0; i < str.length; i++) {
+                                  while (stack.isEmpty() || stack.peek() < str[i]) {
+                                     stack.push(dish[dish_index++]);
+                                     result.push(0);
+                                  }
+                                  
+                                  if (stack.isEmpty() || stack.peek() > str[i]) {
+                                     return [];
+                                  } else {
+                                     stack.pop();
+                                     result.push(1);
+                                  }
+                               }
+                               
+                               return result;
+                             }
+                             
+                             /* main code */
+                             let input = [
+                                // TC: 1
+                                "bacd",
+                                
+                                // TC: 2
+                                "dabc",
+                                
+                                // TC: 3
+                                "edcfgbijha",
+                             ];
+                             
+                             for (let i =  0; i < input.length; i++) {
+                                process.stdout.write(`#${i + 1} `);
+                                console.log(answer(input[i]));
+                             }
+                
+                
+                🟨 스택 문제풀이 (3) - 기린의 시야 
+            
+                      🟠 문제 설명
+                     
+                          기린이 앞쪽만 볼 수 있는 경우, 다른 기린을 몇 마리 볼 수 있는지 총합을 구하는 프로그램을 작성하시오.
+                          
+                          기린은 자신보다 작거나 같은 기린만 볼 수 있으며, 자신보다 큰 기린이 나올 경우 앞 기린들이 가려서 볼 수가 없다.
+                          
+                          입력은 기린 별 키 값이 들어오며, 다른 기린을 볼 수 있는 총합을 구해 반환한다.
+                          
+                          예를 들어, 5 2 4 2 6 1 순의 기린 키가 입력으로 들어오면 1번 기린은 2, 3, 4 기린을 볼 수 있어 3마리, 
+                          
+                          2번은 볼 수 있는 기린이 없고, 3번은 1마리, 4번은 0마리, 5번은 1마리, 마지막 기린은 앞의 기린이 없으므로 0마리로, 답은 총 5마리 기린이다.
+                          
+                          Ex)
+                           
+                              입력값 -> [10, 3, 7, 4, 12, 2]                    출력값 : 5
+                                        [7, 4, 12, 1, 13, 11, 12, 6]                    6
+                                        [20, 1, 19, 18, 15, 4, 6, 8, 3, 3,]             30
+                          
+                          
+                          🔻 솔루션
+                          
+                              /* user code */
+                              if (!Array.prototype.peek) {
+                                 Array.prototype.peek = function () {
+                                    return this[this.length - 1];
+                                 };
+                              }
+                              
+                              if (!Array.prototype.isEmpty) {
+                                 Array.prototype.isEmpty = function () {
+                                    return this.length == 0;
+                                 };
+                              }
+                             
+                              function answer(giraffe) {
+                                 let result = 0;
+                                 
+                                 let stack = [];
+                                 giraffe.push(Number.MAX_SAFE_INTEGER);
+                                 for (let i = 0; i M giraffe.length; i++) {
+                              {
+                                   while (!stack.isEmpty() && stack.peek()
+                              ["h"] < giraffe[i]) {
+                                    result += i - stack.pop()["i"] - 1;
+                                  }
+                                  
+                                  stack.push({ h: giraffe[i], i: i });
+                                }
+                                
+                                return result;
+                              }
+                           
+                              /* main code */
+                              let input = [
+                                 // TC: 1
+                                 [10, 3, 7, 4, 12, 2],
+                                 
+                                 // TC: 2
+                                 [7, 4, 12, 1, 13, 11, 12, 6],
+                                 
+                                 // TC: 3
+                                 [20, 1, 19, 18, 15, 4, 6, 8, 3, 3],
+                              ];
+                              
+                              for (let i = 0; i < input.length; i++) {
+                                 process.stdout.write(`#${i + 1} `);
+                                 console.log(answer(input[i]));
+                              }
+        
+            
+            #️⃣ 큐 (Queue)
+            
+                 : 먼저 넣은 데이터가 먼저 나오는 ⭐FIFO(First In First Out)⭐ 기반의 선형 자료구조이다.
+                 
+                 🔻 구현 메서드(method)
+                 
+                        ◽ Queue.getBuffer()           : 데이터 전체 획득
+                        
+                        ◽ Queue.isEmpty()             : 비어 있는지 확인
+                        
+                        ◽ Queue.enqueue()             : 데이터 추가
+                        
+                        ◽ Queue.dequeue()             : 삭제
+                        
+                        ◽ Queue.front()               : 첫번째 데이터
+                        
+                        ◽ Queue.size()                : 사이즈
+                        
+                        ◽ Queue.clear()               : 전체 삭제
+    
+    
+            #️⃣ 우선순위 큐 (Priority Queue)
+            
+                  : 우선순위를 고려하여 먼저 넣은 데이터가 먼저 나오는 FIFO(First In First Out) 기반의 선형 자료 구조
+                  
+                    🟢 우선순위 정렬 방식 : 배열 기반, 연결리스트 기반, 힙(Heap) 기반 등의 정렬 방식 존재
+                    
+                  
+                  🔻 구현 메서드(method)
+                  
+                       ◽ PriorityQueue.getBuffer()          : 데이터 전체 획득
+                       
+                       ◽ PriorityQueue.isEmpty()            : 비어 있는지 확인
+                       
+                       ◽ PriorityQueue.enqueue()            : 데이터 추가
+                       
+                       ◽ PriorityQueue.dequeue()            : 삭제
+                       
+                       ◽ PriorityQueue.front()              : 첫번째 데이터
+                       
+                       ◽ PriorityQueue.size()               : 사이즈
+                       
+                       ◽ PriorityQueue.clear()              : 전체 삭제
+                       
+            
+            #️⃣ 원형 큐 (Circular Queue)
+            
+                  : 원형 형태를 가지며, 먼저 넣은 데이터가 먼저 나오는 ⭐FIFO(First In First Out) 기반의 선형 자료구조이다. 
+            
+                  🔻 구현 메서드(method)
+                  
+                       ◽ CircularQueue.isEmpty()        : 데이터가 비어 있는지 확인
+                       
+                       ◽ CircularQueue.isFull()         : 데이터가 꽉 찼는지 확인
+                       
+                       ◽ CircularQueue.enqueue()        : 데이터 추가
+                       
+                       ◽ CircularQueue.dequeue()        : 데이터 삭제
+                       
+                       ◽ CircularQueue.getBuffer()      : 데이터 반환
+                       
+                       ◽ CircularQueue.front()          : 첫번째 데이터 
+                       
+                       ◽ CircularQueue.size()           : 사이즈
+                       
+                       ◽ CircularQueue.clear()          : 전체 삭제
+                  
+            
+            #️⃣ 데크 (Deque)
+            
+
