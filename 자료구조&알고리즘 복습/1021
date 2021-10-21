@@ -135,7 +135,11 @@
                          입력값 -> ["Roxy", "Ravi", "Nana", "Rei", "Karis", "Mana", "Naomi"], 
                                    ["Olga", "Nana", "Rei", "OliveR", "Kali", "Rei", "Kara"]         출력값 : ['Ravi', 'Nana', 'Rei', 'Naomi']
             
-            
+                      -> 두 배열에 대한 교집합을 확인해서, 배열로 반환하라는 문제.
+                      
+                      ⭐이 문제는 딕셔너리를 안쓰고, 다중 for문을 통해서도 풀 수도 있다.
+                      
+                         
                       🔻 솔루션
             
                          /* user code */
@@ -143,11 +147,11 @@
                             this.items = items;
                          }
                          
-                         Dictionary.prototype.has = function (key) {
-                            return this.items.hasOwnProperty(key);
+                         Dictionary.prototype.has = function (key) {       ⭐ has라는 method를 통해서 학생의 이름이 있는지 없는지 확인한다.  * (key) : 학생이름 
+                            return this.items.hasOwnProperty(key);        -> 이거말고 in 문법을 통해서 해도 된다.   
                          };
                          
-                         Dictionary.prototype.set = function (key, value)
+                         Dictionary.prototype.set = function (key, value)    ⭐ key, value -> 데이터 추가 
                          {
                             this.items[key] = value;
                          };
@@ -155,19 +159,40 @@
                          function answer(class_1, class_2) {
                             let result = [];
                             
+                            // class_2에 대한 key/value 형태로 저장 -> 학생 있는지 없는지 확인
                             let tmp = new Dictionary();
                             for (let i = 0; i < class_2.length; i++) {
-                               tmp.set(class_2[i], true);
+                               tmp.set(class_2[i], true);        ⭐ [i] : 학생이름    / value는 아무거나 넣어줘도 상관없다. 여기서는 true로 설정. 
                             }
                             
+                            
+                            ⭐⭐ for문을 2개 썼기 때문에, 시간 복잡도는 2 O(n)이 되서, 앞에 없애고 O(n)의 시간복잡도를 갖게 된다. 
+                            
+                            
+                            // class_1에 대한 for loop을 돌때, class_2에서 설정한 dictionary에 학생이 있는지 없는지 유무를 통해 빠르게 확인할 수 있음
+                            
+                                                                           ⭐ 문제에서 1학기 학생 위주로 정렬하라고 했으니까, 순서는 위와 같이 2번째 먼저
+                                                                               dictionary에 저장을 해놓고, class_1에 대한 for문을 탐색하면서 
+                                                                               만약에 지금 탐색하는 학생의 이름이
+                                                                               class_2의 dictionary안에 있으면, result안에 넣어주는 방식으로 구현해준다. 
                             for (let i = 0; i < class_1.length; i++) {
-                               if (tmp.has(class_1[i])) {
-                                  result.push(class_1[i]);
-                               }
+                               if (tmp.has(class_1[i])) {                  ⭐ class_1에 대한 학생의 이름이 tmp에 있다면,
+                                                                               class_1에도 있고, class_2에도 있고 이렇게 둘 다 있는거니까 
+                                  result.push(class_1[i]);                     -> 이런 상황일때만, result의 push로 calss_1에 대한 학생의 이름을 넣어준다. 
+                               }                                      
+                                                                               -> class_1에 대한 순서로 하나하나 추가가 된다. 
+                                                                                  그래서 1학기의 순서를 유지한 상태로 배열을 넣을 수 있다. 
                             }
                             
-                            return result;
-                        }
+                            return result;                              ⭐⭐ 만약에 Dictionary를 사용하지 않고 이중 for문으로 한다면,
+                                                                              예를들면, 
+                                                                              for class_1
+                                                                                 for class_2
+                                                                                    if (c)...     이런식으로 여기 안쪽에 class_1과 class_2에 대한 id, 
+                                                                                                  즉 현재 string이 같다라는 비교로 할 수도 있다.
+                                                                                                  그래서 같았을때만 append를 할수도 있는데,
+                                                                                                  이렇게 하면 시간 복잡도는 O(n^2)(=O의 n제곱)이 되니까 속도가 느리다. 
+                       }
                          
                          /* main code */
                          let input = [
@@ -194,8 +219,8 @@
                              process.stdout.write(`#${i + 1} `);
                              console.log(answer(input[i][0], input[i][1]));
                           }
-                          
-            
+                      
+                      
             #️⃣ 해시테이블 문제풀이 - 숫자 카드
             
                  🟨 문제
@@ -217,7 +242,10 @@
                           
                           입력값 -> [5, -3, -7, 10, -3, 4, 8, 4, -3, 3, 8, -2, -9, -8, -1],
                                     [4, 5, 1, 10, -2, -3, 3, -8]                                        출력값 : [ 2, 1, 0, 1, 1, 3, 1, 1 ]
-            
+                         
+                          ⭐ 이번문제도 이중 for loop으로 풀 수도 있다. 
+                             -> Hash에 대한 객체를 안쓰고 배열을 통해서 하는게 코드가 더 간결하다.
+                                이 문제가 Hash에 엄청나게 fit하진 않지만, Hash로도 응용해서 풀 수 있다는걸 연습해보는것!  
             
                       🔻 솔루션
                         
@@ -228,65 +256,75 @@
                           }
                           
                           HashTable.prototype.hashCode = function (key) {
-                             return (key + 10) % HASH_SIZE;
-                          };
+                             return (key + 10) % HASH_SIZE;           ⭐ -10 ~ 10 -> 0 ~ 20      : 범위를 -10 ~ 10에서 0 ~ 20으로 만들어준다. 
+                                                                                                    0에서 20에 대한거는 배열의 인덱스로 사용할 수 있기 때문에
+                                                                                                    (key)를 card에 대한 숫자로 줬고, 
+                                                                                                    그거에 대한 인덱스 변화를 이렇게 보정처리를 해줬다.
+                                                                                                    
+                                                                                                    사실 Modular 연산을 안해도 되는데, 
+                                                                                                    이런 문제가 대부분 엄청나게 큰 숫자를 주고
+                                                                                                    정해져있는 배열 사이즈내에서 
+                                                                                                    효율적으로 잘 counting 할 수 있는지를 물어보는 문제가 대다수이기 때문에
+                                                                                                    그런 확장성으로 인해서 Modular 연산을 셋팅해줬다. 
+                         };                                                                                                                               
                           
-                          HashTable.prototype.put = function (key) {
-                             let index = this.hashCode(key);
-                             if (this.table[index] === underfined) {
-                                this.table[index] = 0;
-                             }
-                             this.table[index]++;
-                          };
+                         HashTable.prototype.put = function (key) {
+                            let index = this.hashCode(key);
+                            if (this.table[index] === underfined) {
+                               this.table[index] = 0;
+                            }
+                           this.table[index]++;
+                         };
                           
-                          HashTable.prototype.get = function (key) {
-                             let index = this.hashCode(key);
-                             return this.table[index] === underfined ? - : this.table[index];
-                          };
+                         HashTable.prototype.get = function (key) {
+                            let index = this.hashCode(key);
+                            return this.table[index] === underfined ? - : this.table[index];
+                         };
                           
-                          
-                          
-                          
-                          function answer(card, select) {
-                             let result = [];
-                              
-                             let ht = new HashTable();
-                             for (let i = 0; i < card.length; i++) {
-                                ht.put(card[i]);
-                             }
+                         function answer(card, select) {
+                            let result = [];
                              
-                             for (let i = 0; i < select.length; i++) {
-                                result.push(ht.get(select[i]));
-                             }
+                            // 1. card내 있는 숫자 카드가 몇개인지를 count
+                            let ht = new HashTable();
+                            for (let i = 0; i < card.length; i++) {
+                               ⭐ 카드 숫자 별 count, 10 -> 2, -10 -> 3
+                               ht.put(card[i]);
+                            }
+                             
+                            // 2. select내 있는 숫자 카드가 1번의 count한 배열에서 몇 개 있는지 확인
+                            for (let i = 0; i < select.length; i++) {
+                               ⭐ 1번에서 구한 숫자 카드가 있는 경우, 그 카드의 개수를 넣어주고, 없는 경우는 0 
+                               result.push(ht.get(select[i]));
+                            }
                        
-                             return result;
-                          }
+                            return result;
+                         }
                           
-                          /* main code */
-                          let input = [
-                             // TC: 1
-                             [
-                               [-6, -1, 6, 1, 1], 
-                               [-2, 1, 3],
-                             ],
+                         /* main code */
+                         let input = [
+                            // TC: 1
+                            [
+                              [-6, -1, 6, 1, 1], 
+                              [-2, 1, 3],
+                            ],
                              
-                             // TC: 2
-                             [
-                               [7, 4, 3, 10, 10, 10, -10, -10, 7, 3], 
-                               [10, 9, -5, 4, 6, -10],
-                             ],
+                            // TC: 2
+                            [
+                              [7, 4, 3, 10, 10, 10, -10, -10, 7, 3], 
+                              [10, 9, -5, 4, 6, -10],
+                            ],
                              
-                             // TC: 3
-                             [
-                                [5, -3, -7, 10, -3, 4, 8, 4, -3, 3, 8, -2, -9, -8, -1],
-                                [4, 5, 1, 10, -2, -3, 3, -8],    
-                             ],
-                           ];
+                            // TC: 3
+                            [
+                               [5, -3, -7, 10, -3, 4, 8, 4, -3, 3, 8, -2, -9, -8, -1],
+                               [4, 5, 1, 10, -2, -3, 3, -8],    
+                            ],
+                          ];
                            
-                           for (let i = 0; i < input.length; i++) {
-                              process.stdout.write(`#${i + 1} `);
-                              console.log(answer(input[i][0], input[i][1]));
-                           }
+                          for (let i = 0; i < input.length; i++) {
+                             process.stdout.write(`#${i + 1} `);
+                             console.log(answer(input[i][0], input[i][1]));
+                          }
                
             
             #️⃣ 선형 해시테이블 문제풀이 - 백신 접종
@@ -362,23 +400,26 @@
                              
                              do {
                                 if (this.table[index] !== undefined && this.table[index].key === key) {
-                                   return this.table[index].value;
+                                   return this.table[index].value;         ⭐ 내가 접종한 번호를 return value로 반환해준다. 
                                 }
                                 
-                                index = (index + 1) % this.size;
+                                index = (index + 1) % this.size;           ⭐ 만약에 못찾았으면 계속 순회를 해줘야 하니까 index + 1로 this.size만큼 순회를 시켜준다.
                              } while (index !== startIndex);
                              
-                             return undefined;
+                             return undefined;                             ⭐ 못찾았으면 undefined 해준다. 
                          };
                           
                           function answer(name) {
                              let result = [];
                              
                              let ht = new HashTable(name.length);
+                             
+                             // 1. for loop: push
                              for (let i = 0; i < name.length; i++) {
                                 ht.put(name[i]);
                              }
                              
+                             // 2. for loop: get
                              for (let i = 0; i < name.length; i+=) {
                                 result.push(ht.get(name[i]));
                              }
