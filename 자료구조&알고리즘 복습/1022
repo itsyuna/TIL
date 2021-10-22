@@ -135,10 +135,11 @@
                             return node;
                          };
                          
-                         BinaryTree.prototype.insert = function (value) {
-                            this.root = this._insertNode(this.root, value);
+                         BinaryTree.prototype.insert = function (value) {         ⭐ Value만 받아서
+                            this.root = this._insertNode(this.root, value);       ⭐ -> this.root에 업데이트 된 Node정보를 다시 반환시켜준다.  
                          };
                          
+                         // 후위 순회하면서 후위 순회한 결과값을 result에 업데이트 시켜줘야 한다. 
                          BinaryTree.prototype.postOrderTraverse = function (node, array) {
                             if (node === null) {
                                return;
@@ -203,25 +204,25 @@
                            입력값 -> [10, [[6, 9], [9, 4], [4, 8], [9, 7], [6, 8], [10, 1], [10, 9]]]      출력값 : 7
             
                      
-                      🔻 솔루션
+                      🔻 솔루션                ⭐ dfs / bfs 어떤걸로 구현해도 상관은 없다. 
                          
                          /* user code */
                          function Graph() {
-                            this.edge = {};
-                            this.visited = {};
+                            this.edge = {};           
+                            this.visited = {};           ⭐ visited 변수 선언 : 방문했는지 안했는지 체크. 
                          }
                          
-                         Graph.prototype.addVertex = function (v) {
+                         Graph.prototype.addVertex = function (v) {            ⭐ addVertex -> PC에 대한 depth 추가.
                             this.edge[v] = [];
                             this.visited[v] = false;
                          };
                          
-                         Graph.prototype.addEdge = function (v1, v2) {
+                         Graph.prototype.addEdge = function (v1, v2) {          ⭐ addEdge -> 간선 추가
                             this.edge[v2].push(v1);
                             this.edge[v1].push(vs);
                          };
                          
-                         Graph.prototype.dfs = function (vertex) {
+                         Graph.prototype.dfs = function (vertex) {              ⭐ dfs -> 전체에 대한 Node 탐색 
                             if (this.visited[vertex]) return;
                             
                             this.visited[vertex] = true;
@@ -307,11 +308,77 @@
                      🔻 솔루션
                      
                         /* user code */
+                        function Node(x, y, c) {
+                           this.x = x;
+                           this.y = y;
+                           this.c = c;
+                        }
+                        
+                        function Queue() {
+                           this.array = [];
+                        }
+                        
+                        Queue.prototype.enqueue = function (element) {
+                           this.array.push(element);
+                        };
+                        
+                        Queue.prototype.dequeue = function () {
+                           return this.array.shift();
+                        };
+                        
+                        Queue.prototype.isEmpty = function () {
+                           return this.array.length === 0;
+                        };
+                        
                         function answer(input) {
                            let result = -1;
-                        
-                           return result;
-                        }
+                           
+                           // 문자열 -> map(정수: 0, 1);
+                           let size = input.length;
+                           let dir = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+                           let map = [];
+                           for (let i = 0; i < size; i++) {
+                              map[i] = [];
+                              for (let j = 0; j < size; j++)
+                                 map[i][j] = Number(input[i][j]);
+                           }
+                           
+                           ⭐ 시작, 끝 포인트 설정
+                           let s = [0, size -1];
+                           let e = [size - 1, 0];
+                           let q = new Queue();
+                           
+                           ⭐ 시작 -> Queue
+                           ⭐ Queue 순회 == 끝 break;
+                           q. enqueue(new Node(s[0], s[1], 1));
+                           
+                          /* while(큐 값이 있을때까지)
+                           
+                          let v = dequeue (0, 3)
+                          
+                          맵 안에 있는 좌표값인지 확인
+                          이미 방문했는지 혹은 벽인지
+                          v == 끝 포인트 break
+                          
+                          map <- 방문처리
+                          인접한 값을 위에 넣어준다.
+                          */
+                           
+                           while (!q.isEmpty()) {
+                              let v = q.dequeue();
+                              if (v.x < 0 || v.y < 0 || v.y >= size || v.y >= size) continue;
+                              if (map[v.y][v.x]) continue;
+                              if (v.x == e[0] && v.y == e[i]) {
+                                 result = v.c;
+                                 break;
+                              }
+                              
+                              map [v.y][v.x] = 1;
+                              for (let i = 0; i < dir.length; i++) 
+                                 q.enqueue(new Node(v.x + dir[i][0], v.y + dir[i][1], v.c + 1));
+                              }
+                              return result;
+                          }
                         
                         /* main code */
                         let input = [
@@ -338,5 +405,4 @@
                             process.stdout.write(`#${i + 1} `);
                             console.log(answer(input[i]));
                          }
-        
         
