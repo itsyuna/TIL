@@ -1,0 +1,97 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.outer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  box-sizing: border-box;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+table,
+th,
+td {
+  border: 1px solid lightgray;
+  position: relative;
+  margin: 15px;
+  border-collapse: collapse;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+thead > tr:nth-child(1) {
+  height: 20px;
+  background-color: #5f8fb4;
+  height: 40px;
+  color: white;
+}
+
+thead > tr:nth-child(2) {
+  height: 50px;
+  background-color: #ebe8e8;
+}
+
+td {
+  width: 100px;
+}
+
+.isic {
+  font-size: 10px;
+  color: #4cbdbc;
+  padding: 40px;
+}
+
+.card-hidden1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.iytc {
+  font-size: 10px;
+  color: #0e63b5;
+  padding: 40px;
+}
+
+.card-hidden2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.itic {
+  font-size: 10px;
+  color: #f19614;
+  padding: 40px;
+}
+
+.card-hidden3 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+tbody > tr > td:nth-child(2) {
+  text-align: center;
+}
+tbody > tr > td:nth-child(3) {
+  text-align: center;
+}
