@@ -1,0 +1,370 @@
+
+[개인복습 및 추가학습]     ⭐ 알고리즘 문제 풀고 연습하기!
+
+      📂 비선형 자료구조
+      
+            #️⃣  힙 (Heap)
+            
+                    : 최대값 혹은 최소값을 빠르게 찾기 위해 완전이진트리 형태로 연산을 수행하는 자료구조이다.
+                    
+                    🟣 힙 대표 속성
+                    
+                          ◽ 정렬 : 각 노드의 값은 자식 노드가 가진 값보다 작거나 혹은 큰 순서대로 정렬
+                          
+                          ◽ 형태 : 트리의 형태는 완전이진트리(complete binary tree) 모양
+                          
+                    🟠 힙 종류
+                    
+                          ◽ 최소 힙 (Min Heap) : 부모 노드의 값이 자식 노드의 값보다, 작거나 같은 완전 이진 트리
+                          
+                          ◽ 최대 힙 (Max Heap) : 부모 노드의 값이 자식 노드의 값보다, 크거나 같은 완전 이진 트리
+                          
+                    🟠 힙 구현
+                    
+                          ◽ 완전이진트리 성질을 만족하기 때문에 1차원 배열로 표현 가능
+                          
+                          ◽ 현재 노드 : N, 부모 노드 : (N - 1) / 2, 왼쪽 자식 노드 : (N * 2) + 1, 오른쪽 자식 노드 : (N * 2) + 2,
+                          
+                    
+                    🔻 구현 메서드(method)
+                          
+                          ◽ Heap.parentIndex() / Heap.leftChildIndex() / Heap.rightChildIndex()     : 노드 위치 계산
+                          
+                          ◽ Heap.parentIndex() / Heap.leftChildIndex() / Heap.rightChildIndex()     : 노드 값 확인
+                          
+                          ◽ Heap.insert() / Heap.bubbleUp() / Heap.extract() / Heap.bubbleDown()    : 노드 추가/삭제(추출)
+              
+            
+            #️⃣ 힙 구현하기 (1)
+            
+                    /* 최소힙 (MinHeap) */
+                    // Heap() : 배열 내 요소를 저장하기 위한 생성자
+                    function Heap() {
+                       this.items = [];
+                    }
+
+                    // swap() : 배열 내 두 요소 위치를 변경
+                    Heap.prototype.swap = function (index1, index2) {
+                       let tmp = this.items[index];
+                       this.items[index1] = this.items[index2];
+                       this.items[index2] = tmp;
+                    };
+
+                    // parentIndex() : 부모 노드의 위치 반환
+                    Heap.prototype.parentIndex = function (index) {
+                       return Math.floor((index - 1) / 2);
+                    };
+
+                    // leftChildIndex() : 왼쪽 자식 노드의 위치 반환
+                    Heap.prototype.leftChildIndex = function (index) {
+                       return index * 2 + 1;
+                    };
+
+                    // rightChildIndex() : 오른쪽 자식 노드의 위치 반환
+                    Heap.prototype.rightChildIndex = function (index) {
+                       return index * 2 + 2;
+                    };
+
+                    // parent() : 부모 노드의 요소 값 반환
+                    Heap.protoytpe.parent = function (index ){
+                       return this.items[this.parentIndex(index)];
+                    };
+
+                    // leftChild() : 왼쪽 자식 노드의 요소 값 반환
+                    Heap.prototype.leftChild = function (index) {
+                       return this.items[this.leftChildIndex(index)];
+                    };
+
+                    // rightChild() : 오른쪽 자식 노드의 요소 값 반환
+                    Heap.prototype.rightChild = function (index) {
+                       return this.items[this.rightChildIndex(index)];
+                    };
+
+                    // peek() : 현재 정렬된 최소/최대 요소값 반환
+                    Heap.prototype.peek = function () {
+                       return this.items[0];
+                    };
+
+                    // size() : 현재 배열 내 크기 반환
+                    Heap.prototype.size = function () {
+                       return this.items.length;
+                    };
+        
+        
+            #️⃣ 힙 구현하기 (2)        ⭐ 노드 추가
+            
+                    /* 최소힙 (MinHeap) */
+                    // insert() : 신규 노드 추가
+                    Heap.prototype.insert = function (item) {
+                       this.items[this.size()] = item;
+                       this.bubbleUp();
+                    };
+
+                    // bubbleUp() : 추가된 노드 위치 정렬
+                    Heap.prototype.bubbleUp = function () {
+                       let index = this.size() - 1;
+                       while (this.parent(index) && this.parent(index) > this.items[index]) {
+                          this.swap(this.parentIndex(index), index);
+                          index = this.parentIndex(index);
+                       }
+                    };
+
+                    let minHeap = new Heap();
+
+                    minHeap.insert(90);
+                    minHeap.insert(15);
+                    minHeap.insert(10);
+                    minHeap.insert(7);
+                    minHeap.insert(12);
+                    minHeap.insert(2);
+                    minHeap.insert(8);
+                    minHeap.insert(3);
+
+                    console.log(minHeap);           // Heap ( items: [
+                                                              2, 3, 7, 10
+                                                              12, 15, 8, 90
+                                                            ] )
+                  
+           
+            #️⃣ 힙 구현하기 (3)          ⭐ 노드 삭제
+                
+                   /* 최소힙 (MinHeap) */
+                   // extract() : root 노드 반환 및 삭제
+                   Heap.prototype.extract = function () {
+                      let item = this.items[0];
+                      this.items[0] = this.items[this.size() -1];
+                      this.items.pop();
+                      this.bubbleDown();
+                      return item;
+                   };
+
+                   // bubbleDown() : 대체된 root 노드 위치 정렬
+                   Heap.prototype.bubbleDown = function () {
+                      let index = 0;
+                      while (
+                         this.leftChild(index) &&
+                         (this.leftChild(index) < this.items[index] ||
+                            this.rightChild(index) < this.items[index])
+                      ) {
+                         let childIndex = this.leftChildIndex(index);
+                         if (
+                            this.rightChild(index) &&
+                            this.rightChild(index) < this.items[childIndex]
+                         ) {
+                            childIndex = this.rightChildIndex(index);
+                         )
+
+                         this.swap(childIndex, index);
+                         index = childIndex;
+                      }
+                    };
+
+                    let minHeap = new Heap();
+
+                    minHeap.insert(90);
+                    minHeap.insert(15);
+                    minHeap.insert(10);
+                    minHeap.insert(7);
+                    minHeap.insert(12);
+                    minHeap.insert(2);
+                    minHeap.insert(8);
+                    minHeap.insert(3);
+
+                    console.log(minHeap.extract());         // 2
+                    console.log(minHeap.extract());         // 3
+                    console.log(minHeap.extract());         // 7
+                    console.log(minHeap.extract());         // 8
+                    console.log(minHeap.extract());         // 10
+                    console.log(minHeap.extract());         // 12
+                    console.log(minHeap.extract());         // 15
+                    console.log(minHeap.extract());         // 90             ⭐ 오름차순으로 정렬된다. 
+                                                                              ⭐ 최소힙과 최대힙이 있으니까 이걸 응용해서 정렬로도 사용할 수 있다.
+                                                                                 혹은 여기 값내에서, 최소값과 최대값을 찾을 때 peek를 통해서 바로 찾을 수 있으니까
+                                                                                 이런것들에 대한 값을 찾을 때, 매우 빠른 탐색을 할 수 있다. 
+
+
+            #️⃣ 힙 구현하기 (4)      ⭐ 노드 
+            
+                   /* 최대힙 (MaxHeap) */
+                   // bubbleUp() : 추가된 노드 위치 정렬
+                   Heap.prototype.bubbleUp = function () {
+                      let index = this.size() - 1;
+                      while (this.parent(index) && this.parent(index) < this.items[index]
+                   ) {
+                        // changed from > to <
+                        this.swap(this.parentIndex(index), index);
+                        index = this.parentIndex(index);
+                     }
+                   };
+
+                   // bubbleDown() : 대체된 root 노드 위치 정렬
+                   Heap.prototype.bubbleDown = function () {
+                      let index = 0;
+                      while (
+                         // changed from < to >
+                         this.leftChild(index) &&
+                         (this.leftChild(index) > this.items[index] ||
+                           this.rightChild(index) > this.items[index])
+                      ) (
+                         let childIndex = this.leftChildIndex(index);
+                         if (
+                            this.rightChild(index) &&
+                            this.rightChild(index) > this.items[childIndex]
+                         ) {
+                            childIndex = this.rightChildIndex(index);
+                         }
+
+                         this.swap(childIndex, index);
+                         index = childIndex;
+                       }
+                     };
+
+                     let maxHeap = new Heap();
+
+                     maxHeap.insert(90);
+                     maxHeap.insert(15);
+                     maxHeap.insert(10);
+                     maxHeap.insert(7);
+                     maxHeap.insert(12);
+                     maxHeap.insert(2);
+                     maxHeap.insert(8);
+                     maxHeap.insert(3);
+
+                     console.log(maxHeap.extract());            // 90
+                     console.log(maxHeap.extract());            // 15
+                     console.log(maxHeap.extract());            // 12
+                     console.log(maxHeap.extract());            // 10
+                     console.log(maxHeap.extract());            // 8
+                     console.log(maxHeap.extract());            // 7
+                     console.log(maxHeap.extract());            // 3
+                     console.log(maxHeap.extract());            // 2            ⭐ 내림차순으로 정렬된다. 
+   
+   
+            #️⃣ 알고리즘 문제 
+            
+                
+                🟨 문제 (1)  - 가장 작은 수 제거      (* 문제 출처 : 프로그래머스    https://programmers.co.kr/learn/courses/30/lessons/12935)
+                
+                    정수를 젖아한 배열, arr에서 가장 작은 수를 제거한 배열을 리턴하는 함수, solution을 완성해주세요.
+                    
+                    단, 리턴하려는 배열이 빈 배열인 경우엔 배열에 -1을 채워 리턴하세요. 예를 들어 arr이 [4,3,2,1]인 경우는
+                    
+                    [4,3,2]를 리턴하고, [10]이면 [-1]을 리턴합니다.
+                    
+                
+                🔴 제한 조건
+                
+                        ◽ arr은 길이 1 이상인 배열입니다.
+                        
+                        ◽ 인덱스 i, j에 대해 i ≠ j이면 arr[i] ≠ arr[j] 입니다.
+                        
+                🟠 입출력 예
+                
+                        arr             return
+                        [4,3,2,1]       [4,3,2]
+                        [10]            [-1]
+                        
+               
+                🔻 내가 풀이한 방법
+                
+                    function solution(arr) {
+                        var answer = [];
+                        answer = arr;
+
+                        if (answer.length > 1) {
+                            // 1. 가장 작은 수 찾기.
+                            let min = Math.min.apply(null, answer);
+                            // 2. 가장 작은 수 제외 나머지값만 넣어주기.
+                            answer = answer.filter((element) => element > min)
+                            return answer;
+                        } else {
+                            // 3. 빈 배열일 경우 -1 리턴.
+                            return [-1];
+                        }
+                     }
+                 
+                 
+                 🔻 다른 사람이 풀이한 방법
+                 
+                    function solution(arr) {
+                        arr.splice(arr.indexOf(Math.min(...arr)),1);
+                        if(arr.length < 1) return [-1];
+                        return arr;
+                    }
+
+                    💡 펼침 연산자를 사용해서, Math.min 메소드로 최소값을 구하고
+                       해당하는 값의 인덱스를 알아내서 배열에서 바로 제거해줬다.
+                       
+                       -> 훨씬 더 보기 깔끔하고 간결한 코드가 되었다.
+                          여러가지 방법들을 좀 더 머릿속에서 꺼내서, 간결한 코드를 구사하는 연습을 더 많이 해야겠다!     
+          
+          
+                🟨 문제 (2) - 핸드폰 번호 가리기   (* 문제 출처 : 프로그래머스    https://programmers.co.kr/learn/courses/30/lessons/12948)
+             
+                     프로그래머스 모바일은 개인정보 보호를 위해 고지서를 보낼 때 고객들의 전화번호의 일부를 가립니다.
+
+                     전화번호가 문자열 phone_number로 주어졌을 때, 전화번호의 뒷 4자리를 제외한 나머지 숫자를 전부 *으로 가린 문자열을 리턴하는 함수, 
+
+                     solution을 완성해주세요.
+
+
+                🔴 제한 조건
+
+                        ◽ s는 길이 4 이상, 20이하인 문자열입니다.
+
+                🟠 입출력 예
+
+                        phone_number            return
+                        "01033334444"           "*******4444"
+                        "027778888"             "*****8888"
+
+
+                  🔻 나의 풀이
+
+                        function solution(phone_number) {
+                            var answer = '';
+
+                            // 1. 뒷 4자리 제외한 나머지 숫자를 먼저 추출.
+                            answer = phone_number.slice(0, phone_number.length - 4);
+
+                            // 2. 그 숫자들을 모두 *로 바꿔주기.
+                            for (let i = 0; i < answer.length; i++) {
+                                answer = answer.replace(answer[i], '*');
+                            }
+
+                            // 3. *로 바꿔준 숫자들과, 나머지 뒷 4자리 합치기.
+                            answer = answer + phone_number.slice(phone_number.length-4);
+
+                            return answer;
+                        }
+
+
+                   🔻 다른 사람이 풀이한 방법 (1)       ⭐ 정규식 방법
+                   
+                        function hide_numbers(s) {
+                          return s.replace(/\d(?=\d{4})/g, "*");
+                        }
+
+                        // 테스트 코드
+                        console.log("결과 : " + hide_numbers('01033334444'));
+                
+                        💡 내가 스스로 풀었을 때는, 정규식을 알고 있었는데도 문제풀이에 활용하지 못했다. 
+                           정규식을 사용하면 이렇게나 코드가 한 줄로 간단해진다.
+                           ⭐⭐정규식 연습 꼭 많이 해볼것!!!!
+            
+            
+                   🔻 다른 사람이 풀이한 방법 (2)       ⭐ repeat 함수 사용하기
+                    
+                        function hide_numbers(s){
+                          var result = "*".repeat(s.length - 4) + s.slice(-4);
+                          //함수를 완성해주세요
+
+                          return result;
+                        }
+
+                        // 테스트 코드
+                        console.log("결과 : " + hide_numbers('01033334444'));
+                        
+                        💡 기본에 충실하면서 repaet 함수를 사용해서 문제를 풀었다.
+                           여러 방법으로 이렇게 응용해서 푸는 연습을 더 많이 해야겠다!
+                            
