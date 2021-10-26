@@ -127,9 +127,174 @@
         #️⃣ 알고리즘 문제
 
 
-               🟨
+               🟨 문제 (1) - 서울에서 김서방 찾기   (* 문제 출처 : 프로그래머스   https://programmers.co.kr/learn/courses/30/lessons/12919)
+               
+                    String형 배열 seoul의 element중 "Kim"의 위치 x를 찾아, "김서방은 x에 있다"는 String을 반환하는 함수,
+                    
+                    soulution을 완성하세요. seoul에 "Kim"은 오직 한 번만 나타나며 잘못된 값이 입력되는 경우는 없습니다.
+                    
+               🔴 제한 사항
+               
+                      ◽ seoul은 길이 1 이상, 1000 이하인 배열입니다.
+                     
+                      ◽ seoul의 원소는 길이 1 이상, 20 이하인 문자열입니다.
+                      
+                      ◽ "Kim"은 반드시 seoul안에 포함되어 있습니다.
+                      
+               🟠 입출력 예
+               
+                     seoul               return
+                     
+                  ["Jan", "Kim"]        "김서방은 1에 있다"
+                    
+               
+               🔻 내가 푼 방법
+               
+                   function solution(seoul) {
+                        var answer = '';
+
+                        if (seoul.includes("Kim")) {
+
+                            let find = seoul.indexOf("Kim");
+
+                            answer += `김서방은 ${find}에 있다`;
+                        }
+
+                        return answer;
+                   }
                
                
-               🟨
+               🔻 다른 사람 풀이 방법 (1)
                
-               🟨
+                   function findKim(seoul){
+                      var idx = seoul.indexOf('Kim');
+                      return "김서방은 " + idx + "에 있다";
+                   }
+
+                   // 테스트 코드
+                   console.log( findKim(["Queen", "Tod", "Kim"]));
+               
+                   💡 내 풀이방법과 유사하게 for문을 쓰지 않고 indexOf로 코드를 간결하게 작성하였다.
+                      그런데 나는 if문이랑 같이 썼고, 이 방법을 보니 굳이 if문을 쓰지 않고 그냥 index만 찾는 방식으로 
+                      좀 더 간결하게 코드를 짜는게 더 나은것 같다. 
+                      
+                      근데 다른 사람들의 풀이 방식과 댓글을 보니, 꽤 많은 사람들이 for문이나 while문과 같은 반복문 방식을 많이 사용한것 같았다.
+                      나도 처음에는 for문을 생각했었는데, 이미 매개변수 seoul에는 string 형식의 배열이 담긴 상태에서 들어오기 때문에, 
+                      그 상태에서 바로 indexOf()로 위치만 찾으면 될꺼라고 생각해서 for문을 사용하지 않았다. 그 점은 내 자신을 칭찬하고싶다.
+         
+         
+               🔻 다른 사람 풀이 방법 (2)
+               
+                   const solution = (arr) => `김서방은 ${arr.findIndex(s => s === 'Kim')}에 있다`;
+                   
+                   💡 findIndex()를 쓰고, 이렇게 코드를 한 줄로 완성하였다. 
+                      이 방법은 생각하지 못했었는데 참고해야겠다.
+              
+                            
+               🔻 다른 사람 풀이 방법 (3)
+               
+                   function findKim(seoul) {
+                      return "김서방은 " + seoul.indexOf('Kim') + "에 있다";
+                   }
+                   
+                   💡 여기서도 indexOf() 방식을 사용하였지만, 매개변수에 저장해서 사용하지 않고 바로 indexOf()를 이용해서 
+                      인덱스를 찾는 방식으로 구현하여, 맨 첫번째 방법보다는 좀 더 간결하게 코드를 줄였다.
+                      이 방법도 괜찮은것 같다. 
+                      
+              
+               🟨 문제 (2) - 문자열 다루기 기본  (* 문제 출처 : 프로그래머스   https://programmers.co.kr/learn/courses/30/lessons/12918)
+               
+                   문자열 s의 길이가 4 혹은 6이고, 숫자로만 구성돼있는지 확인해주는 함수, solution을 완성하세요.
+                   
+                   예를 들어 s가 "a234"이면 False를 리턴하고 "1234"라면 True를 리턴하면 됩니다.
+                   
+               🔴 제한 사항
+               
+                     ◽ s는 길이 1 이상, 길이 8 이하인 문자열입니다.
+                     
+               🟠 입출력 예
+               
+                     s              return
+                   
+                   "a234"            false
+                   "1234"            true
+                   
+               
+               🔻 내가 푼 방법
+                    
+                    🔵 첫번째 방법
+                    
+                    function solution(s) {
+                        var answer = true;
+
+                        if ((s.length === 4 || s.length === 6) && !isNaN(s) ) {
+                            return answer;    
+                        } else {
+                            return false;
+                        }
+                    }
+                    
+                    ⭐ 솔직히 처음에는 쉽다고 생각한 문제였고 코드 실행했을때도 통과했엇는데, 채점하기 후 여러 테스트를 돌려보니 정확성이 93.8%로 나오고
+                        11번 케이스에서 틀렸다고 나왔다. 
+                        그래서 '질문하기' 부분에서 다른 사람들의 질문들을 보니 나처럼 꽤 많은 사람들이 11번 테스트 케이스에서 틀린 경우가 많았다.
+                        답변들을 살펴보니, isNaN()때문에 틀렸다고 나온것 같았다. 
+                        -> isNaN()은 "123ABC" 같은 경우도 true를 반환한다.  
+                          (* 참고로, parseInt("123ABC")는 123이지만 Number("123ABC")는 NaN이다.)  ⭐ MDN 문서 참고 
+                          
+                        + 그리고 지수 형태("1e22")를 넣었을 경우에도 문제가 되고, 16진법 숫자도 막혀서 그렇다고 한다.     + 아스키코드 때문에도. 
+              
+                        
+                    🔵 두번째 방법
+                    
+                    function solution(s) {
+                        var answer = true;
+
+                        if (1 <= s.length <= 8) {
+                            if ((s.length == 4 || s.length == 6) && s == parseInt(s)) {      ⭐ parseInt(s)로 변경!
+                                return answer;    
+                            } else {
+                                return false;
+                            }
+                        }
+                    }
+                    
+                    ⭐ 그래서 이렇게 isNaN()을 쓰지 않고, parseInt()로 바꿔서 해주었더니 잘 되었다!
+                        또 문제를 자세히 보면, 제한 사항에 "s는 길이 1 이상, 길이 8 이하인 문자열"이라고 나와있기 때문에
+                        이 부분도 조건에 확실히 넣어주었다.
+                        
+                        이렇게 쉬워보이는 문제도, 여러가지 케이스가 생길 수 있으니 좀 더 여러번 생각해서 구현할 수 있도록 해야겠다!
+   
+   
+               🔻 다른 사람 풀이 방법 (1)
+               
+                   function solution(s){
+                      var regex = /^\d{6}$|^\d{4}$/;
+                      return regex.test(s);
+                   }
+
+                   // 테스트 코드 
+                   console.log( solution("a234") );
+
+                  💡 역시 정규 표현식!! 
+                     정규 표현식 방법으로 깔끔하게 구현한 방법. 
+               
+               
+               🔻 다른 사람 풀이 방법 (2)
+               
+                   function solution(s){
+                      var result = false;
+                      if((s.length == 4 || s.length == 6) && /^[0-9]+$/.test(s)) {
+                        result = true;
+                      }
+
+                      return result;
+                   }
+
+                   // 테스트 코드
+                   console.log( solution("a234") );
+                   
+                   💡 여기서도 정규식을 사용하였는데, 여기에서는 길이를 따로 조건으로 또 빼주고, 
+                      정규식으로 안에 숫자만 들어오는걸로 검사할 수 있게 구현하였다. 
+                      이 방법도 굿! 
+             
+             
