@@ -17,7 +17,8 @@ body {
 table,
 th,
 td {
-  border: 1px solid lightgray;
+  /* border: 1px solid lightgray; */
+  border: 1px solid gray;
   position: relative;
   margin: 15px;
   border-collapse: collapse;
@@ -33,7 +34,8 @@ td {
 
 thead > tr:nth-child(1) {
   height: 20px;
-  background-color: #5f8fb4;
+  /* background-color: #5f8fb4; */
+  background-color: #2e5b84;
   height: 40px;
   color: white;
 }
