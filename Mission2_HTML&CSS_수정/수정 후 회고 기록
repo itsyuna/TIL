@@ -45,4 +45,82 @@
                   </tr>
                </tbody>
           
-    
+     
+      그리고 내가 구현했던 코드를 실행시켜서 Lighthouse를 다시 살펴봤다.
+      
+      -> 총 4가지 항목인 Peformance / Accessibility / Best Practices / SEO 중에서
+         Performance와 Best Practices에서는 100점을 받았는데, 나머지 Accessibility와 SEO는 각각 92점과 91점을 받았다.
+         
+         처음에 접근성이 좋지 않은 테이블을, 내가 다시 웹 접근성에 준수해서 코드를 구현해보고 Lighthouse로 검사했을 때,
+         이정도면 높은 점수가 나왔다고 생각하고, 더 자세하게 들여보지 않았던것 같다. 
+         
+         이 점수에 만족하는게 아니라, 100점이 나오지 않았던 항목들을 다시 살펴보고 어떤점이 부족해서 이 점수가 나왔는지 좀 더 자세하게
+         살펴봤어야 했는데 이 부분을 놓쳤던것 같다!
+         
+         그래서 하나하나 살펴보니, 
+         우선 Accessibility 같은 경우 "Background and foreground colors do not have a sufficient contrast ratio." 이라고 나와있었다.
+         즉, 명도 대비에 문제가 있었다.
+         
+         웹 접근성 가이드를 보면,
+         
+         명도 대비에서 '저시력자, 고령자 등도 인식할 수 있도록 콘텐츠와 배경 간의 명도 대비는 4.5:1 이상이어야 한다'라고 나와있다.
+         그래서 명도 대비 평가 도구를 이용하여, 명도 대비를 맞춰주는 작업을 해보았다.
+         
+         명도 대비 평가 도구는 Colour Contrast Analyzer를 설치해서 사용하였다. (* 사이트 참고 : https://www.tpgi.com/color-contrast-checker/)
+         
+         🔻
+         먼저 <thead> 부분의 첫번째 tr 배경색과 글자의 명도 대비가 3.5:1이였다.
+         그래서 색을 조절해 준 후, 기존 #5f8fb4 색에서 -> #2e5b84로 변경해주었더니 명암비가 7.1:1이 되었고,
+         Lighthouse로 다시 검사를 해보았을 때, 100점이 나왔다!
+         
+         그리고 확실히 전 색상보다 바꾼 색상이 텍스트가 더 명확하게 눈에 잘 들어오는 느낌이었다!
+              
+         +테이블의 border 부분은 기존에는 lightgray 색상이었는데, 좀 더 명확하게 구분지어주기 위하여 gray로 색상을 변경하였다.
+         
+         두번째로 SEO 부분을 살펴봣다.   (* SEO = Search Engine Optimization / 검색엔진 최적화 )
+         SEO의 문제점은, "Document does not have a meta description" 이라고 나왔다. 
+         
+         ⭐ Meta description이란?
+              
+              (* 출처 : 구글 검색)
+              : A meta description is the small blurb that appears underneath your website on the SERP that includes information about your page. 
+                It is designed to provide users with a brief summary of the content on your page so that users know if the page will answer their question.
+                    
+                -> 쉽게 말해서 사용자가 어떤것을 검색했을때, 그 페이지의 내용을 요약해서 사용자에게 보여주는것을 말한다. 
+                  
+                   ⭐⭐ meta 태그가 중요한 이유는, 
+                         meta 태그는 페이지의 가장 처음에 수집되는 정보이기 때문이다!
+                  
+                   그래서 <head> 태그 안에,
+                   
+                   🔻
+                   <!-- meta description 추가 -->
+                   <meta name="description" content="인천에서 유럽으로 가는 항공요금 정보" />
+
+                   <!-- meta keywords 추가 -->
+                   <meta name="keywords" content="항공요금, 항공권" />
+                   
+                   description과 keywords를 추가해줬다.
+                   -> keywords 같은 경우 말그대로 페이지에 대한 키워드 정보들을 담고 있다.
+                     그래서 위와 같이 단어들을 콤마(,)로 구분하여 값을 넣어준다.
+                     
+                     🔥 주의할점은,
+                        키워드 정보는 검색엔진을 보다 더 용이하게 만들긴하지만 이것을 악용한 광고성 페이지들이 실제 콘텐츠와는 다른
+                        상관없는 단어들을 무작위로 넣기도 한다. 그래서 이런 경우에 검색엔진이 해당 페이지를 스팸 페이지로 인지할 수 있어서
+                        주의해서 넣어야한다. 
+                        -> 이러한 이유때문에 요즘 검색엔진은 키워드 정보를 아예 수집하지 않는 경우도 있다고 한다. 
+                        (Ex: 구글 같은 경우, keywords 정보를 참고하지 않음!)
+                        
+                        💡 참고로, 검색엔진은 keywords의 영향보다는 description에 더 많은 영향을 받는다. 
+                           그리고 keywords는 검색엔진이 수집하여 검색 결과에 영향을 줄 뿐, 따로 노출되지는 않는다!
+                           
+                위와 같이 수정해준후, 다시 Lighthouse로 검사해보니, 100점이 나왔다.
+                
+                이렇게 Lighthouse를 다시 분석해서, 코드를 수정하고 추가해서 다시 검사해보니 모든 부분에서 100점이 나왔다!
+                그리고 웹 접근성 관점에서 테이블을 내가 다시 코드로 구현했을 때 테이블 형태가 가진 부분에만 집중했었는데,
+                피드백을 받고 이렇게 다시 살펴보니 명도대비라던지 검색엔진 등 좀 더 거시적 관점에서 살펴볼 수 있었고,
+                더 많이 배울 수 있는 시간이 되었다.
+                
+                앞으로도 코드를 구현할 때, 여러 방면에서 웹 접근성을 준수할 수 있게 연습을 많이 해야겠다!
+                
+          
