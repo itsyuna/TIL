@@ -219,10 +219,84 @@
               #️⃣ 알고리즘 문제
                   
                     
-                    🟨 
+                    🟨 문제 (1) - 문자열 내 p와 y의 개수   (* 문제 출처 : 프로그래머스   https://programmers.co.kr/learn/courses/30/lessons/12916)
                     
-                    🟨
-                
-                  
+                        대문자와 소문자가 섞여있는 문자열 s가 주어집니다. s에 'p'의 개수와 'y의 개수를 비교해 같으면 True,
+                        
+                        다르면 False를 return 하는 solution을 완성하세요. 'p', 'y' 모두 하나도 없는 경우는 항상 True를 리턴합니다.
+                        
+                        단, 개수를 비교할 때 대문자와 소문자는 구별하지 않습니다.
+                        
+                        예를 들어 s가 "pPoooyY"면 true를 return하고 "Pyy"라면 false를 return합니다.
+                        
+                    🔴 제한 사항
+                                
+                          ◽ 문자열 s의 길이 : 50 이하의 자연수
+                          
+                          ◽ 문자열 s는 알파벳으로만 이루어져 있습니다.
+                          
+                    🟠 입출력 예
+                    
+                          s              answer
+                      "pPoooyY"           true
+                      "Pyy"               false
+                    
+                    
+                    🔻 내가 푼 방법
+                    
+                        function solution(s){
+                            var answer = true;
 
-    
+                            // 1. 대소문자 구별하지 않기 위해 모두 대문자로 변경
+                            var str = s.toUpperCase();
+
+                            // 2. p와 y count 설정.
+                            var countP = 0;
+                            var countY = 0;
+
+                            // 3. 반복문으로 해당 값이 존재하면 count 증감.
+                            for (let i = 0; i < s.length; i++) {
+                                if (str[i] == "P") {
+                                    countP++;
+                                } else if (str[i] == "Y") {
+                                    countY++;
+                                }
+                            };
+
+                            // p와 y 개수 비교해서 같으면 true 반환.
+                            if (countP == countY) {
+                                return answer;
+                            } else {
+                                return false;
+                            }
+                        }
+                    
+                  
+                    🔻 다른 사람 풀이 방법 (1)
+                    
+                        function numPY(s){
+                            return s.toUpperCase().split("P").length === s.toUpperCase().split("Y").length;
+                        }
+
+                        // 테스트 코드
+                        console.log( numPY("pPoooyY") )
+                        console.log( numPY("Pyy")
+                        
+                        💡 split()으로 해당 문자열만 추출해서 그 길이를 비교한 방법이 참신했다!
+                           split()을 알고 있었는데도, 문자를 자르는것의 사용법만 생각했었는데 이렇게 길이를 비교하면 
+                           그건 곧 개수를 비교하는것과도 같기때문에, 이 방법도 매우 유용한 방법인것 같다!
+                    
+                    
+                    🔻 다른 사람 풀이 방법 (2)
+                        
+                        function numPY(s) {
+                          return s.match(/p/ig).length == s.match(/y/ig).length;
+                        }
+
+                        // 테스트 코드 
+                        console.log( numPY("pPoooyY") )
+                        console.log( numPY("Pyy") )                   
+                        
+                        💡 정규 표현식으로 해당 문자열을 찾고 그 개수를 서로 비교한 방법.
+                           정규 표현식에서 match()라는 새로운 메소드도 알게 됐다!
+                           유용하게 사용할것!
