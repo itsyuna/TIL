@@ -13,6 +13,5 @@ function solution(arr) {
     } else {
         // 3. 빈 배열일 경우 -1 리턴.
         return [-1];
-    }
-      
+    }      
 }
