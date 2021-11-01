@@ -1,0 +1,18 @@
+# velog 기록에서 옮겨오기  
+
+function solution(arr) {
+    var answer = [];
+    answer = arr;
+    
+    if (answer.length > 1) {
+        // 1. 가장 작은 수 찾기.
+        let min = Math.min.apply(null, answer);
+        // 2. 가장 작은 수 제외 나머지값만 넣어주기.
+        answer = answer.filter((element) => element > min)
+        return answer;
+    } else {
+        // 3. 빈 배열일 경우 -1 리턴.
+        return [-1];
+    }
+      
+}
