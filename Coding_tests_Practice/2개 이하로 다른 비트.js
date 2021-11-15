@@ -1,28 +1,23 @@
 function solution(numbers) {
-  const answer = [];
+  const ANSWER = [];
 
   // 짝수일때 -> 끝자리 0 / 홀수일때 -> 끝자리 1
   // 짝수일때는 그 바로 다음 홀수가 비교대상 가장 작은 수
-  // 바로 answer 배열에 +1해서 push
+  // 바로 answer 빈 배열에 +1해서 push
   numbers.forEach(elem => {
-    // 끝자리가 0일때
-    if (elem.length - 1 === 0) {
-      answer.push(elem + 1);
-    // 끝자리가 1일때
+    // 짝수일 때
+    if (elem % 2 === 0) {
+      ANSWER.push(elem + 1);
+      // 홀수일 때
     } else {
-      const binaryNum = '0' + elem.toString(2);
-      const temp = [binaryNum];
-      for (let i = 0; i <= temp.length; i++) {
-        if (temp[i] === 0) {
-          temp[i] = 1;
-          temp[i + 1] = 0;
-          const tempToNum = parseInt(temp, 2);
-          answer.push(tempToNum);
-        }
-      }
+      const BINARY_NUM = '0' + elem.toString(2);
+      const CHECK_INDEX = BINARY_NUM.lastIndexOf('01');
+      const TEMP = BINARY_NUM.substring(0, CHECK_INDEX) + '10' + BINARY_NUM.substring(CHECK_INDEX + 2);
+      ANSWER.push(parseInt(TEMP, 2));
     }
   });
-  return answer;
+  return ANSWER;
 }
 
 console.log(solution([2, 7]));
+
